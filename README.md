@@ -1,4 +1,4 @@
-Cách chạy file c++ trong vsc 
+Cách chạy file c++ trong vsc để không bị lỗi:
 - Mở Terminal bất kỳ
 - Dùng lệnh: cd <đường dẫn đến folder có chứa file code dùng để chạy>
 - Dùng lệnh: g++ -o <tên file muốn tạo file build ví dụ index> <tên file cần build ví dụ index.cpp>
