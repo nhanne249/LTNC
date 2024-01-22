@@ -37,15 +37,32 @@ public:
         }
     }
 
+    //Function to display list of student
+    void ListOfStudent(){
+        if(numStudents == 0){ 
+            cout << "Don't have any student in list." << endl;
+            cout << "\n";
+        }
+        else
+        {
+        for(int i = 0; i < numStudents; i++){
+            cout << i+1 << "." << students[i] << "." << endl;
+        } 
+        cout << "\n";
+        cin.clear();
+        }
+    }
+
     // Function to display the menu
     void displayMenu()
     {
         int choice;
-        while (choice != 2)
+        while (choice != 3)
         {
             choice = 0;
             cout << "1. Add a new student\n";
-            cout << "2. Quit\n";
+            cout << "2. List of students\n";
+            cout << "3. Quit\n";
             cout << "Enter your choice: ";
             cin >> choice;
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -55,6 +72,9 @@ public:
                 addStudent();
                 break;
             case 2:
+                ListOfStudent();
+                break;
+            case 3:
                 cout << "Exiting program.\n";
                 break;
             default:
