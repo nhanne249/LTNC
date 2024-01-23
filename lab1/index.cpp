@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <limits>
+#include <vector>
+#include <algorithm>  // For std::remove and std::remove_if
 using namespace std;
 const int MAX_STUDENTS = 100; // Maximum number of students
 
@@ -53,16 +55,39 @@ public:
         }
     }
 
+    // Function to remove a student from the list by name
+    void removeStudent() {
+        cout << "Enter the name of the student you want to remove from the list: ";
+        string studentName;
+        getline(cin, studentName);
+
+        auto it = std::remove_if(students, students + numStudents, [&studentName](const std::string& student)
+        {
+            return student == studentName;
+        }
+        );
+
+        if (it != students + numStudents) {
+            numStudents = std::distance(students, it);
+            std::cout << "Student '" << studentName << "' removed successfully.\n";
+        } else {
+            std::cout << "Student '" << studentName << "' not found in the list.\n";
+        }
+        cout << "\n";
+        cin.clear();
+}
+
     // Function to display the menu
     void displayMenu()
     {
         int choice;
-        while (choice != 3)
+        while (choice != 4)
         {
             choice = 0;
             cout << "1. Add a new student\n";
             cout << "2. List of students\n";
-            cout << "3. Quit\n";
+            cout << "3. Remove student from list by name\n";
+            cout << "4. Quit\n";
             cout << "Enter your choice: ";
             cin >> choice;
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -75,6 +100,9 @@ public:
                 ListOfStudent();
                 break;
             case 3:
+                removeStudent();
+                break;
+            case 4:
                 cout << "Exiting program.\n";
                 break;
             default:
