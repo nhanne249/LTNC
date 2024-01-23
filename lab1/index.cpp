@@ -2,18 +2,18 @@
 #include <string>
 #include <limits>
 #include <vector>
-#include <algorithm>  // For std::remove and std::remove_if
+#include <algorithm>
 using namespace std;
-const int MAX_STUDENTS = 100; // Maximum number of students
+// Maximum number of students
+const int MAX_STUDENTS = 100;
 
 class StudentManagement
 {
 private:
-    string students[MAX_STUDENTS]; // Array to store student names
-    int numStudents;               // Variable to keep track of the number of students
+    string students[MAX_STUDENTS];
+    int numStudents;
 
 public:
-    // Constructor to initialize the number of students
     StudentManagement() : numStudents(0) {}
 
     // Function to add a new student to the list
@@ -30,7 +30,6 @@ public:
 
             cout << "Student added successfully!\n";
 
-            // Clear the input buffer to consume any remaining characters
             cin.clear();
         }
         else
@@ -39,43 +38,46 @@ public:
         }
     }
 
-    //Function to display list of student
-    void ListOfStudent(){
-        if(numStudents == 0){ 
+    // Function to display list of student
+    void ListOfStudent()
+    {
+        if (numStudents == 0)
+        {
             cout << "Don't have any student in list." << endl;
             cout << "\n";
         }
         else
         {
-        for(int i = 0; i < numStudents; i++){
-            cout << i+1 << "." << students[i] << "." << endl;
-        } 
-        cout << "\n";
-        cin.clear();
+            for (int i = 0; i < numStudents; i++)
+            {
+                cout << i + 1 << "." << students[i] << "." << endl;
+            }
+            cout << "\n";
         }
     }
 
     // Function to remove a student from the list by name
-    void removeStudent() {
+    void removeStudentByName()
+    {
         cout << "Enter the name of the student you want to remove from the list: ";
         string studentName;
         getline(cin, studentName);
 
-        auto it = std::remove_if(students, students + numStudents, [&studentName](const std::string& student)
-        {
-            return student == studentName;
-        }
-        );
+        auto it = remove_if(students, students + numStudents, [&studentName](const string &student)
+                            { return student == studentName; });
 
-        if (it != students + numStudents) {
-            numStudents = std::distance(students, it);
-            std::cout << "Student '" << studentName << "' removed successfully.\n";
-        } else {
-            std::cout << "Student '" << studentName << "' not found in the list.\n";
+        if (it != students + numStudents)
+        {
+            numStudents = distance(students, it);
+            cout << "Student '" << studentName << "' removed successfully.\n";
+        }
+        else
+        {
+            cout << "Student '" << studentName << "' not found in the list.\n";
         }
         cout << "\n";
         cin.clear();
-}
+    }
 
     // Function to display the menu
     void displayMenu()
@@ -85,7 +87,7 @@ public:
         {
             choice = 0;
             cout << "1. Add a new student\n";
-            cout << "2. List of students\n";
+            cout << "2. Display the list of all students' name\n";
             cout << "3. Remove student from list by name\n";
             cout << "4. Quit\n";
             cout << "Enter your choice: ";
@@ -100,7 +102,7 @@ public:
                 ListOfStudent();
                 break;
             case 3:
-                removeStudent();
+                removeStudentByName();
                 break;
             case 4:
                 cout << "Exiting program.\n";
@@ -114,10 +116,8 @@ public:
 
 int main()
 {
-    // Create an object of the StudentManagement class
     StudentManagement studentManager;
 
-    // Display the menu and perform actions based on user input
     studentManager.displayMenu();
 
     return 0;

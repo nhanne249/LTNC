@@ -2,7 +2,7 @@ OOP Labs Prepared by Dr Han Duy Phan
 
 Vietnamese Programming Resource Videos:
 
-English Programming Resource Videos:hww.youtube.com/catcancods
+English Programming Resource Videos:www.youtube.com/catcancods
 
 OOP W1 Lab 1 C++
 
