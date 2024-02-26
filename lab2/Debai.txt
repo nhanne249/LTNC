@@ -1,0 +1,25 @@
+Requirements:
+
+Improve the simple C++ student management program from Lab 1. For this week you need to keep the information of each student's name and their score in two separate dynamically allocated arrays using pointers.
+
+(1) Use C++ dynamic array data structure using pointers to store two lists of all students' names and students' scores, 1 list for students' names &11 list for student' scores.
+
+(2) Implement a function that allows users to add a new student and the corresponding score to the two above lists
+
+(3) Implement a function to display the of all students and their scores.
+
+highest score). (4) Implement a function to display the est student(s)'s name(s) and their score(s) (there could be more than one student who has the
+
+(5) Use C++ WHILE loop to create functionalities or to exit the program est-based menu that allows users to choose the above
+
+Resources:
+
+(1) Weekly slides & Youtube Videos at Cat Can Code & Meo Lap Trinh channels
+
+(2) C++ How to Program, 9th Edition, Paul Deitel
+
+(3) Object-Oriented Programming in C++, 4th Edition, Robert Lafore
+
+(4) http://www.cplusplus com/doc/tutorial/dynamic/
+
+(5) https://www.geeksforgeeks.org/pointers-vs-references-cpp
