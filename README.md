@@ -17,4 +17,4 @@ To do the Back-end, you need to install the following:
 
 - [ ] Spring Boot Snippets (support code).
 
-- Install XAMPP to be able to run the server and view the database.
+- [ ] Install XAMPP to be able to run the server and view the database.
