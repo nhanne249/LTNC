@@ -9,7 +9,7 @@ To do the Back-end, you need to install the following:
 [Windows](https://download.oracle.com/java/21/latest/jdk-21_windows-x64_bin.exe)
 [Mac OS](https://download.oracle.com/java/21/latest/jdk-21_macos-x64_bin.dmg) 
 
-- Install Extension Pack for Java from VSC.
+- [ ] Install Extension Pack for Java from VSC.
 
 - [ ] Install Spring Initializr Java Support.
 
