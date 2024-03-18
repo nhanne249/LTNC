@@ -8,17 +8,13 @@ import com.example.demo.hash.HashedPassword;
 import com.example.demo.model.dto.UserDto;
 import com.example.demo.model.mapper.UserMapper;
 import com.example.demo.repository.UserRepo;
-
-import org.apache.catalina.startup.FailedContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class UserServiceImpl implements UserService {
@@ -26,7 +22,6 @@ public class UserServiceImpl implements UserService {
     private UserRepo userRepo;
     @Autowired
     private HashedPassword hashPassword;
-    private ConcurrentHashMap<String, String> activat_code_user_id = new ConcurrentHashMap<>();
 
     public User addUserToDataBase(String name, String email, String phone, String role,State state, String password)
             throws NoSuchAlgorithmException, InvalidKeySpecException {
