@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/register")
+@RequestMapping
 public class Controller {
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -17,16 +17,13 @@ public class Controller {
     private StudentService studentService;
     @Autowired
     private StudentRepository studentRepository;
-
-    @GetMapping("")
-    public ResponseEntity register() {
+    @GetMapping("/register")
+    public ResponseEntity register(){
         return ResponseEntity.ok("HELLO");
     }
-
-    @PostMapping("")
-    public ResponseEntity registerNewStudent(@RequestBody Student student) {
-        Student newStudent = new Student(student.getUsername(), passwordEncoder.encode(student.getPassword()),
-                student.getName());
+    @PostMapping("/register")
+    public ResponseEntity registerNewStudent(@RequestBody Student student){
+        Student newStudent = new Student(student.getUsername(), passwordEncoder.encode(student.getPassword()), student.getName());
         studentRepository.save(newStudent);
         return ResponseEntity.ok("created");
     }
