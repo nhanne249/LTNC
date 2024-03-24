@@ -1,0 +1,58 @@
+@use "../../assets/styles/" as *;
+
+.page-layout{
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background-color: #DEDEDE;
+  .logo{
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+  .header-page{
+    position: relative;
+    width: 100vw;
+    height: 46px;
+    background-color: #0388B4;
+  }
+  .main-content-container{
+    position: relative;
+    width: 100vw;
+    height: 100%;
+    .main-container {
+      background-color: #DEDEDE;
+      position: relative;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 1500px;
+      height: 90%;
+      display: flex;
+      justify-content: space-between;
+      .sider-page{
+        display: block;
+        background-color: #ffffff;
+        height: 100%;
+        width:20%;
+        border-radius: 10px;
+      }
+      .content-page{
+        display: block;
+        flex: none;
+        background-color: #ffffff;
+        height:fit-content;
+        min-height: 30%;
+        width: 78%;
+        border-radius: 10px;
+      }
+    }
+  }
+  .footer-page{
+    position: relative;
+    height: 100px;
+    width: 100vw;
+    bottom: 0;
+    background-color: #0388B4;
+  }
+}

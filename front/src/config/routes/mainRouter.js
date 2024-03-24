@@ -1,5 +1,5 @@
-import LoginPage from "../../features/General/WorkingSession/Pages/Login";
-import RegisterPage from "../../features/General/WorkingSession/Pages/Register";
+import LoginPage from "../../features/pages/login/index";
+import RegisterPage from "../../features/pages/register/index";
 const mainRouter = [
   {
     path: "/*",

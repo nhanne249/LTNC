@@ -3,10 +3,9 @@ import Dashboard from "../../features/Admin/Dashboard"
 
 const adminRouter = [
   {
-    role: "Role_Admin",
+    role: "admin",
     path: "/admin",
     element: <AdminLayout />,
-    // index: <Dashboard />,
     children: [
       {
         path: "*",
