@@ -1,38 +1,32 @@
-package com.example.schoolManage.model;
+package com.example.schoolManage.model.user;
 
+import com.example.schoolManage.model.course.Course;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import org.bson.types.ObjectId;
-import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Data
 @Document(collection = "users")
-@TypeAlias("Student")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Student extends User {
     private String name;
     private String email;
     private String phoneNumber;
-    private String address;
-    private List<ObjectId> courses;
+    private List<Course> enrolledCourses;
 
-    public Student(String username, String password, String name) {
-        this.username = username;
-        this.password = password;
+    public Student(String username, String password, String name, String email, String phoneNumber) {
+        super(username, password, "STUDENT");
         this.name = name;
-        this.role = "STUDENT";
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.enrolledCourses = new LinkedList<Course>();
     }
-
     public String getName() {
         return name;
     }
@@ -57,19 +51,14 @@ public class Student extends User {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getAddress() {
-        return address;
+    public List<Course> getEnrolledCourses() {
+        return enrolledCourses;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void appendCourse(Course course) {
+        this.enrolledCourses.add(course);
     }
-
-    public List<ObjectId> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(List<ObjectId> courses) {
-        this.courses = courses;
+    public void removeCourse(Course course) {
+        this.enrolledCourses.remove(course);
     }
 }

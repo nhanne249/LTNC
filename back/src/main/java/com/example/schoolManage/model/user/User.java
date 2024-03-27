@@ -1,4 +1,4 @@
-package com.example.schoolManage.model;
+package com.example.schoolManage.model.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,14 +13,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @Document(collection = "users")
-@Getter
-@Setter
-public abstract class User {
+public class User {
     @Id
     protected ObjectId id;
     protected String username;
     protected String password;
+    protected String role;
 
+    public User(String username, String password, String role){
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
     public ObjectId getId() {
         return id;
     }
@@ -53,5 +57,5 @@ public abstract class User {
         this.role = role;
     }
 
-    protected String role;
+
 }

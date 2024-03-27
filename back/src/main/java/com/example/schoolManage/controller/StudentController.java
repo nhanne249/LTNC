@@ -1,8 +1,8 @@
 package com.example.schoolManage.controller;
 
-import com.example.schoolManage.model.Student;
-import com.example.schoolManage.repository.AdminRepository;
-import com.example.schoolManage.service.StudentService;
+import com.example.schoolManage.model.course.Course;
+import com.example.schoolManage.model.user.Student;
+import com.example.schoolManage.service.StudentService.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/students")
+@PreAuthorize("hasAuthority('STUDENT')")
 public class StudentController {
     @Autowired
     private StudentService studentService;
@@ -25,10 +26,24 @@ public class StudentController {
         return new ResponseEntity<List<Student>>(studentService.getAllStudent(), HttpStatus.OK);
     }
     @GetMapping("/{username}")
-    @PreAuthorize("hasAuthority('STUDENT')")
     public ResponseEntity<Optional<Student>> get(@PathVariable String username){
-        return new ResponseEntity<Optional<Student>>(studentService.getStudentByUsername(getLoggedInUserDetails().getUsername()), HttpStatus.OK);
+        return new ResponseEntity<Optional<Student>>(studentService.getStudentByUsername(username), HttpStatus.OK);
     }
+    @PutMapping("/{username}")
+    public ResponseEntity<Student> update(@PathVariable String username, @RequestBody Student student){
+        return new ResponseEntity<Student>(studentService.updateStudentByUserName(username, student), HttpStatus.OK);
+    }
+    @PostMapping("/{username}/addCourse")
+    public ResponseEntity<Course> addCourse(@PathVariable String username, @RequestBody Course course){
+        return new ResponseEntity<Course>(studentService.enrollCourse(username, course), HttpStatus.OK);
+    }
+    @DeleteMapping("/{username}/{courseName}")
+    public ResponseEntity removeCourse(@PathVariable String username, @PathVariable String courseName){
+        studentService.disenrollCourse(username, courseName);
+        return ResponseEntity.ok("course unenrolled");
+    }
+
+
     public UserDetails getLoggedInUserDetails(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication != null && authentication.getPrincipal() instanceof UserDetails){
