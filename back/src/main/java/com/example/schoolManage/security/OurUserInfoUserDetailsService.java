@@ -1,7 +1,6 @@
 package com.example.schoolManage.security;
 
-import com.example.schoolManage.model.User;
-import com.example.schoolManage.repository.StudentRepository;
+import com.example.schoolManage.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -15,8 +14,6 @@ import java.util.Optional;
 
 @Configuration
 public class OurUserInfoUserDetailsService implements UserDetailsService {
-    @Autowired
-    private StudentRepository studentRepository;
     @Autowired
     private MongoTemplate mongoTemplate;
     @Override

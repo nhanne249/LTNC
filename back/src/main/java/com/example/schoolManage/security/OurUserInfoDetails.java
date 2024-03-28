@@ -1,6 +1,6 @@
 package com.example.schoolManage.security;
 
-import com.example.schoolManage.model.User;
+import com.example.schoolManage.model.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
