@@ -1,9 +1,14 @@
 @use "../../assets/styles/" as *;
 
-.page-layout{
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
+.admin-page-layout{
+  // width: 100vw;
+  max-width: 100vw;
+  min-height: 100vh;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  // position: absolute;
+  overflow: hidden;
   background-color: #DEDEDE;
   .logo{
     position: relative;
@@ -15,19 +20,24 @@
     width: 100vw;
     height: 46px;
     background-color: #0388B4;
+    padding: 0 10vw;
+    z-index:1;
   }
   .main-content-container{
     position: relative;
-    width: 100vw;
-    height: 100%;
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - 120px - 46px - 100px);
+    z-index:0;
     .main-container {
       background-color: #DEDEDE;
+      margin: 15px 0;
       position: relative;
       left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 1500px;
-      height: 90%;
+      transform: translate(-50%, 0%);
+      width: 80vw;
+      min-height: 90%;
+      height: auto;
       display: flex;
       justify-content: space-between;
       .sider-page{
@@ -36,6 +46,7 @@
         height: 100%;
         width:20%;
         border-radius: 10px;
+        min-height: 185px;
       }
       .content-page{
         display: block;
@@ -43,13 +54,14 @@
         background-color: #ffffff;
         height:fit-content;
         min-height: 30%;
+        height: auto;
         width: 78%;
         border-radius: 10px;
       }
     }
   }
   .footer-page{
-    position: relative;
+    position:relative;
     height: 100px;
     width: 100vw;
     bottom: 0;

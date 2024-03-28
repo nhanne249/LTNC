@@ -7,7 +7,7 @@ import { publicRouter, privateRouter } from "./config/routes";
 import Cookies from 'js-cookie';
 function App() {
   // const role = useSelector((state) => state.login.role);
-  const role = "aa";
+  const role = "admin";
   // lấy key session đầu tiên trong local
   const getfirstSession = () => {
     const allKeys = Object.keys(localStorage);
@@ -149,10 +149,11 @@ function App() {
                   {route.index ? <Route index element={route.index} /> : null}
                   {route.children
                     ? route.children.map(({ path, Component }, index) => {
+                      console.log('succeeded');
                       return (
                         <Route
                           path={path}
-                          element={<Component />}
+                          element={<Component/> }
                           key={index}
                         />
                       );

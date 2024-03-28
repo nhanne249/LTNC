@@ -16,7 +16,7 @@ const AdminLayout = () => {
   // Extract the page title from the pathname (you might need custom logic here)
   const pathParts = pathname.split("/").filter(Boolean);
   return (
-    <Layout className="page-layout">
+    <Layout className="admin-page-layout">
       <Image
         preview={false}
         src={logobk}
@@ -27,8 +27,8 @@ const AdminLayout = () => {
         <HeaderPage />
       </Header>
       <div className="main-content-container">
-        <Layout hasSider className="main-container">
-          <Sider className="sider-page" width="20%">
+        <Layout hasSider className="main-container" id="content-layout">
+          <Sider className="sider-page" width="20%" id="sider">
             <SiderPage />
           </Sider>
           <Content className="content-page">

@@ -14,6 +14,7 @@ const Login = () => {
     if (data.isChecked) {
       Cookies.set("password", data.password, { expires: 7 });
       Cookies.set("name", data.username, { expires: 7 });
+      Cookies.set("role", "admin", { expires: 7 });
     }
     navigate("/admin");
     console.log(Cookies.get("name"));
@@ -30,12 +31,6 @@ const Login = () => {
       <Image src={background} alt="" preview={false} height={"100vh"} />
       <Form
         name="form_container"
-        // labelCol={{
-        //   span: 8,
-        // }}
-        // wrapperCol={{
-        //   span: 16,
-        // }}
         initialValues={{
           remember: true,
         }}
