@@ -38,7 +38,7 @@ public class StudentController {
         return new ResponseEntity<Course>(studentService.enrollCourse(username, course), HttpStatus.OK);
     }
     @DeleteMapping("/{username}/{courseName}")
-    public ResponseEntity removeCourse(@PathVariable String username, @PathVariable String courseName){
+    public ResponseEntity<String> removeCourse(@PathVariable String username, @PathVariable String courseName){
         studentService.disenrollCourse(username, courseName);
         return ResponseEntity.ok("course unenrolled");
     }

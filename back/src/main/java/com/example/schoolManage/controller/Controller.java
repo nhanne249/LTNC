@@ -6,6 +6,7 @@ import com.example.schoolManage.repository.StudentRepository;
 import com.example.schoolManage.repository.UserRepository;
 import com.example.schoolManage.service.StudentService.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -21,22 +22,22 @@ public class Controller {
     private UserRepository userRepository;
 
     @GetMapping("")
-    public ResponseEntity register() {
+    public ResponseEntity<String> register() {
         return ResponseEntity.ok("HELLO");
     }
 
     @PostMapping("/student")
-    public ResponseEntity registerNewStudent(@RequestBody Student student) {
+    public ResponseEntity<Student> registerNewStudent(@RequestBody Student student) {
         //INVALID USRNAME AND EMAIL EXCEPTION
         Student newStudent = new Student(student.getUsername(), passwordEncoder.encode(student.getPassword()),
                 student.getName(), student.getEmail(), student.getPhoneNumber());
         userRepository.save(newStudent);
-        return ResponseEntity.ok("student created");
+        return new ResponseEntity<Student>(newStudent, HttpStatus.CREATED);
     }
     @PostMapping("/admin")
-    public ResponseEntity registerNewAdmin(@RequestBody Admin admin){
+    public ResponseEntity<Admin> registerNewAdmin(@RequestBody Admin admin){
         Admin newAdmin = new Admin(admin.getUsername(), passwordEncoder.encode(admin.getPassword()));
         userRepository.save(newAdmin);
-        return ResponseEntity.ok("admin created");
+        return new ResponseEntity<Admin>(newAdmin, HttpStatus.CREATED);
     }
 }
