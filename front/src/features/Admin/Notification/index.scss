@@ -1,0 +1,12 @@
+.notification-table-container{
+    border: solid 1px #333;
+    margin-left: 15px;
+    margin-right: 35px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    .ant-table-tbody{
+        .ant-table-row:nth-child(2n){
+            background-color: #f1f1f1;
+        }
+    }
+}
