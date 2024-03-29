@@ -41,7 +41,6 @@ const SiderPage = () => {
       const elementSider = document.getElementById("content-layout");
       const siderHeight = elementSider.offsetHeight;
       const windowHeight = window.innerHeight;
-      console.log(siderHeight);
       if (siderHeight < 436 || windowHeight < 624) {
         setItems(items.map((item) => ({ ...item, type: "" })));
         setMenuMode("vertical");

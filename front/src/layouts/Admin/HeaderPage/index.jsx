@@ -42,6 +42,7 @@ const HeaderPage = () => {
   };
   const onInforMenuClick = (value) => {
     console.log(value);
+    navigate(value.key);
   };
   return (
     <div className="header-container">
