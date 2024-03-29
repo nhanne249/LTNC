@@ -16,33 +16,32 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/students")
+@RequestMapping("/student")
 @PreAuthorize("hasAuthority('STUDENT')")
 public class StudentController {
     @Autowired
     private StudentService studentService;
-    @GetMapping
-    public ResponseEntity<List<Student>> all(){
-        return new ResponseEntity<List<Student>>(studentService.getAllStudent(), HttpStatus.OK);
+    @GetMapping("/info")
+    public ResponseEntity<Student> getInfo(){
+        return new ResponseEntity<Student>(studentService.getStudentByUsername(getLoggedInUserDetails().getUsername()), HttpStatus.OK);
     }
-    @GetMapping("/{username}")
-    public ResponseEntity<Optional<Student>> get(@PathVariable String username){
-        return new ResponseEntity<Optional<Student>>(studentService.getStudentByUsername(username), HttpStatus.OK);
+    @PutMapping("/update")
+    public ResponseEntity<Student> update(@RequestBody Student student){
+        return new ResponseEntity<Student>(studentService.updateStudentByUserName(getLoggedInUserDetails().getUsername(), student), HttpStatus.OK);
     }
-    @PutMapping("/{username}")
-    public ResponseEntity<Student> update(@PathVariable String username, @RequestBody Student student){
-        return new ResponseEntity<Student>(studentService.updateStudentByUserName(username, student), HttpStatus.OK);
+    @GetMapping("/courses")
+    public ResponseEntity<List<Course>> getAllCourses(){
+        return new ResponseEntity<List<Course>>(studentService.getAllCourses(getLoggedInUserDetails().getUsername()), HttpStatus.OK);
     }
-    @PostMapping("/{username}/addCourse")
-    public ResponseEntity<Course> addCourse(@PathVariable String username, @RequestBody Course course){
-        return new ResponseEntity<Course>(studentService.enrollCourse(username, course), HttpStatus.OK);
+    @PostMapping("/courses/{courseId}")
+    public ResponseEntity<Course> enrollCourse(@PathVariable String courseId){
+        return new ResponseEntity<Course>(studentService.enrollCourse(getLoggedInUserDetails().getUsername(),courseId), HttpStatus.OK);
     }
-    @DeleteMapping("/{username}/{courseName}")
-    public ResponseEntity<String> removeCourse(@PathVariable String username, @PathVariable String courseName){
-        studentService.disenrollCourse(username, courseName);
+    @DeleteMapping("/courses/{courseId}")
+    public ResponseEntity<String> removeCourse(@PathVariable String courseId){
+        studentService.disenrollCourse(getLoggedInUserDetails().getUsername(), courseId);
         return ResponseEntity.ok("course unenrolled");
     }
-
 
     public UserDetails getLoggedInUserDetails(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
