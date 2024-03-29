@@ -7,10 +7,9 @@ import java.util.List;
 
 public interface AdminService {
     public List<User> getAllUsers();
-    public void deleteUser(String username);
-    public void deleteAll();
+    public User getUser(String username);
     public User createUser(User user);
-    public User updateUser(String username, User user);
+    public void deleteUser(String username);
     public Course addCourse(Course course);
-    public void deleteCourse(String name);
+    public void deleteCourse(String courseId);
 }

@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 @Data
@@ -19,6 +21,13 @@ import java.util.List;
 public class Course {
     private ObjectId id;
     private String name;
+    private String courseId;
     private List<Student> students;
-    private List<Teacher> teacher;
+    private List<Teacher> teachers;
+    public Course(String name, String courseId){
+        this.name = name;
+        this.courseId = courseId;
+        this.students = new LinkedList<>();
+        this.teachers = new LinkedList<>();
+    }
 }

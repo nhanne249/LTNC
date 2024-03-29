@@ -1,6 +1,7 @@
 package com.example.schoolManage.controller;
 
 
+import com.example.schoolManage.model.course.Course;
 import com.example.schoolManage.model.user.User;
 import com.example.schoolManage.service.AdminService.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,19 +22,26 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
     @GetMapping("/all")
-    public ResponseEntity<List<User>> getAllUser(){
+    public ResponseEntity<List<User>> allUser(){
         return new ResponseEntity<List<User>>(adminService.getAllUsers(), HttpStatus.OK);
     }
-
+    @GetMapping("/{username}")
+    public ResponseEntity<User> getUserBy(@PathVariable String username){
+        return new ResponseEntity<User>(adminService.getUser(username), HttpStatus.OK);
+    }
     @DeleteMapping("/{username}")
     public ResponseEntity deleteUser(@PathVariable String username){
         adminService.deleteUser(username);
         return ResponseEntity.ok("deleted");
     }
-    @DeleteMapping("/all")
-    public ResponseEntity deleteAll(){
-        adminService.deleteAll();
-        return ResponseEntity.ok("deleted all users");
+    @PostMapping("/courses")
+    public ResponseEntity<Course> addCourse(@RequestBody Course course){
+        return new ResponseEntity<Course>(adminService.addCourse(course), HttpStatus.OK);
+    }
+    @DeleteMapping("/courses/{courseId}")
+    public ResponseEntity<String> removeCourse(@PathVariable String courseId){
+        adminService.deleteCourse(courseId);
+        return ResponseEntity.ok("course removed");
     }
     public UserDetails getLoggedInUserDetails(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -8,11 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface StudentService {
-    public List<Student> getAllStudent();
-    public Optional<Student> getStudentByUsername(String username);
+    public Student getStudentByUsername(String username);
     public Student updateStudentByUserName(String username, Student student);
-    public void deleteStudentByUsername(String username);
-    public Course enrollCourse (String studentUsername, Course course);
-    public void disenrollCourse(String username, String courseName);
-
+    public List<Course> getAllCourses(String username);
+    public Course enrollCourse (String studentUsername, String courseId);
+    public void disenrollCourse(String username, String courseId);
 }

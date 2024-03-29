@@ -6,26 +6,28 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.CodecRegistryProvider;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
-@Data
 @Document(collection = "users")
 public class Student extends User {
     private String name;
     private String email;
     private String phoneNumber;
     private List<Course> enrolledCourses;
-
+    private Map<Course, Double> scores;
     public Student(String username, String password, String name, String email, String phoneNumber) {
         super(username, password, "STUDENT");
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.enrolledCourses = new LinkedList<Course>();
+        this.enrolledCourses = new LinkedList<>();
+        this.scores = new HashMap<>();
+    }
+    public Student(){
+        super(null, null, "STUDENT");
     }
     public String getName() {
         return name;
@@ -60,5 +62,11 @@ public class Student extends User {
     }
     public void removeCourse(Course course) {
         this.enrolledCourses.remove(course);
+    }
+    public void setScore(Course course, Double score){
+        scores.put(course, score);
+    }
+    public Double getScore(Course course){
+        return scores.get(course);
     }
 }
