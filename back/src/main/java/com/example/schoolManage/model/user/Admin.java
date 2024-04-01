@@ -1,10 +1,8 @@
 package com.example.schoolManage.model.user;
 
-import lombok.Data;
-
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Data
+
 @Document(collection = "users")
 public class Admin extends User {
     public Admin(String username, String password) {

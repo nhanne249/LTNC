@@ -1,12 +1,6 @@
 package com.example.schoolManage.model.user;
 
 import com.example.schoolManage.model.course.Course;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.CodecRegistryProvider;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.*;
@@ -14,13 +8,15 @@ import java.util.*;
 @Document(collection = "users")
 public class Student extends User {
     private String name;
+    private String studentId;
     private String email;
     private String phoneNumber;
     private List<Course> enrolledCourses;
     private Map<Course, Double> scores;
-    public Student(String username, String password, String name, String email, String phoneNumber) {
+    public Student(String username, String password, String name, String studentId, String email, String phoneNumber) {
         super(username, password, "STUDENT");
         this.name = name;
+        this.studentId = studentId;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.enrolledCourses = new LinkedList<>();
@@ -35,6 +31,14 @@ public class Student extends User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
     public String getEmail() {

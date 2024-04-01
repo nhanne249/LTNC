@@ -18,11 +18,7 @@ public class OurUserInfoUserDetailsService implements UserDetailsService {
     private MongoTemplate mongoTemplate;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("username").is(username));
-        Optional<User> user = Optional.ofNullable(mongoTemplate.findOne(query,User.class));
+        Optional<User> user = Optional.ofNullable(mongoTemplate.findOne(Query.query(Criteria.where("username").is(username)),User.class));
         return user.map(OurUserInfoDetails::new).orElseThrow(()->new UsernameNotFoundException("User Does Not Exist"));
     }
-
-
 }

@@ -1,4 +1,4 @@
-package com.example.schoolManage.service.StudentService;
+package com.example.schoolManage.service;
 
 import com.example.schoolManage.model.course.Course;
 import com.example.schoolManage.model.user.Student;
@@ -12,29 +12,24 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
+
 @Service
-public class StudentServiceImpl implements StudentService{
+public class StudentService{
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private MongoTemplate mongoTemplate;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @Override
-    public Student getStudentByUsername(String username) {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("username").is(username));
-        return mongoTemplate.findOne(query, Student.class, "users");
+    public Student getStudentByUsername(String username){
+        return mongoTemplate.findOne(Query.query(Criteria.where("username").is(username)), Student.class, "users");
 
     }
-    @Override
-    public Student updateStudentByUserName(String username, Student student) {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("username").is(username));
+
+    public Student updateStudentByUserName(String username, Student student){
         //EXCEPTION STUDENT NOT FOUND
-        Student updateStudent = mongoTemplate.findOne(query, Student.class, "users");
+        Student updateStudent = mongoTemplate.findOne(Query.query(Criteria.where("username").is(username)), Student.class, "users");
+        assert updateStudent!= null : "user not found";
         if(!Objects.isNull(student.getUsername()))
             updateStudent.setUsername(student.getUsername());
         if(!Objects.isNull(student.getPassword()))
@@ -49,25 +44,24 @@ public class StudentServiceImpl implements StudentService{
         return updateStudent;
     }
 
-    @Override
+
     public List<Course> getAllCourses(String username) {
         return mongoTemplate.findOne(Query.query(Criteria.where("username").is(username)), Student.class, "users").getEnrolledCourses();
     }
 
-    @Override
     public Course enrollCourse(String studentUsername, String courseId) {
         Course course = mongoTemplate.findOne(Query.query(Criteria.where("courseId").is(courseId)), Course.class, "courses");
-        //EXCEPTION STUDENT NOT FOUND
+        assert course != null : "course not found";
         Student st = mongoTemplate.findOne(Query.query(Criteria.where("username").is(studentUsername)), Student.class, "users");
+        assert st != null : "user not found";
         st.appendCourse(course);
         userRepository.save(st);
         return course;
     }
 
-    @Override
     public void disenrollCourse(String username, String courseId) {
-        //EXCEPTION STUDENT NOT FOUND
         Student st = mongoTemplate.findOne(Query.query(Criteria.where("username").is(username)), Student.class, "users");
+        assert st != null : "user not found";
         Course cr = mongoTemplate.findOne(Query.query(Criteria.where("courseId").is(courseId)), Course.class, "courses");
         st.removeCourse(cr);
         userRepository.save(st);
