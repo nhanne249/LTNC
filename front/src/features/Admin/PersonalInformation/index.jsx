@@ -15,40 +15,40 @@ const PersonalInformation = () => {
           </div>
           <div>
             <div className="information-content">
-              Mã sinh viên:<b>123456789</b>
+              Mã sinh viên: <b>123456789</b>
             </div>
             <div className="information-content">
-              Họ tên:<b>Nguyễn Văn A</b>
+              Họ tên: <b>Nguyễn Văn A</b>
             </div>
             <div className="information-content">
-              Giới tính:<b>Nam</b>
+              Giới tính: <b>Nam</b>
             </div>
             <div className="information-content">
-              CCCD:<b>123456789</b>
+              CCCD: <b>123456789</b>
             </div>
             <div className="information-content">
-              Ngày sinh:<b>00/00/0000</b>
+              Ngày sinh: <b>00/00/0000</b>
             </div>
             <div className="information-content">
-              Nơi sinh:<b>Hồ Chí Minh</b>
+              Nơi sinh: <b>Hồ Chí Minh</b>
             </div>
             <div className="information-content">
-              Tình trạng:<b>Đang học</b>
+              Tình trạng: <b>Đang học</b>
             </div>
             <div className="information-content">
-              Email:<b>nguyenvana@gmail.com</b>
+              Email: <b>nguyenvana@gmail.com</b>
             </div>
             <div className="information-content">
-              Địa chỉ thường trú:<b>abcsadasdasdasdad</b>
+              Địa chỉ thường trú: <b>abcsadasdasdasdad</b>
             </div>
           </div>
           <div>
             <h3 className="information-title">Thông tin và người liên hệ</h3>
             <div className="information-content">
-              Họ tên người liên hệ:<b>dấdadsdasdasd</b>
+              Họ tên người liên hệ: <b>dấdadsdasdasd</b>
             </div>
             <div className="information-content">
-              Số điện thoại:<b>123456789</b>
+              Số điện thoại: <b>123456789</b>
             </div>
             <div className="information-content">
               Địa chỉ liên hệ: <b>adsdasdasdasdad</b>
@@ -59,7 +59,7 @@ const PersonalInformation = () => {
       <Col>
         <div>
           <h3 className="information-title">Thông tin khóa học</h3>
-          <div className="information-content">Khóa học: K20</div>
+          <div className="information-content">Khóa học: <b>K20</b></div>
           <div className="information-content">
             Chức vụ: <b></b>
           </div>
@@ -98,7 +98,7 @@ const PersonalInformation = () => {
           <div className="information-content">
             Quận huyện: <b>Q10</b>
           </div>
-          <div className="information-content">Số điện thoại:<b>1234567890</b></div>
+          <div className="information-content">Số điện thoại: <b>1234567890</b></div>
         </div>
       </Col>
     </Row>
