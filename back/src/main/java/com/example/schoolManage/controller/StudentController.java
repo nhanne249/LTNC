@@ -41,6 +41,10 @@ public class StudentController {
         studentService.disenrollCourse(getLoggedInUserDetails().getUsername(), courseId);
         return ResponseEntity.ok("course unenrolled");
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 949b8106967ac8d1ef9caeac0d1e6c32e8e3c058
     public UserDetails getLoggedInUserDetails(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication != null && authentication.getPrincipal() instanceof UserDetails){

@@ -12,7 +12,7 @@ import java.util.List;
 public class Classroom{
     @Id
     private ObjectId id;
-    //private Date date;
+//    private Course course;
     private String classId;
     private String place;
     private List<Student> studentList;

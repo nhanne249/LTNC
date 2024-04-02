@@ -1,6 +1,15 @@
 package com.example.schoolManage.model.user;
 
 import com.example.schoolManage.model.course.Course;
+<<<<<<< HEAD
+=======
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.CodecRegistryProvider;
+>>>>>>> 949b8106967ac8d1ef9caeac0d1e6c32e8e3c058
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.*;
@@ -13,7 +22,11 @@ public class Student extends User {
     private String phoneNumber;
     private List<Course> enrolledCourses;
     private Map<Course, Double> scores;
+<<<<<<< HEAD
     public Student(String username, String password, String name, String studentId, String email, String phoneNumber) {
+=======
+    public Student(String username, String password, String name, String email, String phoneNumber) {
+>>>>>>> 949b8106967ac8d1ef9caeac0d1e6c32e8e3c058
         super(username, password, "STUDENT");
         this.name = name;
         this.studentId = studentId;

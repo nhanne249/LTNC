@@ -2,7 +2,10 @@ package com.example.schoolManage.controller;
 
 
 import com.example.schoolManage.model.course.Course;
+<<<<<<< HEAD
 import com.example.schoolManage.model.course.Classroom;
+=======
+>>>>>>> 949b8106967ac8d1ef9caeac0d1e6c32e8e3c058
 import com.example.schoolManage.model.user.User;
 import com.example.schoolManage.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,17 +40,24 @@ public class AdminController {
     }
     @PostMapping("/courses")
     public ResponseEntity<Course> addCourse(@RequestBody Course course){
+<<<<<<< HEAD
         return new ResponseEntity<Course>(adminService.addCourse(course), HttpStatus.CREATED);
+=======
+        return new ResponseEntity<Course>(adminService.addCourse(course), HttpStatus.OK);
+>>>>>>> 949b8106967ac8d1ef9caeac0d1e6c32e8e3c058
     }
     @DeleteMapping("/courses/{courseId}")
     public ResponseEntity<String> removeCourse(@PathVariable String courseId){
         adminService.deleteCourse(courseId);
         return ResponseEntity.ok("course removed");
+<<<<<<< HEAD
     }
 
     @PostMapping("/class")
     public ResponseEntity<Classroom> addClass(@RequestBody Classroom classroom){
         return new ResponseEntity<Classroom>(adminService.addClass(classroom),HttpStatus.CREATED);
+=======
+>>>>>>> 949b8106967ac8d1ef9caeac0d1e6c32e8e3c058
     }
     public UserDetails getLoggedInUserDetails(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

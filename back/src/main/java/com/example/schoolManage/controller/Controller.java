@@ -2,7 +2,10 @@ package com.example.schoolManage.controller;
 
 import com.example.schoolManage.model.user.Admin;
 import com.example.schoolManage.model.user.Student;
+<<<<<<< HEAD
 import com.example.schoolManage.model.user.Teacher;
+=======
+>>>>>>> 949b8106967ac8d1ef9caeac0d1e6c32e8e3c058
 import com.example.schoolManage.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -19,7 +22,11 @@ public class Controller {
     @Autowired
     PasswordEncoder passwordEncoder;
     @Autowired
+<<<<<<< HEAD
     private MongoTemplate mongoTemplate;
+=======
+    private UserRepository userRepository;
+>>>>>>> 949b8106967ac8d1ef9caeac0d1e6c32e8e3c058
     @PostMapping("/student")
     public ResponseEntity<Student> registerNewStudent(@RequestBody Student student) {
         //INVALID USRNAME AND EMAIL EXCEPTION
