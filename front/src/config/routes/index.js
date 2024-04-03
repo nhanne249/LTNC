@@ -1,8 +1,8 @@
 import mainRouter from './mainRouter';
-import adminRouter from './adminRouter';
+import studentRouter from './studentRouter';
 
 const publicRouter = [
   mainRouter,
 ];
-const privateRouter = [adminRouter,];
+const privateRouter = [studentRouter,];
 export { publicRouter, privateRouter };

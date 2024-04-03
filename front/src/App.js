@@ -7,7 +7,7 @@ import { publicRouter, privateRouter } from "./config/routes";
 import Cookies from 'js-cookie';
 function App() {
   // const role = useSelector((state) => state.login.role);
-  const role = "admin";
+  const role = "student";
   // lấy key session đầu tiên trong local
   const getfirstSession = () => {
     const allKeys = Object.keys(localStorage);

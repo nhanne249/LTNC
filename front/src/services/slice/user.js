@@ -1,26 +1,40 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { loginAuthenticateThunk, } from 'src/redux/action/user'
+import { registerStudentThunk, 
+  // loginThunk
+} from '../action/user'
 
 const authentication = createSlice({
   name: "authentication",
   initialState: {
-    // loginAuthenticateThunk:[],
+    registerStudent:[],
+    login:[],
   },
   reducers: {
-    login: (state) => {
-      // state.loginAuthenticate = [];
+    registerStudent: (state) => {
+      state.registerStudentThunk = [];
+      // state.loginThunk = [];
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(
+      registerStudentThunk.fulfilled,
+      (state, { payload }) => {
+        if (payload) {
+          state.registerStudentThunk = payload;
+      }
+      }
+    )
     // builder.addCase(
-    //   loginAuthenticateThunk.fulfilled,
+    //   loginThunk.fulfilled,
     //   (state, { payload }) => {
     //     if (payload) {
-    //       state.loginAuthenticateThunk = payload;
+    //       state.loginThunk = payload;
     //   }
     //   }
     // )
   }
 });
-export const { loginRole } = authentication.actions;
+export const { registerStudent, 
+  // login 
+} = authentication.actions;
 export default authentication;
