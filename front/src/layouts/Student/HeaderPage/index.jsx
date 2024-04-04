@@ -13,7 +13,7 @@ const HeaderPage = () => {
     },
     {
       label: "Tra cứu học phần",
-      key: "termSearch",
+      key: "search-term",
     },
     {
       label: "Thời khóa biểu",
@@ -27,7 +27,7 @@ const HeaderPage = () => {
       label: " 12345789 | Nguyen Van A",
       children: [
         {
-          key: "personalInfor",
+          key: "personal-information",
           label: "Xem thông tin cá nhân",
         },
         {

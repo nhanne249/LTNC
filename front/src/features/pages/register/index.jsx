@@ -1,17 +1,42 @@
 import React from "react";
 import { Input, Form, Button, Image } from "antd";
 import { useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { registerStudentThunk } from "../../../services/action/user";
 import "./index.scss";
 import background from "../../../assets/img/bk.jpg";
 import logo from "../../../assets/img/logobkjpeg.jpeg";
 
 const Register = () => {
   const navigate = useNavigate();
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const onFinish = (data) => {
+    // let dataSend = {
+    //   username: data.username,
+    //   password: data.password,
+    //   name: data.firstName + data.lastName,
+    //   studentId: 1,
+    //   email: data.email,
+    //   phoneNumber: data.phone,
+    // };
+    // dispatch(registerStudentThunk(dataSend)).then((res) => {
+    //   console.log(res);
+    //   if (res.payload) {
+    //     toast.success("Đăng nhập thành công", {
+    //       position: "top-right",
+    //       autoClose: 3000,
+    //       theme: "colored",
+    //     });
     navigate("/admin");
-    console.log(data);
+    // } else {
+    //   toast.error("Email hoặc mật khẩu không chính xác", {
+    //     position: "top-right",
+    //     autoClose: 3000,
+    //     theme: "colored",
+    //   });
+    // }
+    // });
   };
   const onFinishFailed = (data) => {
     console.log(data);
@@ -73,12 +98,12 @@ const Register = () => {
             {
               validator(_, value) {
                 if (
-                  !/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(
+                  !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
                     value
                   )
                 ) {
                   return Promise.reject(
-                    new Error("Please enter a valid phone number (10 digits)!")
+                    new Error("Please enter a valid email adress!")
                   );
                 }
                 return Promise.resolve();
@@ -118,15 +143,29 @@ const Register = () => {
             },
             {
               validator(_, value) {
-                if (
-                  !/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/.test(
-                    value
-                  )
-                ) {
+                if (!/[a-z]/.test(value)) {
                   return Promise.reject(
-                    new Error(
-                      "The new password that you entered must have at least one lowercase letter, one uppercase letter, one number, one special character"
-                    )
+                    "Password must have at least one lowercase letter."
+                  );
+                }
+                if (!/[A-Z]/.test(value)) {
+                  return Promise.reject(
+                    "Password must have at least one uppercase letter."
+                  );
+                }
+                if (!/[0-9]/.test(value)) {
+                  return Promise.reject(
+                    "Password must have at least one number."
+                  );
+                }
+                if (!/\W/.test(value)) {
+                  return Promise.reject(
+                    "Password must have at least one special character."
+                  );
+                }
+                if (value.length < 8) {
+                  return Promise.reject(
+                    "Password must be at least 8 characters long."
                   );
                 }
                 return Promise.resolve();
@@ -146,7 +185,7 @@ const Register = () => {
               validator(_, value) {
                 if (getFieldValue("password") !== value) {
                   return Promise.reject(
-                    new Error("The new password that you entered do not match!")
+                    new Error("The password that you entered do not match!")
                   );
                 }
                 return Promise.resolve();

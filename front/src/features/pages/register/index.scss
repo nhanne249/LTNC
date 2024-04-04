@@ -21,7 +21,7 @@
         .input_box{
             width: 25vw;
             height: 68px;
-            font-family: "Poppins";
+            font-family: Arial, Helvetica, sans-serif;
             font-size: 18px;
             font-weight: 400;
             line-height: 27px;
@@ -31,15 +31,12 @@
             width: 25vw;
             height:50px;
             background: #0388B4;
-            font-family: "Poppins";
+            font-family: Arial, Helvetica, sans-serif;
             font-size: 16px;
             font-weight: 400;
             line-height: 24px;
             text-align: left;
             color:#ffffff;
-            // display: flex;
-            // justify-content: center;
-            // align-items: center;
         }
     }
 }

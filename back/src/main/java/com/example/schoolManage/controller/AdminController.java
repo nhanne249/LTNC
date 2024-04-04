@@ -2,8 +2,9 @@ package com.example.schoolManage.controller;
 
 
 import com.example.schoolManage.model.course.Course;
+import com.example.schoolManage.model.course.Classroom;
 import com.example.schoolManage.model.user.User;
-import com.example.schoolManage.service.AdminService.AdminService;
+import com.example.schoolManage.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,18 +31,23 @@ public class AdminController {
         return new ResponseEntity<User>(adminService.getUser(username), HttpStatus.OK);
     }
     @DeleteMapping("/{username}")
-    public ResponseEntity deleteUser(@PathVariable String username){
+    public ResponseEntity<String> deleteUser(@PathVariable String username){
         adminService.deleteUser(username);
         return ResponseEntity.ok("deleted");
     }
     @PostMapping("/courses")
     public ResponseEntity<Course> addCourse(@RequestBody Course course){
-        return new ResponseEntity<Course>(adminService.addCourse(course), HttpStatus.OK);
+        return new ResponseEntity<Course>(adminService.addCourse(course), HttpStatus.CREATED);
     }
     @DeleteMapping("/courses/{courseId}")
     public ResponseEntity<String> removeCourse(@PathVariable String courseId){
         adminService.deleteCourse(courseId);
         return ResponseEntity.ok("course removed");
+    }
+
+    @PostMapping("/class")
+    public ResponseEntity<Classroom> addClass(@RequestBody Classroom classroom){
+        return new ResponseEntity<Classroom>(adminService.addClass(classroom),HttpStatus.CREATED);
     }
     public UserDetails getLoggedInUserDetails(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -1,22 +1,29 @@
 import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import "./style.scss";
 import { Layout, Image } from "antd";
+import { AiFillRightCircle } from "react-icons/ai";
 import HeaderPage from "./HeaderPage";
 import SiderPage from "./SiderPage";
 import FooterPage from "./FooterPage";
-import ContentPage from "./ContentPage";
+import "./style.scss";
 import logobk from "../../assets/img/logobkjpeg.png";
 
 const { Header, Footer, Sider, Content } = Layout;
-const AdminLayout = () => {
+const StudentLayout = () => {
   const location = useLocation();
   const pathname = location.pathname;
 
   // Extract the page title from the pathname (you might need custom logic here)
   const pathParts = pathname.split("/").filter(Boolean);
+  let title = "";
+  if (pathParts.includes("personal-information")) title = "Thông tin cá nhân";
+  if (pathParts.includes("notification")) title = "Thông báo";
+  if (pathParts.includes("education-program")) title = "Chương trình đào tạo";
+  if (pathParts.includes("result")) title = "Kết quả học tập";
+  if (pathParts.includes("course-register")) title = "Đăng ký khóa học";
+  if (pathParts.includes("instructor-evaluate")) title = "Đánh giá giảng viên";
   return (
-    <Layout className="admin-page-layout">
+    <Layout className="student-page-layout">
       <Image
         preview={false}
         src={logobk}
@@ -32,6 +39,12 @@ const AdminLayout = () => {
             <SiderPage />
           </Sider>
           <Content className="content-page">
+            <div className="title-of-content">
+              <AiFillRightCircle
+                style={{ height: "auto", alignSelf: "center" }}
+              />
+              {title}
+            </div>
             <Outlet />
           </Content>
         </Layout>
@@ -43,4 +56,4 @@ const AdminLayout = () => {
   );
 };
 
-export default AdminLayout;
+export default StudentLayout;
