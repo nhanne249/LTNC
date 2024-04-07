@@ -19,7 +19,7 @@ const Login = () => {
     };
     // dispatch(loginThunk(dataSend)).then((res) => {
     //   console.log(res);
-    navigate("/student");
+    navigate("/student/personal-information");
     //   if (res.payload) {
     //     toast.success("Đăng nhập thành công", {
     //       position: "top-right",
