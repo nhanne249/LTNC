@@ -12,6 +12,7 @@ import java.util.List;
 public class Classroom{
     @Id
     private ObjectId id;
+    private Course course;
     //private Date date;
     private String classId;
     private String place;
@@ -21,6 +22,9 @@ public class Classroom{
         this.place = place;
         this.classId = classId;
         this.studentList = new LinkedList<>();
+    }
+    public void setCourse(Course course){
+        this.course = course;
     }
 
     public String getClassId() {

@@ -19,4 +19,28 @@ public class Course {
         this.courseId = courseId;
         this.classes = new LinkedList<>();
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
+
+    public List<Classroom> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(List<Classroom> classes) {
+        this.classes = classes;
+    }
 }

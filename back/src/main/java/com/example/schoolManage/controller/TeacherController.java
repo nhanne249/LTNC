@@ -28,6 +28,7 @@ public class TeacherController {
     public ResponseEntity<Classroom> addClass(@PathVariable String classId){
         return new ResponseEntity<Classroom>(teacherService.addClass(getLoggedInUserDetails().getUsername(), classId), HttpStatus.CREATED);
     }
+
     public UserDetails getLoggedInUserDetails(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication != null && authentication.getPrincipal() instanceof UserDetails){

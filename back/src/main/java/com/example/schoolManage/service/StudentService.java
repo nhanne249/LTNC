@@ -46,7 +46,7 @@ public class StudentService{
 
 
     public List<Course> getAllCourses(String username) {
-        return mongoTemplate.findOne(Query.query(Criteria.where("username").is(username)), Student.class, "users").getEnrolledCourses();
+        return Objects.requireNonNull(mongoTemplate.findOne(Query.query(Criteria.where("username").is(username)), Student.class, "users")).getEnrolledCourses();
     }
 
     public Course enrollCourse(String studentUsername, String courseId) {

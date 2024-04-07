@@ -3,6 +3,8 @@ package com.example.schoolManage.controller;
 
 import com.example.schoolManage.model.course.Course;
 import com.example.schoolManage.model.course.Classroom;
+import com.example.schoolManage.model.user.Student;
+import com.example.schoolManage.model.user.Teacher;
 import com.example.schoolManage.model.user.User;
 import com.example.schoolManage.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +32,20 @@ public class AdminController {
     public ResponseEntity<User> getUserBy(@PathVariable String username){
         return new ResponseEntity<User>(adminService.getUser(username), HttpStatus.OK);
     }
+    @PostMapping("/register/student")
+    public ResponseEntity<Student> registerStudent(@RequestBody Student student){
+        return new ResponseEntity<Student>(adminService.addNewStudent(student), HttpStatus.CREATED);
+    }
+    @PostMapping("/register/teacher")
+    public ResponseEntity<Teacher> registerTeacher(@RequestBody Teacher teacher){
+        return new ResponseEntity<Teacher>(adminService.addNewTeacher(teacher), HttpStatus.CREATED);
+    }
     @DeleteMapping("/{username}")
     public ResponseEntity<String> deleteUser(@PathVariable String username){
         adminService.deleteUser(username);
         return ResponseEntity.ok("deleted");
     }
+
     @PostMapping("/courses")
     public ResponseEntity<Course> addCourse(@RequestBody Course course){
         return new ResponseEntity<Course>(adminService.addCourse(course), HttpStatus.CREATED);
@@ -45,9 +56,9 @@ public class AdminController {
         return ResponseEntity.ok("course removed");
     }
 
-    @PostMapping("/class")
-    public ResponseEntity<Classroom> addClass(@RequestBody Classroom classroom){
-        return new ResponseEntity<Classroom>(adminService.addClass(classroom),HttpStatus.CREATED);
+    @PostMapping("/courses/{courseId}/class")
+    public ResponseEntity<Classroom> addClass(@RequestBody Classroom classroom, @PathVariable String courseId){
+        return new ResponseEntity<Classroom>(adminService.addClass(classroom, courseId),HttpStatus.CREATED);
     }
     public UserDetails getLoggedInUserDetails(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

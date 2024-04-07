@@ -2,12 +2,14 @@ package com.example.schoolManage.service;
 
 import com.example.schoolManage.model.course.Course;
 import com.example.schoolManage.model.course.Classroom;
+import com.example.schoolManage.model.user.Student;
+import com.example.schoolManage.model.user.Teacher;
 import com.example.schoolManage.model.user.User;
-import com.example.schoolManage.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +17,11 @@ import java.util.List;
 @Service
 public class AdminService{
     @Autowired
-    private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
     @Autowired
     private MongoTemplate mongoTemplate;
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return mongoTemplate.findAll(User.class);
     }
 
     public User getUser(String username) {
@@ -30,19 +32,35 @@ public class AdminService{
         //EXCEPTION STUDENT NOT FOUND
         mongoTemplate.findAndRemove(Query.query(Criteria.where("username").is(username)), User.class, "users");
     }
-
-    public User createUser(User user) {
-        return mongoTemplate.insert(user, "users");
+    public Teacher addNewTeacher(Teacher teacher){
+        Teacher newTeacher = new Teacher(teacher.getUsername(),
+                passwordEncoder.encode(teacher.getPassword()),
+                teacher.getName(),
+                teacher.getEmail(),
+                teacher.getPhoneNumber());
+        return mongoTemplate.insert(teacher, "users");
+    }
+    public Student addNewStudent(Student student){
+        Student newStudent = new Student(student.getUsername(),
+                passwordEncoder.encode(student.getPassword()),
+                student.getName(),
+                student.getStudentId(),
+                student.getEmail(),
+                student.getPhoneNumber());
+        return mongoTemplate.insert(newStudent, "users");
     }
     public Course addCourse(Course course) {
-        return mongoTemplate.insert(course, "courses");
+        Course newCourse = new Course(course.getName(), course.getCourseId());
+        return mongoTemplate.insert(newCourse, "courses");
     }
 
     public void deleteCourse(String courseId) {
         mongoTemplate.findAndRemove(Query.query(Criteria.where("courseId").is(courseId)), Course.class, "courses");
     }
-    public Classroom addClass(Classroom classroom){
-        return mongoTemplate.insert(classroom, "classes");
+    public Classroom addClass(Classroom classroom, String courseId){
+        Classroom newClassroom = new Classroom(classroom.getPlace(), classroom.getClassId());
+        newClassroom.setCourse(mongoTemplate.findOne(Query.query(Criteria.where("courseId").is(courseId)), Course.class, "courses"));
+        return mongoTemplate.insert(newClassroom, "classes");
     }
 
 }
