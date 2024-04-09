@@ -13,8 +13,8 @@ public class Teacher extends User{
     private List<String> degrees;
     private List<Classroom> teachingClasses;
 
-    public Teacher(String username, String password, String role, String name, String email, String phoneNumber) {
-        super(username, password, role);
+    public Teacher(String username, String password, String name, String email, String phoneNumber) {
+        super(username, password, "TEACHER");
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
