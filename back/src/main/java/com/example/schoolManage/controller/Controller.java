@@ -1,10 +1,8 @@
 package com.example.schoolManage.controller;
 
-import com.example.schoolManage.Dto.LoginRequest;
 import com.example.schoolManage.model.user.Admin;
 import com.example.schoolManage.model.user.Student;
 import com.example.schoolManage.model.user.Teacher;
-import com.example.schoolManage.repository.UserRepository;
 import com.example.schoolManage.service.JwtsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
