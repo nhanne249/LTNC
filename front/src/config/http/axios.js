@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const httpHandler = (baseURL) => {
+  console.log(baseURL);
   const axiosHttp = axios.create({
     baseURL,
   });
@@ -37,7 +38,6 @@ const httpHandler = (baseURL) => {
       }
     }
   );
-
   return axiosHttp;
 };
 

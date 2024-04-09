@@ -10,20 +10,20 @@ const user = {
             `${url1}`, JSON.stringify(data)
         )
     },
-    // login: (data) => {
-    //     const formData = new FormData();
-    //     formData.append("username", `${data.username}`);
-    //     formData.append("password", `${data.password}`);
+    login: (data) => {
+        const formData = new FormData();
+        formData.append("username", `${data.username}`);
+        formData.append("password", `${data.password}`);
 
-    //     axios({
-    //         method: 'post',
-    //         url: 'http://localhost:8081/login',
-    //         data: formData,
-    // })
-    // .then((response) => {
-    //     console.log(response.headers.get('JSESSIONID'));
-    //     return response;
-    // })
-    // },
+        axios({
+            method: 'post',
+            url: 'http://localhost:8081/login',
+            data: formData,
+    })
+    .then((response) => {
+        console.log(response.headers.get('JSESSIONID'));
+        return response;
+    })
+    },
 }
 export default user;

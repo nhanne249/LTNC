@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { registerStudentThunk, 
-  // loginThunk
+  loginThunk
 } from '../action/user'
 
 const authentication = createSlice({
@@ -12,7 +12,7 @@ const authentication = createSlice({
   reducers: {
     registerStudent: (state) => {
       state.registerStudentThunk = [];
-      // state.loginThunk = [];
+      state.loginThunk = [];
     },
   },
   extraReducers: (builder) => {
@@ -24,17 +24,17 @@ const authentication = createSlice({
       }
       }
     )
-    // builder.addCase(
-    //   loginThunk.fulfilled,
-    //   (state, { payload }) => {
-    //     if (payload) {
-    //       state.loginThunk = payload;
-    //   }
-    //   }
-    // )
+    builder.addCase(
+      loginThunk.fulfilled,
+      (state, { payload }) => {
+        if (payload) {
+          state.loginThunk = payload;
+      }
+      }
+    )
   }
 });
 export const { registerStudent, 
-  // login 
+  login 
 } = authentication.actions;
 export default authentication;

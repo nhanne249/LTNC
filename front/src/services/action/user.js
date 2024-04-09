@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import user from '../api/user'
 
 const { registerStudent, 
-    // login
+    login
 } = user
 
 export const registerStudentThunk = createAsyncThunk(
@@ -13,10 +13,10 @@ export const registerStudentThunk = createAsyncThunk(
     }
 )
 
-// export const loginThunk = createAsyncThunk(
-//     'student/login',
-//     async (data) => {
-//         const res = await login(data)
-//         return res
-//     }
-// )
+export const loginThunk = createAsyncThunk(
+    'student/login',
+    async (data) => {
+        const res = await login(data)
+        return res
+    }
+)

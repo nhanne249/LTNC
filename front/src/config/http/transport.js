@@ -2,6 +2,8 @@ import httpHandler from './axios';
 import { API_DOMAIN } from '../constant/httpConstant.js';
 
 function get(domain, url, config = {}) {
+  console.log(process.env.REACT_APP_API);
+    console.log(domain, url, config, 'here');
   return httpHandler(domain).get(`${url}`, config);
 }
 
@@ -19,16 +21,15 @@ function del(domain, url, config = {}) {
 
 export const transport = {
   get: (url, config = {}) => {
-    return get(API_DOMAIN.INTERNSHIP, url, config);
+    return get(`${API_DOMAIN.API}`, url, config);
   },
   post: (url, data, config = {}) => {
-    console.log(data);
-    return post(API_DOMAIN.INTERNSHIP, url, data, config);
+    return post(API_DOMAIN.API, url, data, config);
   },
   put: (url, data, config = {}) => {
-    return put(API_DOMAIN.INTERNSHIP, url, data, config);
+    return put(API_DOMAIN.API, url, data, config);
   },
   delete: (url, config = {}) => {
-    return del(API_DOMAIN.INTERNSHIP, url, config);
+    return del(API_DOMAIN.API, url, config);
   },
 };
