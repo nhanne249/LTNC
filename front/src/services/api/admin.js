@@ -1,11 +1,10 @@
 import { transport } from "../../config/http/transport";
-import axios from "axios";
 
 const admin = {
 
-    getAdmin: (data) => {
+    getAllStudentByAdmin: (data) => {
         return transport.get(
-            `/all`, JSON.stringify(data)
+            `/all/users`, JSON.stringify(data)
         )
     },
 }

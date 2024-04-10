@@ -1,20 +1,30 @@
 import axios from 'axios';
+// import Cookies from 'js-cookie';
+
+function getCookieValue(cookieName) {
+    let cookieArray = document.cookie.split(';');
+    for (let i = 0; i < cookieArray.length; i++) {
+        let cookiePair = cookieArray[i].split('=');
+        if (cookieName == cookiePair[0].trim()) {
+            return decodeURIComponent(cookiePair[1]);
+        }
+    }
+    return null;
+}
+
+// Sử dụng hàm
+const myCookieValue = getCookieValue('userPresent');
 
 const httpHandler = (baseURL) => {
-  console.log(baseURL);
   const axiosHttp = axios.create({
     baseURL,
   });
   axiosHttp.interceptors.request.use(
     async function intercept(config) {
-      console.log(JSON.parse(sessionStorage.getItem('userPresent')) ||
-      JSON.parse(localStorage.getItem('userPresent')));
-      const token =
-        JSON.parse(sessionStorage.getItem('userPresent'))?.token ||
-        JSON.parse(localStorage.getItem('userPresent'))?.token;
-      // const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2YW5oYXVAZ21haWwuY29tIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJvbGVfQWRtaW4ifV0sImlhdCI6MTY5NDQ4MzE0MCwiZXhwIjoxNjk0NTAxMTQwfQ.z5Dx0v9ifQKSwfke-nLznHUvZf6oaCrePUPaqiTsuH0'
       const interceptedConfig = config;
-      interceptedConfig.headers['Authorization'] = 'Bearer ' + token;
+      if(myCookieValue) {
+          interceptedConfig.headers['Authorization'] = 'Bearer ' + myCookieValue;
+        }
       interceptedConfig.headers['Content-Type'] = 'application/json';
       return interceptedConfig;
     },

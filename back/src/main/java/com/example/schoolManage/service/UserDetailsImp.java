@@ -18,7 +18,8 @@ public class UserDetailsImp implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findUserByUsername(username);
+        return repository.findUserByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Username not found!"));
     }
 
 }

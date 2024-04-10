@@ -14,16 +14,13 @@ public class AuthenticationService {
 
     private final UserRepository userRepository;
 
-    private final PasswordEncoder passwordEncoder;
-
-    private JwtsService jwtsService;
+    private final JwtsService jwtsService;
 
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationService(UserRepository userRepository, PasswordEncoder passwordEncoder,
-            JwtsService jwtsService, AuthenticationManager authenticationManager) {
+    public AuthenticationService(UserRepository userRepository, JwtsService jwtsService,
+            AuthenticationManager authenticationManager) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
         this.jwtsService = jwtsService;
         this.authenticationManager = authenticationManager;
     }
@@ -31,8 +28,8 @@ public class AuthenticationService {
     public AuthenticationResponse authenticate(User request) {
         authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        User user = userRepository.findUserByUsername(request.getUsername());
+        User user = userRepository.findUserByUsername(request.getUsername()).orElseThrow();
         String token = jwtsService.generateToken(user);
-        return new AuthenticationResponse(token);
+        return new AuthenticationResponse(token, user.getRole());
     }
 }

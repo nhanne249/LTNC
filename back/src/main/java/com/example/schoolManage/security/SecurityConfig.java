@@ -30,7 +30,6 @@ import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
 public class SecurityConfig {
 
     private final UserDetailsImp userDetailsImp;
@@ -72,17 +71,6 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public JwtDecoder jwtDecoder() {
-        try {
-            Resource jwkSetResource = new ClassPathResource("jwkset.json");
-            System.out.println(jwkSetResource.getURI());
-            return NimbusJwtDecoder.withJwkSetUri(jwkSetResource.getURI().toString()).build();
-        } catch (IOException e) {
-            return null;
-        }
     }
 
     @Bean

@@ -1,17 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Row, Col, Image, FLex, Flex } from "antd";
+import { Row, Col, Image, Flex } from "antd";
 import "./index.scss";
-import { getAdminThunk } from "../../../services/action/admin";
+import { getAllStudentByAdminThunk } from "./../../../services/action/admin";
 const urlImage =
   "https://i.pinimg.com/564x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg";
 
 const PersonalInformation = () => {
+  const [info, setInfo] = useState();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAdminThunk()).then((res) => console.log(res));
-  });
-  return (
+    dispatch(getAllStudentByAdminThunk()).then((res) => {
+      console.log(res);
+      setInfo(res);
+    });
+  }, []);
+  return info ? (
     <div className="information-container">
       <Row justify="space-between">
         <Col>
@@ -113,6 +117,6 @@ const PersonalInformation = () => {
         </Col>
       </Row>
     </div>
-  );
+  ) : null;
 };
 export default PersonalInformation;

@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Menu, Dropdown, Button, Row, Col } from "antd";
+import { useCookies } from "react-cookie";
 import "./index.scss";
 
 const HeaderPage = () => {
+  const [cookies, removeCookie] = useCookies(["role", "userPresent", "name"]);
   const navigate = useNavigate();
 
   const menuItems = [
@@ -24,7 +26,7 @@ const HeaderPage = () => {
   const items = [
     {
       key: null,
-      label: " 12345789 | Nguyen Van A",
+      label: <div className="infor-name">{cookies.role}</div>,
       children: [
         {
           key: "personal-information",
@@ -41,8 +43,13 @@ const HeaderPage = () => {
     console.log(value);
   };
   const onInforMenuClick = (value) => {
-    console.log(value);
-    navigate(value.key);
+    if (value.key === "logout") {
+      removeCookie("userPresent");
+      removeCookie("role");
+      removeCookie("name");
+    } else {
+      navigate(value.key);
+    }
   };
   return (
     <div className="header-container">

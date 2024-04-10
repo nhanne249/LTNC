@@ -1,29 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAdminThunk
-} from '../action/user'
+import { getAllStudentByAdminThunk
+} from '../action/admin'
 
 const admin = createSlice({
   name: "adminFunction",
   initialState: {
-    getAdminThunk:[],
+    getAllStudentByAdminThunk:[],
   },
   reducers: {
     admin: (state) => {
-      state.getAdminThunk = [];
-      state.loginThunk = [];
+      state.getAllStudentByAdminThunk = [];
     },
   },
   extraReducers: (builder) => {
     builder.addCase(
-      getAdminThunk.fulfilled,
+      getAllStudentByAdminThunk.fulfilled,
       (state, { payload }) => {
         if (payload) {
-          state.getAdminThunk = payload;
+          state.getAllStudentByAdminThunk = payload;
       }
       }
     )
   }
 });
-export const { getAdmin
+export const { getAllStudentByAdmin
 } = admin.actions;
 export default admin;

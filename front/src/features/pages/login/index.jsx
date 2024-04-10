@@ -1,9 +1,9 @@
 import React from "react";
 import { Input, Form, Button, Checkbox, Image, Row, Col } from "antd";
-import Cookies from "js-cookie";
+import { useCookies, withCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loginThunk } from "../../../services/action/user";
+import { loginThunk } from "../../../services/action/authentication";
 import { toast } from "react-toastify";
 import "./index.scss";
 import background from "../../../assets/img/bk.jpg";
@@ -12,6 +12,11 @@ import logo from "../../../assets/img/logobkjpeg.jpeg";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "name",
+    "role",
+    "userPresent",
+  ]);
   const onFinish = (data) => {
     const dataSend = {
       username: data.username,
@@ -19,18 +24,24 @@ const Login = () => {
     };
     dispatch(loginThunk(dataSend)).then((res) => {
       console.log(res);
-      // navigate("/student/personal-information");
-      if (res.payload) {
+      if (res?.payload?.token) {
         toast.success("Đăng nhập thành công", {
           position: "top-right",
           autoClose: 3000,
           theme: "colored",
         });
         if (data.isChecked) {
-          Cookies.set("password", data.password, { expires: 7 });
-          Cookies.set("name", data.username, { expires: 7 });
-          Cookies.set("role", "admin", { expires: 7 });
+          setCookie("name", `${data.username}`, { maxAge: 604800000 });
+          setCookie("role", `${res.payload.role}`, { maxAge: 604800000 });
+          setCookie("userPresent", `${res.payload.token}`, {
+            maxAge: 604800000,
+          });
+        } else {
+          setCookie("name", `${data.username}`);
+          setCookie("role", `${res.payload.role}`);
+          setCookie("userPresent", `${res.payload.token}`);
         }
+        navigate("/student/personal-information");
       } else {
         toast.error("Email hoặc mật khẩu không chính xác", {
           position: "top-right",
@@ -39,9 +50,6 @@ const Login = () => {
         });
       }
     });
-  };
-  const onFinishFailed = (data) => {
-    console.log(data);
   };
   const handleForgotPassword = () => {
     console.log("forgot password");
@@ -55,7 +63,6 @@ const Login = () => {
           remember: true,
         }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete="off"
         layout="vertical"
       >
@@ -110,4 +117,4 @@ const Login = () => {
     </div>
   );
 };
-export default Login;
+export default withCookies(Login);

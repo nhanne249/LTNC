@@ -2,8 +2,6 @@ import httpHandler from './axios';
 import { API_DOMAIN } from '../constant/httpConstant.js';
 
 function get(domain, url, config = {}) {
-  console.log(process.env.REACT_APP_API);
-    console.log(domain, url, config, 'here');
   return httpHandler(domain).get(`${url}`, config);
 }
 

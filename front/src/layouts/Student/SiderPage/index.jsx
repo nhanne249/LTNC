@@ -56,7 +56,7 @@ const SiderPage = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [menuMode]);
 
   const siderWidth = document.getElementById("sider");
   const onClick = (value) => {

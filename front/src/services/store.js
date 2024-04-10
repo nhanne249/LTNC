@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import UserSlice from "./slice/user";
+import authenticationSlice from "./slice/authentication";
 const initialState = {
   profile: { name: "NTK" },
 };
@@ -10,7 +10,7 @@ const rootReducer = (state = initialState, action) => {
 
 const store = configureStore({
   reducer: {
-    user: UserSlice.reducer,
+    authentication: authenticationSlice.reducer,
   },
 
   middleware: (getDefaultMiddleware) =>

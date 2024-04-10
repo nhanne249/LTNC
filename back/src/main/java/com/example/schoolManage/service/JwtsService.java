@@ -18,8 +18,8 @@ import javax.crypto.SecretKey;
 @Service
 public class JwtsService {
 
-    private final String SECRET_KEY = "98e8fd2d5ece5d039ba0e3ff765d1ddac70bc074bb52cd889dbf1bccf86a175a";
-    private final static long EXPIRATION_TIME = 604800000;
+    private static final String SECRET_KEY = "98e8fd2d5ece5d039ba0e3ff765d1ddac70bc074bb52cd889dbf1bccf86a175a";
+    private static final long EXPIRATION_TIME = 604800000;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -48,14 +48,12 @@ public class JwtsService {
     }
 
     public String generateToken(User user) {
-        String token = Jwts.builder()
-                .subject(
-                        user.getUsername())
+        return Jwts.builder()
+                .subject(user.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 604800000))
+                .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(getSigningKey())
                 .compact();
-        return token;
     }
 
     private SecretKey getSigningKey() {
