@@ -1,8 +1,9 @@
 .educationProgram-table-container {
-    margin-left: 15px;
-    margin-right: 35px;
-    margin-top: 5px;
-    margin-bottom: 15px;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 35px;
+    padding-top: 5px;
+    padding-bottom: 15px;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     .button-container {
         width: 100%;
@@ -10,20 +11,18 @@
         justify-content: center;
         align-items: center;
     }
-    .card-container {
-        margin-right: 100px;
+    .note-container {
+        padding-left: 15px;
+        padding-right: 35px;
+        padding-top: 5px;
+        padding-bottom: 15px;
+        border-radius: 10px;
         background-color: #BCE8F1;
         .note-title {
                 color: #008cffc7;
             }
         .note-content {
-            color: #0000FF;
-        }
-        .pass-sign {
-            color: rgb(28, 238, 28);
-        }
-        .fail-sign {
-            color: red;
+            color: #000000;
         }
     }
     .dashed {
@@ -31,28 +30,36 @@
         border-radius: 1px;
     }
     .table-container {
+        width: 100%;
         font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
         word-wrap: break-word;
         border-collapse: collapse;
         th, td {
             border: 1px solid;
         }
-        .table-header {
-            color: #0000FF;
-            background-color: #C7D6F3;
-            height: 39px;
-            align-content: center;
-            font-weight: bold;
-            border: 1px solid;
-            border-color: black;
+        .ant-table-title {
+            padding: 0 !important;
+            .table-header {
+                color: #0000FF;
+                background-color: #C7D6F3;
+                height: 39px;
+                align-content: center;
+                font-weight: bold;
+                border: 1px solid;
+                border-color: black;
+                padding-left: 8px;
+            }
         }
         .table-title {
             color: black;
             font-weight: bold;
         }
-        .table-footer {
-            background-color: #FFE5BA;
-            border: 1px solid;
+        .ant-table-footer {
+            padding: 0 !important;
+            .table-footer {
+                background-color: #FFE5BA;
+                border: 1px solid;
+            }
         }
     }
 }

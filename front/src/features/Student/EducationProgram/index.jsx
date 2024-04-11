@@ -1,4 +1,4 @@
-import { Table, Row, Col, Card, message, Button, Dropdown, Space, Flex } from "antd";
+import { Table, Row, Col, message, Button, Dropdown, Space, Flex } from "antd";
 import { RightOutlined, PauseOutlined, CheckOutlined, CloseOutlined, DownOutlined, UserOutlined, DownloadOutlined } from "@ant-design/icons";
 import './index.scss';
 
@@ -193,16 +193,15 @@ const EducationProgram = () => {
                         </div>
                 </Row>
                 <hr className="dashed"></hr>
-                <Card
-                    style={{
-                        width: 800,
-                    }}
-                    className="card-container"
-                >
+                <div className="note-container">
                     <h3 className="note-title">Chú ý:</h3>
-                    <p className="note-content"><CheckOutlined className="pass-sign"/><PauseOutlined rotate={90}/><RightOutlined />Học phần đạt</p>
-                    <p className="note-content"><CloseOutlined className="fail-sign"/><PauseOutlined rotate={90}/><RightOutlined />Học phần chưa đạt</p>
-                </Card>
+                    <div style={{display: "flex"}}>
+                        <CheckOutlined /><PauseOutlined rotate={90}/><RightOutlined /><p className="note-content">Học phần đạt</p>
+                    </div>
+                    <div style={{display: "flex"}}>
+                        <CloseOutlined /><PauseOutlined rotate={90}/><RightOutlined /><p className="note-content">Học phần chưa đạt</p>
+                    </div>
+                </div>
                 <Table
                     className="table-container"
                     dataSource={dataSource}
