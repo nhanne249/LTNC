@@ -1,4 +1,4 @@
-package com.example.schoolManage.security;
+package com.example.schoolManage.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;

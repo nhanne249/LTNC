@@ -1,12 +1,10 @@
-package com.example.schoolManage.controller;
+package com.example.schoolManage.auth;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.schoolManage.model.AuthenticationResponse;
 import com.example.schoolManage.model.user.User;
-import com.example.schoolManage.service.AuthenticationService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
