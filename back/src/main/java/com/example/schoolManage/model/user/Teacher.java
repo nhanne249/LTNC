@@ -1,5 +1,6 @@
 package com.example.schoolManage.model.user;
 
+import com.example.schoolManage.enums.Role;
 import com.example.schoolManage.model.course.Classroom;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -14,7 +15,8 @@ public class Teacher extends User{
     private List<Classroom> teachingClasses;
 
     public Teacher(String username, String password, String name, String email, String phoneNumber) {
-        super(username, password, "TEACHER");
+        super(username, password, Role.TEACHER
+        );
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;

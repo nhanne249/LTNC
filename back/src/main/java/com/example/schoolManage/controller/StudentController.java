@@ -16,7 +16,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/student")
-@PreAuthorize("hasAuthority('STUDENT')")
 public class StudentController {
     @Autowired
     private StudentService studentService;

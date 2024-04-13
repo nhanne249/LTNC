@@ -1,5 +1,6 @@
-package com.example.schoolManage.service;
+package com.example.schoolManage.config;
 
+import java.security.Key;
 import java.util.Date;
 import java.util.function.Function;
 
@@ -47,7 +48,7 @@ public class JwtsService {
         return resolver.apply(claims);
     }
 
-    public String generateToken(User user) {
+    public String generateToken(UserDetails user) {
         return Jwts.builder()
                 .subject(user.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))

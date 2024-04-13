@@ -7,6 +7,7 @@ import com.example.schoolManage.model.user.Teacher;
 import com.example.schoolManage.model.user.User;
 import com.example.schoolManage.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,22 +15,25 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 @RequestMapping
-@PreAuthorize("hasAuthority('ADMIN')")
 public class AdminController {
     @Autowired
     private AdminService adminService;
 
     @GetMapping("/all/users")
     public ResponseEntity<List<User>> allUser() {
-        return new ResponseEntity<List<User>>(adminService.getAllUsers(), HttpStatus.OK);
+        return new ResponseEntity<>(adminService.getAllUsers(), HttpStatus.OK);
     }
-
+    @GetMapping("/all/users/{page}")
+    public ResponseEntity<Page<User>> pageUsers(@PathVariable int page){
+        return new ResponseEntity<>(adminService.getUsersPage(page), HttpStatus.OK);
+    }
     @GetMapping("/{username}")
-    public ResponseEntity<User> getUserBy(@PathVariable String username) {
-        return new ResponseEntity<User>(adminService.getUser(username), HttpStatus.OK);
+    public ResponseEntity<Optional<User>> getUserBy(@PathVariable String username) {
+        return new ResponseEntity<>(adminService.getUser(username), HttpStatus.OK);
     }
 
     @PostMapping("/student")
@@ -37,7 +41,7 @@ public class AdminController {
         Student st = adminService.createStudent(student);
         if (Objects.isNull(st))
             return ResponseEntity.badRequest().build();
-        return new ResponseEntity<Student>(st, HttpStatus.CREATED);
+        return new ResponseEntity<>(st, HttpStatus.CREATED);
     }
 
     @PostMapping("/teacher")
@@ -45,13 +49,12 @@ public class AdminController {
         Teacher tc = adminService.createTeacher(teacher);
         if (Objects.isNull(tc))
             return ResponseEntity.badRequest().build();
-        return new ResponseEntity<Teacher>(tc, HttpStatus.CREATED);
+        return new ResponseEntity<>(tc, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{username}")
-    public ResponseEntity<String> deleteUser(@PathVariable String username) {
-        adminService.deleteUser(username);
-        return ResponseEntity.ok("deleted");
+    public ResponseEntity<Optional<User>> deleteUser(@PathVariable String username) {
+        return new ResponseEntity<>(adminService.deleteUser(username), HttpStatus.OK);
     }
 
     @PostMapping("/courses")

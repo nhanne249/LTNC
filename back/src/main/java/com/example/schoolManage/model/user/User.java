@@ -3,6 +3,7 @@ package com.example.schoolManage.model.user;
 import java.util.Collection;
 import java.util.List;
 
+import com.example.schoolManage.enums.Role;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,28 +11,28 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import static com.example.schoolManage.SchoolManageApplication.currentUsers;
+
+
 @Document(collection = "users")
 public class User implements UserDetails {
     @Id
-    protected ObjectId id;
+    protected long id;
     protected String username;
     protected String password;
-    protected String role;
+    protected Role role;
 
-    public User(String username, String password, String role) {
+    public User(String username, String password, Role role) {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.id = currentUsers;
     }
-
-    public ObjectId getId() {
-        return id;
-    }
-
-    public void setId(ObjectId id) {
+    public void setId(long id){
         this.id = id;
     }
-
+    public long getId(){return id;}
+    @Override
     public String getUsername() {
         return username;
     }
@@ -39,7 +40,7 @@ public class User implements UserDetails {
     public void setUsername(String username) {
         this.username = username;
     }
-
+    @Override
     public String getPassword() {
         return password;
     }
@@ -48,17 +49,13 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role));
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override
