@@ -1,4 +1,4 @@
-package com.example.schoolManage;
+package com.example.schoolManage.enums;
 
 public enum Role {
     ADMIN,

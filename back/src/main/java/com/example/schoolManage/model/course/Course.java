@@ -10,9 +10,8 @@ import java.util.List;
 @Document(collection = "courses")
 public class Course {
     @Id
-    private ObjectId id;
-    private String name;
     private String courseId;
+    private String name;
     private List<Classroom> classes;
     public Course(String name, String courseId){
         this.name = name;

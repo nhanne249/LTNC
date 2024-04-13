@@ -11,8 +11,6 @@ import java.util.List;
 @Document("classes")
 public class Classroom{
     @Id
-    private ObjectId id;
-    //private Date date;
     private String classId;
     private String place;
     private List<Student> studentList;

@@ -1,6 +1,6 @@
 package com.example.schoolManage.model.user;
 
-import com.example.schoolManage.Role;
+import com.example.schoolManage.enums.Role;
 import com.example.schoolManage.model.course.Course;
 import org.springframework.data.mongodb.core.mapping.Document;
 
