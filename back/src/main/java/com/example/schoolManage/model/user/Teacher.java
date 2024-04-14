@@ -4,6 +4,9 @@ import com.example.schoolManage.enums.Role;
 import com.example.schoolManage.model.course.Classroom;
 import com.example.schoolManage.model.course.Course;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -63,33 +66,6 @@ public class Teacher extends User{
     public void setTeachingClasses(List<Classroom> teachingClasses) {
         this.teachingClasses = teachingClasses;
     }
-    public String getTeacherInfo(){
-        return "Name: " + this.name + "\n"  + "Email: "+ this.email + "\n" + "Phone number: " + this.phoneNumber + "\n";
-    }
-    public void updateTeacherInfo(String name, String email, String phoneNumber ){
-        this.name = name;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-    }
-    public List<Classroom> getAllClass(){
-        return teachingClasses;
-    }
-    public Classroom getClass(String classId){
-        for (Classroom classroom : teachingClasses) {
-            if (classroom.getClassId().equals(classId)) {
-                return classroom;
-            }
-        }
-        return null;
-    }
-    public void changeClass(Classroom oldClass, Classroom newClass){
-        teachingClasses.remove(oldClass);
-        teachingClasses.add(newClass);
-    }
-    public void giveScore(Course course,String classId, String studentId, double scores){
-       Classroom classroom = getClass(classId);
-       if(classroom != null){
-            classroom.setScore(course,studentId,scores);
-       }
-    }
+
+
 }
