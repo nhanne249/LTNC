@@ -11,8 +11,6 @@ import java.util.List;
 @Document("classes")
 public class Classroom{
     @Id
-    private ObjectId id;
-    //private Date date;
     private String classId;
     private String place;
     private List<Student> studentList;
@@ -53,5 +51,14 @@ public class Classroom{
 
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
+    }
+    public void setScore(Course course, String studentId, double score){
+        for(Student student : studentList){
+            if(student.getStudentId().equals(studentId)){
+                student.setScore(course, score);
+                return;
+            }
+        }
+        //System.out.println("Student with ID: " + studentId + " not found in the class\n");
     }
 }

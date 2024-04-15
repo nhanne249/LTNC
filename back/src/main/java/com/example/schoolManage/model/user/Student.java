@@ -1,5 +1,6 @@
 package com.example.schoolManage.model.user;
 
+import com.example.schoolManage.enums.Role;
 import com.example.schoolManage.model.course.Course;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -14,7 +15,7 @@ public class Student extends User {
     private List<Course> enrolledCourses;
     private Map<Course, Double> scores;
     public Student(String username, String password, String name, String studentId, String email, String phoneNumber) {
-        super(username, password, "STUDENT");
+        super(username, password, Role.STUDENT);
         this.name = name;
         this.studentId = studentId;
         this.email = email;
@@ -23,7 +24,7 @@ public class Student extends User {
         this.scores = new HashMap<>();
     }
     public Student(){
-        super(null, null, "STUDENT");
+        super(null, null, Role.STUDENT);
     }
     public String getName() {
         return name;

@@ -7,9 +7,7 @@ const authentication = createSlice({
     login:[],
   },
   reducers: {
-    registerStudent: (state) => {
-      state.loginThunk = [];
-    },
+    
   },
   extraReducers: (builder) => {
     builder.addCase(
@@ -22,7 +20,5 @@ const authentication = createSlice({
     )
   }
 });
-export const { registerStudent, 
-  login 
-} = authentication.actions;
+export const {} = authentication.actions;
 export default authentication;
