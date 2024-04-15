@@ -52,4 +52,13 @@ public class Classroom{
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
+    public void setScore(Course course, String studentId, double score){
+        for(Student student : studentList){
+            if(student.getStudentId().equals(studentId)){
+                student.setScore(course, score);
+                return;
+            }
+        }
+        //System.out.println("Student with ID: " + studentId + " not found in the class\n");
+    }
 }
