@@ -1,8 +1,8 @@
 import React from "react";
 import "./index.scss";
 
-const UserList = () => {
+const PersonalInformation = () => {
     return (<div></div>);
 }
 
-export default UserList;
+export default PersonalInformation;
