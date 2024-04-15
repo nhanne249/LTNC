@@ -10,8 +10,6 @@ import com.example.schoolManage.repository.CourseRepository;
 import com.example.schoolManage.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +25,8 @@ public class AdminService {
     private final CourseRepository courseRepository;
     private final ClassRepository classRepository;
 
-    public AdminService(PasswordEncoder passwordEncoder, UserRepository userRepository, CourseRepository courseRepository, ClassRepository classRepository) {
+    public AdminService(PasswordEncoder passwordEncoder, UserRepository userRepository,
+            CourseRepository courseRepository, ClassRepository classRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.courseRepository = courseRepository;
@@ -37,10 +36,12 @@ public class AdminService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
-    public Page<User> getUsersPage(int page){
+
+    public Page<User> getUsersPage(int page) {
         final int PAGE_SIZE = 10;
-        return userRepository.findAll(PageRequest.of(page - 1, PAGE_SIZE)); //danh so bat dau tu 0
+        return userRepository.findAll(PageRequest.of(page - 1, PAGE_SIZE)); // danh so bat dau tu 0
     }
+
     public Student createStudent(Student student) {
 
         if (userRepository.findByUsername(student.getUsername()).isPresent()) {
@@ -55,7 +56,7 @@ public class AdminService {
         if (userRepository.findByUsername(teacher.getUsername()).isPresent()) {
             return null;
         }
-        currentUsers +=1;
+        currentUsers += 1;
         return userRepository.save(new Teacher(teacher.getUsername(),
                 passwordEncoder.encode(teacher.getPassword()),
                 teacher.getName(),
@@ -68,9 +69,9 @@ public class AdminService {
     }
 
     public Optional<User> deleteUser(String username) {
-        currentUsers -=1;
+        currentUsers -= 1;
         var usr = userRepository.findByUsername(username);
-        if(usr.isPresent()){
+        if (usr.isPresent()) {
             long id = usr.get().getId();
             userRepository.deleteById(id);
         }
@@ -88,6 +89,7 @@ public class AdminService {
     public Optional<Course> getCourse(String courseId) {
         return courseRepository.findById(courseId);
     }
+
     public void deleteCourse(String courseId) {
         courseRepository.deleteById(courseId);
     }
@@ -95,7 +97,8 @@ public class AdminService {
     public Classroom addClass(Classroom classroom) {
         return classRepository.save(classroom);
     }
-    public void deleteClass(String classId){
+
+    public void deleteClass(String classId) {
         classRepository.deleteById(classId);
     }
 }
