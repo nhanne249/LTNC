@@ -1,5 +1,4 @@
-import StudentLayout from "../../layouts/Student/index.jsx";
-import Dashboard from "../../features/Student/Dashboard";
+import Layouts from "../../layouts/index.jsx";
 import PersonalInformation from "../../features/Student/PersonalInformation/index.jsx";
 import Notification from "../../features/Student/Notification/index.jsx";
 import EducationProgram from "../../features/Student/EducationProgram/index.jsx";
@@ -8,13 +7,16 @@ const studentRouter = [
   {
     role: "student",
     path: "/student",
-    element: <StudentLayout />,
+    element: <Layouts />,
     children: [
       {
         path: "*",
-        Component: Dashboard,
+        Component: PersonalInformation,
       },
-      //////////////////////Product//////////////////
+      {
+        path: "",
+        Component: PersonalInformation,
+      },
       {
         path: "personal-information",
         Component: PersonalInformation,

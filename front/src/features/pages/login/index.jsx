@@ -12,11 +12,7 @@ import logo from "../../../assets/img/logobkjpeg.jpeg";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [cookies, setCookie, removeCookie] = useCookies([
-    "name",
-    "role",
-    "userPresent",
-  ]);
+  const [cookies, setCookie] = useCookies(["name", "role", "userPresent"]);
   const onFinish = (data) => {
     const dataSend = {
       username: data.username,
@@ -31,17 +27,18 @@ const Login = () => {
           theme: "colored",
         });
         if (data.isChecked) {
-          setCookie("name", `${data.username}`, { maxAge: 604800000 });
+          setCookie("username", `${data.username}`, { maxAge: 604800000 });
           setCookie("role", `${res.payload.role}`, { maxAge: 604800000 });
           setCookie("userPresent", `${res.payload.token}`, {
             maxAge: 604800000,
           });
         } else {
-          setCookie("name", `${data.username}`);
-          setCookie("role", `${res.payload.role}`);
-          setCookie("userPresent", `${res.payload.token}`);
+          setCookie("username", `${data.username}`, { path: "/" });
+          setCookie("role", `${res.payload.role}`, { path: "/" });
+          setCookie("userPresent", `${res.payload.token}`, { path: "/" });
         }
-        navigate("/student/personal-information");
+        const path = res.payload.role.toLowerCase();
+        navigate(`${path}/`);
       } else {
         toast.error("Email hoặc mật khẩu không chính xác", {
           position: "top-right",

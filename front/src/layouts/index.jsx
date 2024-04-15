@@ -6,10 +6,10 @@ import HeaderPage from "./HeaderPage";
 import SiderPage from "./SiderPage";
 import FooterPage from "./FooterPage";
 import "./style.scss";
-import logobk from "../../assets/img/logobkjpeg.png";
+import logobk from "../assets/img/logobkjpeg.png";
 
 const { Header, Footer, Sider, Content } = Layout;
-const StudentLayout = () => {
+const Layouts = () => {
   const location = useLocation();
   const pathname = location.pathname;
 
@@ -22,8 +22,14 @@ const StudentLayout = () => {
   if (pathParts.includes("result")) title = "Kết quả học tập";
   if (pathParts.includes("course-register")) title = "Đăng ký khóa học";
   if (pathParts.includes("instructor-evaluate")) title = "Đánh giá giảng viên";
+  if (pathParts.includes("users")) title = "Danh sách người dùng";
+  if (pathParts.includes("add-users")) title = "Thêm người dùng mới";
+  if (pathParts.includes("teacher-list")) title = "Danh sách giảng viên";
+  if (pathParts.includes("student-list")) title = "Danh sách sinh viên";
+  if (pathParts.includes("courses")) title = "Danh sách khóa học";
+  if (pathParts.includes("add-courses")) title = "Thêm khóa học mới";
   return (
-    <Layout className="student-page-layout">
+    <Layout className="page-layout">
       <Image
         preview={false}
         src={logobk}
@@ -56,4 +62,4 @@ const StudentLayout = () => {
   );
 };
 
-export default StudentLayout;
+export default Layouts;
