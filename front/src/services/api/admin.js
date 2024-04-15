@@ -34,7 +34,7 @@ const admin = {
     },
     deleteCourse: (data) => {
         return transport.post(
-            `/courses/${courseId}`, JSON.stringify(data)
+            `/courses/${data.courseId}`, JSON.stringify(data)
         )
     },
     createNewClass: (data) => {

@@ -20,11 +20,12 @@ public class TeacherController {
     @Autowired
     TeacherService teacherService;
 
-    @GetMapping("/classes")
-    public ResponseEntity<List<Classroom>> allClasses() {
-        return new ResponseEntity<List<Classroom>>(teacherService.getAllClasses(getLoggedInUserDetails().getUsername()),
-                HttpStatus.OK);
-    }
+    // @GetMapping("/classes")
+    // public ResponseEntity<List<Classroom>> allClasses() {
+    // return new
+    // ResponseEntity<List<Classroom>>(teacherService.getAllClasses(getLoggedInUserDetails().getUsername()),
+    // HttpStatus.OK);
+    // }
 
     @PostMapping("/classes/{classId}")
     public ResponseEntity<Classroom> addClass(@PathVariable String classId) {

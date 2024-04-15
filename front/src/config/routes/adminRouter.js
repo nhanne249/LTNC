@@ -16,27 +16,27 @@ const adminRouter = [
         Component: Dashboard,
       },
       {
-        path: "/users",
+        path: "users",
         Component: Dashboard,
       },
       {
-        path: "/teacher-list",
+        path: "teacher-list",
         Component: Dashboard,
       },
       {
-        path: "/student-list",
+        path: "student-list",
         Component: Dashboard,
       },
       {
-        path: "/courses",
+        path: "courses",
         Component: Dashboard,
       },
       {
-        path: "/add-users",
+        path: "add-users",
         Component: Dashboard,
       },
       {
-        path: "/add-courses",
+        path: "add-courses",
         Component: Dashboard,
       },
     ],

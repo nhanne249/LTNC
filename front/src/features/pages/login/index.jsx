@@ -38,7 +38,8 @@ const Login = () => {
           setCookie("userPresent", `${res.payload.token}`, { path: "/" });
         }
         const path = res.payload.role.toLowerCase();
-        navigate(`${path}/`);
+        console.log(path);
+        navigate(`${path}`);
       } else {
         toast.error("Email hoặc mật khẩu không chính xác", {
           position: "top-right",

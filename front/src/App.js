@@ -6,7 +6,7 @@ import { publicRouter, privateRouter } from "./config/routes";
 import {useCookies} from 'react-cookie';
 function App() {
   const [cookies] = useCookies(['isBrowserClose','role']);
-  const role = cookies.role;
+  const role = cookies.role?.toLowerCase();
   console.log(role);
 
   return (
@@ -15,12 +15,13 @@ function App() {
         <Routes>
           {role || role != undefined ? (privateRouter.map((routers) => {
             return routers.map((route, index) => {
-              return route.role == role.toLowerCase() ? (
+              console.log(route);
+              return route.role == role ? (
                 <Route path={route.path} element={route.element} key={index}>
                   {route.index ? <Route index element={route.index} /> : null}
                   {route.children
                     ? route.children.map(({ path, Component }, index) => {
-                      console.log('succeeded')
+                      console.log(path)
                       return (
                         <Route
                           path={path}

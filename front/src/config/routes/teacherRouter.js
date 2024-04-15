@@ -11,20 +11,20 @@ const teacherRouter = [
         path: "*",
         Component: Dashboard,
       },
+      // {
+      //   path: "/",
+      //   Component: Dashboard,
+      // },
       {
-        path: "",
+        path: "personal-information",
         Component: Dashboard,
       },
       {
-        path: "/personal-information",
+        path: "notification",
         Component: Dashboard,
       },
       {
-        path: "/notification",
-        Component: Dashboard,
-      },
-      {
-        path: "/course",
+        path: "course",
         Component: Dashboard,
       },
     ],
