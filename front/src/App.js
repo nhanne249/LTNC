@@ -6,14 +6,35 @@ import { publicRouter, privateRouter } from "./config/routes";
 import {useCookies} from 'react-cookie';
 function App() {
   const [cookies] = useCookies(['isBrowserClose','role']);
-  const role = cookies.role;
+  const role = cookies.role?.toLowerCase();
   console.log(role);
 
   return (
     <>
       <Router>
         <Routes>
-          {publicRouter.map((routers) => {
+          {role || role != undefined ? (privateRouter.map((routers) => {
+            return routers.map((route, index) => {
+              console.log(route);
+              return route.role == role ? (
+                <Route path={route.path} element={route.element} key={index}>
+                  {route.index ? <Route index element={route.index} /> : null}
+                  {route.children
+                    ? route.children.map(({ path, Component }, index) => {
+                      console.log(path)
+                      return (
+                        <Route
+                          path={path}
+                          element={<Component/> }
+                          key={index}
+                        />
+                      );
+                    })
+                    : null}
+                </Route>
+              ) : null;
+            });
+          })) : (publicRouter.map((routers) => {
             return routers.map((route, index) => {
               return (
                 <Route path={route.path} element={route.element} key={index}>
@@ -32,28 +53,7 @@ function App() {
                 </Route>
               );
             });
-          })}
-          {privateRouter.map((routers) => {
-            return routers.map((route, index) => {
-              return route.role == role || role == "ADMIN" ? (
-                <Route path={route.path} element={route.element} key={index}>
-                  {route.index ? <Route index element={route.index} /> : null}
-                  {route.children
-                    ? route.children.map(({ path, Component }, index) => {
-                      console.log('succeeded')
-                      return (
-                        <Route
-                          path={path}
-                          element={<Component/> }
-                          key={index}
-                        />
-                      );
-                    })
-                    : null}
-                </Route>
-              ) : null;
-            });
-          })}
+          }))}
         </Routes>
       </Router>
       {/* <Loading /> */}

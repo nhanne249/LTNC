@@ -3,6 +3,7 @@ package com.example.schoolManage.service;
 import com.example.schoolManage.model.course.Classroom;
 import com.example.schoolManage.model.course.Course;
 import com.example.schoolManage.model.user.Teacher;
+import com.example.schoolManage.repository.ClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -17,6 +18,8 @@ import java.util.concurrent.atomic.AtomicReference;
 public class TeacherService {
     @Autowired
     private MongoTemplate mongoTemplate;
+    @Autowired
+    public ClassRepository classRepository;
     public List<Classroom> getAllClasses(String teacherUsername){
         Teacher teacher = mongoTemplate.findOne(Query.query(Criteria.where("username").is(teacherUsername)), Teacher.class, "users");
         return teacher.getTeachingClasses();
@@ -66,27 +69,17 @@ public class TeacherService {
         }
         return null;
     }
-    public Classroom getOneClass(String teacherUsername, String classId) {
-        Teacher teacher = searchTeacher(teacherUsername);
-        if (teacher != null) {
-            for (Classroom classroom : teacher.getTeachingClasses()) {
+    public Classroom getOneClass(String classId) {
+            for (Classroom classroom : classRepository.findAll()) {
                 if (classroom.getClassId().equals(classId)) {
                     return classroom;
                 }
             }
-        }
-        return null;
+            return null;
     }
-    public void changeClass(String teacherUsername, Classroom oldClass, Classroom newClass){
-        Teacher teacher = searchTeacher(teacherUsername);
-        if (teacher != null) {
-            List<Classroom> teachingClasses = teacher.getTeachingClasses();
-            teachingClasses.remove(oldClass);
-            teachingClasses.add(newClass);
-            teacher.setTeachingClasses(teachingClasses);
-            mongoTemplate.save(teacher);
-        }
-    }
+//    public void changeClass( Classroom newClass){
+//        classRepository.save(newClass);
+//    }
 
     public void giveScore(String teacherUsername, Course course, String classId, String studentId, double scores){
         Teacher teacher = searchTeacher(teacherUsername);

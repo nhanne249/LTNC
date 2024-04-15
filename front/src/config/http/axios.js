@@ -22,7 +22,8 @@ const httpHandler = (baseURL) => {
   axiosHttp.interceptors.request.use(
     async function intercept(config) {
       const interceptedConfig = config;
-      if(myCookieValue) {
+      if (myCookieValue) {
+        console.log(myCookieValue);
           interceptedConfig.headers['Authorization'] = 'Bearer ' + myCookieValue;
         }
       interceptedConfig.headers['Content-Type'] = 'application/json';

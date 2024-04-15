@@ -1,13 +1,10 @@
 package com.example.schoolManage.config;
 
-import java.security.Key;
 import java.util.Date;
 import java.util.function.Function;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
-import com.example.schoolManage.model.user.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
