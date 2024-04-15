@@ -1,14 +1,8 @@
 package com.example.schoolManage.model.user;
 
 import com.example.schoolManage.enums.Role;
-import com.example.schoolManage.model.course.Classroom;
-import com.example.schoolManage.model.course.Course;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.LinkedList;
 import java.util.List;
 
 @Document(collection = "users")
@@ -17,14 +11,15 @@ public class Teacher extends User {
     private String email;
     private String phoneNumber;
     private List<String> degrees;
-    private List<Classroom> teachingClasses;
 
-    public Teacher(String username, String password, String name, String email, String phoneNumber) {
-        super(username, password, Role.TEACHER);
+
+    public Teacher(long id, String username, String password, String name, String email, String phoneNumber, List<String> degrees) {
+        super(id, username, password, Role.TEACHER);
+
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.teachingClasses = new LinkedList<>();
+        this.degrees = degrees;
     }
 
     public String getName() {
@@ -58,13 +53,4 @@ public class Teacher extends User {
     public void setDegrees(List<String> degrees) {
         this.degrees = degrees;
     }
-
-    public List<Classroom> getTeachingClasses() {
-        return teachingClasses;
-    }
-
-    public void setTeachingClasses(List<Classroom> teachingClasses) {
-        this.teachingClasses = teachingClasses;
-    }
-
 }

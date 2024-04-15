@@ -4,14 +4,11 @@ import java.util.Collection;
 import java.util.List;
 
 import com.example.schoolManage.enums.Role;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import static com.example.schoolManage.SchoolManageApplication.currentUsers;
 
 
 @Document(collection = "users")
@@ -22,11 +19,11 @@ public class User implements UserDetails {
     protected String password;
     protected Role role;
 
-    public User(String username, String password, Role role) {
+    public User(long id, String username, String password, Role role) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
-        this.id = currentUsers;
     }
     public void setId(long id){
         this.id = id;

@@ -1,24 +1,29 @@
 package com.example.schoolManage.model.course;
 
-import com.example.schoolManage.model.user.Student;
-import com.example.schoolManage.model.user.Teacher;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 @Document("classes")
 public class Classroom{
     @Id
     private String classId;
+    private String subject;
     private String place;
-    private List<Student> studentList;
-    private Teacher teacher;
-    public Classroom(String place, String classId) {
-        this.place = place;
+    private String day;
+    private List<Integer> time;
+    private List<String> students;
+    private String teacher;
+
+    public Classroom(String classId, String subject, String place, String day, List<Integer> time, String teacher) {
         this.classId = classId;
-        this.studentList = new LinkedList<>();
+        this.subject = subject;
+        this.place = place;
+        this.day = day;
+        this.time = time;
+        this.teacher = teacher;
+        this.students = new ArrayList<>(40);
     }
 
     public String getClassId() {
@@ -37,28 +42,43 @@ public class Classroom{
         this.place = place;
     }
 
-    public List<Student> getStudentList() {
-        return studentList;
+    public String getDay() {
+        return day;
     }
 
-    public void setStudentList(List<Student> studentList) {
-        this.studentList = studentList;
+    public void setDay(String day) {
+        this.day = day;
     }
 
-    public Teacher getTeacher() {
+    public List<Integer> getTime() {
+        return time;
+    }
+
+    public void setTime(List<Integer> time) {
+        this.time = time;
+    }
+
+    public List<String> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<String> students) {
+        this.students = students;
+    }
+
+    public String getTeacher() {
         return teacher;
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    public String getSubject() {
+        return subject;
     }
-    public void setScore(Course course, String studentId, double score){
-        for(Student student : studentList){
-            if(student.getStudentId().equals(studentId)){
-                student.setScore(course, score);
-                return;
-            }
-        }
-        //System.out.println("Student with ID: " + studentId + " not found in the class\n");
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
     }
 }

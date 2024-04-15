@@ -28,7 +28,7 @@ public class AuthenticationService {
         this.authenticationManager = authenticationManager;
     }
     public AuthenticationResponse register(AuthenticationRequest request){
-        userRepository.save(new User(request.getUsername(), passwordEncoder.encode(request.getPassword()), Role.ADMIN));
+        userRepository.save(new User(userRepository.count(), request.getUsername(), passwordEncoder.encode(request.getPassword()), Role.ADMIN));
         User user = userRepository.findByUsername(request.getUsername()).orElseThrow();
         return new AuthenticationResponse(jwtsService.generateToken(user), user.getRole());
     }
