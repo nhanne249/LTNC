@@ -1,29 +1,25 @@
-//package com.example.schoolManage.service;
-//
-//import com.example.schoolManage.model.course.Classroom;
-//import com.example.schoolManage.model.course.Course;
-//import com.example.schoolManage.model.user.Teacher;
-//import com.example.schoolManage.repository.ClassRepository;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.data.mongodb.core.MongoTemplate;
-//import org.springframework.data.mongodb.core.query.Criteria;
-//import org.springframework.data.mongodb.core.query.Query;
-//import org.springframework.stereotype.Service;
-//import org.springframework.web.bind.annotation.PutMapping;
-//
-//import java.util.List;
-//import java.util.Objects;
-//import java.util.concurrent.atomic.AtomicReference;
-//@Service
-//public class TeacherService {
-//    @Autowired
-//    private MongoTemplate mongoTemplate;
-//    @Autowired
-//    public ClassRepository classRepository;
-//    public List<Classroom> getAllClasses(String teacherUsername){
-//        Teacher teacher = mongoTemplate.findOne(Query.query(Criteria.where("username").is(teacherUsername)), Teacher.class, "users");
-//        return teacher.getTeachingClasses();
-//    }
+package com.example.schoolManage.service;
+
+
+import com.example.schoolManage.model.course.Classroom;
+import com.example.schoolManage.repository.ClassRepository;
+import com.example.schoolManage.repository.UserRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class TeacherService {
+    private final UserRepository userRepository;
+    private final ClassRepository classRepository;
+
+    public TeacherService(UserRepository userRepository, ClassRepository classRepository) {
+        this.userRepository = userRepository;
+        this.classRepository = classRepository;
+    }
+    public List<Classroom> getAllClasses(String username){
+        return classRepository.findAllByTeacher(username);
+    }
 //    public Classroom getClass(String teacherUsername, String classId){
 //        Teacher teacher = mongoTemplate.findOne(Query.query(Criteria.where("username").is(teacherUsername)), Teacher.class, "users");
 //        AtomicReference<Classroom> cr = new AtomicReference<>();
@@ -77,4 +73,4 @@
 //            }
 //            return null;
 //    }
-//}
+}
