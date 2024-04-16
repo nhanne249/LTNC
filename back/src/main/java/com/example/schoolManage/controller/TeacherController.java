@@ -1,7 +1,6 @@
 package com.example.schoolManage.controller;
 
 import com.example.schoolManage.model.course.Classroom;
-import com.example.schoolManage.model.course.Course;
 import com.example.schoolManage.model.user.Teacher;
 import com.example.schoolManage.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +28,15 @@ public class TeacherController {
     // HttpStatus.OK);
     // }
 
-    @GetMapping("/info")
-    public ResponseEntity<Teacher> getTeacherInfo() {
-        Teacher teacher = teacherService.getTeacherInfo(getLoggedInUserDetails().getUsername());
+    @PostMapping("/classes")
+    public ResponseEntity<Classroom> addClass(@RequestBody Classroom newClass) {
+        return new ResponseEntity<Classroom>(teacherService.addClass(getLoggedInUserDetails().getUsername(), newClass),
+                HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{username}")
+    public ResponseEntity<Teacher> getTeacher(@PathVariable String username) {
+        Teacher teacher = teacherService.searchTeacher(username);
         if (teacher != null) {
             return ResponseEntity.ok(teacher);
         } else {
@@ -39,35 +44,32 @@ public class TeacherController {
         }
     }
 
-    @PutMapping("/info")
-    public ResponseEntity<Void> updateInfo(@RequestBody Teacher teacher) {
-        teacherService.updateTeacherInfo(getLoggedInUserDetails().getUsername(), teacher.getName(), teacher.getEmail(), teacher.getPhoneNumber());
+    @PutMapping("/{username}")
+    public ResponseEntity<Void> updateInfo(@PathVariable String username, @RequestParam String name,
+            @RequestParam String email, @RequestParam String phoneNumber) {
+        Teacher teacher = teacherService.searchTeacher(username);
+        teacherService.updateTeacherInfo(username, name, email, phoneNumber);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/classes")
-    public ResponseEntity<List<Classroom>> getAllClasses() {
-        List<Classroom> teachingClass = teacherService.getAllClasses(getLoggedInUserDetails().getUsername());
+    public ResponseEntity<List<Classroom>> getAllClasses(@PathVariable String username) {
+        List<Classroom> teachingClass = teacherService.getAllClasses(username);
         if (teachingClass != null) {
             return ResponseEntity.ok(teachingClass);
         }
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/class/{classId}")
-    public ResponseEntity<Classroom> getOneClass(@PathVariable String classId) {
-        Classroom classroom = teacherService.getOneClass(classId);
+    @GetMapping("/class")
+    public ResponseEntity<Classroom> getOneClass(@PathVariable String username, @PathVariable String classId) {
+        Classroom classroom = teacherService.getClass(username, classId);
         if (classroom != null) {
             return ResponseEntity.ok(classroom);
         }
         return ResponseEntity.notFound().build();
     }
 
-//    @PutMapping("/change-class")
-//    public ResponseEntity<Void> changeClass(@RequestBody Classroom newClass) {
-//        teacherService.changeClass(newClass);
-//        return ResponseEntity.ok().build();
-//    }
 
 //    @PostMapping("/scores")
 //    public ResponseEntity<Void> giveScore(@PathVariable String username, @RequestParam Course course,
