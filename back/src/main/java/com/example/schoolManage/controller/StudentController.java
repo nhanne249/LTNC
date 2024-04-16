@@ -1,62 +1,3 @@
-//package com.example.schoolManage.controller;
-//
-//import com.example.schoolManage.model.course.Course;
-//import com.example.schoolManage.model.user.Student;
-//import com.example.schoolManage.service.StudentService;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.security.core.userdetails.UserDetails;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.util.List;
-//
-//@RestController
-//@RequestMapping("/student")
-//public class StudentController {
-//    @Autowired
-//    private StudentService studentService;
-//
-//    @GetMapping("/info")
-//    public ResponseEntity<Student> getInfo() {
-//        return new ResponseEntity<Student>(studentService.getStudentByUsername(getLoggedInUserDetails().getUsername()),
-//                HttpStatus.OK);
-//    }
-//
-//    @PutMapping("/update")
-//    public ResponseEntity<Student> update(@RequestBody Student student) {
-//        return new ResponseEntity<Student>(
-//                studentService.updateStudentByUserName(getLoggedInUserDetails().getUsername(), student), HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/courses")
-//    public ResponseEntity<List<Course>> getAllCourses() {
-//        return new ResponseEntity<List<Course>>(studentService.getAllCourses(getLoggedInUserDetails().getUsername()),
-//                HttpStatus.OK);
-//    }
-//
-//    @PostMapping("/courses/{courseId}")
-//    public ResponseEntity<Course> enrollCourse(@PathVariable String courseId) {
-//        return new ResponseEntity<Course>(studentService.enrollCourse(getLoggedInUserDetails().getUsername(), courseId),
-//                HttpStatus.OK);
-//    }
-//
-//    @DeleteMapping("/courses/{courseId}")
-//    public ResponseEntity<String> removeCourse(@PathVariable String courseId) {
-//        studentService.disenrollCourse(getLoggedInUserDetails().getUsername(), courseId);
-//        return ResponseEntity.ok("course unenrolled");
-//    }
-//
-//    public UserDetails getLoggedInUserDetails() {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
-//            return (UserDetails) authentication.getPrincipal();
-//        }
-//        return null;
-//    }
-//}
 package com.example.schoolManage.controller;
 
 import com.example.schoolManage.model.course.Classroom;
@@ -65,9 +6,6 @@ import com.example.schoolManage.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -94,17 +32,21 @@ public class StudentController {
         return new ResponseEntity<>(studentService.updateInfo(update, username), HttpStatus.OK);
     }
 
-//    @PutMapping("/{username}/classes/{classId}/enroll")
-//    public ResponseEntity<String> enrollClass(@PathVariable String classId, @PathVariable String username) {
-//        studentService.enrollClass(username ,classId);
-//        return ResponseEntity.ok("class enrolled");
-//    }
-//
-//    @PutMapping ("/{username}/classes/{classId}/unenroll")
-//    public ResponseEntity<String> UnenrollClass(@PathVariable String classId, @PathVariable String username) {
-//        studentService.unrollClass(username ,classId);
-//        return ResponseEntity.ok("class unrolled");
-//    }
+    // classId khong the o dang string ma phai o dang objectId hoac can 1 key khac de xet
+    @PutMapping("/{username}/classes/{classId}/enroll")
+    public ResponseEntity<String> enrollClass(@PathVariable String classId, @PathVariable String username) {
+        return studentService.enrollClass(username ,classId);
+    }
+
+    @PutMapping ("/{username}/classes/{classId}/unenroll")
+    public ResponseEntity<String> UnenrollClass(@PathVariable String classId, @PathVariable String username) {
+        return studentService.unrollClass(username ,classId);
+    }
+
+    @GetMapping("/{username}/classes/{subject}")
+    public ResponseEntity<List<Classroom>> getAllClassSubject(@PathVariable String subject) {
+        return new ResponseEntity<>(studentService.getAllClassSubject(subject), HttpStatus.OK);
+    }
 
 }
 

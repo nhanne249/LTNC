@@ -81,4 +81,11 @@ public class Classroom{
     public void setTeacher(String teacher) {
         this.teacher = teacher;
     }
+
+    public void addStudent(String nameStudent) {
+        this.students.add(nameStudent);
+    }
+    public void deleteStudent(String nameStudent) {
+        this.students.remove(nameStudent);
+    }
 }
