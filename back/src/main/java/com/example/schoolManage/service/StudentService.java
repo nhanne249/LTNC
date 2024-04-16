@@ -1,6 +1,8 @@
 package com.example.schoolManage.service;
 
+
 import com.example.schoolManage.model.course.Classroom;
+import com.example.schoolManage.model.user.Student;
 import com.example.schoolManage.repository.ClassRepository;
 import com.example.schoolManage.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -26,4 +28,29 @@ public class StudentService{
         }
         return null;
     }
+
+    public Student updateInfo(Student update, String username) {
+        Optional<Student> student = userRepository.findStudentByUsername(username);
+        if(student.isEmpty()) return null;
+        student.get().setName(update.getName());
+        student.get().setEmail(update.getEmail());
+        student.get().setPhoneNumber(update.getPhoneNumber());
+        return userRepository.save(student.get());
+    }
+
+//    public void enrollClass(String username, String classId) {
+//        Optional<Classroom> cl = classRepository.findById(classId);
+//        System.out.println(cl.get().getClassId());
+//        cl.get().addStudent(userRepository.findStudentByUsername(username).get().getUsername());
+//    }
+
+//    public void unrollClass(String username, String classId) {
+//        Optional<Classroom> cl = classRepository.findById(classId);
+//        cl.get().deleteStudent(userRepository.findStudentByUsername(username).get().getUsername());
+//    }
+
+    public Optional<Student> getStudent(String username) {
+        return userRepository.findStudentByUsername(username);
+    }
+
 }

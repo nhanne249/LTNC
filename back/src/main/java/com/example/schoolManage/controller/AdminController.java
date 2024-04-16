@@ -42,23 +42,6 @@ public class AdminController {
     }
 
 
-    @PostMapping("/students")
-    public ResponseEntity<Student> createStudent(@RequestBody Student student) {
-        Student st = adminService.createStudent(student);
-        if (Objects.isNull(st))
-            return ResponseEntity.badRequest().build();
-        return new ResponseEntity<>(st, HttpStatus.CREATED);
-    }
-    @GetMapping("/students/{username}")
-    public ResponseEntity<Optional<Student>> getStudent(@PathVariable String username) {
-        return new ResponseEntity<>(adminService.getStudent(username), HttpStatus.OK);
-    }
-    @PutMapping("/students/{username}")
-    public ResponseEntity<Student> updateStudent(@RequestBody Student student, @PathVariable String username){
-        return new ResponseEntity<>(adminService.updateStudent(student, username), HttpStatus.OK);
-    }
-
-
     @PostMapping("/teachers")
     public ResponseEntity<Teacher> createTeacher(@RequestBody Teacher teacher) {
         Teacher tc = adminService.createTeacher(teacher);
