@@ -39,7 +39,7 @@ public class AdminService {
             return null;
         }
         return userRepository.save(new Student(student.getUsername(), passwordEncoder.encode(student.getPassword()),
-                student.getName(),  student.getEmail(), student.getPhoneNumber()));
+                student.getName(),  student.getEmail(), student.getPhone()));
     }
     public Optional<Student> getStudent(String username) {
         return userRepository.findStudentByUsername(username);
@@ -49,7 +49,7 @@ public class AdminService {
         if(student.isEmpty()) return null;
         student.get().setName(update.getName());
         student.get().setEmail(update.getEmail());
-        student.get().setPhoneNumber(update.getPhoneNumber());
+        student.get().setPhone(update.getPhone());
         return userRepository.save(student.get());
     }
 

@@ -25,9 +25,9 @@ public class ClassController {
     public ResponseEntity<Classroom> createClass(@RequestBody Classroom classroom){
         return new ResponseEntity<>(classService.createClass(classroom), HttpStatus.OK);
     }
-    @GetMapping("/{classId}")
-    public ResponseEntity<Optional<Classroom>> getClassById(@PathVariable String classId){
-        return new ResponseEntity<>(classService.getClassById(classId), HttpStatus.OK);
+    @GetMapping("/{name}")
+    public ResponseEntity<Optional<Classroom>> getClassByName(@PathVariable String name){
+        return new ResponseEntity<>(classService.getClassByName(name), HttpStatus.OK);
     }
     @GetMapping("/teacher")
     public ResponseEntity<List<Classroom>> getClassTeacher(@RequestParam String username){

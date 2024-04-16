@@ -27,7 +27,7 @@ public class AdminController {
         return new ResponseEntity<>(adminService.getAllUsers(page), HttpStatus.OK);
     }
     @GetMapping("/users/{username}")
-    public ResponseEntity<Optional<User>> getByUsername(@PathVariable String username) {
+    public ResponseEntity<Optional<User>> getUser(@PathVariable String username) {
         return new ResponseEntity<>(adminService.getUser(username), HttpStatus.OK);
     }
     @DeleteMapping("/users")

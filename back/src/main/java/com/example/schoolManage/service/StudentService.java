@@ -17,13 +17,13 @@ public class StudentService{
         this.userRepository = userRepository;
         this.classRepository = classRepository;
     }
-    public List<Classroom> getAllClassrooms(String username){return classRepository.findAllByStudent(username);}
-    public Classroom enrollClassroom(String username, String classId){
-        Optional<Classroom> classroom = classRepository.findById(classId);
-        if(classroom.isPresent()){
-            classroom.get().getStudents().add(username);
-            return classroom.get();
-        }
-        return null;
-    }
+//    public List<Classroom> getAllClassrooms(String username){return classRepository.findAllByStudent(username);}
+//    public Classroom enrollClassroom(String username, String classId){
+//        Optional<Classroom> classroom = classRepository.findById(classId);
+//        if(classroom.isPresent()){
+//            classroom.get().getStudents().add(username);
+//            return classroom.get();
+//        }
+//        return null;
+//    }
 }
