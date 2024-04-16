@@ -30,12 +30,12 @@ public class Classroom{
         this.students = new ArrayList<>(40);
     }
 
-    public String getClassId() {
-        return classId;
+    public ObjectId getId() {
+        return id;
     }
 
-    public void setClassId(String classId) {
-        this.classId = classId;
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
     public String getPlace() {

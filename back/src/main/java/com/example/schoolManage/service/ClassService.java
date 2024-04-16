@@ -26,7 +26,7 @@ public class ClassService {
             System.out.println("SUBJECT EXISTED");
             return null;
         }
-        return classRepository.insert(new Classroom(classroom.getClassId(),
+        return classRepository.insert(new Classroom(classroom.getName(),
                 classroom.getSubject(),
                 classroom.getPlace(),
                 classroom.getDay(),

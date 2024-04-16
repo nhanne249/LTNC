@@ -1,6 +1,7 @@
 package com.example.schoolManage.controller;
 
 import com.example.schoolManage.model.course.Classroom;
+import com.example.schoolManage.model.review.Review;
 import com.example.schoolManage.model.user.Student;
 import com.example.schoolManage.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,13 @@ public class StudentController {
     private StudentService studentService;
 
     @GetMapping("/{username}")
-    public ResponseEntity<Optional<Student>> getStudent(@PathVariable String username) {
-        return new ResponseEntity<>(studentService.getStudent(username), HttpStatus.OK);
+    public ResponseEntity<Optional<Student>> getInfoStudent(@PathVariable String username) {
+        Optional<Student> st = studentService.getStudent(username);
+        if (st.isPresent()) {
+            return new ResponseEntity<>(studentService.getStudent(username), HttpStatus.OK);
+        }
+        else return new ResponseEntity<>(st, HttpStatus.NOT_FOUND);
+
     }
 
     @GetMapping("/{username}/classes")
@@ -32,21 +38,21 @@ public class StudentController {
         return new ResponseEntity<>(studentService.updateInfo(update, username), HttpStatus.OK);
     }
 
-    // classId khong the o dang string ma phai o dang objectId hoac can 1 key khac de xet
-    @PutMapping("/{username}/classes/{classId}/enroll")
-    public ResponseEntity<String> enrollClass(@PathVariable String classId, @PathVariable String username) {
-        return studentService.enrollClass(username ,classId);
+    @PutMapping("/{username}/classes/{className}/enroll")
+    public ResponseEntity<String> enrollClass(@PathVariable String className, @PathVariable String username) {
+        return studentService.enrollClass(username ,className);
     }
 
-    @PutMapping ("/{username}/classes/{classId}/unenroll")
-    public ResponseEntity<String> UnenrollClass(@PathVariable String classId, @PathVariable String username) {
-        return studentService.unrollClass(username ,classId);
+    @PutMapping ("/{username}/classes/{className}/unenroll")
+    public ResponseEntity<String> unenrollClass(@PathVariable String className, @PathVariable String username) {
+        return studentService.unrollClass(username ,className);
     }
 
-    @GetMapping("/{username}/classes/{subject}")
-    public ResponseEntity<List<Classroom>> getAllClassSubject(@PathVariable String subject) {
-        return new ResponseEntity<>(studentService.getAllClassSubject(subject), HttpStatus.OK);
+    @PostMapping("/{username}/classes/{className}/rate")
+    public ResponseEntity<String> rate(@RequestBody Review review, @PathVariable String className, @PathVariable String username) {
+        if (review.getScore()==null) return ResponseEntity.ok("NEED ADD SCORE");
+        else if (review.getReviewBody()==null) return ResponseEntity.ok("NEED ADD REVIEW");
+        return studentService.rate(review, className, username);
     }
-
 }
 

@@ -2,8 +2,11 @@ package com.example.schoolManage.service;
 
 
 import com.example.schoolManage.model.course.Classroom;
+import com.example.schoolManage.model.review.Review;
 import com.example.schoolManage.model.user.Student;
+import com.example.schoolManage.model.user.Teacher;
 import com.example.schoolManage.repository.ClassRepository;
+import com.example.schoolManage.repository.ReviewRepository;
 import com.example.schoolManage.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,19 +19,17 @@ public class StudentService {
     private final UserRepository userRepository;
     private final ClassRepository classRepository;
 
-    public StudentService(UserRepository userRepository, ClassRepository classRepository) {
+    private final ReviewRepository reviewRepository;
+
+    public StudentService(UserRepository userRepository, ClassRepository classRepository, ReviewRepository reviewRepository) {
         this.userRepository = userRepository;
         this.classRepository = classRepository;
+        this.reviewRepository = reviewRepository;
     }
-//    public List<Classroom> getAllClassrooms(String username){return classRepository.findAllByStudent(username);}
-//    public Classroom enrollClassroom(String username, String classId){
-//        Optional<Classroom> classroom = classRepository.findById(classId);
-//        if(classroom.isPresent()){
-//            classroom.get().getStudents().add(username);
-//            return classroom.get();
-//        }
-//        return null;
-//    }
+
+    public Optional<Student> getStudent(String username) {
+        return userRepository.findStudentByUsername(username);
+    }
 
     public List<Classroom> getAllClassrooms(String username) {
         return classRepository.findAllByStudent(username);
@@ -45,8 +46,8 @@ public class StudentService {
         }
     }
 
-    public ResponseEntity<String> enrollClass(String username, String classId) {
-        Optional<Classroom> cl = classRepository.findById(classId);
+    public ResponseEntity<String> enrollClass(String username, String className) {
+        Optional<Classroom> cl = classRepository.findByName(className);
         if (cl.isPresent()) {
             Optional<Student> st = userRepository.findStudentByUsername(username);
             if (st.isEmpty()) {
@@ -60,8 +61,8 @@ public class StudentService {
 
     }
 
-    public ResponseEntity<String> unrollClass(String username, String classId) {
-        Optional<Classroom> cl = classRepository.findById(classId);
+    public ResponseEntity<String> unrollClass(String username, String className) {
+        Optional<Classroom> cl = classRepository.findByName(className);
         if (cl.isPresent()) {
             Optional<Student> st = userRepository.findStudentByUsername(username);
             if (st.isEmpty()) {
@@ -74,15 +75,17 @@ public class StudentService {
         } else return ResponseEntity.ok("CLASS NOT EXIST");
     }
 
-    public Optional<Student> getStudent(String username) {
-        return userRepository.findStudentByUsername(username);
+    public ResponseEntity<String> rate(Review review, String className, String username) {
+        Optional<Classroom> cl = classRepository.findByName(className);
+        review.setStudentName(username);
+        if (cl.isPresent()) {
+            Optional<Teacher> tc = userRepository.findTeacherByUsername(cl.get().getTeacher());
+            tc.get().addReview(username);
+            userRepository.save(tc.get());
+            reviewRepository.save(review);
+            return ResponseEntity.ok("ADDED REVIEW");
+
+        } else return ResponseEntity.ok("TEACHER IS NOT EXIST");
     }
-
-    public List<Classroom> getAllClassSubject(String subject) {
-        return classRepository.findAllBySubject(subject);
-
-    }
-
-
 
 }

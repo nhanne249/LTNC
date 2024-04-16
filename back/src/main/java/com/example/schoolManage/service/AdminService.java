@@ -59,10 +59,12 @@ public class AdminService {
         }
         return userRepository.save(new Teacher(teacher.getUsername(),
                 passwordEncoder.encode(teacher.getPassword()),
+                teacher.getRole(),
                 teacher.getName(),
                 teacher.getEmail(),
                 teacher.getPhoneNumber(),
-                teacher.getDegrees()));
+                teacher.getDegrees(),
+                teacher.getReview()));
     }
     public Optional<Teacher> getTeacher(String username) {
         return userRepository.findTeacherByUsername(username);
