@@ -1,6 +1,7 @@
 package com.example.schoolManage.model.course;
 
 import lombok.Data;
+import lombok.Getter;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.ArrayList;
 import java.util.List;
 @Data
+@Getter
 @Document("classes")
 public class Classroom{
     @Id
