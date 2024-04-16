@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/classes")
@@ -23,6 +24,10 @@ public class ClassController {
     @PostMapping
     public ResponseEntity<Classroom> createClass(@RequestBody Classroom classroom){
         return new ResponseEntity<>(classService.createClass(classroom), HttpStatus.OK);
+    }
+    @GetMapping("/{name}")
+    public ResponseEntity<Optional<Classroom>> getClassByName(@PathVariable String name){
+        return new ResponseEntity<>(classService.getClassByName(name), HttpStatus.OK);
     }
     @GetMapping("/teacher")
     public ResponseEntity<List<Classroom>> getClassTeacher(@RequestParam String username){

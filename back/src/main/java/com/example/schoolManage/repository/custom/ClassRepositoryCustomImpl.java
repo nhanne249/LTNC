@@ -1,7 +1,6 @@
 package com.example.schoolManage.repository.custom;
 
 import com.example.schoolManage.model.course.Classroom;
-import com.example.schoolManage.repository.ClassRepository;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.util.LinkedList;
@@ -15,7 +14,7 @@ public class ClassRepositoryCustomImpl implements ClassRepositoryCustom {
     }
 
     @Override
-    public List<Classroom> customFindByStudent(String username) {
+    public List<Classroom> findAllByStudent(String username) {
         List<Classroom> classrooms = mongoTemplate.findAll(Classroom.class, "classes");
         List<Classroom> result = new LinkedList<>();
         classrooms.forEach(classroom -> {

@@ -1,45 +1,29 @@
-//package com.example.schoolManage.service;
-//
-//import com.example.schoolManage.model.user.Student;
-//import com.example.schoolManage.repository.UserRepository;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.data.mongodb.core.MongoTemplate;
-//import org.springframework.data.mongodb.core.query.Criteria;
-//import org.springframework.data.mongodb.core.query.Query;
-//import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.stereotype.Service;
-//
-//import java.util.Objects;
-//
-//@Service
-//public class StudentService{
-//    @Autowired
-//    private UserRepository userRepository;
-//    @Autowired
-//    private MongoTemplate mongoTemplate;
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
-//    public Student getStudentByUsername(String username){
-//        return mongoTemplate.findOne(Query.query(Criteria.where("username").is(username)), Student.class, "users");
-//
+package com.example.schoolManage.service;
+
+import com.example.schoolManage.model.course.Classroom;
+import com.example.schoolManage.repository.ClassRepository;
+import com.example.schoolManage.repository.UserRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class StudentService{
+    private final UserRepository userRepository;
+    private final ClassRepository classRepository;
+
+    public StudentService(UserRepository userRepository, ClassRepository classRepository) {
+        this.userRepository = userRepository;
+        this.classRepository = classRepository;
+    }
+//    public List<Classroom> getAllClassrooms(String username){return classRepository.findAllByStudent(username);}
+//    public Classroom enrollClassroom(String username, String classId){
+//        Optional<Classroom> classroom = classRepository.findById(classId);
+//        if(classroom.isPresent()){
+//            classroom.get().getStudents().add(username);
+//            return classroom.get();
+//        }
+//        return null;
 //    }
-//
-//    public Student updateStudentByUserName(String username, Student student){
-//        //EXCEPTION STUDENT NOT FOUND
-//        Student updateStudent = mongoTemplate.findOne(Query.query(Criteria.where("username").is(username)), Student.class, "users");
-//        assert updateStudent!= null : "user not found";
-//        if(!Objects.isNull(student.getUsername()))
-//            updateStudent.setUsername(student.getUsername());
-//        if(!Objects.isNull(student.getPassword()))
-//            updateStudent.setPassword(passwordEncoder.encode(student.getPassword()));
-//        if(!Objects.isNull(student.getName()))
-//            updateStudent.setName(student.getName());
-//        if(!Objects.isNull(student.getEmail()))
-//            updateStudent.setEmail(student.getEmail());
-//        if(!Objects.isNull(student.getPhoneNumber()))
-//            updateStudent.setPhoneNumber(student.getPhoneNumber());
-//        userRepository.save(updateStudent);
-//        return updateStudent;
-//    }
-//
-//}
+}
