@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,6 +42,8 @@ public class AdminService {
         return userRepository.save(new Student(student.getUsername(), passwordEncoder.encode(student.getPassword()),
                 student.getName(),  student.getEmail(), student.getPhone()));
     }
+    public Page<Student> getAllStudents(int page) {return userRepository.findAllStudents(PageRequest.of(page-1, 10));}
+    public Page<Teacher> getAllTeachers(int page) {return userRepository.findAllTeachers(PageRequest.of(page-1, 10));}
     public Teacher createTeacher(@NotNull Teacher teacher) {
         if (userRepository.findByUsername(teacher.getUsername()).isPresent()) {
             return null;

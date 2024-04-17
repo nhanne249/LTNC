@@ -44,11 +44,19 @@ public class AdminController {
     public ResponseEntity<Student> addStudent(@RequestBody Student student) {
         return new ResponseEntity<>(adminService.createStudent(student), HttpStatus.CREATED);
     }
+    @GetMapping("/students")
+    public ResponseEntity<Page<Student>> getAllStudents(@RequestParam int page) {
+        return new ResponseEntity<>(adminService.getAllStudents(page), HttpStatus.OK);
+    }
     @PostMapping("/teachers")
     public ResponseEntity<Teacher> createTeacher(@RequestBody Teacher teacher) {
         Teacher tc = adminService.createTeacher(teacher);
         if (Objects.isNull(tc))
             return ResponseEntity.badRequest().build();
         return new ResponseEntity<>(tc, HttpStatus.CREATED);
+    }
+    @GetMapping("/teachers")
+    public ResponseEntity<Page<Teacher>> getAllTeachers(@RequestParam int page) {
+        return new ResponseEntity<>(adminService.getAllTeachers(page), HttpStatus.OK);
     }
 }
