@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @Document(collection = "schedule")
-public class Weekday {
+public class Schedule {
     @Id
     private ObjectId id;
     private String day;
