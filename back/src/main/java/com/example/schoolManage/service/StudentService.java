@@ -35,7 +35,7 @@ public class StudentService {
         return classRepository.findAllByStudent(username);
     }
 
-    public Optional<Student> updateStudent(Student update, String username) {
+    public Optional<Student> updateStudent(String username, Student update) {
         Optional<Student> student = userRepository.findStudentByUsername(username);
         if (student.isPresent()) {
             if (update.getName() != null) student.get().setName(update.getName());

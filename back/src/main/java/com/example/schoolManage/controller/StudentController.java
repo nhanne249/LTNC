@@ -35,7 +35,7 @@ public class StudentController {
 
     @PutMapping("/{username}")
     public ResponseEntity<Student> updateStudent(@RequestBody Student update, @PathVariable String username) {
-        var st = studentService.updateStudent(update, username);
+        var st = studentService.updateStudent(username,update);
         return st.map(student -> new ResponseEntity<>(student, HttpStatus.OK)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
