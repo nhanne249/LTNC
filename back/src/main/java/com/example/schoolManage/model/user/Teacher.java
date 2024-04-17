@@ -30,7 +30,5 @@ public class Teacher extends User {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.degrees = degrees;
-        this.review = new ArrayList<>();
-    }
-
 }
+
