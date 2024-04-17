@@ -6,12 +6,13 @@ import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.*;
-
+@Getter
+@Setter
 @Document(collection = "users")
 public class Student extends User {
-    @Getter @Setter private String name;
-    @Getter @Setter private String email;
-    @Setter @Getter private String phone;
+    private String name;
+    private String email;
+    private String phone;
     private Map<String, Double> scores;
     public Student(String username, String password, String name,String email, String phone) {
         super(username, password, Role.STUDENT);

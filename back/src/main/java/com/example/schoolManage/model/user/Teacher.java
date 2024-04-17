@@ -1,55 +1,37 @@
 package com.example.schoolManage.model.user;
 
 import com.example.schoolManage.enums.Role;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
+@Setter
+@Getter
 @Document(collection = "users")
 public class Teacher extends User {
     private String name;
     private String email;
-    private String phoneNumber;
+    private String phone;
     private List<String> degrees;
 
+    private List<String> review;
 
-    public Teacher(String username, String password, String name, String email, String phoneNumber, List<String> degrees) {
+    public void addReview(String username) {
+        this.review.add(username);
+    }
+
+    public Teacher(String username, String password, String name, String email, String phone, List<String> degrees) {
         super(username, password, Role.TEACHER);
         this.name = name;
         this.email = email;
-        this.phoneNumber = phoneNumber;
+        this.phone = phone;
         this.degrees = degrees;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public List<String> getDegrees() {
-        return degrees;
-    }
-
-    public void setDegrees(List<String> degrees) {
-        this.degrees = degrees;
-    }
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> 50aeaf119833c63014b489d8872a7967026eb749

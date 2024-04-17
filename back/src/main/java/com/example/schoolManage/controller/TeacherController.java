@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+<<<<<<< HEAD
 @RequestMapping("/teacher")
 public class TeacherController {
     @Autowired
@@ -32,10 +33,19 @@ public class TeacherController {
     public ResponseEntity<Classroom> addClass(@RequestBody Classroom newClass) {
         return new ResponseEntity<Classroom>(teacherService.addClass(getLoggedInUserDetails().getUsername(), newClass),
                 HttpStatus.CREATED);
+=======
+@RequestMapping("/teachers")
+public class TeacherController {
+    private final TeacherService teacherService;
+
+    public TeacherController(TeacherService teacherService) {
+        this.teacherService = teacherService;
+>>>>>>> 50aeaf119833c63014b489d8872a7967026eb749
     }
 
     @GetMapping("/{username}")
     public ResponseEntity<Teacher> getTeacher(@PathVariable String username) {
+<<<<<<< HEAD
         Teacher teacher = teacherService.searchTeacher(username);
         if (teacher != null) {
             return ResponseEntity.ok(teacher);
@@ -71,12 +81,30 @@ public class TeacherController {
     }
 
 
+=======
+        var teacher = teacherService.getTeacher(username);
+        return teacher.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{username}")
+    public ResponseEntity<Teacher> updateTeacher(@PathVariable String username, @RequestBody Teacher update) {
+        var tc = teacherService.updateTeacher(username, update);
+        return tc.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/{username}/classes")
+    public ResponseEntity<List<Classroom>> getAllClasses(@PathVariable String username) {
+        return new ResponseEntity<>(teacherService.getAllClasses(username), HttpStatus.OK);
+    }
+
+>>>>>>> 50aeaf119833c63014b489d8872a7967026eb749
 //    @PostMapping("/scores")
 //    public ResponseEntity<Void> giveScore(@PathVariable String username, @RequestParam Course course,
 //            @RequestParam String classId, @RequestParam String studentId, @RequestParam double score) {
 //        teacherService.giveScore(username, course, classId, studentId, score);
 //        return ResponseEntity.ok().build();
 //    }
+<<<<<<< HEAD
 
     public UserDetails getLoggedInUserDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -85,4 +113,6 @@ public class TeacherController {
         }
         return null;
     }
+=======
+>>>>>>> 50aeaf119833c63014b489d8872a7967026eb749
 }

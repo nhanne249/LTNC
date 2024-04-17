@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,18 +42,8 @@ public class AdminService {
         return userRepository.save(new Student(student.getUsername(), passwordEncoder.encode(student.getPassword()),
                 student.getName(),  student.getEmail(), student.getPhone()));
     }
-    public Optional<Student> getStudent(String username) {
-        return userRepository.findStudentByUsername(username);
-    }
-    public Student updateStudent(Student update, String username){
-        Optional<Student> student = userRepository.findStudentByUsername(username);
-        if(student.isEmpty()) return null;
-        student.get().setName(update.getName());
-        student.get().setEmail(update.getEmail());
-        student.get().setPhone(update.getPhone());
-        return userRepository.save(student.get());
-    }
-
+    public Page<Student> getAllStudents(int page) {return userRepository.findAllStudents(PageRequest.of(page-1, 10));}
+    public Page<Teacher> getAllTeachers(int page) {return userRepository.findAllTeachers(PageRequest.of(page-1, 10));}
     public Teacher createTeacher(@NotNull Teacher teacher) {
         if (userRepository.findByUsername(teacher.getUsername()).isPresent()) {
             return null;
@@ -61,19 +52,7 @@ public class AdminService {
                 passwordEncoder.encode(teacher.getPassword()),
                 teacher.getName(),
                 teacher.getEmail(),
-                teacher.getPhoneNumber(),
+                teacher.getPhone(),
                 teacher.getDegrees()));
-    }
-    public Optional<Teacher> getTeacher(String username) {
-        return userRepository.findTeacherByUsername(username);
-    }
-    public Teacher updateTeacher(Teacher update, String username){
-        var teacher = userRepository.findTeacherByUsername(username);
-        if(teacher.isEmpty()) return null;
-        teacher.get().setName(update.getName());
-        teacher.get().setEmail(update.getEmail());
-        teacher.get().setPhoneNumber(update.getPhoneNumber());
-        teacher.get().setDegrees(update.getDegrees());
-        return userRepository.save(teacher.get());
     }
 }
