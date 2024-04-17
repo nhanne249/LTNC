@@ -29,9 +29,8 @@ public class Teacher extends User {
         this.phone = phone;
         this.degrees = degrees;
     }
-<<<<<<< HEAD
-}
-=======
-}
 
->>>>>>> 50aeaf119833c63014b489d8872a7967026eb749
+
+
+
+
