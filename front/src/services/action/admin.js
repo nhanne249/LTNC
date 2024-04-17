@@ -1,21 +1,37 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import admin from '../api/admin'
 
-const { getAllUserByAdmin, getStudentById, createNewStudent, createNewTeacher, deleteUserById, createNewCourse, deleteCourse, createNewClass,
+const { getAllUser, getUser, getAllStudents, getAllTeachers, createNewStudent, createNewTeacher, deleteUser,
 } = admin
 
-export const getAllUserByAdminThunk = createAsyncThunk(
-    'student/getAllUserByAdmin',
+export const getAllUserThunk = createAsyncThunk(
+    'student/getAllUser',
     async (data) => {
-        const res = await getAllUserByAdmin(data)
+        const res = await getAllUser(data)
         return res
     }
 )
 
-export const getStudentByIdThunk = createAsyncThunk(
-    'student/getStudentById',
+export const getUserThunk = createAsyncThunk(
+    'student/getUser',
     async (data) => {
-        const res = await getStudentById(data)
+        const res = await getUser(data)
+        return res
+    }
+)
+
+export const getAllStudentsThunk = createAsyncThunk(
+    'student/getAllStudents',
+    async (data) => {
+        const res = await getAllStudents(data)
+        return res
+    }
+)
+
+export const getAllTeachersThunk = createAsyncThunk(
+    'student/getAllTeachers',
+    async (data) => {
+        const res = await getAllTeachers(data)
         return res
     }
 )
@@ -36,34 +52,10 @@ export const createNewTeacherThunk = createAsyncThunk(
     }
 )
 
-export const deleteUserByIdThunk = createAsyncThunk(
-    'student/deleteUserById',
+export const deleteUserThunk = createAsyncThunk(
+    'student/deleteUser',
     async (data) => {
-        const res = await deleteUserById(data)
-        return res
-    }
-)
-
-export const createNewCourseThunk = createAsyncThunk(
-    'student/createNewCourse',
-    async (data) => {
-        const res = await createNewCourse(data)
-        return res
-    }
-)
-
-export const deleteCourseThunk = createAsyncThunk(
-    'student/deleteCourse',
-    async (data) => {
-        const res = await deleteCourse(data)
-        return res
-    }
-)
-
-export const createNewClassThunk = createAsyncThunk(
-    'student/createNewClass',
-    async (data) => {
-        const res = await createNewClass(data)
+        const res = await deleteUser(data)
         return res
     }
 )

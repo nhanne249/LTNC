@@ -1,7 +1,8 @@
 import Layouts from "../../layouts/index.jsx";
 import PersonalInformation from "../../features/Student/PersonalInformation/index.jsx";
 import Notification from "../../features/Student/Notification/index.jsx";
-import EducationProgram from "../../features/Student/EducationProgram/index.jsx";
+// import EducationProgram from "../../features/Student/EducationProgram/index.jsx";
+import IntructorEvaluate from "../../features/Student/InstructorEvaluate/index.jsx";
 
 const studentRouter = [
   {
@@ -27,7 +28,11 @@ const studentRouter = [
       },
       {
         path: "education-program",
-        Component: EducationProgram,
+        Component: PersonalInformation,
+      },
+      {
+        path: "instructor-evaluate",
+        Component: IntructorEvaluate,
       },
     ],
   },

@@ -2,14 +2,24 @@ import { transport } from "../../config/http/transport";
 
 const admin = {
 
-    getAllUserByAdmin: (data) => {
+    getAllUser: (data) => {
         return transport.get(
-            `/all/users`, JSON.stringify(data)
+            `/users`, JSON.stringify(data)
         )
     },
-    getStudentById: (data) => {
+    getUser: (data) => {
         return transport.get(
-            `/${data.username}`, JSON.stringify(data)
+            `/users/${data.username}`, JSON.stringify(data)
+        )
+    },
+    getAllStudents: (data) => {
+        return transport.get(
+            `/students`, JSON.stringify(data)
+        )
+    },
+    getAllTeachers: (data) => {
+        return transport.get(
+            `/teachers`, JSON.stringify(data)
         )
     },
     createNewStudent: (data) => {
@@ -22,25 +32,15 @@ const admin = {
             `/teacher`, JSON.stringify(data)
         )
     },
-    deleteUserById: (data) => {
+    deleteUser: (data) => {
         return transport.delete(
-            `/all/users`, JSON.stringify(data)
+            `/users/${data.username}`, JSON.stringify(data)
         )
-    },
-    createNewCourse: (data) => {
-        return transport.post(
-            `/teacher`, JSON.stringify(data)
-        )
-    },
-    deleteCourse: (data) => {
-        return transport.post(
-            `/courses/${data.courseId}`, JSON.stringify(data)
-        )
-    },
-    createNewClass: (data) => {
-        return transport.post(
-            `/class`, JSON.stringify(data)
-        )
-    },
+    },  
+    // createNewClass: (data) => {
+    //     return transport.post(
+    //         `/class`, JSON.stringify(data)
+    //     )
+    // },
 }
 export default admin;
