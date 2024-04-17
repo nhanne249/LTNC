@@ -4,90 +4,86 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e240358-8233-41de-83a0-9507f3afa3a5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/LTNC.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/example/schoolManage/controller/TeacherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/example/schoolManage/controller/TeacherController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/example/schoolManage/model/user/Teacher.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/example/schoolManage/model/user/Teacher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/example/schoolManage/service/TeacherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/example/schoolManage/service/TeacherService.java" afterDir="false" />
-    </list>
+    <list default="true" id="cf781423-c76f-4039-9ba5-827338977ccf" name="Changes" comment="feat: weekday added" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="test" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;blueonline07&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/vunhan2492001/LTNC.git&quot;,
+    &quot;accountId&quot;: &quot;2983e175-1672-41e6-8d10-9a0d54e6d49e&quot;
+  }
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 7
+  &quot;associatedIndex&quot;: 4
 }</component>
-  <component name="ProjectId" id="2f5BIdZtRhDalSEC4DHzt5F1UCk" />
+  <component name="ProjectId" id="2f8IjIA1b0qfK3YWDy2HilHGypX" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-<<<<<<< HEAD
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Ho__Nhat__Tri&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/honhattri/Downloads/LTNC&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  }
-}</component>
-  <component name="RunManager">
-=======
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.Unnamed.executor": "Run",
+    "Application.app.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Ho__Nhat__Tri",
+    "git-widget-placeholder": "assignment",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/LTNC",
+    "last_opened_file_path": "D:/LTNC/back",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mongo"
+    ]
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="LTNC" />
+  <component name="RunManager" selected="Application.app">
+    <configuration name="app" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.example.schoolManage.SchoolManageApplication" />
+      <module name="schoolManage" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="LTNC" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
->>>>>>> 32af7f4007281086d952640a7fe85c7609a2a28d
     <configuration name="SchoolManageApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="schoolManage" />
@@ -97,22 +93,100 @@
       </method>
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="9e240358-8233-41de-83a0-9507f3afa3a5" name="Changes" comment="" />
-      <created>1713080980891</created>
+      <changelist id="cf781423-c76f-4039-9ba5-827338977ccf" name="Changes" comment="" />
+      <created>1713176412063</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1713080980891</updated>
-      <workItem from="1713080981943" duration="9874000" />
-      <workItem from="1713092575697" duration="12000" />
-      <workItem from="1713103315670" duration="84000" />
-      <workItem from="1713103405058" duration="68000" />
+      <updated>1713176412063</updated>
+      <workItem from="1713240215944" duration="11889000" />
+      <workItem from="1713266076258" duration="6951000" />
+      <workItem from="1713281275134" duration="367000" />
+      <workItem from="1713283420522" duration="386000" />
+      <workItem from="1713285937895" duration="4966000" />
+      <workItem from="1713297021129" duration="702000" />
+      <workItem from="1713328989859" duration="2041000" />
     </task>
+    <task id="LOCAL-00001" summary="final structure, impl after this">
+      <option name="closed" value="true" />
+      <created>1713208289583</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1713208289583</updated>
+    </task>
+    <task id="LOCAL-00002" summary="ok">
+      <option name="closed" value="true" />
+      <created>1713253312739</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1713253312739</updated>
+    </task>
+    <task id="LOCAL-00003" summary="update Classroom entity">
+      <option name="closed" value="true" />
+      <created>1713278963886</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1713278963886</updated>
+    </task>
+    <task id="LOCAL-00004" summary="update Classroom entity">
+      <option name="closed" value="true" />
+      <created>1713329204153</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1713329204153</updated>
+    </task>
+    <task id="LOCAL-00005" summary="ok">
+      <option name="closed" value="true" />
+      <created>1713329740226</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1713329740226</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat: weekday added">
+      <option name="closed" value="true" />
+      <created>1713330855362</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1713330855362</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="final structure, impl after this" />
+    <MESSAGE value="update Classroom entity" />
+    <MESSAGE value="ok" />
+    <MESSAGE value="feat: weekday added" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: weekday added" />
   </component>
 </project>

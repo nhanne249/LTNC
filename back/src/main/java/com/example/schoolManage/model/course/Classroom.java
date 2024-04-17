@@ -16,19 +16,23 @@ public class Classroom{
     private ObjectId id;
     private String name;
     private String subject;
-    private String place;
     private String day;
     private List<Integer> time;
     private List<String> students;
     private String teacher;
 
-    public Classroom(String name, String subject, String place, String day, List<Integer> time, String teacher) {
+    public Classroom(String name, String subject, String day, List<Integer> time, String teacher) {
         this.name = name;
         this.subject = subject;
-        this.place = place;
         this.day = day;
         this.time = time;
         this.teacher = teacher;
         this.students = new ArrayList<>(40);
+    }
+    public void addStudent(String student) {
+        this.students.add(student);
+    }
+    public void deleteStudent(String student) {
+        this.students.remove(student);
     }
 }
