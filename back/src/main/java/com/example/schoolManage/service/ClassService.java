@@ -2,7 +2,7 @@ package com.example.schoolManage.service;
 
 import com.example.schoolManage.model.course.Classroom;
 import com.example.schoolManage.repository.ClassRepository;
-import com.example.schoolManage.repository.WeekdayRepository;
+import com.example.schoolManage.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ClassService {
     private final ClassRepository classRepository;
-    private final WeekdayRepository weekdayRepository;
+    private final ScheduleRepository scheduleRepository;
 
     public Page<Classroom> getAllClasses(int page){
         return classRepository.findAll(PageRequest.of(page-1, 10));
@@ -29,13 +29,13 @@ public class ClassService {
     public Classroom createClass(@NotNull Classroom classroom){
         var check = classRepository.findByName(classroom.getName());
         if(check.isEmpty()){return null;}
-        var wd = weekdayRepository.findByDay(classroom.getDay());
+        var wd = scheduleRepository.findByDay(classroom.getDay());
         if(wd.isEmpty()){return null;}
         classroom.getTime().forEach(period ->{
             wd.get().getTime().remove(period);
         });
         Collections.sort(wd.get().getTime());
-        weekdayRepository.save(wd.get());
+        scheduleRepository.save(wd.get());
         return classRepository.insert(new Classroom(classroom.getName(),
                 classroom.getSubject(),
                 classroom.getDay(),
@@ -46,12 +46,12 @@ public class ClassService {
         var cl = classRepository.findByName(name);
         if(cl.isEmpty()) return;
         Classroom classroom = cl.get();
-        var wd = weekdayRepository.findByDay(classroom.getDay());
+        var wd = scheduleRepository.findByDay(classroom.getDay());
         classroom.getTime().forEach(period ->{
             wd.get().getTime().add(period);
         });
         Collections.sort(wd.get().getTime());
-        weekdayRepository.save(wd.get());
+        scheduleRepository.save(wd.get());
         classRepository.deleteByName(name);
     }
     public void deleteAllClasses(){
@@ -59,10 +59,10 @@ public class ClassService {
         for(int i=1; i<=10; i++){
             ls.add(i);
         }
-        var wd = weekdayRepository.findAll();
+        var wd = scheduleRepository.findAll();
         wd.forEach(weekday -> {
             weekday.setTime(ls);
-            weekdayRepository.save(weekday);
+            scheduleRepository.save(weekday);
         });
         classRepository.deleteAll();
     }
