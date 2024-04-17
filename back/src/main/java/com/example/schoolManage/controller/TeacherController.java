@@ -39,10 +39,4 @@ public class TeacherController {
         return new ResponseEntity<>(teacherService.getAllClasses(username), HttpStatus.OK);
     }
 
-//    @PostMapping("/scores")
-//    public ResponseEntity<Void> giveScore(@PathVariable String username, @RequestParam Course course,
-//            @RequestParam String classId, @RequestParam String studentId, @RequestParam double score) {
-//        teacherService.giveScore(username, course, classId, studentId, score);
-//        return ResponseEntity.ok().build();
-//    }
 }

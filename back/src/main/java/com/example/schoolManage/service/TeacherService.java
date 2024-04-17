@@ -1,12 +1,15 @@
 package com.example.schoolManage.service;
 
 import com.example.schoolManage.model.course.Classroom;
+import com.example.schoolManage.model.user.Student;
 import com.example.schoolManage.model.user.Teacher;
 import com.example.schoolManage.repository.ClassRepository;
 import com.example.schoolManage.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -35,5 +38,14 @@ public class TeacherService {
         if(update.getEmail()!= null) teacher.get().setEmail(update.getEmail());
         if(update.getPhone()!= null) teacher.get().setPhone(update.getPhone());
         return Optional.of(userRepository.save(teacher.get()));
+    }
+    public void giveScore(String studentUsername, Map<String, Double> scores) {
+        Optional<Student> studentOptional = userRepository.findStudentByUsername(studentUsername);
+        if (studentOptional.isPresent()) {
+            Student student = studentOptional.get();
+            Map<String, Double> studentScores = student.getScores();
+            studentScores.putAll(scores);
+            userRepository.save(student);
+        }
     }
 }
