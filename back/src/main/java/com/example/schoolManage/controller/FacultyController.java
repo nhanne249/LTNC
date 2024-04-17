@@ -29,6 +29,8 @@ public class FacultyController {
 
     @PostMapping
     public ResponseEntity<Faculty> createFaculty(@RequestBody Faculty faculty) {
+
+        if(facultyRepository.findByName(faculty.getName()).isPresent()) {return ResponseEntity.badRequest().build();}
         return new ResponseEntity<>(facultyRepository.save(faculty), HttpStatus.CREATED);
     }
     @PutMapping("/{faculty}")

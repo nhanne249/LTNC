@@ -27,6 +27,8 @@ public class ClassService {
         return classRepository.findByName(name);
     }
     public Classroom createClass(@NotNull Classroom classroom){
+        var check = classRepository.findByName(classroom.getName());
+        if(check.isEmpty()){return null;}
         var wd = weekdayRepository.findByDay(classroom.getDay());
         if(wd.isEmpty()){return null;}
         classroom.getTime().forEach(period ->{

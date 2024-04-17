@@ -13,7 +13,6 @@ import java.util.Optional;
 @Repository
 public interface ClassRepository extends MongoRepository<Classroom, ObjectId>, ClassRepositoryCustom {
     List<Classroom> findAllByTeacher(String teacher);
-
     Optional<Classroom> findByName(String name);
 
     void deleteByName(String name);
