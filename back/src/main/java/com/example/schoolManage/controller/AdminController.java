@@ -27,7 +27,7 @@ public class AdminController {
         return new ResponseEntity<>(adminService.getAllUsers(page), HttpStatus.OK);
     }
     @GetMapping("/users/{username}")
-    public ResponseEntity<Optional<User>> getUser(@PathVariable String username) {
+    public ResponseEntity<Optional<User>> getByUsername(@PathVariable String username) {
         return new ResponseEntity<>(adminService.getUser(username), HttpStatus.OK);
     }
     @DeleteMapping("/users")
@@ -39,23 +39,6 @@ public class AdminController {
     public ResponseEntity<String> deleteUser(@PathVariable String username) {
         adminService.deleteUser(username);
         return ResponseEntity.ok("User deleted");
-    }
-
-
-    @PostMapping("/students")
-    public ResponseEntity<Student> createStudent(@RequestBody Student student) {
-        Student st = adminService.createStudent(student);
-        if (Objects.isNull(st))
-            return ResponseEntity.badRequest().build();
-        return new ResponseEntity<>(st, HttpStatus.CREATED);
-    }
-    @GetMapping("/students/{username}")
-    public ResponseEntity<Optional<Student>> getStudent(@PathVariable String username) {
-        return new ResponseEntity<>(adminService.getStudent(username), HttpStatus.OK);
-    }
-    @PutMapping("/students/{username}")
-    public ResponseEntity<Student> updateStudent(@RequestBody Student student, @PathVariable String username){
-        return new ResponseEntity<>(adminService.updateStudent(student, username), HttpStatus.OK);
     }
 
 

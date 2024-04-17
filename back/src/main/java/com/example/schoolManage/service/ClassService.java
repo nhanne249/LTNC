@@ -20,11 +20,12 @@ public class ClassService {
     public Page<Classroom> getAllClasses(int page){
         return classRepository.findAll(PageRequest.of(page-1, 10));
     }
-    public Optional<Classroom> getClassByName(String name){
-        return classRepository.findByName(name);
-    }
+    public Optional<Classroom> getClassById(String id){return classRepository.findById(id);}
     public Classroom createClass(@NotNull Classroom classroom){
-        //EXCEPTION CLASS CONFLICT
+        if(classRepository.findBySubject(classroom.getSubject()).isPresent()){
+            System.out.println("SUBJECT EXISTED");
+            return null;
+        }
         return classRepository.insert(new Classroom(classroom.getName(),
                 classroom.getSubject(),
                 classroom.getPlace(),
@@ -38,4 +39,5 @@ public class ClassService {
     public List<Classroom> findByStudent(String username){
         return classRepository.findAllByStudent(username);
     }
+
 }
