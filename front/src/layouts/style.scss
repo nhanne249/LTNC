@@ -1,13 +1,11 @@
 @use "../assets/styles/" as *;
 
 .page-layout{
-  // width: 100vw;
   max-width: 100vw;
   min-height: 100vh;
   height: auto;
   padding: 0;
   margin: 0;
-  // position: absolute;
   overflow: hidden;
   background-color: #DEDEDE;
   .logo{

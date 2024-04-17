@@ -3,7 +3,7 @@ import { Input, Form, Button, Checkbox, Image, Row, Col } from "antd";
 import { useCookies, withCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loginThunk } from "../../../services/action/authentication";
+import { loginThunk } from "../../../redux/action/authentication";
 import { toast } from "react-toastify";
 import "./index.scss";
 import background from "../../../assets/img/bk.jpg";

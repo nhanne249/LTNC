@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllUserThunk,getUserThunk,getAllStudentsThunk,getAllTeachersThunk,createNewStudentThunk,createNewTeacherThunk,deleteUserThunk,
+import { getAllUserThunk,getUserThunk,getAllStudentsThunk,getAllTeachersThunk,createNewStudentThunk,createNewTeacherThunk,deleteUserThunk,createNewClassThunk,getAllClassThunk, getClassThunk
 } from '../action/admin'
 
 const admin = createSlice({
@@ -11,7 +11,10 @@ const admin = createSlice({
     getAllTeachersThunk: [],
     createNewStudentThunk:[],
     createNewTeacherThunk:[],
-    deleteUserThunk:[],
+    deleteUserThunk: [],
+    createNewClassThunk: [],
+    getAllClassThunk: [],
+    getClassThunk: []
   },
   reducers: {
     clearAdminFuntion: (state) => {
@@ -21,7 +24,10 @@ const admin = createSlice({
       state.getAllTeachersThunk= []
       state.createNewStudentThunk= []
       state.createNewTeacherThunk= []
-      state.deleteUserThunk= []
+      state.deleteUserThunk = []
+      state.createNewClassThunk = []
+      state.getAllClassThunk = []
+      state.getClassThunk=[]
     },
   },
   extraReducers: (builder) => {
@@ -78,6 +84,30 @@ const admin = createSlice({
       (state, { payload }) => {
         if (payload) {
           state.deleteUserThunk = payload;
+      }
+      }
+    )
+    builder.addCase(
+      createNewClassThunk.fulfilled,
+      (state, { payload }) => {
+        if (payload) {
+          state.createNewClassThunk = payload;
+      }
+      }
+    )
+    builder.addCase(
+      getAllClassThunk.fulfilled,
+      (state, { payload }) => {
+        if (payload) {
+          state.getAllClassThunk = payload;
+      }
+      }
+    )
+    builder.addCase(
+      getClassThunk.fulfilled,
+      (state, { payload }) => {
+        if (payload) {
+          state.getClassThunk = payload;
       }
       }
     )

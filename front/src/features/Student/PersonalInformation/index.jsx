@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Row, Col, Image, Flex } from "antd";
 import "./index.scss";
-import { getAllUserByAdminThunk } from "./../../../services/action/admin";
+// import { getAllUserByAdminThunk } from "./../../../redux/action/admin";
 const urlImage =
   "https://i.pinimg.com/564x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg";
 
@@ -10,10 +10,10 @@ const PersonalInformation = () => {
   const [info, setInfo] = useState();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllUserByAdminThunk()).then((res) => {
-      console.log(res);
-      setInfo(res);
-    });
+    // dispatch(getAllUserByAdminThunk()).then((res) => {
+    //   console.log(res);
+    //   setInfo(res);
+    // });
   }, []);
   return info ? (
     <div className="information-container">

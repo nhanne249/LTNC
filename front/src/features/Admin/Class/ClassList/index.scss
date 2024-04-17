@@ -1,0 +1,23 @@
+.class-list-container{
+    margin: 15px 35px 5px 15px;
+    .input-search{
+        width: 50%;
+        height:40px;
+        margin: 10px 0 10px 0;
+        .ant-input-group-addon{
+            .ant-btn{
+                background: #0388B4;
+            }
+        }
+    }
+    .create-class-btn{
+        width: 20%;
+        height: 40px;
+        margin: 10px 0 10px 0;
+        background: #0388B4;
+        color: white;
+    }
+    .table-container{
+
+    }
+}
