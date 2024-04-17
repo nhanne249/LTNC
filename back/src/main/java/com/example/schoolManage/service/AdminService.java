@@ -39,7 +39,7 @@ public class AdminService {
             return null;
         }
         return userRepository.save(new Student(student.getUsername(), passwordEncoder.encode(student.getPassword()),
-                student.getName(),  student.getEmail(), student.getPhone()));
+                student.getName(),  student.getEmail(), student.getPhoneNumber()));
     }
     public Optional<Student> getStudent(String username) {
         return userRepository.findStudentByUsername(username);
@@ -49,7 +49,7 @@ public class AdminService {
         if(student.isEmpty()) return null;
         student.get().setName(update.getName());
         student.get().setEmail(update.getEmail());
-        student.get().setPhone(update.getPhone());
+        student.get().setPhoneNumber(update.getPhoneNumber());
         return userRepository.save(student.get());
     }
 
@@ -59,10 +59,12 @@ public class AdminService {
         }
         return userRepository.save(new Teacher(teacher.getUsername(),
                 passwordEncoder.encode(teacher.getPassword()),
+                teacher.getRole(),
                 teacher.getName(),
                 teacher.getEmail(),
                 teacher.getPhoneNumber(),
-                teacher.getDegrees()));
+                teacher.getDegrees(),
+                teacher.getReview()));
     }
     public Optional<Teacher> getTeacher(String username) {
         return userRepository.findTeacherByUsername(username);

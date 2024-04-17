@@ -29,4 +29,67 @@ public class Classroom{
         this.teacher = teacher;
         this.students = new ArrayList<>(40);
     }
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public List<Integer> getTime() {
+        return time;
+    }
+
+    public void setTime(List<Integer> time) {
+        this.time = time;
+    }
+
+    public List<String> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<String> students) {
+        this.students = students;
+    }
+
+    public String getTeacher() {
+        return teacher;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
+    }
+
+    public void addStudent(String nameStudent) {
+        this.students.add(nameStudent);
+    }
+    public void deleteStudent(String nameStudent) {
+        this.students.remove(nameStudent);
+    }
 }

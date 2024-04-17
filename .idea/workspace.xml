@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e240358-8233-41de-83a0-9507f3afa3a5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/LTNC.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/example/schoolManage/controller/TeacherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/example/schoolManage/controller/TeacherController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/example/schoolManage/model/user/Teacher.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/example/schoolManage/model/user/Teacher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/example/schoolManage/service/TeacherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/example/schoolManage/service/TeacherService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,9 +32,9 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Ho__Nhat__Tri",
+    "git-widget-placeholder": "assignment",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/LTNC",
+    "last_opened_file_path": "D:/BTL_LTNC",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -54,19 +44,6 @@
   }
 }]]></component>
   <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="LTNC" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="LTNC" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="SchoolManageApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="schoolManage" />
@@ -88,6 +65,8 @@
       <workItem from="1713092575697" duration="12000" />
       <workItem from="1713103315670" duration="84000" />
       <workItem from="1713103405058" duration="68000" />
+      <workItem from="1713263994514" duration="27000" />
+      <workItem from="1713264058284" duration="38000" />
     </task>
     <servers />
   </component>
