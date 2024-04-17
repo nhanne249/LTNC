@@ -23,8 +23,8 @@ const SiderPage = () => {
           type: "group",
         },
         {
-          label: "Khóa học",
-          key: "courses",
+          label: "Lớp học",
+          key: "class",
         },
       ]);
     }

@@ -37,10 +37,15 @@ const admin = {
             `/users/${data.username}`, JSON.stringify(data)
         )
     },  
-    // createNewClass: (data) => {
-    //     return transport.post(
-    //         `/class`, JSON.stringify(data)
-    //     )
-    // },
+    createNewClass: (data) => {
+        return transport.post(
+            `/class`, JSON.stringify(data)
+        )
+    },
+    getClass: (data) => {
+        return transport.get(
+            `/classes`, JSON.stringify(data)
+        )
+    },
 }
 export default admin;
