@@ -2,24 +2,56 @@ import React, { useEffect, useState } from "react";
 import { Input, Form, Select, Button } from "antd";
 import { useDispatch } from "react-redux";
 import { getAllDaysThunk } from "../../../../redux/action/date";
+import { createNewClassThunk } from "../../../../redux/action/admin";
+import { toast } from "react-toastify";
 import "./index.scss";
 
 const CreateNewClass = () => {
-  const [date, setDate] = useState();
+  const [dateOptions, setDateOptions] = useState();
+  const [isSelectDisabled, setIsSelectDisabled] = useState(true);
+  const [timeOptions, setTimeOptions] = useState();
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getAllDaysThunk()).then((res) => {
       console.log(res);
+      setDateOptions(res?.payload);
     });
   }, []);
 
   const onFinish = (data) => {
     console.log(data);
+    const dataSend = {
+      name: data.name,
+      subject: data.subject,
+      day: data.day,
+      time: data.time.map((time) => parseInt(time)),
+      teacher: data.teacher,
+    };
+    dispatch(createNewClassThunk(dataSend)).then((res) => {
+      if (res.error) {
+        toast.error("Tạo lớp học mới thất bại!", {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "colored",
+        });
+      } else {
+        toast.success("Tạo lớp học mới thành công!", {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "colored",
+        });
+      }
+    });
+    console.log(dataSend);
   };
-
+  const onSelect = (value) => {
+    setIsSelectDisabled(false);
+    dateOptions.map((date) => {
+      if (date?.day == value) setTimeOptions(date?.time);
+    });
+  };
   return (
-    <div>
+    <div className="form-container">
       <Form
         name="form_container"
         initialValues={{
@@ -30,7 +62,7 @@ const CreateNewClass = () => {
         layout="vertical"
       >
         <Form.Item
-          name="classId"
+          name="name"
           rules={[
             {
               required: true,
@@ -38,7 +70,7 @@ const CreateNewClass = () => {
             },
           ]}
         >
-          <Input placeholder="Mã môn học"></Input>
+          <Input placeholder="Mã môn học" className="input-container"></Input>
         </Form.Item>
         <Form.Item
           name="subject"
@@ -49,7 +81,7 @@ const CreateNewClass = () => {
             },
           ]}
         >
-          <Input placeholder="Tên môn học"></Input>
+          <Input placeholder="Tên môn học" className="input-container"></Input>
         </Form.Item>
         <Form.Item
           name="day"
@@ -60,7 +92,15 @@ const CreateNewClass = () => {
             },
           ]}
         >
-          <Select placeholder="Ngày"></Select>
+          <Select
+            placeholder="Ngày"
+            options={dateOptions?.map((day) => ({
+              value: `${day.day}`,
+              label: `${day.day}`,
+            }))}
+            onSelect={onSelect}
+            className="input-container"
+          />
         </Form.Item>
         <Form.Item
           name="time"
@@ -71,7 +111,16 @@ const CreateNewClass = () => {
             },
           ]}
         >
-          <Select placeholder="Tiết học"></Select>
+          <Select
+            placeholder="Tiết học"
+            disabled={isSelectDisabled}
+            options={timeOptions?.map((time) => ({
+              value: `${time}`,
+              label: `Tiết ${time}`,
+            }))}
+            mode="multiple"
+            className="input-container"
+          />
         </Form.Item>
         <Form.Item
           name="teacher"
@@ -82,9 +131,14 @@ const CreateNewClass = () => {
             },
           ]}
         >
-          <Input placeholder="Giáo viên phụ trách"></Input>
+          <Input
+            placeholder="Giáo viên phụ trách"
+            className="input-container"
+          />
         </Form.Item>
-        <Button type="primary" htmlType="submit"></Button>
+        <Button type="primary" htmlType="submit" className="submit-btn">
+          Tạo mới
+        </Button>
       </Form>
     </div>
   );

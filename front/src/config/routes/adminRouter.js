@@ -24,18 +24,6 @@ const adminRouter = [
         Component: Dashboard,
       },
       {
-        path: "teacher-list",
-        Component: Dashboard,
-      },
-      {
-        path: "student-list",
-        Component: Dashboard,
-      },
-      {
-        path: "courses",
-        Component: Dashboard,
-      },
-      {
         path: "create-teacher-account",
         Component: CreateTeacherAccount,
       },
