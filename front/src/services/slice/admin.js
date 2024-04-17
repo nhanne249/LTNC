@@ -1,45 +1,59 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllUserByAdminThunk,getStudentByIdThunk,createNewStudentThunk,createNewTeacherThunk,deleteUserByIdThunk,createNewCourseThunk,deleteCourseThunk,createNewClassThunk,
+import { getAllUserThunk,getUserThunk,getAllStudentsThunk,getAllTeachersThunk,createNewStudentThunk,createNewTeacherThunk,deleteUserThunk,
 } from '../action/admin'
 
 const admin = createSlice({
   name: "adminFunction",
   initialState: {
-    getAllUserByAdminThunk: [],
-    getStudentByIdThunk: [],
-    createNewStudentThunk: [],
-    createNewTeacherThunk: [],
-    deleteUserByIdThunk:[],
-    createNewCourseThunk:[],
-    deleteCourseThunk: [],
-    createNewClassThunk:[],
+    getAllUserThunk: [],
+    getUserThunk: [],
+    getAllStudentsThunk: [],
+    getAllTeachersThunk: [],
+    createNewStudentThunk:[],
+    createNewTeacherThunk:[],
+    deleteUserThunk:[],
   },
   reducers: {
     clearAdminFuntion: (state) => {
-      state.getAllUserByAdminThunk = [],
-      state.getStudentByIdThunk= [],
-      state.createNewStudentThunk= [],
-      state.createNewTeacherThunk= [],
-      state.deleteUserByIdThunk= [],
-      state.createNewCourseThunk= [],
-      state.deleteCourseThunk= [],
-      state.createNewClassThunk= []
+      state.getAllUserThunk = []
+      state.getUserThunk= []
+      state.getAllStudentsThunk= []
+      state.getAllTeachersThunk= []
+      state.createNewStudentThunk= []
+      state.createNewTeacherThunk= []
+      state.deleteUserThunk= []
     },
   },
   extraReducers: (builder) => {
     builder.addCase(
-      getAllUserByAdminThunk.fulfilled,
+      getAllUserThunk.fulfilled,
       (state, { payload }) => {
         if (payload) {
-          state.getAllUserByAdminThunk = payload;
+          state.getAllUserThunk = payload;
         }
       }
     );
     builder.addCase(
-      getStudentByIdThunk.fulfilled,
+      getUserThunk.fulfilled,
       (state, { payload }) => {
         if (payload) {
-          state.getStudentByIdThunk = payload;
+          state.getUserThunk = payload;
+      }
+      }
+    )
+    builder.addCase(
+      getAllStudentsThunk.fulfilled,
+      (state, { payload }) => {
+        if (payload) {
+          state.getAllStudentsThunk = payload;
+        }
+      }
+    )
+    builder.addCase(
+      getAllTeachersThunk.fulfilled,
+      (state, { payload }) => {
+        if (payload) {
+          state.getAllTeachersThunk = payload;
       }
       }
     )
@@ -48,7 +62,7 @@ const admin = createSlice({
       (state, { payload }) => {
         if (payload) {
           state.createNewStudentThunk = payload;
-        }
+      }
       }
     )
     builder.addCase(
@@ -60,38 +74,13 @@ const admin = createSlice({
       }
     )
     builder.addCase(
-      deleteUserByIdThunk.fulfilled,
+      deleteUserThunk.fulfilled,
       (state, { payload }) => {
         if (payload) {
-          state.deleteUserByIdThunk = payload;
+          state.deleteUserThunk = payload;
       }
       }
     )
-    builder.addCase(
-      createNewCourseThunk.fulfilled,
-      (state, { payload }) => {
-        if (payload) {
-          state.createNewCourseThunk = payload;
-      }
-      }
-    )
-    builder.addCase(
-      deleteCourseThunk.fulfilled,
-      (state, { payload }) => {
-        if (payload) {
-          state.deleteCourseThunk = payload;
-      }
-      }
-    )
-    builder.addCase(
-      createNewClassThunk.fulfilled,
-      (state, { payload }) => {
-        if (payload) {
-          state.createNewClassThunk = payload;
-      }
-      }
-    )
-    
   }
 });
 export const { clearAdminFuntion
