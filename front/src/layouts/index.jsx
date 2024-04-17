@@ -28,6 +28,11 @@ const Layouts = () => {
   if (pathParts.includes("student-list")) title = "Danh sách sinh viên";
   if (pathParts.includes("courses")) title = "Danh sách khóa học";
   if (pathParts.includes("add-courses")) title = "Thêm khóa học mới";
+  if (pathParts.includes("user-list")) title = "Danh sách người dùng";
+  if (pathParts.includes("create-student-account"))
+    title = "Thêm tài khoản học sinh";
+  if (pathParts.includes("create-teacher-account"))
+    title = "Thêm tài khoản giảng viên";
   return (
     <Layout className="page-layout">
       <Image
