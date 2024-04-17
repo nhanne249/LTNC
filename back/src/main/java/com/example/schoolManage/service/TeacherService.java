@@ -4,21 +4,17 @@ import com.example.schoolManage.model.course.Classroom;
 import com.example.schoolManage.model.user.Teacher;
 import com.example.schoolManage.repository.ClassRepository;
 import com.example.schoolManage.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class TeacherService {
     private final UserRepository userRepository;
     private final ClassRepository classRepository;
-
-    public TeacherService(UserRepository userRepository, ClassRepository classRepository) {
-        this.userRepository = userRepository;
-        this.classRepository = classRepository;
-    }
-
 
     public List<Classroom> getAllClasses(String teacherUsername) {
         return classRepository.findAllByTeacher(teacherUsername);

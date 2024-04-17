@@ -8,6 +8,7 @@ import com.example.schoolManage.model.user.Teacher;
 import com.example.schoolManage.repository.ClassRepository;
 import com.example.schoolManage.repository.ReviewRepository;
 import com.example.schoolManage.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -15,17 +16,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class StudentService {
     private final UserRepository userRepository;
     private final ClassRepository classRepository;
 
     private final ReviewRepository reviewRepository;
 
-    public StudentService(UserRepository userRepository, ClassRepository classRepository, ReviewRepository reviewRepository) {
-        this.userRepository = userRepository;
-        this.classRepository = classRepository;
-        this.reviewRepository = reviewRepository;
-    }
 
     public Optional<Student> getStudent(String username) {
         return userRepository.findStudentByUsername(username);

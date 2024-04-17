@@ -2,6 +2,7 @@ package com.example.schoolManage.controller;
 
 import com.example.schoolManage.model.course.Classroom;
 import com.example.schoolManage.service.ClassService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +13,9 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/classes")
+@RequiredArgsConstructor
 public class ClassController {
     private final ClassService classService;
-    public ClassController(ClassService classService) {
-        this.classService = classService;
-    }
     @GetMapping
     public ResponseEntity<Page<Classroom>> getAllClasses(@RequestParam int page){
         return new ResponseEntity<>(classService.getAllClasses(page), HttpStatus.OK);
