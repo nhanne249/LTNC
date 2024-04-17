@@ -2,9 +2,6 @@ package com.example.schoolManage.model.user;
 
 import com.example.schoolManage.enums.Role;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -16,7 +13,7 @@ public class Teacher extends User {
     private List<String> degrees;
 
 
-    public Teacher(long id, String username, String password, String name, String email, String phoneNumber, List<String> degrees) {
+    public Teacher(String username, String password, String name, String email, String phoneNumber, List<String> degrees) {
         super(username, password, Role.TEACHER);
         this.name = name;
         this.email = email;
