@@ -27,7 +27,6 @@ public class AdminController {
     private final TeacherService teacherService;
     private final StudentService studentService;
 
-
     @GetMapping("/users")
     public ResponseEntity<Page<User>> getAllUsers(@RequestParam int page) {
         return new ResponseEntity<>(adminService.getAllUsers(page), HttpStatus.OK);

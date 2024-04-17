@@ -14,17 +14,12 @@ const SiderPage = () => {
     if (cookies.role == "ADMIN") {
       setItems([
         {
-          label: "Người dùng",
+          label: "Danh sách gười dùng",
           key: "users",
-          children: [
-            { label: "Danh sách giảng viên", key: "teacher-list" },
-            { label: "Danh sách học viên", key: "student-list" },
-          ],
-          type: "group",
         },
         {
-          label: "Khóa học",
-          key: "courses",
+          label: "Lớp học",
+          key: "class",
         },
       ]);
     }
@@ -82,20 +77,31 @@ const SiderPage = () => {
       const elementSider = document.getElementById("content-layout");
       const siderHeight = elementSider.offsetHeight;
       const windowHeight = window.innerHeight;
-      if (siderHeight < 436 || windowHeight < 624) {
-        setItems(items.map((item) => ({ ...item, type: "" })));
+      if (windowHeight < 624) {
+        setItems(
+          items.map((item) => {
+            if (item.type) {
+              return { ...item, type: "" };
+            } else return item;
+          })
+        );
         setMenuMode("vertical");
       } else {
-        setItems(items.map((item) => ({ ...item, type: "group" })));
+        setItems(
+          items.map((item) => {
+            if (item.type == "") {
+              return { ...item, type: "group" };
+            } else return item;
+          })
+        );
         setMenuMode("inline");
       }
     };
-
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [menuMode]);
+  }, [menuMode, items]);
 
   const siderWidth = document.getElementById("sider");
   const onClick = (value) => {
