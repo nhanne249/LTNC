@@ -4,6 +4,7 @@ import com.example.schoolManage.model.course.Classroom;
 import com.example.schoolManage.model.review.Review;
 import com.example.schoolManage.model.user.Student;
 import com.example.schoolManage.service.StudentService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +15,9 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/students")
+@RequiredArgsConstructor
 public class StudentController {
     private final StudentService studentService;
-
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
-    }
 
     @GetMapping("/{username}")
     public ResponseEntity<Student> getStudent(@PathVariable String username) {
@@ -35,7 +33,7 @@ public class StudentController {
 
     @PutMapping("/{username}")
     public ResponseEntity<Student> updateStudent(@RequestBody Student update, @PathVariable String username) {
-        var st = studentService.updateStudent(update, username);
+        var st = studentService.updateStudent(username,update);
         return st.map(student -> new ResponseEntity<>(student, HttpStatus.OK)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
