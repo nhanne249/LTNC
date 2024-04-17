@@ -4,6 +4,7 @@ import com.example.schoolManage.model.user.Student;
 import com.example.schoolManage.model.user.Teacher;
 import com.example.schoolManage.model.user.User;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.bson.types.ObjectId;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends MongoRepository<User, ObjectId> {
+//    List<Student> findAllStudent();
+//    List<Teacher> findAllTeacher();
     Optional<User> findByUsername(String username);
     Optional<Student> findStudentByUsername(String username);
     Optional<Teacher> findTeacherByUsername(String username);

@@ -35,44 +35,29 @@ public class StudentService {
         return classRepository.findAllByStudent(username);
     }
 
-    public Student updateInfo(Student update, String username) {
+    public Optional<Student> updateStudent(Student update, String username) {
         Optional<Student> student = userRepository.findStudentByUsername(username);
-        if (student.isEmpty()) return null;
-        else {
+        if (student.isPresent()) {
             if (update.getName() != null) student.get().setName(update.getName());
             if (update.getEmail() != null) student.get().setEmail(update.getEmail());
             if (update.getPhone() != null) student.get().setPhone(update.getPhone());
-            return userRepository.save(student.get());
+            userRepository.save(student.get());
         }
+        return student;
     }
 
-    public ResponseEntity<String> enrollClass(String username, String className) {
+    public Optional<Classroom> enrollClass(String username, String className) {
         Optional<Classroom> cl = classRepository.findByName(className);
-        if (cl.isPresent()) {
-            Optional<Student> st = userRepository.findStudentByUsername(username);
-            if (st.isEmpty()) {
-                return ResponseEntity.ok("STUDENT NOT EXIST");
-            } else {
-                cl.get().addStudent(st.get().getUsername());
-                classRepository.save(cl.get());
-                return ResponseEntity.ok("student enroll successfully");
-            }
-        } else return ResponseEntity.ok("CLASS NOT EXIST");
-
+        if (cl.isEmpty()) return Optional.empty();
+        cl.get().addStudent(username);
+        return Optional.of(classRepository.save(cl.get()));
     }
 
-    public ResponseEntity<String> unrollClass(String username, String className) {
+    public Optional<Classroom> unenrollClass(String username, String className) {
         Optional<Classroom> cl = classRepository.findByName(className);
-        if (cl.isPresent()) {
-            Optional<Student> st = userRepository.findStudentByUsername(username);
-            if (st.isEmpty()) {
-                return ResponseEntity.ok("STUDENT NOT EXIST");
-            } else {
-                cl.get().deleteStudent(st.get().getUsername());
-                classRepository.save(cl.get());
-                return ResponseEntity.ok("student unenroll successfully");
-            }
-        } else return ResponseEntity.ok("CLASS NOT EXIST");
+        if (cl.isEmpty()) return Optional.empty();
+        cl.get().deleteStudent(username);
+        return Optional.of(classRepository.save(cl.get()));
     }
 
     public ResponseEntity<String> rate(Review review, String className, String username) {
@@ -85,7 +70,7 @@ public class StudentService {
             reviewRepository.save(review);
             return ResponseEntity.ok("ADDED REVIEW");
 
-        } else return ResponseEntity.ok("TEACHER IS NOT EXIST");
+        } else return ResponseEntity.ok("CLASS IS NOT EXIST");
     }
 
 }

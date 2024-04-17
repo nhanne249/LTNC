@@ -21,14 +21,14 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-
     @GetMapping("/users")
     public ResponseEntity<Page<User>> getAllUsers(@RequestParam int page) {
         return new ResponseEntity<>(adminService.getAllUsers(page), HttpStatus.OK);
     }
     @GetMapping("/users/{username}")
-    public ResponseEntity<Optional<User>> getByUsername(@PathVariable String username) {
-        return new ResponseEntity<>(adminService.getUser(username), HttpStatus.OK);
+    public ResponseEntity<User> getByUsername(@PathVariable String username) {
+        var user = adminService.getUser(username);
+        return user.map(usr -> new ResponseEntity<>(usr, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
     @DeleteMapping("/users")
     public ResponseEntity<String> deleteAllUsers(){
@@ -40,21 +40,15 @@ public class AdminController {
         adminService.deleteUser(username);
         return ResponseEntity.ok("User deleted");
     }
-
-
+    @PostMapping("/students")
+    public ResponseEntity<Student> addStudent(@RequestBody Student student) {
+        return new ResponseEntity<>(adminService.createStudent(student), HttpStatus.CREATED);
+    }
     @PostMapping("/teachers")
     public ResponseEntity<Teacher> createTeacher(@RequestBody Teacher teacher) {
         Teacher tc = adminService.createTeacher(teacher);
         if (Objects.isNull(tc))
             return ResponseEntity.badRequest().build();
         return new ResponseEntity<>(tc, HttpStatus.CREATED);
-    }
-    @GetMapping("/teachers/{username}")
-    public ResponseEntity<Optional<Teacher>> getTeacher(@PathVariable String username) {
-        return new ResponseEntity<>(adminService.getTeacher(username), HttpStatus.OK);
-    }
-    @PutMapping("/teachers/{username}")
-    public ResponseEntity<Teacher> updateTeacher(@RequestBody Teacher teacher, @PathVariable String username){
-        return new ResponseEntity<>(adminService.updateTeacher(teacher,username), HttpStatus.OK);
     }
 }

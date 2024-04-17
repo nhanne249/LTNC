@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -51,5 +52,17 @@ public class ClassService {
         Collections.sort(wd.get().getTime());
         weekdayRepository.save(wd.get());
         classRepository.deleteByName(name);
+    }
+    public void deleteAllClasses(){
+        List<Integer> ls = new ArrayList<>(10);
+        for(int i=1; i<=10; i++){
+            ls.add(i);
+        }
+        var wd = weekdayRepository.findAll();
+        wd.forEach(weekday -> {
+            weekday.setTime(ls);
+            weekdayRepository.save(weekday);
+        });
+        classRepository.deleteAll();
     }
 }

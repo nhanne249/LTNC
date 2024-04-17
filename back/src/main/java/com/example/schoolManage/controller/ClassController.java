@@ -34,4 +34,9 @@ public class ClassController {
         classService.deleteClass(name);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    @DeleteMapping
+    public ResponseEntity<String> deleteAllClasses(){
+        classService.deleteAllClasses();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
