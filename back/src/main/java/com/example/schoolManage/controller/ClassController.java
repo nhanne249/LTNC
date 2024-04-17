@@ -22,7 +22,7 @@ public class ClassController {
     }
     @PostMapping
     public ResponseEntity<Classroom> createClass(@RequestBody Classroom classroom){
-        return new ResponseEntity<>(classService.createClass(classroom), HttpStatus.OK);
+        return Optional.of(classService.createClass(classroom)).map(cl -> new ResponseEntity<>(cl, HttpStatus.CREATED)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
     @GetMapping("/{name}")
     public ResponseEntity<Optional<Classroom>> getClassById(@PathVariable String name){
