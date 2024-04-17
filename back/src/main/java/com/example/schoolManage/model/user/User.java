@@ -14,15 +14,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Document(collection = "users")
 public class User implements UserDetails {
     @Id
-    protected long id;
+    protected ObjectId id;
+    @Setter
     protected String username;
     @Setter
     protected String password;
     @Getter
     protected Role role;
 
-    public User(long id, String username, String password, Role role) {
-        this.id = id;
+    public User(String username, String password, Role role) {
         this.username = username;
         this.password = password;
         this.role = role;
