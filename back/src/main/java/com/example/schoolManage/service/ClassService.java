@@ -3,6 +3,7 @@ package com.example.schoolManage.service;
 import com.example.schoolManage.model.course.Classroom;
 import com.example.schoolManage.repository.ClassRepository;
 import com.example.schoolManage.repository.WeekdayRepository;
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,13 +15,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ClassService {
     private final ClassRepository classRepository;
     private final WeekdayRepository weekdayRepository;
-    public ClassService(ClassRepository classRepository, WeekdayRepository weekdayRepository) {
-        this.classRepository = classRepository;
-        this.weekdayRepository = weekdayRepository;
-    }
+
     public Page<Classroom> getAllClasses(int page){
         return classRepository.findAll(PageRequest.of(page-1, 10));
     }

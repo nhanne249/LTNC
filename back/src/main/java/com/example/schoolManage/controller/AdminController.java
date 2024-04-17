@@ -6,6 +6,7 @@ import com.example.schoolManage.model.user.User;
 import com.example.schoolManage.service.AdminService;
 import com.example.schoolManage.service.StudentService;
 import com.example.schoolManage.service.TeacherService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,16 +20,11 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping
+@RequiredArgsConstructor
 public class AdminController {
     private final AdminService adminService;
     private final TeacherService teacherService;
     private final StudentService studentService;
-
-    public AdminController(AdminService adminService, TeacherService teacherService, StudentService studentService) {
-        this.adminService = adminService;
-        this.teacherService = teacherService;
-        this.studentService = studentService;
-    }
 
     @GetMapping("/users")
     public ResponseEntity<Page<User>> getAllUsers(@RequestParam int page) {
