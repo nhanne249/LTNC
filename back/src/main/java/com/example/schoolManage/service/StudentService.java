@@ -41,7 +41,7 @@ public class StudentService {
         else {
             if (update.getName() != null) student.get().setName(update.getName());
             if (update.getEmail() != null) student.get().setEmail(update.getEmail());
-            if (update.getPhoneNumber() != null) student.get().setPhoneNumber(update.getPhoneNumber());
+            if (update.getPhone() != null) student.get().setPhone(update.getPhone());
             return userRepository.save(student.get());
         }
     }

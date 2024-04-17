@@ -1,6 +1,6 @@
 package com.example.schoolManage.repository;
 
-import com.example.schoolManage.model.Weekday;
+import com.example.schoolManage.model.time.Weekday;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;

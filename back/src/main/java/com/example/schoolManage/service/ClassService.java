@@ -36,7 +36,6 @@ public class ClassService {
         weekdayRepository.save(wd.get());
         return classRepository.insert(new Classroom(classroom.getName(),
                 classroom.getSubject(),
-                classroom.getPlace(),
                 classroom.getDay(),
                 classroom.getTime(),
                 classroom.getTeacher()));

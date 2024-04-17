@@ -15,8 +15,11 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/students")
 public class StudentController {
-    @Autowired
-    private StudentService studentService;
+    private final StudentService studentService;
+
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
     @GetMapping("/{username}")
     public ResponseEntity<Optional<Student>> getInfoStudent(@PathVariable String username) {

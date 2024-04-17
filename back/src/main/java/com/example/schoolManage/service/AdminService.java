@@ -39,19 +39,19 @@ public class AdminService {
             return null;
         }
         return userRepository.save(new Student(student.getUsername(), passwordEncoder.encode(student.getPassword()),
-                student.getName(),  student.getEmail(), student.getPhoneNumber()));
+                student.getName(),  student.getEmail(), student.getPhone()));
     }
-    public Optional<Student> getStudent(String username) {
-        return userRepository.findStudentByUsername(username);
-    }
-    public Student updateStudent(Student update, String username){
-        Optional<Student> student = userRepository.findStudentByUsername(username);
-        if(student.isEmpty()) return null;
-        student.get().setName(update.getName());
-        student.get().setEmail(update.getEmail());
-        student.get().setPhoneNumber(update.getPhoneNumber());
-        return userRepository.save(student.get());
-    }
+//    public Optional<Student> getStudent(String username) {
+//        return userRepository.findStudentByUsername(username);
+//    }
+//    public Student updateStudent(Student update, String username){
+//        Optional<Student> student = userRepository.findStudentByUsername(username);
+//        if(student.isEmpty()) return null;
+//        student.get().setName(update.getName());
+//        student.get().setEmail(update.getEmail());
+//        student.get().setPhone(update.getPhone());
+//        return userRepository.save(student.get());
+//    }
 
     public Teacher createTeacher(@NotNull Teacher teacher) {
         if (userRepository.findByUsername(teacher.getUsername()).isPresent()) {
@@ -59,12 +59,10 @@ public class AdminService {
         }
         return userRepository.save(new Teacher(teacher.getUsername(),
                 passwordEncoder.encode(teacher.getPassword()),
-                teacher.getRole(),
                 teacher.getName(),
                 teacher.getEmail(),
                 teacher.getPhoneNumber(),
-                teacher.getDegrees(),
-                teacher.getReview()));
+                teacher.getDegrees()));
     }
     public Optional<Teacher> getTeacher(String username) {
         return userRepository.findTeacherByUsername(username);

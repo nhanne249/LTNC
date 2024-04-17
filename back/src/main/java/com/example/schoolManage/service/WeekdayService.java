@@ -1,6 +1,6 @@
 package com.example.schoolManage.service;
 
-import com.example.schoolManage.model.Weekday;
+import com.example.schoolManage.model.time.Weekday;
 import com.example.schoolManage.repository.WeekdayRepository;
 import org.springframework.stereotype.Service;
 

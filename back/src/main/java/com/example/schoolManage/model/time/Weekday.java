@@ -1,4 +1,4 @@
-package com.example.schoolManage.model;
+package com.example.schoolManage.model.time;
 
 import lombok.Data;
 import org.bson.types.ObjectId;

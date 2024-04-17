@@ -1,6 +1,6 @@
 package com.example.schoolManage.controller;
 
-import com.example.schoolManage.model.Weekday;
+import com.example.schoolManage.model.time.Weekday;
 import com.example.schoolManage.service.WeekdayService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
