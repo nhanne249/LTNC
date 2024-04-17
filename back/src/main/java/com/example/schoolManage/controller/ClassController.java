@@ -26,15 +26,17 @@ public class ClassController {
         return new ResponseEntity<>(classService.createClass(classroom), HttpStatus.OK);
     }
     @GetMapping("/{name}")
-    public ResponseEntity<Optional<Classroom>> getClassByName(@PathVariable String name){
+    public ResponseEntity<Optional<Classroom>> getClassById(@PathVariable String name){
         return new ResponseEntity<>(classService.getClassByName(name), HttpStatus.OK);
     }
-    @GetMapping("/teacher")
-    public ResponseEntity<List<Classroom>> getClassTeacher(@RequestParam String username){
-        return new ResponseEntity<>(classService.findByTeacher(username), HttpStatus.OK);
+    @DeleteMapping("/{name}")
+    public ResponseEntity<Classroom> deleteClassByName(@PathVariable String name){
+        classService.deleteClass(name);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
-    @GetMapping("/student")
-    public ResponseEntity<List<Classroom>> getClassStudent(@RequestParam String username){
-        return new ResponseEntity<>(classService.findByStudent(username), HttpStatus.OK);
+    @DeleteMapping
+    public ResponseEntity<String> deleteAllClasses(){
+        classService.deleteAllClasses();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
