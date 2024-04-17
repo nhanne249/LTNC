@@ -30,7 +30,7 @@ public class Teacher extends User {
         this.degrees = degrees;
     }
 
-
+}
 
 
 
