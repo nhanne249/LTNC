@@ -2,9 +2,9 @@ import axios from 'axios';
 // import Cookies from 'js-cookie';
 
 function getCookieValue(cookieName) {
-    let cookieArray = document.cookie.split(';');
+    const cookieArray = document.cookie.split(';');
     for (let i = 0; i < cookieArray.length; i++) {
-        let cookiePair = cookieArray[i].split('=');
+        const cookiePair = cookieArray[i].split('=');
         if (cookieName == cookiePair[0].trim()) {
             return decodeURIComponent(cookiePair[1]);
         }
@@ -23,7 +23,6 @@ const httpHandler = (baseURL) => {
     async function intercept(config) {
       const interceptedConfig = config;
       if (myCookieValue) {
-        console.log(myCookieValue);
           interceptedConfig.headers['Authorization'] = 'Bearer ' + myCookieValue;
         }
       interceptedConfig.headers['Content-Type'] = 'application/json';

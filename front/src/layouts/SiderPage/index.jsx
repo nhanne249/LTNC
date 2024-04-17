@@ -85,7 +85,8 @@ const SiderPage = () => {
       if (siderHeight < 436 || windowHeight < 624) {
         setItems(items.map((item) => ({ ...item, type: "" })));
         setMenuMode("vertical");
-      } else {
+      }
+      if (siderHeight >= 436 || windowHeight >= 624) {
         setItems(items.map((item) => ({ ...item, type: "group" })));
         setMenuMode("inline");
       }
@@ -95,7 +96,7 @@ const SiderPage = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [menuMode]);
+  }, [menuMode, items]);
 
   const siderWidth = document.getElementById("sider");
   const onClick = (value) => {

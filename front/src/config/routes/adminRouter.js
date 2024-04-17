@@ -3,6 +3,8 @@ import Dashboard from "../../features/Student/Dashboard";
 import CreateTeacherAccount from "../../features/Admin/UserList/CreateNewUser/CreateTeacherAccount/index.jsx";
 import CreateStudentAccount from "../../features/Admin/UserList/CreateNewUser/CreateStudentAccount/index.jsx";
 import ClassList from "../../features/Admin/Class/ClassList/index.jsx"
+import CreateNewClass from "../../features/Admin/Class/CreateClass/index.jsx"
+
 const adminRouter = [
   {
     role: "admin",
@@ -44,6 +46,10 @@ const adminRouter = [
       {
         path: "class",
         Component: ClassList,
+      },
+      {
+        path: "create-class",
+        Component: CreateNewClass,
       },
     ],
   },

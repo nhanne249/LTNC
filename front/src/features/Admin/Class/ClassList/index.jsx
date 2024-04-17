@@ -1,89 +1,114 @@
 import React, { useState, useEffect } from "react";
-import { Table } from "antd";
+import { Table, Input, Button, Flex, Space } from "antd";
 import { useDispatch } from "react-redux";
-import { getClassThunk } from "../../../../redux/action/admin";
+import { useNavigate } from "react-router-dom";
+import {
+  getAllClassThunk,
+  getClassThunk,
+} from "../../../../redux/action/admin";
+import TablePagination from "./TablePagination";
 import "./index.scss";
 
 const ClassList = () => {
-  const [dateReceive, setDateReceive] = useState([]);
+  const [dataReceive, setDataReceive] = useState([]);
+  const { Search } = Input;
+  const [page, setPage] = useState(1);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   useEffect(() => {
-    dispatch(getClassThunk()).then((res) => console.log(res));
+    dispatch(getAllClassThunk(page)).then((res) => {
+      setDataReceive(res.payload.content);
+    });
   }, []);
-  const data = [
-    {
-      key: "1",
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      tags: ["nice", "developer"],
-    },
-    {
-      key: "2",
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      tags: ["loser"],
-    },
-    {
-      key: "3",
-      name: "Joe Black",
-      age: 32,
-      address: "Sydney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
-    },
-  ];
   const columns = [
     {
-      title: "Name",
+      title: "Tên môn học",
+      dataIndex: "subject",
+      key: "subject",
+      width: "10%",
+    },
+    {
+      title: "Mã lớp",
       dataIndex: "name",
       key: "name",
-      render: (text) => <a>{text}</a>,
+      width: "10%",
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
+      title: "Giáo viên phụ trách",
+      dataIndex: "teacher",
+      key: "teacher",
+      width: "20%",
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
+      title: "Thứ",
+      key: "day",
+      dataIndex: "day",
+      width: "10%",
     },
     {
-      title: "Tags",
-      key: "tags",
-      dataIndex: "tags",
-      render: (_, { tags }) => (
+      title: "Tiết",
+      key: "time",
+      dataIndex: "time",
+      width: "50%",
+      render: (value) => (
         <>
-          {tags.map((tag) => {
-            let color = tag.length > 5 ? "geekblue" : "green";
-            if (tag === "loser") {
-              color = "volcano";
-            }
-            return (
-              <div color={color} key={tag}>
-                {tag.toUpperCase()}
-              </div>
-            );
-          })}
+          {value.map((data, index) => (
+            <text key={index}>[{data}]</text>
+          ))}
         </>
       ),
     },
-    {
-      title: "Action",
-      key: "action",
-      render: (_, record) => (
-        <div>
-          <a>Invite {record.name}</a>
-          <a>Delete</a>
-        </div>
-      ),
-    },
   ];
+  const handleOnChange = (value) => {
+    dispatch(getAllClassThunk(value)).then((res) => {
+      setDataReceive(res.payload.content);
+    });
+  };
+  const onSearch = (data) => {
+    if (data) {
+      dispatch(getClassThunk(data)).then((res) => {
+        setDataReceive([res.payload]);
+      });
+    } else {
+      dispatch(getAllClassThunk(page)).then((res) => {
+        setDataReceive(res.payload.content);
+      });
+    }
+  };
+  const handleCreateNewClass = () => {
+    navigate("/admin/create-class", { replace: true });
+  };
   return (
-    <div>
-      <Table columns={columns} dataSource={data} />
+    <div className="class-list-container">
+      <Flex justify="space-between">
+        <Search
+          placeholder="Nhập mã lớp cần tìm"
+          enterButton="TÌM KIẾM "
+          size="large"
+          onSearch={onSearch}
+          className="input-search"
+        />
+        <Button
+          className="create-class-btn"
+          onClick={() => handleCreateNewClass()}
+        >
+          <b>THÊM LỚP MỚI</b>
+        </Button>
+      </Flex>
+      <div className="table-container">
+        <Table
+          bordered
+          columns={columns}
+          dataSource={dataReceive}
+          pagination={TablePagination(
+            1,
+            dataReceive?.size ? dataReceive.size : 1,
+            dataReceive?.totalPages ? dataReceive.totalPages : 1,
+            handleOnChange
+          )}
+        />
+      </div>
     </div>
   );
 };

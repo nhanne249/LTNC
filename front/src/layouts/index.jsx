@@ -33,6 +33,9 @@ const Layouts = () => {
     title = "Thêm tài khoản học sinh";
   if (pathParts.includes("create-teacher-account"))
     title = "Thêm tài khoản giảng viên";
+  if (pathParts.includes("class")) title = "Danh sách lớp học";
+
+  if (pathParts.includes("create-class")) title = "Thêm lớp học mới";
   return (
     <Layout className="page-layout">
       <Image

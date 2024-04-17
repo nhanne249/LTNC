@@ -42,9 +42,14 @@ const admin = {
             `/class`, JSON.stringify(data)
         )
     },
+    getAllClass: (data) => {
+        return transport.get(
+            `/classes?page=${data}`, JSON.stringify()
+        )
+    },
     getClass: (data) => {
         return transport.get(
-            `/classes`, JSON.stringify(data)
+            `/classes/${data}`, JSON.stringify()
         )
     },
 }
