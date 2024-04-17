@@ -28,6 +28,8 @@ public class Teacher extends User {
         this.review.add(username);
     }
 
+    public void removeReview(String username) { this.review.remove(username);}
+
     public Teacher(String username, String password, Role role, String name, String email, String phoneNumber, List<String> degrees, List<String> review) {
         super(username, password, role);
         this.name = name;

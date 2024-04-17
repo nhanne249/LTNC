@@ -53,9 +53,15 @@ public class StudentService {
             if (st.isEmpty()) {
                 return ResponseEntity.ok("STUDENT NOT EXIST");
             } else {
+                List<Classroom> list = classRepository.findAllByStudent(username);
+                String subject = cl.get().getSubject();
+                for (Classroom i : list) {
+                    if (i.getSubject().equals(subject))
+                        return ResponseEntity.ok("ALREADY HAVE CLASS OF THIS SUBJECT");
+                }
                 cl.get().addStudent(st.get().getUsername());
                 classRepository.save(cl.get());
-                return ResponseEntity.ok("student enroll successfully");
+                return ResponseEntity.ok("STUDENT ENROLL SUCCESSFULLY");
             }
         } else return ResponseEntity.ok("CLASS NOT EXIST");
 
@@ -68,24 +74,58 @@ public class StudentService {
             if (st.isEmpty()) {
                 return ResponseEntity.ok("STUDENT NOT EXIST");
             } else {
+                if (!cl.get().getStudents().contains(username))
+                    return ResponseEntity.ok("ALREADY UNENROLL");
                 cl.get().deleteStudent(st.get().getUsername());
                 classRepository.save(cl.get());
-                return ResponseEntity.ok("student unenroll successfully");
+                return ResponseEntity.ok("STUDENT UNENROLL SUCCESSFULLY");
             }
         } else return ResponseEntity.ok("CLASS NOT EXIST");
     }
 
-    public ResponseEntity<String> rate(Review review, String className, String username) {
-        Optional<Classroom> cl = classRepository.findByName(className);
+    // kiem tra xem co duoc giao vien do day ko
+    public Classroom inClassOfTeacher (String teacher, String student) {
+        List<Classroom> list = classRepository.findAllByTeacher(teacher);
+        if (list==null) return null;
+        for (Classroom i : list) {
+            if (i.getStudents().contains(student)) return i;
+        }
+        return null;
+    }
+
+    public ResponseEntity<String> rate(Review review, String teacher, String username) {
         review.setStudentName(username);
-        if (cl.isPresent()) {
-            Optional<Teacher> tc = userRepository.findTeacherByUsername(cl.get().getTeacher());
+        Classroom cl = inClassOfTeacher(teacher, username);
+        if (cl==null) return ResponseEntity.ok("STUDENT ISN'T TAUGHT BY THIS TEACHER");
+        Optional<Review> rv = reviewRepository.findByStudentName(username);
+        if (rv.isPresent()) {
+            rv.get().setReviewBody(review.getReviewBody());
+            reviewRepository.save(rv.get());
+        } else {
+            Optional<Teacher> tc = userRepository.findTeacherByUsername(teacher);
             tc.get().addReview(username);
             userRepository.save(tc.get());
             reviewRepository.save(review);
-            return ResponseEntity.ok("ADDED REVIEW");
+        }
+        return ResponseEntity.ok("ADDED REVIEW");
 
-        } else return ResponseEntity.ok("TEACHER IS NOT EXIST");
     }
 
+    public ResponseEntity<String> deleteRate(String teacher, String username) {
+        Classroom cl = inClassOfTeacher(teacher, username);
+        if (cl == null) return ResponseEntity.ok("STUDENT ISN'T TAUGHT BY THIS TEACHER");
+        Optional<Review> rv = reviewRepository.findByStudentName(username);
+
+        if (rv.isEmpty()) return ResponseEntity.ok("HAVEN'T REVIEWED YET");
+        reviewRepository.delete(rv.get());
+        Optional<Teacher> tc = userRepository.findTeacherByUsername(teacher);
+        tc.get().removeReview(username);
+        userRepository.save(tc.get());
+        return ResponseEntity.ok("REMOVED REVIEW");
+    }
+
+    // kiem tra thong tin lop dang hoc
+    public Optional<Classroom> getInfoClass(String className) {
+        return classRepository.findByName(className);
+    }
 }

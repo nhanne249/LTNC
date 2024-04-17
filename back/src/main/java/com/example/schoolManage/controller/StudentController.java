@@ -33,6 +33,7 @@ public class StudentController {
         return new ResponseEntity<>(studentService.getAllClassrooms(username), HttpStatus.OK);
     }
 
+
     @PutMapping("/{username}")
     public ResponseEntity<Student> updateInfo(@RequestBody Student update, @PathVariable String username) {
         return new ResponseEntity<>(studentService.updateInfo(update, username), HttpStatus.OK);
@@ -52,7 +53,18 @@ public class StudentController {
     public ResponseEntity<String> rate(@RequestBody Review review, @PathVariable String className, @PathVariable String username) {
         if (review.getScore()==null) return ResponseEntity.ok("NEED ADD SCORE");
         else if (review.getReviewBody()==null) return ResponseEntity.ok("NEED ADD REVIEW");
-        return studentService.rate(review, className, username);
+        else if (review.getScore()>5 || review.getScore()<0) return ResponseEntity.ok("WRONG SCORE REVIEW (0<=SCORE<=5)");
+        Optional<Classroom> cl = studentService.getInfoClass(className);
+        if (cl.isPresent()) return studentService.rate(review, cl.get().getTeacher(), username);
+        else return ResponseEntity.ok("CLASS ISN'T EXIST");
+
     }
+//    Xoa review
+//    @PostMapping("/{username}/classes/{className}/deleteRate")
+//    public ResponseEntity<String> deleteRate( @PathVariable String className, @PathVariable String username) {
+//        Optional<Classroom> cl = studentService.getInfoClass(className);
+//        if (cl.isEmpty()) return ResponseEntity.ok("CLASS ISN'T EXIST");
+//        return studentService.deleteRate(cl.get().getTeacher(), username);
+//    }
 }
 
