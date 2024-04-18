@@ -11,7 +11,7 @@ public class Review {
     @Id
     private ObjectId id;
     @Getter @Setter private String reviewBody;
-    @Getter @Setter  private String studentName; // dung de chua username
+    @Getter @Setter  private String studentName;
     @Getter @Setter private Integer score;
 
     public Review(String reviewBody, String studentName, Integer score) {

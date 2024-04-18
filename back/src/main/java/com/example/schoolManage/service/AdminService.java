@@ -4,6 +4,7 @@ import com.example.schoolManage.model.user.Student;
 import com.example.schoolManage.model.user.Teacher;
 import com.example.schoolManage.model.user.User;
 import com.example.schoolManage.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,17 +12,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class AdminService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
-    public AdminService(PasswordEncoder passwordEncoder, UserRepository userRepository) {
-        this.passwordEncoder = passwordEncoder;
-        this.userRepository = userRepository;
-    }
     public Page<User> getAllUsers(int page) {
         final int PAGE_SIZE = 10;
         return userRepository.findAll(PageRequest.of(page - 1, PAGE_SIZE)); // danh so bat dau tu 0
@@ -39,43 +38,19 @@ public class AdminService {
             return null;
         }
         return userRepository.save(new Student(student.getUsername(), passwordEncoder.encode(student.getPassword()),
-                student.getName(),  student.getEmail(), student.getPhoneNumber()));
+                student.getName(),  student.getEmail(), student.getPhone()));
     }
-    public Optional<Student> getStudent(String username) {
-        return userRepository.findStudentByUsername(username);
-    }
-    public Student updateStudent(Student update, String username){
-        Optional<Student> student = userRepository.findStudentByUsername(username);
-        if(student.isEmpty()) return null;
-        student.get().setName(update.getName());
-        student.get().setEmail(update.getEmail());
-        student.get().setPhoneNumber(update.getPhoneNumber());
-        return userRepository.save(student.get());
-    }
-
+    public Page<Student> getAllStudents(int page) {return userRepository.findAllStudents(PageRequest.of(page-1, 10));}
+    public Page<Teacher> getAllTeachers(int page) {return userRepository.findAllTeachers(PageRequest.of(page-1, 10));}
     public Teacher createTeacher(@NotNull Teacher teacher) {
         if (userRepository.findByUsername(teacher.getUsername()).isPresent()) {
             return null;
         }
         return userRepository.save(new Teacher(teacher.getUsername(),
                 passwordEncoder.encode(teacher.getPassword()),
-                teacher.getRole(),
                 teacher.getName(),
                 teacher.getEmail(),
-                teacher.getPhoneNumber(),
-                teacher.getDegrees(),
-                teacher.getReview()));
-    }
-    public Optional<Teacher> getTeacher(String username) {
-        return userRepository.findTeacherByUsername(username);
-    }
-    public Teacher updateTeacher(Teacher update, String username){
-        var teacher = userRepository.findTeacherByUsername(username);
-        if(teacher.isEmpty()) return null;
-        teacher.get().setName(update.getName());
-        teacher.get().setEmail(update.getEmail());
-        teacher.get().setPhoneNumber(update.getPhoneNumber());
-        teacher.get().setDegrees(update.getDegrees());
-        return userRepository.save(teacher.get());
+                teacher.getPhone(),
+                teacher.getDegrees()));
     }
 }

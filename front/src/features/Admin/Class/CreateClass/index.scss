@@ -1,0 +1,19 @@
+.form-container{
+    margin: 30px 35px 30px 15px;
+    padding-bottom: 10px;
+    .input-container{
+        width: 50%;
+        height: 40px;
+    }
+    .submit-btn{
+        background-color: #0388B4;
+        width: 50%;
+        height: 40px;
+        color: #ffffff;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 21px;
+        text-align: center;
+    }
+}
