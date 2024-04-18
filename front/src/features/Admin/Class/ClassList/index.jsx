@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Table, Input, Button, Flex, Space } from "antd";
+import { Table, Input, Button, Flex, Pagination } from "antd";
+import { DeleteOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   getAllClassThunk,
   getClassThunk,
+  deleteClassThunk,
 } from "../../../../redux/action/admin";
-import TablePagination from "./TablePagination";
 import "./index.scss";
 
 const ClassList = () => {
@@ -18,15 +20,35 @@ const ClassList = () => {
 
   useEffect(() => {
     dispatch(getAllClassThunk(page)).then((res) => {
-      setDataReceive(res.payload.content);
+      setDataReceive(res?.payload);
     });
   }, []);
+  const handleDeleteClass = (data) => {
+    dispatch(deleteClassThunk(data.name)).then((res) => {
+      if (!res.error) {
+        toast.success("Xóa lớp học thành công!", {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "colored",
+        });
+        dispatch(getAllClassThunk(1)).then((res) => {
+          setDataReceive(res?.payload);
+        });
+      } else {
+        toast.error("Xóa lớp học thất bại!", {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "colored",
+        });
+      }
+    });
+  };
   const columns = [
     {
       title: "Tên môn học",
       dataIndex: "subject",
       key: "subject",
-      width: "10%",
+      width: "15%",
     },
     {
       title: "Mã lớp",
@@ -50,29 +72,44 @@ const ClassList = () => {
       title: "Tiết",
       key: "time",
       dataIndex: "time",
-      width: "50%",
+      width: "35%",
       render: (value) => (
         <>
           {value.map((data, index) => (
-            <text key={index}>[{data}]</text>
+            <div style={{ display: "inline-flex" }} key={index}>
+              [{data}]
+            </div>
           ))}
         </>
+      ),
+    },
+    {
+      title: "Hành động",
+      key: null,
+      dataIndex: null,
+      width: "10%",
+      render: (value) => (
+        <Button
+          icon={<DeleteOutlined />}
+          onClick={() => handleDeleteClass(value)}
+          style={{ border: "none" }}
+        />
       ),
     },
   ];
   const handleOnChange = (value) => {
     dispatch(getAllClassThunk(value)).then((res) => {
-      setDataReceive(res.payload.content);
+      setDataReceive(res?.payload);
     });
   };
   const onSearch = (data) => {
     if (data) {
       dispatch(getClassThunk(data)).then((res) => {
-        setDataReceive([res.payload]);
+        setDataReceive([res?.payload]);
       });
     } else {
       dispatch(getAllClassThunk(page)).then((res) => {
-        setDataReceive(res.payload.content);
+        setDataReceive(res?.payload);
       });
     }
   };
@@ -100,14 +137,17 @@ const ClassList = () => {
         <Table
           bordered
           columns={columns}
-          dataSource={dataReceive}
-          pagination={TablePagination(
-            1,
-            dataReceive?.size ? dataReceive.size : 1,
-            dataReceive?.totalPages ? dataReceive.totalPages : 1,
-            handleOnChange
-          )}
+          dataSource={dataReceive.content ? dataReceive.content : dataReceive}
+          pagination={false}
         />
+        <div className="pagination">
+          <Pagination
+            defaultCurrent={1}
+            total={dataReceive?.totalElements}
+            onChange={handleOnChange}
+            defaultPageSize={10}
+          />
+        </div>
       </div>
     </div>
   );

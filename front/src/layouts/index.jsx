@@ -23,9 +23,6 @@ const Layouts = () => {
   if (pathParts.includes("course-register")) title = "Đăng ký khóa học";
   if (pathParts.includes("instructor-evaluate")) title = "Đánh giá giảng viên";
   if (pathParts.includes("users")) title = "Danh sách người dùng";
-  if (pathParts.includes("add-users")) title = "Thêm người dùng mới";
-  if (pathParts.includes("teacher-list")) title = "Danh sách giảng viên";
-  if (pathParts.includes("student-list")) title = "Danh sách sinh viên";
   if (pathParts.includes("courses")) title = "Danh sách khóa học";
   if (pathParts.includes("add-courses")) title = "Thêm khóa học mới";
   if (pathParts.includes("user-list")) title = "Danh sách người dùng";

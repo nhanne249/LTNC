@@ -39,7 +39,7 @@ const admin = {
     },  
     createNewClass: (data) => {
         return transport.post(
-            `/class`, JSON.stringify(data)
+            `/classes`, JSON.stringify(data)
         )
     },
     getAllClass: (data) => {
@@ -52,5 +52,10 @@ const admin = {
             `/classes/${data}`, JSON.stringify()
         )
     },
+    deleteClass: (data) => { 
+        return transport.delete(
+            `/classes/${data}`, JSON.stringify()
+        )
+    }
 }
 export default admin;
