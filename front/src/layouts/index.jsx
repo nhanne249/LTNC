@@ -15,6 +15,7 @@ const Layouts = () => {
 
   // Extract the page title from the pathname (you might need custom logic here)
   const pathParts = pathname.split("/").filter(Boolean);
+  console.log(pathParts);
   let title = "";
   if (pathParts.includes("personal-information")) title = "Thông tin cá nhân";
   if (pathParts.includes("notification")) title = "Thông báo";

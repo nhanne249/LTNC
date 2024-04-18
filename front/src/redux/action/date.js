@@ -5,7 +5,7 @@ const { getAllDays, getDay
 } = date
 
 export const getAllDaysThunk = createAsyncThunk(
-    'student/getAllDays',
+    'date/getAllDays',
     async (data) => {
         const res = await getAllDays(data)
         return res
@@ -13,7 +13,7 @@ export const getAllDaysThunk = createAsyncThunk(
 )
 
 export const getDayThunk = createAsyncThunk(
-    'student/getDay',
+    'date/getDay',
     async (data) => {
         const res = await getDay(data)
         return res
