@@ -20,11 +20,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RequiredArgsConstructor
 public class NotificationController {
     private final NotificationRepository notificationRepository;
-    private static AtomicInteger counter = new AtomicInteger(0);
+    private static final AtomicInteger counter = new AtomicInteger(0);
     @PostMapping
-    public ResponseEntity<Notification> createNotification(@RequestBody Notification notification) {
+    public ResponseEntity<String> createNotification(@RequestBody Notification notification) {
         Notification newNotification = new Notification(counter.incrementAndGet(), notification.getTitle(), notification.getContent());
-        return ResponseEntity.ok(notificationRepository.save(newNotification));
+        notificationRepository.save(newNotification);
+        return ResponseEntity.ok("Notification created");
     }
     @GetMapping
     public ResponseEntity<Page<Notification>> getNotifications(@RequestParam int page) {
@@ -38,13 +39,14 @@ public class NotificationController {
         return notificationRepository.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Notification> updateNotification(@PathVariable long id, @RequestBody Notification notification) {
+    public ResponseEntity<String> updateNotification(@PathVariable long id, @RequestBody Notification notification) {
 
         Optional<Notification> o = notificationRepository.findById(id);
         if(o.isEmpty()) {return ResponseEntity.notFound().build();}
         if(notification.getTitle()!= null)  o.get().setTitle(notification.getTitle());
         if(notification.getContent()!= null)  o.get().setContent(notification.getContent());
-        return ResponseEntity.ok(notificationRepository.save(o.get()));
+        notificationRepository.save(o.get());
+        return ResponseEntity.ok("Notification updated");
     }
     @DeleteMapping
     public ResponseEntity<String> deleteAllNotifications() {

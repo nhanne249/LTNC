@@ -20,9 +20,16 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class AvatarController {
     private final AvatarRepository avatarRepository;
-    @PostMapping
+    @PutMapping
     public ResponseEntity<String> uploadAvatar(@RequestParam("file") MultipartFile file) throws IOException {
-        avatarRepository.save(new Avatar(getLoggedInUserDetails().getUsername(), FileUtils.compress(file.getBytes())));
+        var temp = avatarRepository.findByUsername(getLoggedInUserDetails().getUsername());
+        if(temp.isPresent()){
+            temp.get().setImage(FileUtils.compress(file.getBytes()));
+            avatarRepository.save(temp.get());
+        }
+        else{
+            avatarRepository.save(new Avatar(getLoggedInUserDetails().getUsername(), FileUtils.compress(file.getBytes())));
+        }
         return ResponseEntity.ok().body("Avatar uploaded");
     }
     @GetMapping

@@ -20,8 +20,4 @@ public class ScheduleController {
     public ResponseEntity<List<Schedule>> getWeekdays() {
         return new ResponseEntity<>(scheduleRepository.findAll(), HttpStatus.OK);
     }
-    @PostMapping
-    public ResponseEntity<Optional<Schedule>> getWeekday(@RequestParam String day) {
-        return new ResponseEntity<>(scheduleRepository.findByDay(day), HttpStatus.OK);
-    }
 }

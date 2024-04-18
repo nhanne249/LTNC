@@ -47,19 +47,21 @@ public class AdminController {
         return ResponseEntity.ok("User deleted");
     }
     @PostMapping("/students")
-    public ResponseEntity<Student> addStudent(@RequestBody Student student) {
-        return new ResponseEntity<>(adminService.createStudent(student), HttpStatus.CREATED);
+    public ResponseEntity<String> createStudent(@RequestBody Student student) {
+        Student st = adminService.createStudent(student);
+        if(Objects.isNull(st)) {return ResponseEntity.badRequest().build();}
+        return new ResponseEntity<>("Student created", HttpStatus.CREATED);
     }
     @GetMapping("/students")
     public ResponseEntity<Page<Student>> getAllStudents(@RequestParam int page) {
         return new ResponseEntity<>(adminService.getAllStudents(page), HttpStatus.OK);
     }
     @PostMapping("/teachers")
-    public ResponseEntity<Teacher> createTeacher(@RequestBody Teacher teacher) {
+    public ResponseEntity<String> createTeacher(@RequestBody Teacher teacher) {
         Teacher tc = adminService.createTeacher(teacher);
         if (Objects.isNull(tc))
             return ResponseEntity.badRequest().build();
-        return new ResponseEntity<>(tc, HttpStatus.CREATED);
+        return new ResponseEntity<>("Teacher created", HttpStatus.CREATED);
     }
     @GetMapping("/teachers")
     public ResponseEntity<Page<Teacher>> getAllTeachers(@RequestParam int page) {
@@ -72,14 +74,16 @@ public class AdminController {
         return usr.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
     @PutMapping("/student/update")
-    public ResponseEntity<Student> updateStudent(@RequestBody Student update) {
+    public ResponseEntity<String> updateStudent(@RequestBody Student update) {
         var usr = studentService.updateStudent(getLoggedInUserDetails().getUsername(), update);
-        return usr.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        if(usr.isEmpty()) return ResponseEntity.notFound().build();
+        return new ResponseEntity<>("Student updated", HttpStatus.OK);
     }
     @PutMapping("/teacher/update")
-    public ResponseEntity<Teacher> updateTeacher(@RequestBody Teacher update) {
+    public ResponseEntity<String> updateTeacher(@RequestBody Teacher update) {
         var tc = teacherService.updateTeacher(getLoggedInUserDetails().getUsername(), update);
-        return tc.map(teacher -> new ResponseEntity<>(teacher, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        if(tc.isEmpty()) return ResponseEntity.notFound().build();
+        return new ResponseEntity<>("Teacher updated", HttpStatus.OK);
     }
 
     public UserDetails getLoggedInUserDetails() {
