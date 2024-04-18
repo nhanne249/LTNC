@@ -39,13 +39,19 @@ public class TeacherService {
         if(update.getPhone()!= null) teacher.get().setPhone(update.getPhone());
         return Optional.of(userRepository.save(teacher.get()));
     }
-    public void giveScore(String studentUsername, Map<String, Double> scores) {
-        Optional<Student> studentOptional = userRepository.findStudentByUsername(studentUsername);
-        if (studentOptional.isPresent()) {
-            Student student = studentOptional.get();
-            Map<String, Double> studentScores = student.getScores();
-            studentScores.putAll(scores);
-            userRepository.save(student);
+    public void giveScore(String className, List<Double> scores) {
+        Optional<Classroom> classOptional = classRepository.findByName(className);
+        Classroom classroom = classOptional.get();
+        List<String> students = classroom.getStudents();
+        for (int i = 0; i < students.size(); i++) {
+            String studentUsername = students.get(i);
+            Double score = scores.get(i);
+            Optional<Student> studentOptional = userRepository.findStudentByUsername(studentUsername);
+            if (studentOptional.isPresent()) {
+                Student student = studentOptional.get();
+                student.getScores().put(classroom.getName(), score);
+                userRepository.save(student);
+            }
         }
     }
 }
