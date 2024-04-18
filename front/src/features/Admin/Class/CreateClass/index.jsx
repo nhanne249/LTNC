@@ -53,7 +53,7 @@ const CreateNewClass = () => {
   return (
     <div className="form-container">
       <Form
-        name="form_container"
+        // name="form_container"
         initialValues={{
           remember: true,
         }}
