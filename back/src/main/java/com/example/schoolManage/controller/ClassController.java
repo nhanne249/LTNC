@@ -21,21 +21,23 @@ public class ClassController {
         return new ResponseEntity<>(classService.getAllClasses(page), HttpStatus.OK);
     }
     @PostMapping
-    public ResponseEntity<Classroom> createClass(@RequestBody Classroom classroom){
-        return Optional.of(classService.createClass(classroom)).map(cl -> new ResponseEntity<>(cl, HttpStatus.CREATED)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+    public ResponseEntity<String> createClass(@RequestBody Classroom classroom){
+        var cl = classService.createClass(classroom);
+        if(cl == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Class created", HttpStatus.CREATED);
     }
     @GetMapping("/{name}")
     public ResponseEntity<Optional<Classroom>> getClassById(@PathVariable String name){
         return new ResponseEntity<>(classService.getClassByName(name), HttpStatus.OK);
     }
     @DeleteMapping("/{name}")
-    public ResponseEntity<Classroom> deleteClassByName(@PathVariable String name){
+    public ResponseEntity<String> deleteClassByName(@PathVariable String name){
         classService.deleteClass(name);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok("Class " + name + " has been deleted.");
     }
     @DeleteMapping
     public ResponseEntity<String> deleteAllClasses(){
         classService.deleteAllClasses();
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok("All classes has been deleted.");
     }
 }
