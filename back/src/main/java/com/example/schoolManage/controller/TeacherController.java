@@ -3,6 +3,7 @@ package com.example.schoolManage.controller;
 import com.example.schoolManage.model.course.Classroom;
 import com.example.schoolManage.model.user.Teacher;
 import com.example.schoolManage.service.TeacherService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +16,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/teachers")
+@RequiredArgsConstructor
 public class TeacherController {
     private final TeacherService teacherService;
 
-    public TeacherController(TeacherService teacherService) {
-        this.teacherService = teacherService;
-    }
 
     @GetMapping("/{username}")
     public ResponseEntity<Teacher> getTeacher(@PathVariable String username) {
@@ -39,4 +38,10 @@ public class TeacherController {
         return new ResponseEntity<>(teacherService.getAllClasses(username), HttpStatus.OK);
     }
 
+//    @PostMapping("/scores")
+//    public ResponseEntity<Void> giveScore(@PathVariable String username, @RequestParam Course course,
+//            @RequestParam String classId, @RequestParam String studentId, @RequestParam double score) {
+//        teacherService.giveScore(username, course, classId, studentId, score);
+//        return ResponseEntity.ok().build();
+//    }
 }
