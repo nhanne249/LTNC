@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Image, Flex } from "antd";
 import { RightCircleTwoTone } from "@ant-design/icons";
-import { getInfoThunk } from "../../../redux/action/student";
+import { getStudentInfoThunk } from "../../../redux/action/student";
 import "./index.scss";
 const urlImage =
   "https://i.pinimg.com/564x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg";
@@ -11,8 +11,7 @@ const PersonalInformation = () => {
   const [info, setInfo] = useState();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getInfoThunk()).then((res) => {
-      console.log(res?.payload);
+    dispatch(getStudentInfoThunk()).then((res) => {
       setInfo(res?.payload);
     });
   }, []);
@@ -20,7 +19,10 @@ const PersonalInformation = () => {
     <div className="information-container">
       <Flex vertical gap="middle">
         <div className="image-container">
-          <Image src={urlImage} style={{ maxWidth: "200px" }} />
+          <Image
+            src={urlImage}
+            style={{ maxWidth: "200px", borderRadius: "10%" }}
+          />
         </div>
         <div>
           <h3 className="information-title">

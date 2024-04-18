@@ -113,4 +113,4 @@ const Login = () => {
     </div>
   );
 };
-export default withCookies(Login);
+export default Login;

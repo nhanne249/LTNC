@@ -28,7 +28,7 @@ const CreateNewClass = () => {
       teacher: data.teacher,
     };
     dispatch(createNewClassThunk(dataSend)).then((res) => {
-      if (res.error) {
+      if (res?.error) {
         toast.error("Tạo lớp học mới thất bại!", {
           position: "top-right",
           autoClose: 3000,
@@ -53,7 +53,6 @@ const CreateNewClass = () => {
   return (
     <div className="form-container">
       <Form
-        // name="form_container"
         initialValues={{
           remember: true,
         }}

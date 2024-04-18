@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 const username = Cookies.get('username');
 const student = {
-    getInfo: () => {
+    getStudentInfo: () => {
         return transport.get(
             `/students/${username}`, JSON.stringify()
         )
@@ -30,4 +30,3 @@ const student = {
     },
 }
 export default student;
-    console.log(username);

@@ -14,7 +14,7 @@ const SiderPage = () => {
     if (cookies.role == "ADMIN") {
       setItems([
         {
-          label: "Danh sách gười dùng",
+          label: "Danh sách người dùng",
           key: "users",
         },
         {
@@ -66,8 +66,8 @@ const SiderPage = () => {
           type: "group",
         },
         {
-          label: "Khóa học",
-          key: "course",
+          label: "Lớp học",
+          key: "classes",
         },
       ]);
     }

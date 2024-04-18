@@ -15,25 +15,35 @@ const Layouts = () => {
 
   // Extract the page title from the pathname (you might need custom logic here)
   const pathParts = pathname.split("/").filter(Boolean);
-  console.log(pathParts);
   let title = "";
-  if (pathParts.includes("personal-information")) title = "Thông tin cá nhân";
-  if (pathParts.includes("notification")) title = "Thông báo";
-  if (pathParts.includes("education-program")) title = "Chương trình đào tạo";
-  if (pathParts.includes("result")) title = "Kết quả học tập";
-  if (pathParts.includes("course-register")) title = "Đăng ký khóa học";
-  if (pathParts.includes("instructor-evaluate")) title = "Đánh giá giảng viên";
-  if (pathParts.includes("users")) title = "Danh sách người dùng";
-  if (pathParts.includes("courses")) title = "Danh sách khóa học";
-  if (pathParts.includes("add-courses")) title = "Thêm khóa học mới";
-  if (pathParts.includes("user-list")) title = "Danh sách người dùng";
-  if (pathParts.includes("create-student-account"))
-    title = "Thêm tài khoản học sinh";
-  if (pathParts.includes("create-teacher-account"))
-    title = "Thêm tài khoản giảng viên";
-  if (pathParts.includes("class")) title = "Danh sách lớp học";
+  if (pathParts.length == 1) {
+    if (pathParts[0].includes("admin")) title = "Danh sách người dùng";
+    if (pathParts[0].includes("teacher")) title = "Thông tin cá nhân";
+    if (pathParts[0].includes("student")) title = "Thông tin cá nhân";
+  }
+  if (pathParts.length == 2) {
+    if (pathParts[1].includes("personal-information"))
+      title = "Thông tin cá nhân";
+    if (pathParts[1].includes("notification")) title = "Thông báo";
+    if (pathParts[1].includes("education-program"))
+      title = "Chương trình đào tạo";
+    if (pathParts[1].includes("result")) title = "Kết quả học tập";
+    if (pathParts[1].includes("course-register")) title = "Đăng ký khóa học";
+    if (pathParts[1].includes("instructor-evaluate"))
+      title = "Đánh giá giảng viên";
+    if (pathParts[1].includes("users")) title = "Danh sách người dùng";
+    if (pathParts[1].includes("courses")) title = "Danh sách khóa học";
+    if (pathParts[1].includes("add-courses")) title = "Thêm khóa học mới";
+    if (pathParts[1].includes("user-list")) title = "Danh sách người dùng";
+    if (pathParts[1].includes("create-student-account"))
+      title = "Thêm tài khoản học sinh";
+    if (pathParts.includes("create-teacher-account"))
+      title = "Thêm tài khoản giảng viên";
+    if (pathParts[1].includes("class")) title = "Danh sách lớp học";
 
-  if (pathParts.includes("create-class")) title = "Thêm lớp học mới";
+    if (pathParts[1].includes("create-class")) title = "Thêm lớp học mới";
+  }
+
   return (
     <Layout className="page-layout">
       <Image

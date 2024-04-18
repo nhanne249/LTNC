@@ -1,13 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import student from '../api/student'
 
-const { getInfo,getAllClasses,updateStudent,enrollClass,unenrollClass
+const { getStudentInfo,getAllClasses,updateStudent,enrollClass,unenrollClass
 } = student
 
-export const getInfoThunk = createAsyncThunk(
-    'student/getInfo',
+export const getStudentInfoThunk = createAsyncThunk(
+    'student/getStudentInfo',
     async (data) => {
-        const res = await getInfo(data)
+        const res = await getStudentInfo(data)
         return res
     }
 )

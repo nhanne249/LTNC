@@ -1,5 +1,6 @@
 import Layouts from "../../layouts/index.jsx";
 import Dashboard from "../../features/Student/Dashboard";
+import PersonalInformation from "../../features/Teacher/PersonalInformation/index.jsx"
 
 const teacherRouter = [
   {
@@ -9,23 +10,23 @@ const teacherRouter = [
     children: [
       {
         path: "*",
-        Component: Dashboard,
+        Component: PersonalInformation,
       },
-      // {
-      //   path: "/",
-      //   Component: Dashboard,
-      // },
+      {
+        path: "",
+        Component: PersonalInformation,
+      },
       {
         path: "personal-information",
-        Component: Dashboard,
+        Component: PersonalInformation,
       },
       {
         path: "notification",
-        Component: Dashboard,
+        Component: PersonalInformation,
       },
       {
-        path: "course",
-        Component: Dashboard,
+        path: "classes",
+        Component: PersonalInformation,
       },
     ],
   },

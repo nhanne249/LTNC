@@ -24,12 +24,12 @@ const admin = {
     },
     createNewStudent: (data) => {
         return transport.post(
-            `/student`, JSON.stringify(data)
+            `/students`, JSON.stringify(data)
         )
     },
     createNewTeacher: (data) => {
         return transport.post(
-            `/teacher`, JSON.stringify(data)
+            `/teachers`, JSON.stringify(data)
         )
     },
     deleteUser: (data) => {
