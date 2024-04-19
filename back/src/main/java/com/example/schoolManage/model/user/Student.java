@@ -1,6 +1,8 @@
 package com.example.schoolManage.model.user;
 
 import com.example.schoolManage.enums.Role;
+import com.example.schoolManage.model.ForgotPassword;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,6 +16,10 @@ public class Student extends User {
     private String email;
     private String phone;
     private Map<String, Double> scores;
+
+    @OneToOne(mappedBy = "username")
+    private ForgotPassword forgotPassword;
+
     public Student(String username, String password, String name,String email, String phone) {
         super(username, password, Role.STUDENT);
         this.name = name;

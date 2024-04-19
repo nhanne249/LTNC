@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 
 import java.util.List;
 
@@ -33,4 +34,12 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
         List<Teacher> ls = mongoTemplate.find(Query.query(Criteria.where("role").is("TEACHER")).with(pageable), Teacher.class, "users");
         return new PageImpl<>(ls, pageable, count);
     }
+
+    public void updateUserByUsername(String email, String password) {
+        Query query = new Query(Criteria.where("role").is("STUDENT").and("email").is(email));
+        Update update = new Update().set("password", password);
+        mongoTemplate.updateFirst(query,update, Student.class);
+    }
+
+
 }

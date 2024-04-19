@@ -23,7 +23,6 @@ public class StudentController {
     public ResponseEntity<Student> getStudent(@PathVariable String username) {
         Optional<Student> st = studentService.getStudent(username);
         return st.map(student -> new ResponseEntity<>(student, HttpStatus.OK)).orElseGet(() -> ResponseEntity.notFound().build());
-
     }
 
     @GetMapping("/{username}/classes")

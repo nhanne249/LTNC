@@ -42,10 +42,12 @@ public class AdminService {
     }
     public Page<Student> getAllStudents(int page) {return userRepository.findAllStudents(PageRequest.of(page-1, 10));}
     public Page<Teacher> getAllTeachers(int page) {return userRepository.findAllTeachers(PageRequest.of(page-1, 10));}
+
     public Teacher createTeacher(@NotNull Teacher teacher) {
         if (userRepository.findByUsername(teacher.getUsername()).isPresent()) {
             return null;
         }
+
         return userRepository.save(new Teacher(teacher.getUsername(),
                 passwordEncoder.encode(teacher.getPassword()),
                 teacher.getName(),

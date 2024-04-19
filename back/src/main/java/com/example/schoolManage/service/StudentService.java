@@ -70,4 +70,9 @@ public class StudentService {
         } else return ResponseEntity.ok("CLASS IS NOT EXIST");
     }
 
+    // can them email + set lai service de request reset password
+    public void sendSetPasswordEmail(String email) {
+
+    }
+
 }

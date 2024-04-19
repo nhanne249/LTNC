@@ -11,4 +11,6 @@ import java.util.List;
 public interface UserRepositoryCustom{
     Page<Student> findAllStudents(Pageable pageable);
     Page<Teacher> findAllTeachers(Pageable pageable);
+
+    void updateUserByUsername(String email, String password);
 }
