@@ -6,6 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { createNewStudentThunk } from "../../../../../redux/action/admin";
 import "./index.scss";
 
+const onFinish = (values) => {
+  console.log('Success:', values);
+};
+
 const CreateStudentAccount = () => {
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(false);
