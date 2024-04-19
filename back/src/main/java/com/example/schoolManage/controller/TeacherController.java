@@ -28,9 +28,10 @@ public class TeacherController {
     }
 
     @PutMapping("/{username}")
-    public ResponseEntity<Teacher> updateTeacher(@PathVariable String username, @RequestBody Teacher update) {
+    public ResponseEntity<String> updateTeacher(@PathVariable String username, @RequestBody Teacher update) {
         var tc = teacherService.updateTeacher(username, update);
-        return tc.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        if(tc.isEmpty()) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok("Teacher updated");
     }
 
     @GetMapping("/{username}/classes")

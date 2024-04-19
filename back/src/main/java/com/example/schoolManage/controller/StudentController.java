@@ -32,21 +32,21 @@ public class StudentController {
     }
 
     @PutMapping("/{username}")
-    public ResponseEntity<Student> updateStudent(@RequestBody Student update, @PathVariable String username) {
+    public ResponseEntity<String> updateStudent(@RequestBody Student update, @PathVariable String username) {
         var st = studentService.updateStudent(username,update);
-        return st.map(student -> new ResponseEntity<>(student, HttpStatus.OK)).orElseGet(() -> ResponseEntity.notFound().build());
+        return st.map(student -> new ResponseEntity<>("Student updated", HttpStatus.OK)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{username}/classes/{className}/enroll")
-    public ResponseEntity<Classroom> enrollClass(@PathVariable String className, @PathVariable String username) {
+    public ResponseEntity<String> enrollClass(@PathVariable String className, @PathVariable String username) {
         var cl = studentService.enrollClass(username, className);
-        return cl.map(classroom -> new ResponseEntity<>(classroom, HttpStatus.OK)).orElseGet(() -> ResponseEntity.notFound().build());
+        return cl.map(classroom -> new ResponseEntity<>("Class enrolled", HttpStatus.OK)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping ("/{username}/classes/{className}/unenroll")
-    public ResponseEntity<Classroom> unenrollClass(@PathVariable String className, @PathVariable String username) {
+    public ResponseEntity<String> unenrollClass(@PathVariable String className, @PathVariable String username) {
         var cl = studentService.unenrollClass(username, className);
-        return cl.map(classroom -> new ResponseEntity<>(classroom, HttpStatus.OK)).orElseGet(() -> ResponseEntity.notFound().build());
+        return cl.map(classroom -> new ResponseEntity<>("Class urenrolled", HttpStatus.OK)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/{username}/classes/{className}/rate")

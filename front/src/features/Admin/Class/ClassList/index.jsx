@@ -43,6 +43,9 @@ const ClassList = () => {
       }
     });
   };
+  const handleUpdateClass = (value) => {
+    console.log(value);
+  };
   const columns = [
     {
       title: "Tên môn học",
@@ -87,13 +90,23 @@ const ClassList = () => {
       title: "Hành động",
       key: null,
       dataIndex: null,
-      width: "10%",
+      width: "15%",
       render: (value) => (
-        <Button
-          icon={<DeleteOutlined />}
-          onClick={() => handleDeleteClass(value)}
-          style={{ border: "none" }}
-        />
+        <Flex vertical={false} justify="center" align="center">
+          <Button
+            onClick={() => handleDeleteClass(value)}
+            style={{ border: "none", width: "fit-content", boxShadow: "none" }}
+          >
+            Xóa
+          </Button>
+          |
+          <Button
+            onClick={() => handleUpdateClass(value)}
+            style={{ border: "none", width: "fit-content", boxShadow: "none" }}
+          >
+            Cập nhật
+          </Button>
+        </Flex>
       ),
     },
   ];
@@ -137,7 +150,7 @@ const ClassList = () => {
         <Table
           bordered
           columns={columns}
-          dataSource={dataReceive.content ? dataReceive.content : dataReceive}
+          dataSource={dataReceive?.content ? dataReceive?.content : dataReceive}
           pagination={false}
         />
         <div className="pagination">

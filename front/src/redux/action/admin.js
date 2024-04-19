@@ -5,7 +5,7 @@ const { getAllUser, getUser, getAllStudents, getAllTeachers, createNewStudent, c
 } = admin
 
 export const getAllUserThunk = createAsyncThunk(
-    'student/getAllUser',
+    'admin/getAllUser',
     async (data) => {
         const res = await getAllUser(data)
         return res
@@ -13,7 +13,7 @@ export const getAllUserThunk = createAsyncThunk(
 )
 
 export const getUserThunk = createAsyncThunk(
-    'student/getUser',
+    'admin/getUser',
     async (data) => {
         const res = await getUser(data)
         return res
@@ -21,7 +21,7 @@ export const getUserThunk = createAsyncThunk(
 )
 
 export const getAllStudentsThunk = createAsyncThunk(
-    'student/getAllStudents',
+    'admin/getAllStudents',
     async (data) => {
         const res = await getAllStudents(data)
         return res
@@ -29,7 +29,7 @@ export const getAllStudentsThunk = createAsyncThunk(
 )
 
 export const getAllTeachersThunk = createAsyncThunk(
-    'student/getAllTeachers',
+    'admin/getAllTeachers',
     async (data) => {
         const res = await getAllTeachers(data)
         return res
@@ -37,7 +37,7 @@ export const getAllTeachersThunk = createAsyncThunk(
 )
 
 export const createNewStudentThunk = createAsyncThunk(
-    'student/createNewStudent',
+    'admin/createNewStudent',
     async (data) => {
         const res = await createNewStudent(data)
         return res
@@ -45,7 +45,7 @@ export const createNewStudentThunk = createAsyncThunk(
 )
 
 export const createNewTeacherThunk = createAsyncThunk(
-    'student/createNewTeacher',
+    'admin/createNewTeacher',
     async (data) => {
         const res = await createNewTeacher(data)
         return res
@@ -53,7 +53,7 @@ export const createNewTeacherThunk = createAsyncThunk(
 )
 
 export const deleteUserThunk = createAsyncThunk(
-    'student/deleteUser',
+    'admin/deleteUser',
     async (data) => {
         const res = await deleteUser(data)
         return res
@@ -61,7 +61,7 @@ export const deleteUserThunk = createAsyncThunk(
 )
 
 export const createNewClassThunk = createAsyncThunk(
-    'student/createNewClass',
+    'admin/createNewClass',
     async (data) => {
         const res = await createNewClass(data)
         return res
@@ -69,7 +69,7 @@ export const createNewClassThunk = createAsyncThunk(
 )
 
 export const getAllClassThunk = createAsyncThunk(
-    'student/getAllClass',
+    'admin/getAllClass',
     async (data) => {
         const res = await getAllClass(data)
         return res
@@ -77,7 +77,7 @@ export const getAllClassThunk = createAsyncThunk(
 )
 
 export const getClassThunk = createAsyncThunk(
-    'student/getClass',
+    'admin/getClass',
     async (data) => {
         const res = await getClass(data)
         return res
@@ -85,7 +85,7 @@ export const getClassThunk = createAsyncThunk(
 )
 
 export const deleteClassThunk = createAsyncThunk(
-    'student/deleteClass',
+    'admin/deleteClass',
     async (data) => {
         const res = await deleteClass(data)
         return res

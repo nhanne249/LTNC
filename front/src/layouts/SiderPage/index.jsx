@@ -14,7 +14,7 @@ const SiderPage = () => {
     if (cookies.role == "ADMIN") {
       setItems([
         {
-          label: "Danh sách gười dùng",
+          label: "Danh sách người dùng",
           key: "users",
         },
         {
@@ -66,8 +66,8 @@ const SiderPage = () => {
           type: "group",
         },
         {
-          label: "Khóa học",
-          key: "course",
+          label: "Lớp học",
+          key: "classes",
         },
       ]);
     }
@@ -75,7 +75,6 @@ const SiderPage = () => {
   useEffect(() => {
     const handleResize = () => {
       const elementSider = document.getElementById("content-layout");
-      const siderHeight = elementSider.offsetHeight;
       const windowHeight = window.innerHeight;
       if (windowHeight < 624) {
         setItems(
@@ -103,9 +102,7 @@ const SiderPage = () => {
     };
   }, [menuMode, items]);
 
-  const siderWidth = document.getElementById("sider");
   const onClick = (value) => {
-    console.log(value.key);
     navigate(value.key);
   };
 
