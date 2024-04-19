@@ -1,5 +1,10 @@
 import Layouts from "../../layouts/index.jsx";
 import Dashboard from "../../features/Student/Dashboard";
+import CreateTeacherAccount from "../../features/Admin/UserList/CreateNewUser/CreateTeacherAccount/index.jsx";
+import CreateStudentAccount from "../../features/Admin/UserList/CreateNewUser/CreateStudentAccount/index.jsx";
+import ClassList from "../../features/Admin/Class/ClassList/index.jsx"
+import CreateNewClass from "../../features/Admin/Class/CreateClass/index.jsx"
+import UserList from "../../features/Admin/UserList/index.jsx"
 
 const adminRouter = [
   {
@@ -17,27 +22,23 @@ const adminRouter = [
       },
       {
         path: "users",
-        Component: Dashboard,
+        Component: UserList,
       },
       {
-        path: "teacher-list",
-        Component: Dashboard,
+        path: "create-teacher-account",
+        Component: CreateTeacherAccount,
       },
       {
-        path: "student-list",
-        Component: Dashboard,
+        path: "create-student-account",
+        Component: CreateStudentAccount,
       },
       {
-        path: "courses",
-        Component: Dashboard,
+        path: "class",
+        Component: ClassList,
       },
       {
-        path: "add-users",
-        Component: Dashboard,
-      },
-      {
-        path: "add-courses",
-        Component: Dashboard,
+        path: "create-class",
+        Component: CreateNewClass,
       },
     ],
   },

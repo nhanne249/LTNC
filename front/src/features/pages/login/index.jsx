@@ -3,7 +3,7 @@ import { Input, Form, Button, Checkbox, Image, Row, Col } from "antd";
 import { useCookies, withCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loginThunk } from "../../../services/action/authentication";
+import { loginThunk } from "../../../redux/action/authentication";
 import { toast } from "react-toastify";
 import "./index.scss";
 import background from "../../../assets/img/bk.jpg";
@@ -19,7 +19,6 @@ const Login = () => {
       password: data.password,
     };
     dispatch(loginThunk(dataSend)).then((res) => {
-      console.log(res);
       if (res?.payload?.token) {
         toast.success("Đăng nhập thành công", {
           position: "top-right",
@@ -38,7 +37,6 @@ const Login = () => {
           setCookie("userPresent", `${res.payload.token}`, { path: "/" });
         }
         const path = res.payload.role.toLowerCase();
-        console.log(path);
         navigate(`${path}`);
       } else {
         toast.error("Email hoặc mật khẩu không chính xác", {
@@ -115,4 +113,4 @@ const Login = () => {
     </div>
   );
 };
-export default withCookies(Login);
+export default Login;

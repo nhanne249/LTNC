@@ -2,6 +2,7 @@ package com.example.schoolManage.controller;
 
 import com.example.schoolManage.model.course.Classroom;
 import com.example.schoolManage.service.ClassService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,29 +13,31 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/classes")
+@RequiredArgsConstructor
 public class ClassController {
     private final ClassService classService;
-    public ClassController(ClassService classService) {
-        this.classService = classService;
-    }
     @GetMapping
     public ResponseEntity<Page<Classroom>> getAllClasses(@RequestParam int page){
         return new ResponseEntity<>(classService.getAllClasses(page), HttpStatus.OK);
     }
     @PostMapping
-    public ResponseEntity<Classroom> createClass(@RequestBody Classroom classroom){
-        return new ResponseEntity<>(classService.createClass(classroom), HttpStatus.OK);
+    public ResponseEntity<String> createClass(@RequestBody Classroom classroom){
+        var cl = classService.createClass(classroom);
+        if(cl == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Class created", HttpStatus.CREATED);
     }
-    @GetMapping("/{classId}")
-    public ResponseEntity<Optional<Classroom>> getClassById(@PathVariable String classId){
-        return new ResponseEntity<>(classService.getClassById(classId), HttpStatus.OK);
+    @GetMapping("/{name}")
+    public ResponseEntity<Optional<Classroom>> getClassById(@PathVariable String name){
+        return new ResponseEntity<>(classService.getClassByName(name), HttpStatus.OK);
     }
-    @GetMapping("/teacher")
-    public ResponseEntity<List<Classroom>> getClassTeacher(@RequestParam String username){
-        return new ResponseEntity<>(classService.findByTeacher(username), HttpStatus.OK);
+    @DeleteMapping("/{name}")
+    public ResponseEntity<String> deleteClassByName(@PathVariable String name){
+        classService.deleteClass(name);
+        return ResponseEntity.ok("Class " + name + " has been deleted.");
     }
-    @GetMapping("/student")
-    public ResponseEntity<List<Classroom>> getClassStudent(@RequestParam String username){
-        return new ResponseEntity<>(classService.findByStudent(username), HttpStatus.OK);
+    @DeleteMapping
+    public ResponseEntity<String> deleteAllClasses(){
+        classService.deleteAllClasses();
+        return ResponseEntity.ok("All classes has been deleted.");
     }
 }

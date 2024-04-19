@@ -4,9 +4,16 @@ import com.example.schoolManage.model.user.Student;
 import com.example.schoolManage.model.user.Teacher;
 import com.example.schoolManage.model.user.User;
 import com.example.schoolManage.service.AdminService;
+import com.example.schoolManage.service.StudentService;
+import com.example.schoolManage.service.TeacherService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
@@ -14,21 +21,20 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping
+@RequiredArgsConstructor
 public class AdminController {
     private final AdminService adminService;
-
-    public AdminController(AdminService adminService) {
-        this.adminService = adminService;
-    }
-
+    private final TeacherService teacherService;
+    private final StudentService studentService;
 
     @GetMapping("/users")
     public ResponseEntity<Page<User>> getAllUsers(@RequestParam int page) {
         return new ResponseEntity<>(adminService.getAllUsers(page), HttpStatus.OK);
     }
     @GetMapping("/users/{username}")
-    public ResponseEntity<Optional<User>> getByUsername(@PathVariable String username) {
-        return new ResponseEntity<>(adminService.getUser(username), HttpStatus.OK);
+    public ResponseEntity<User> getByUsername(@PathVariable String username) {
+        var user = adminService.getUser(username);
+        return user.map(usr -> new ResponseEntity<>(usr, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
     @DeleteMapping("/users")
     public ResponseEntity<String> deleteAllUsers(){
@@ -40,21 +46,51 @@ public class AdminController {
         adminService.deleteUser(username);
         return ResponseEntity.ok("User deleted");
     }
-
-
+    @PostMapping("/students")
+    public ResponseEntity<String> createStudent(@RequestBody Student student) {
+        Student st = adminService.createStudent(student);
+        if(Objects.isNull(st)) {return ResponseEntity.badRequest().build();}
+        return new ResponseEntity<>("Student created", HttpStatus.CREATED);
+    }
+    @GetMapping("/students")
+    public ResponseEntity<Page<Student>> getAllStudents(@RequestParam int page) {
+        return new ResponseEntity<>(adminService.getAllStudents(page), HttpStatus.OK);
+    }
     @PostMapping("/teachers")
-    public ResponseEntity<Teacher> createTeacher(@RequestBody Teacher teacher) {
+    public ResponseEntity<String> createTeacher(@RequestBody Teacher teacher) {
         Teacher tc = adminService.createTeacher(teacher);
         if (Objects.isNull(tc))
             return ResponseEntity.badRequest().build();
-        return new ResponseEntity<>(tc, HttpStatus.CREATED);
+        return new ResponseEntity<>("Teacher created", HttpStatus.CREATED);
     }
-    @GetMapping("/teachers/{username}")
-    public ResponseEntity<Optional<Teacher>> getTeacher(@PathVariable String username) {
-        return new ResponseEntity<>(adminService.getTeacher(username), HttpStatus.OK);
+    @GetMapping("/teachers")
+    public ResponseEntity<Page<Teacher>> getAllTeachers(@RequestParam int page) {
+        return new ResponseEntity<>(adminService.getAllTeachers(page), HttpStatus.OK);
     }
-    @PutMapping("/teachers/{username}")
-    public ResponseEntity<Teacher> updateTeacher(@RequestBody Teacher teacher, @PathVariable String username){
-        return new ResponseEntity<>(adminService.updateTeacher(teacher,username), HttpStatus.OK);
+
+    @GetMapping("/info")
+    public ResponseEntity<User> getInfo() {
+        var usr = adminService.getUser(getLoggedInUserDetails().getUsername());
+        return usr.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+    @PutMapping("/student/update")
+    public ResponseEntity<String> updateStudent(@RequestBody Student update) {
+        var usr = studentService.updateStudent(getLoggedInUserDetails().getUsername(), update);
+        if(usr.isEmpty()) return ResponseEntity.notFound().build();
+        return new ResponseEntity<>("Student updated", HttpStatus.OK);
+    }
+    @PutMapping("/teacher/update")
+    public ResponseEntity<String> updateTeacher(@RequestBody Teacher update) {
+        var tc = teacherService.updateTeacher(getLoggedInUserDetails().getUsername(), update);
+        if(tc.isEmpty()) return ResponseEntity.notFound().build();
+        return new ResponseEntity<>("Teacher updated", HttpStatus.OK);
+    }
+
+    public UserDetails getLoggedInUserDetails() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+            return (UserDetails) authentication.getPrincipal();
+        }
+        return null;
     }
 }
