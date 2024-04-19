@@ -22,6 +22,8 @@ public class Teacher extends User {
         this.review.add(username);
     }
 
+    public void removeReview(String username) { this.review.remove(username);}
+
     public Teacher(String username, String password, String name, String email, String phone, List<String> degrees) {
         super(username, password, Role.TEACHER);
         this.name = name;

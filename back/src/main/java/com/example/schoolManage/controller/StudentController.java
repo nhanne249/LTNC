@@ -39,21 +39,20 @@ public class StudentController {
 
     @PutMapping("/{username}/classes/{className}/enroll")
     public ResponseEntity<String> enrollClass(@PathVariable String className, @PathVariable String username) {
-        var cl = studentService.enrollClass(username, className);
-        return cl.map(classroom -> new ResponseEntity<>("Class enrolled", HttpStatus.OK)).orElseGet(() -> ResponseEntity.notFound().build());
+        return studentService.enrollClass(username ,className);
     }
 
     @PutMapping ("/{username}/classes/{className}/unenroll")
     public ResponseEntity<String> unenrollClass(@PathVariable String className, @PathVariable String username) {
-        var cl = studentService.unenrollClass(username, className);
-        return cl.map(classroom -> new ResponseEntity<>("Class urenrolled", HttpStatus.OK)).orElseGet(() -> ResponseEntity.notFound().build());
+        return studentService.unenrollClass(username ,className);
     }
 
-    @PostMapping("/{username}/classes/{className}/rate")
-    public ResponseEntity<String> rate(@RequestBody Review review, @PathVariable String className, @PathVariable String username) {
+    @PostMapping("/{username}/classes/{teacher_username}/rate")
+    public ResponseEntity<String> rate(@RequestBody Review review, @PathVariable String teacher_username, @PathVariable String username) {
         if (review.getScore()==null) return ResponseEntity.ok("NEED ADD SCORE");
         else if (review.getReviewBody()==null) return ResponseEntity.ok("NEED ADD REVIEW");
-        return studentService.rate(review, className, username);
+        else if (review.getScore()>5 || review.getScore()<0) return ResponseEntity.ok("WRONG SCORE REVIEW (0<=SCORE<=5)");
+        return studentService.rate(review, teacher_username, username);
     }
 }
 
