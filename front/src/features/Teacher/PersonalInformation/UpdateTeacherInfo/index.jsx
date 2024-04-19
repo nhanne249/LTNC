@@ -2,37 +2,36 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Input, Button, Form, Checkbox } from "antd";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import { createNewStudentThunk } from "../../../../../redux/action/admin";
+import { useNavigate, useLocation } from "react-router-dom";
+import { updateTeacherInfoThunk } from "../../../../redux/action/teacher";
 import "./index.scss";
 
-const CreateStudentAccount = () => {
+const UpdateTeacherInfo = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
 
   const onFinish = (values) => {
     const dataSend = {
       name: values.name,
-      username: values.username,
-      password: values.password,
       email: values.email,
       phone: values.phone,
     };
-    dispatch(createNewStudentThunk(dataSend)).then((res) => {
+    dispatch(updateTeacherInfoThunk(dataSend)).then((res) => {
       if (res?.error) {
-        toast.error("Tạo học sinh mới thất bại!", {
+        toast.error("Cập nhật thất bại!", {
           position: "top-right",
           autoClose: 3000,
           theme: "colored",
         });
       } else {
-        toast.success("Tạo học sinh mới thành công!", {
+        toast.success("Cập nhật thành công!", {
           position: "top-right",
           autoClose: 3000,
           theme: "colored",
         });
-        if (!checked) navigate("/admin/users", { replace: true });
+        navigate("/teacher/personal-information", { replace: true });
       }
     });
   };
@@ -117,91 +116,9 @@ const CreateStudentAccount = () => {
         >
           <Input className="input-area" placeholder="Số điện thoại" />
         </Form.Item>
-        <Form.Item
-          name="username"
-          rules={[
-            {
-              required: true,
-              message: "Vui lòng nhập tên đăng nhập!",
-            },
-          ]}
-        >
-          <Input className="input-area" placeholder="Tên đăng nhập" />
-        </Form.Item>
-        <Form.Item
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: "Vui lòng nhập mật khẩu!",
-            },
-            {
-              validator(__, value) {
-                if (!/[A-Z]/.test(value)) {
-                  return Promise.reject(
-                    new Error("Mật khẩu phải chứa ít nhất 1 chữ cái viết hoa")
-                  );
-                } else if (!/[a-z]/.test(value)) {
-                  return Promise.reject(
-                    new Error(
-                      "Mật khẩu phải chứa ít nhất 1 chữ cái viết thường"
-                    )
-                  );
-                } else if (!/\d/.test(value)) {
-                  return Promise.reject(
-                    new Error("Mật khẩu phải chứa ít nhất 1 chữ số!")
-                  );
-                } else if (!/[@$!%*?&]/.test(value)) {
-                  return Promise.reject(
-                    new Error("Mật khẩu phải chứa ít nhất 1 ký tự đặc biệt!")
-                  );
-                } else if (value.length < 8) {
-                  return Promise.reject(
-                    new Error("Mật khẩu phải có ít nhất 8 ký tự")
-                  );
-                } else {
-                  return Promise.resolve();
-                }
-              },
-            },
-          ]}
-        >
-          <Input.Password className="input-area" placeholder="Mật khẩu" />
-        </Form.Item>
-        <Form.Item
-          name="passwordConfirm"
-          dependencies={["password"]}
-          hasFeedback
-          rules={[
-            {
-              required: true,
-              message: "Vui lòng nhập mật khẩu!",
-            },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || getFieldValue("password") === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(
-                  new Error("Mật khẩu bạn vừa nhập không chính xác!")
-                );
-              },
-            }),
-          ]}
-        >
-          <Input.Password
-            className="input-area"
-            placeholder="Xác nhận mật khẩu"
-          />
-        </Form.Item>
-        <Form.Item>
-          <Checkbox onChange={() => setChecked(!checked)}>
-            Bạn có muốn tạo thêm?
-          </Checkbox>
-        </Form.Item>
         <Form.Item>
           <Button className="submit-button" type="primary" htmlType="submit">
-            Tạo mới
+            Cập nhật
           </Button>
         </Form.Item>
       </Form>
@@ -209,4 +126,4 @@ const CreateStudentAccount = () => {
   );
 };
 
-export default CreateStudentAccount;
+export default UpdateTeacherInfo;

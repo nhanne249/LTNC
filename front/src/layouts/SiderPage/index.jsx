@@ -37,17 +37,14 @@ const SiderPage = () => {
         {
           label: "Tra cứu thông tin",
           key: null,
-          children: [
-            { label: "Chương trình đào tạo", key: "education-program" },
-            { label: "Kết quả học tập", key: "result" },
-          ],
+          children: [{ label: "Xem thời khóa biểu", key: "schedule" }],
           type: "group",
         },
         {
           label: "Chức năng trực tuyến",
           key: null,
           children: [
-            { label: "Đăng ký học phần", key: "course-register" },
+            { label: "Đăng ký lớp học", key: "class-register" },
             { label: "Đánh giá giảng viên", key: "instructor-evaluate" },
           ],
           type: "group",

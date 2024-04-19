@@ -66,7 +66,7 @@ const HeaderPage = () => {
   ];
   const onHeaderMenuClick = (value) => {
     if (value.key === "main") {
-      navigate("*");
+      navigate("");
     } else {
       navigate(value.key);
     }

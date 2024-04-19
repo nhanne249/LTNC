@@ -39,9 +39,13 @@ const Layouts = () => {
       title = "Thêm tài khoản học sinh";
     if (pathParts.includes("create-teacher-account"))
       title = "Thêm tài khoản giảng viên";
+    if (pathParts.includes("update-teacher-info"))
+      title = "Cập nhật tài khoản giảng viên";
+    if (pathParts.includes("update-student-info"))
+      title = "Cập nhật tài khoản sinh viên";
     if (pathParts[1].includes("class")) title = "Danh sách lớp học";
-
     if (pathParts[1].includes("create-class")) title = "Thêm lớp học mới";
+    if (pathParts[1].includes("schedule")) title = "Thời khóa biểu";
   }
 
   return (

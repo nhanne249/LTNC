@@ -6,10 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { createNewTeacherThunk } from "../../../../../redux/action/admin";
 import "./index.scss";
 
-const onFinish = (values) => {
-  console.log("Success:", values);
-};
-
 const CreateTeacherAccount = () => {
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(false);
@@ -24,7 +20,6 @@ const CreateTeacherAccount = () => {
       phone: values.phone,
     };
     dispatch(createNewTeacherThunk(dataSend)).then((res) => {
-      console.log(res);
       if (res?.error) {
         toast.error("Tạo giảng viên mới thất bại!", {
           position: "top-right",

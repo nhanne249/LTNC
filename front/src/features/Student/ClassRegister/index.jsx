@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Table, Input, Button, Flex, Pagination } from "antd";
-import { DeleteOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import {
-  getAllClassThunk,
-  getClassThunk,
-  deleteClassThunk,
-} from "../../../../redux/action/admin";
+import { getAllClassThunk, getClassThunk } from "../../../redux/action/admin";
+import { enrollClassThunk } from "../../../redux/action/student";
 import "./index.scss";
 
-const ClassList = () => {
+const ClassRegister = () => {
   const { Search } = Input;
   const [dataReceive, setDataReceive] = useState();
   const [dataChanged, setDataChanged] = useState(false);
@@ -25,10 +21,10 @@ const ClassList = () => {
       setDataChanged(true);
     });
   }, [dataChanged]);
-  const handleDeleteClass = (data) => {
-    dispatch(deleteClassThunk(data.name)).then((res) => {
+  const handleRegisterClass = (value) => {
+    dispatch(enrollClassThunk(value?.name)).then((res) => {
       if (!res.error) {
-        toast.success("Xóa lớp học thành công!", {
+        toast.success("Đăng ký lớp học thành công!", {
           position: "top-right",
           autoClose: 3000,
           theme: "colored",
@@ -37,15 +33,13 @@ const ClassList = () => {
           setDataReceive(res?.payload);
         });
       } else {
-        toast.error("Xóa lớp học thất bại!", {
+        toast.error("Đăng ký lớp học thất bại!", {
           position: "top-right",
           autoClose: 3000,
           theme: "colored",
         });
       }
     });
-  };
-  const handleUpdateClass = (value) => {
     console.log(value);
   };
   const columns = [
@@ -94,21 +88,12 @@ const ClassList = () => {
       dataIndex: null,
       width: "15%",
       render: (value) => (
-        <Flex vertical={false} justify="center" align="center">
-          <Button
-            onClick={() => handleDeleteClass(value)}
-            style={{ border: "none", width: "fit-content", boxShadow: "none" }}
-          >
-            Xóa
-          </Button>
-          |
-          <Button
-            onClick={() => handleUpdateClass(value)}
-            style={{ border: "none", width: "fit-content", boxShadow: "none" }}
-          >
-            Cập nhật
-          </Button>
-        </Flex>
+        <Button
+          onClick={() => handleRegisterClass(value)}
+          style={{ border: "none", width: "fit-content", boxShadow: "none" }}
+        >
+          Đăng ký
+        </Button>
       ),
     },
   ];
@@ -128,27 +113,16 @@ const ClassList = () => {
       });
     }
   };
-  const handleCreateNewClass = () => {
-    navigate("/admin/create-class", { replace: true });
-  };
   console.log(dataReceive);
   return (
     <div className="class-list-container">
-      <Flex justify="space-between">
-        <Search
-          placeholder="Nhập mã lớp cần tìm"
-          enterButton="TÌM KIẾM "
-          size="large"
-          onSearch={onSearch}
-          className="input-search"
-        />
-        <Button
-          className="create-class-btn"
-          onClick={() => handleCreateNewClass()}
-        >
-          <b>THÊM LỚP MỚI</b>
-        </Button>
-      </Flex>
+      <Search
+        placeholder="Nhập mã lớp cần tìm"
+        enterButton="TÌM KIẾM "
+        size="large"
+        onSearch={onSearch}
+        className="input-search"
+      />
       <div className="table-container">
         <Table
           bordered
@@ -169,4 +143,4 @@ const ClassList = () => {
   );
 };
 
-export default ClassList;
+export default ClassRegister;

@@ -13,7 +13,7 @@ function getCookieValue(cookieName) {
 }
 
 // Sử dụng hàm
-const myCookieValue = getCookieValue('userPresent');
+let myCookieValue = getCookieValue('userPresent');
 
 const httpHandler = (baseURL) => {
   const axiosHttp = axios.create({

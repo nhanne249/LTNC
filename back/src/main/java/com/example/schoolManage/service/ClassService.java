@@ -20,18 +20,24 @@ public class ClassService {
     private final ClassRepository classRepository;
     private final ScheduleRepository scheduleRepository;
 
-    public Page<Classroom> getAllClasses(int page){
-        return classRepository.findAll(PageRequest.of(page-1, 10));
+    public Page<Classroom> getAllClasses(int page) {
+        return classRepository.findAll(PageRequest.of(page - 1, 10));
     }
-    public Optional<Classroom> getClassByName(String name){
+
+    public Optional<Classroom> getClassByName(String name) {
         return classRepository.findByName(name);
     }
-    public Classroom createClass(@NotNull Classroom classroom){
+
+    public Classroom createClass(@NotNull Classroom classroom) {
         var check = classRepository.findByName(classroom.getName());
-        if(check.isEmpty()){return null;}
+        if (check.isPresent()) {
+            return null;
+        }
         var wd = scheduleRepository.findByDay(classroom.getDay());
-        if(wd.isEmpty()){return null;}
-        classroom.getTime().forEach(period ->{
+        if (wd.isEmpty()) {
+            return null;
+        }
+        classroom.getTime().forEach(period -> {
             wd.get().getTime().remove(period);
         });
         Collections.sort(wd.get().getTime());
@@ -42,21 +48,24 @@ public class ClassService {
                 classroom.getTime(),
                 classroom.getTeacher()));
     }
-    public void deleteClass(String name){
+
+    public void deleteClass(String name) {
         var cl = classRepository.findByName(name);
-        if(cl.isEmpty()) return;
+        if (cl.isEmpty())
+            return;
         Classroom classroom = cl.get();
         var wd = scheduleRepository.findByDay(classroom.getDay());
-        classroom.getTime().forEach(period ->{
+        classroom.getTime().forEach(period -> {
             wd.get().getTime().add(period);
         });
         Collections.sort(wd.get().getTime());
         scheduleRepository.save(wd.get());
         classRepository.deleteByName(name);
     }
-    public void deleteAllClasses(){
+
+    public void deleteAllClasses() {
         List<Integer> ls = new ArrayList<>(10);
-        for(int i=1; i<=10; i++){
+        for (int i = 1; i <= 10; i++) {
             ls.add(i);
         }
         var wd = scheduleRepository.findAll();

@@ -1,6 +1,8 @@
 import Layouts from "../../layouts/index.jsx";
-import Dashboard from "../../features/Student/Dashboard";
 import PersonalInformation from "../../features/Teacher/PersonalInformation/index.jsx"
+import Class from '../../features/Teacher/Class/index.jsx'
+import Notification from "../../features/Teacher/Notification/index.jsx";
+import UpdateTeacherInfo from '../../features/Teacher/PersonalInformation/UpdateTeacherInfo/index.jsx';
 
 const teacherRouter = [
   {
@@ -21,12 +23,16 @@ const teacherRouter = [
         Component: PersonalInformation,
       },
       {
+        path: "update-teacher-info",
+        Component: UpdateTeacherInfo,
+      },
+      {
         path: "notification",
-        Component: PersonalInformation,
+        Component: Notification,
       },
       {
         path: "classes",
-        Component: PersonalInformation,
+        Component: Class,
       },
     ],
   },
