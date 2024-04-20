@@ -1,24 +1,42 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Table, Input, Flex, Pagination } from "antd";
+import { Table, Input, Modal, Pagination, Button } from "antd";
 import { getAllClassThunk } from "../../../redux/action/teacher";
+import { getUserThunk } from "../../../redux/action/admin";
 import "./index.scss";
 
 const Class = () => {
   const { Search } = Input;
   const dispatch = useDispatch();
   const [dataReceived, setDataReceived] = useState();
+  const [open, setOpen] = useState(false);
   const [dataShow, setDataShow] = useState();
+  const [studentList, setStudentList] = useState([]);
   const [isDataLoad, setIsDataLoad] = useState(false);
 
   useEffect(() => {
     dispatch(getAllClassThunk()).then((res) => {
       setDataReceived(res?.payload);
       setDataShow(res?.payload);
-      console.log(res);
       setIsDataLoad(true);
+      console.log(res.payload);
     });
   }, [isDataLoad]);
+
+  const handleShowStudentList = (value) => {
+    const promises = value.students.map((item) => {
+      return dispatch(getUserThunk({ username: item })).then((res) => {
+        console.log(res.payload);
+        return res?.payload;
+      });
+    });
+
+    Promise.all(promises).then((results) => {
+      setStudentList(results);
+      setOpen(true);
+    });
+  };
+  console.log(studentList);
   const columns = [
     {
       title: "Tên môn học",
@@ -30,13 +48,7 @@ const Class = () => {
       title: "Mã lớp",
       dataIndex: "name",
       key: "name",
-      width: "10%",
-    },
-    {
-      title: "Giáo viên phụ trách",
-      dataIndex: "teacher",
-      key: "teacher",
-      width: "20%",
+      width: "15%",
     },
     {
       title: "Thứ",
@@ -48,7 +60,7 @@ const Class = () => {
       title: "Tiết",
       key: "time",
       dataIndex: "time",
-      width: "45%",
+      width: "50%",
       render: (value) => (
         <>
           {value?.map((data, index) => (
@@ -59,23 +71,60 @@ const Class = () => {
         </>
       ),
     },
+    {
+      title: "Hành động",
+      key: null,
+      dataIndex: null,
+      width: "10%",
+      render: (value) => (
+        <Button
+          onClick={() => handleShowStudentList(value)}
+          style={{ border: "none", width: "fit-content", boxShadow: "none" }}
+        >
+          Thông tin
+        </Button>
+      ),
+    },
   ];
+  const columnsForList = [
+    {
+      title: "Tên sinh viên",
+      key: "name",
+      dataIndex: "name",
+      width: "25%",
+    },
+    {
+      title: "Số điện thoại liên lạc",
+      key: "phone",
+      dataIndex: "phone",
+      width: "25%",
+    },
+    {
+      title: "Email",
+      key: "email",
+      dataIndex: "email",
+      width: "50%",
+    },
+  ];
+
+  const handleCancelModal = () => {
+    setOpen(false);
+    setStudentList([]);
+  };
   const onSearch = (data) => {
-    if (data) {
-      setDataShow(dataReceived?.filter((item) => item?.name == data));
+    if (data != "") {
+      setDataShow(dataReceived?.filter((item) => item.name == data));
     } else setDataShow(dataReceived);
   };
   return (
     <div className="class-list-container">
-      <Flex justify="space-between">
-        <Search
-          placeholder="Nhập mã lớp cần tìm"
-          enterButton="TÌM KIẾM "
-          size="large"
-          onSearch={onSearch}
-          className="input-search"
-        />
-      </Flex>
+      <Search
+        placeholder="Nhập mã lớp cần tìm"
+        enterButton="TÌM KIẾM "
+        size="large"
+        onSearch={onSearch}
+        className="input-search"
+      />
       <div className="table-container">
         <Table
           bordered
@@ -92,6 +141,20 @@ const Class = () => {
           />
         </div>
       </div>
+      <Modal
+        title="Danh sách học sinh"
+        open={open}
+        onCancel={handleCancelModal}
+        footer={null}
+        width="60vw"
+      >
+        <Table
+          bordered
+          columns={columnsForList}
+          dataSource={studentList}
+          pagination={false}
+        />
+      </Modal>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Input, Button, Flex, Pagination } from "antd";
+import { Table, Input, Button, Pagination } from "antd";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -40,7 +40,6 @@ const ClassRegister = () => {
         });
       }
     });
-    console.log(value);
   };
   const columns = [
     {

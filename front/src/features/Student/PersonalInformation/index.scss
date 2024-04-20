@@ -2,10 +2,14 @@
     margin: 15px 35px 70px 15px;
     .image-container{
         height: 200px;
-        width: fit-content;
+        width: 200px !important;
         display: flex;
         justify-content: center;
         align-items: center;
+        .ant-upload{
+            width: auto !important;
+            height: auto !important;
+        }
     }
     .information-title{
         margin: 7px 0px 15px 0px;

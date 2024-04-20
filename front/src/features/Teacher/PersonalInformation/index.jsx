@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Image, Flex, Button } from "antd";
+import { Flex, Button, Tooltip, Avatar } from "antd";
 import { useNavigate } from "react-router-dom";
 import { RightCircleTwoTone } from "@ant-design/icons";
 import { getTeacherInfoThunk } from "../../../redux/action/teacher";
@@ -31,10 +31,7 @@ const PersonalInformation = () => {
       <Flex vertical={false} justify="space-between" align="flex-start">
         <Flex vertical>
           <div className="image-container">
-            <Image
-              src={urlImage}
-              style={{ maxWidth: "200px", borderRadius: "10%" }}
-            />
+            <Avatar src={urlImage} size={200} shape="square" />
           </div>
           <div>
             <h3 className="information-title">

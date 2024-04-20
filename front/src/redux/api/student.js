@@ -29,7 +29,7 @@ const student = {
     unenrollClass: (data) => {
         const username = Cookies.get('username');
         return transport.put(
-            `/students/${username}/classes/${data}/enroll`, JSON.stringify()
+            `/students/${username}/classes/${data}/unenroll`, JSON.stringify()
         )
     },
 }
