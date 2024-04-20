@@ -57,9 +57,9 @@ public class StudentController {
     // xem lai phan requestBody
     @PostMapping("/{username}/classes/{teacher_username}/rate")
     public ResponseEntity<String> rate(@RequestBody Review review, @PathVariable String teacher_username, @PathVariable String username) {
-        if (review.getScore()==null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NEED ADD SCORE");
-        else if (review.getReviewBody()==null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NEED ADD REVIEW");
-        else if (review.getScore()>5 || review.getScore()<0) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("WRONG SCORE REVIEW (0<=SCORE<=5)");
+        if (review.getScore()==null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("NEED ADD SCORE");
+        else if (review.getReviewBody()==null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("NEED ADD REVIEW");
+        else if (review.getScore()>5 || review.getScore()<0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("WRONG SCORE REVIEW (0<=SCORE<=5)");
         return new ResponseEntity<>(studentService.rate(review, teacher_username, username), HttpStatus.OK);
     }
 }
