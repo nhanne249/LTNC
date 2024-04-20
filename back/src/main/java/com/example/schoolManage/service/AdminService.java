@@ -51,6 +51,7 @@ public class AdminService {
                 teacher.getName(),
                 teacher.getEmail(),
                 teacher.getPhone(),
-                teacher.getDegrees()));
+                teacher.getDegrees(),
+                teacher.getReview()));
     }
 }

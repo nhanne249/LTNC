@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -24,12 +25,13 @@ public class Teacher extends User {
 
     public void removeReview(String username) { this.review.remove(username);}
 
-    public Teacher(String username, String password, String name, String email, String phone, List<String> degrees) {
+    public Teacher(String username, String password, String name, String email, String phone, List<String> degrees, List<String> review) {
         super(username, password, Role.TEACHER);
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.degrees = degrees;
+        this.review = review;
     }
 
 }

@@ -4,7 +4,11 @@ import com.example.schoolManage.model.course.Classroom;
 import com.example.schoolManage.model.review.Review;
 import com.example.schoolManage.model.user.Student;
 import com.example.schoolManage.service.StudentService;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,20 +43,24 @@ public class StudentController {
 
     @PutMapping("/{username}/classes/{className}/enroll")
     public ResponseEntity<String> enrollClass(@PathVariable String className, @PathVariable String username) {
-        return studentService.enrollClass(username ,className);
+        return new ResponseEntity<>(studentService.enrollClass(username ,className), HttpStatus.OK);
+
     }
 
     @PutMapping ("/{username}/classes/{className}/unenroll")
     public ResponseEntity<String> unenrollClass(@PathVariable String className, @PathVariable String username) {
-        return studentService.unenrollClass(username ,className);
+        return new ResponseEntity<>(studentService.unenrollClass(username ,className), HttpStatus.OK);
+
     }
 
+
+    // xem lai phan requestBody
     @PostMapping("/{username}/classes/{teacher_username}/rate")
     public ResponseEntity<String> rate(@RequestBody Review review, @PathVariable String teacher_username, @PathVariable String username) {
-        if (review.getScore()==null) return ResponseEntity.ok("NEED ADD SCORE");
-        else if (review.getReviewBody()==null) return ResponseEntity.ok("NEED ADD REVIEW");
-        else if (review.getScore()>5 || review.getScore()<0) return ResponseEntity.ok("WRONG SCORE REVIEW (0<=SCORE<=5)");
-        return studentService.rate(review, teacher_username, username);
+        if (review.getScore()==null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NEED ADD SCORE");
+        else if (review.getReviewBody()==null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NEED ADD REVIEW");
+        else if (review.getScore()>5 || review.getScore()<0) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("WRONG SCORE REVIEW (0<=SCORE<=5)");
+        return new ResponseEntity<>(studentService.rate(review, teacher_username, username), HttpStatus.OK);
     }
 }
 

@@ -43,47 +43,47 @@ public class StudentService {
         return student;
     }
 
-    public ResponseEntity<String> enrollClass(String username, String className) {
+    public String enrollClass(String username, String className) {
         Optional<Classroom> cl = classRepository.findByName(className);
         if (cl.isPresent()) {
             Optional<Student> st = userRepository.findStudentByUsername(username);
             if (st.isEmpty()) {
-                return ResponseEntity.ok("STUDENT NOT EXIST");
+                return "STUDENT NOT EXIST";
             } else {
                 List<Classroom> list = classRepository.findAllByStudent(username);
                 String subject = cl.get().getSubject();
                 for (Classroom i : list) {
                     if (i.getSubject().equals(subject))
-                        return ResponseEntity.ok("ALREADY HAVE CLASS OF THIS SUBJECT");
+                        return "ALREADY HAVE CLASS OF THIS SUBJECT";
                 }
                 cl.get().addStudent(st.get().getUsername());
                 classRepository.save(cl.get());
-                return ResponseEntity.ok("STUDENT ENROLL SUCCESSFULLY");
+                return "STUDENT ENROLL SUCCESSFULLY";
             }
-        } else return ResponseEntity.ok("CLASS NOT EXIST");
+        } else return "CLASS NOT EXIST";
     }
 
-    public ResponseEntity<String> unenrollClass(String username, String className) {
+    public String unenrollClass(String username, String className) {
         Optional<Classroom> cl = classRepository.findByName(className);
         if (cl.isPresent()) {
             Optional<Student> st = userRepository.findStudentByUsername(username);
             if (st.isEmpty()) {
-                return ResponseEntity.ok("STUDENT NOT EXIST");
+                return "STUDENT NOT EXIST";
             } else {
                 if (!cl.get().getStudents().contains(username))
-                    return ResponseEntity.ok("NOT IN CLASS");
+                    return "NOT IN CLASS";
                 cl.get().deleteStudent(st.get().getUsername());
                 classRepository.save(cl.get());
-                return ResponseEntity.ok("STUDENT UNENROLL SUCCESSFULLY");
+                return "STUDENT UNENROLL SUCCESSFULLY";
             }
-        } else return ResponseEntity.ok("CLASS NOT EXIST");
+        } else return "CLASS NOT EXIST";
     }
 
 
-    public ResponseEntity<String> rate(Review review, String teacher, String username) {
+    public String rate(Review review, String teacher, String username) {
         review.setStudentName(username);
         Classroom cl = inClassOfTeacher(teacher, username);
-        if (cl==null) return ResponseEntity.ok("STUDENT ISN'T TAUGHT BY THIS TEACHER");
+        if (cl==null) return "STUDENT ISN'T TAUGHT BY THIS TEACHER";
         Optional<Review> rv = reviewRepository.findByStudentName(username);
         if (rv.isPresent()) {
             rv.get().setReviewBody(review.getReviewBody());
@@ -94,8 +94,7 @@ public class StudentService {
             userRepository.save(tc.get());
             reviewRepository.save(review);
         }
-        return ResponseEntity.ok("ADDED REVIEW");
-
+        return "ADDED REVIEW";
     }
 
     // kiem tra thong tin lop dang hoc
@@ -114,18 +113,18 @@ public class StudentService {
     }
 
     // xoa review
-    public ResponseEntity<String> deleteRate(String teacher, String username) {
+    public String deleteRate(String teacher, String username) {
         Optional<Teacher> tc = userRepository.findTeacherByUsername(teacher);
-        if (tc.isEmpty()) ResponseEntity.ok("TEACHER ISN'T EXIST");
+        if (tc.isEmpty()) return "TEACHER ISN'T EXIST";
         Classroom cl = inClassOfTeacher(teacher, username);
-        if (cl == null) return ResponseEntity.ok("STUDENT ISN'T TAUGHT BY THIS TEACHER");
+        if (cl == null) return "STUDENT ISN'T TAUGHT BY THIS TEACHER";
         Optional<Review> rv = reviewRepository.findByStudentName(username);
-        if (rv.isEmpty()) return ResponseEntity.ok("HAVEN'T REVIEWED YET");
+        if (rv.isEmpty()) return "HAVEN'T REVIEWED YET";
 
         reviewRepository.delete(rv.get());
         tc.get().removeReview(username);
         userRepository.save(tc.get());
-        return ResponseEntity.ok("REMOVED REVIEW");
+        return "REMOVED REVIEW";
     }
 
 }
