@@ -1,5 +1,4 @@
 import Layouts from "../../layouts/index.jsx";
-import Dashboard from "../../features/Student/Dashboard";
 import CreateTeacherAccount from "../../features/Admin/UserList/CreateNewUser/CreateTeacherAccount/index.jsx";
 import CreateStudentAccount from "../../features/Admin/UserList/CreateNewUser/CreateStudentAccount/index.jsx";
 import ClassList from "../../features/Admin/Class/ClassList/index.jsx"

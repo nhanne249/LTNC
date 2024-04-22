@@ -48,9 +48,9 @@ const PersonalInformation = () => {
     if (!isJpgOrPng) {
       message.error("Bạn chỉ được phép đăng ảnh JPG/PNG!");
     }
-    const isLt2M = file.size / 1024 / 1024 < 2;
+    const isLt2M = file.size / 1024 / 1024 < 200;
     if (!isLt2M) {
-      message.error("Ảnh phải có dung lượng nhỏ hơn 2MB!");
+      message.error("Ảnh phải có dung lượng nhỏ hơn 200MB!");
     }
     return isJpgOrPng && isLt2M;
   };
@@ -68,7 +68,6 @@ const PersonalInformation = () => {
       }
       return file;
     });
-    // if(file.)
     setFileList(newFileList);
     if (info.file.status == "done") {
       setFileList([]);

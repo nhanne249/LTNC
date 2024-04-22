@@ -6,8 +6,8 @@ import { useDispatch } from "react-redux";
 import { loginThunk } from "../../../redux/action/authentication";
 import { toast } from "react-toastify";
 import "./index.scss";
-import background from "../../../assets/img/bk.jpg";
-import logo from "../../../assets/img/logobkjpeg.jpeg";
+import background from "../../../assets/img/login1.jpg";
+import logo from "../../../assets/img/logobkjpeg.png";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -62,7 +62,7 @@ const Login = () => {
         autoComplete="off"
         layout="vertical"
       >
-        <Image src={logo} preview={false}></Image>
+        <Image src={logo} preview={false} width={200}></Image>
         <Form.Item
           name="username"
           rules={[

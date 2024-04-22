@@ -51,18 +51,12 @@ const Layouts = () => {
 
   return (
     <Layout className="page-layout">
-      <Image
-        preview={false}
-        src={logobk}
-        style={{ maxWidth: "120px" }}
-        className="logo"
-      />
       <Header className="header-page">
         <HeaderPage />
       </Header>
       <div className="main-content-container">
         <Layout hasSider className="main-container" id="content-layout">
-          <Sider className="sider-page" width="20%" id="sider">
+          <Sider className="sider-page" width="15%" id="sider">
             <SiderPage />
           </Sider>
           <Content className="content-page">

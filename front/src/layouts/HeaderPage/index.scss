@@ -1,11 +1,11 @@
 
 .header-container{
     height:100%;
-    width: 80vw;
+    width: 100vw;
     display: flex;
     .header-menu{
         height:100%;
-        width: 70vw;
+        width: 100vw;
         display: flex;
         justify-content: flex-start;
         align-items: center;
@@ -25,9 +25,9 @@
     .header-infor{
         width: auto;
         background-color: #0388B4;
-        border: none;
         .ant-menu-submenu{
             background-color: #0388B4;
+            border: #ffffff 2px solid;
         }
         .ant-menu-title-content{
             color: #ffffff;
@@ -41,7 +41,7 @@
         .ant-menu{
             .ant-menu-item{
                 background-color: #0388B4;
-                padding-left: 5px !important;
+                padding-left: 0 !important;
             }
         }
     }
