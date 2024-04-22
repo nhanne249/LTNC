@@ -4,22 +4,22 @@ const admin = {
 
     getAllUser: (data) => {
         return transport.get(
-            `/users`, JSON.stringify(data)
+            `/users?page=${data}`
         )
     },
     getUser: (data) => {
         return transport.get(
-            `/users/${data.username}`, JSON.stringify(data)
+            `/users/${data}`, JSON.stringify(data)
         )
     },
     getAllStudents: (data) => {
         return transport.get(
-            `/students`, JSON.stringify(data)
+            `/students?page=${data}`
         )
     },
     getAllTeachers: (data) => {
         return transport.get(
-            `/teachers`, JSON.stringify(data)
+            `/teachers?page=${data}`
         )
     },
     createNewStudent: (data) => {

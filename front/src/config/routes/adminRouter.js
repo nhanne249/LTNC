@@ -5,6 +5,7 @@ import CreateStudentAccount from "../../features/Admin/UserList/CreateNewUser/Cr
 import ClassList from "../../features/Admin/Class/ClassList/index.jsx"
 import CreateNewClass from "../../features/Admin/Class/CreateClass/index.jsx"
 import UserList from "../../features/Admin/UserList/index.jsx"
+import Faculties from "../../features/Admin/Faculties/index.jsx";
 
 const adminRouter = [
   {
@@ -14,11 +15,11 @@ const adminRouter = [
     children: [
       {
         path: "*",
-        Component: Dashboard,
+        Component: UserList,
       },
       {
         path: "",
-        Component: Dashboard,
+        Component: UserList,
       },
       {
         path: "users",
@@ -39,6 +40,10 @@ const adminRouter = [
       {
         path: "create-class",
         Component: CreateNewClass,
+      },
+      {
+        path: "faculties",
+        Component: Faculties,
       },
     ],
   },

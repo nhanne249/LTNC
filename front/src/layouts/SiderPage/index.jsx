@@ -21,6 +21,10 @@ const SiderPage = () => {
           label: "Lớp học",
           key: "class",
         },
+        {
+          label: "Chương trình đào tạo",
+          key: "faculties",
+        },
       ]);
     }
     if (cookies.role == "STUDENT") {

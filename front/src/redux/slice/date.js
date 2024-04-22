@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getAllDaysThunk, getDayThunk
 } from '../action/date'
 
-const admin = createSlice({
+const date = createSlice({
   name: "dateFunc",
   initialState: {
       getAllDaysThunk: [],
@@ -35,4 +35,4 @@ const admin = createSlice({
 });
 export const { dateFunc
 } = date.actions;
-export default admin;
+export default date;

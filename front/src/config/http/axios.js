@@ -1,10 +1,9 @@
 import axios from 'axios';
-// import Cookies from 'js-cookie';
 
 function getCookieValue(cookieName) {
     const cookieArray = document.cookie.split(';');
-    for (let i = 0; i < cookieArray.length; i++) {
-        const cookiePair = cookieArray[i].split('=');
+    for (const element of cookieArray) {
+        const cookiePair = element.split('=');
         if (cookieName == cookiePair[0].trim()) {
             return decodeURIComponent(cookiePair[1]);
         }

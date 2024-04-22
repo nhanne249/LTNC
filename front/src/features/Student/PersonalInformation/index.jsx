@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Flex, Button, Tooltip, Avatar, Upload } from "antd";
+import { Flex, Button, Image, Upload, message } from "antd";
 import { RightCircleTwoTone } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { getStudentInfoThunk } from "../../../redux/action/student";
+import { getAvatarThunk } from "../../../redux/action/resources";
 import "./index.scss";
+import Cookies from "js-cookie";
 const urlImage =
   "https://i.pinimg.com/564x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg";
 
@@ -16,14 +18,22 @@ const getBase64 = (img, callback) => {
 
 const PersonalInformation = () => {
   const navigate = useNavigate();
-  const [info, setInfo] = useState();
-  const [imageUrl, setImageUrl] = useState(urlImage);
   const dispatch = useDispatch();
+  const [info, setInfo] = useState();
+  const [fileList, setFileList] = useState([]);
+  const [image, setImage] = useState(urlImage);
+  const [isReceived, setIsReceived] = useState(false);
   useEffect(() => {
     dispatch(getStudentInfoThunk()).then((res) => {
       setInfo(res?.payload);
     });
-  }, []);
+    dispatch(getAvatarThunk()).then((res) => {
+      const blobData = res.payload.data;
+      const blobUrl = URL.createObjectURL(blobData);
+      setImage(blobUrl);
+      setIsReceived(true);
+    });
+  }, [isReceived]);
 
   const handleUpdateInfo = () => {
     navigate(
@@ -32,37 +42,69 @@ const PersonalInformation = () => {
       { state: { name: info?.name, email: info?.email, phone: info?.phone } }
     );
   };
-
+  //Sử lý hình ảnh để upload
+  const beforeUpload = (file) => {
+    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+    if (!isJpgOrPng) {
+      message.error("Bạn chỉ được phép đăng ảnh JPG/PNG!");
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      message.error("Ảnh phải có dung lượng nhỏ hơn 2MB!");
+    }
+    return isJpgOrPng && isLt2M;
+  };
   const handleChange = (info) => {
-    if (info.file.status === "uploading") {
+    console.log(info);
+    let newFileList = [...info.fileList];
+    if (!("status" in info.file)) {
+      setFileList([]);
       return;
     }
-    if (info.file.status === "done") {
-      getBase64(info.file.originFileObj, (url) => {
-        setImageUrl(url);
+    newFileList = newFileList.slice(-1);
+    newFileList = newFileList.map((file) => {
+      if (file.response) {
+        file.url = file.response.url;
+      }
+      return file;
+    });
+    // if(file.)
+    setFileList(newFileList);
+    if (info.file.status == "done") {
+      setFileList([]);
+      dispatch(getAvatarThunk()).then((res) => {
+        const blobData = res.payload.data;
+        const blobUrl = URL.createObjectURL(blobData);
+        setImage(blobUrl);
       });
     }
   };
+  //------------------------------------------------------------
 
   return info ? (
     <div className="information-container">
       <Flex vertical={false} justify="space-between" align="flex-start">
         <Flex vertical>
-          <div className="">
+          <div className="image-container">
+            <Image
+              src={image}
+              style={{ maxWidth: "200px", borderRadius: "10%" }}
+            />
             <Upload
-              name="avatar"
-              listType="picture-card"
-              className="image-container"
-              showUploadList={false}
+              listType="picture"
+              className="avatar-uploader"
+              action="http://localhost:8081/avatar"
               onChange={handleChange}
+              withCredentials={true}
+              headers={{
+                Authorization: `Bearer ${Cookies.get("userPresent")}`,
+              }}
+              method="PUT"
+              beforeUpload={beforeUpload}
+              maxCount={1}
+              fileList={fileList}
             >
-              <img
-                src={imageUrl}
-                alt="avatar"
-                style={{
-                  width: "100%",
-                }}
-              />
+              Cập nhật ảnh
             </Upload>
           </div>
           <div>

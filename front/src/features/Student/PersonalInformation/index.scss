@@ -6,10 +6,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        .ant-upload{
-            width: auto !important;
-            height: auto !important;
-        }
+        flex-direction: column;
     }
     .information-title{
         margin: 7px 0px 15px 0px;
