@@ -1,25 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { putAvatar, getAvatarThunk
+import { putAvatarThunk, getAvatarThunk,facultiesListThunk,createFacultyThunk,createSubjectThunk,deleteSubjectThunk
 } from '../action/resources'
 
 const resources = createSlice({
   name: "resourcesFunc",
   initialState: {
-      putAvatar: [],
-      getAvatarThunk: [],
+      putAvatarThunk: [],
+    getAvatarThunk: [],
+    facultiesListThunk: [],
+    createFacultyThunk: [],
+    createSubjectThunk: [],
+      deleteSubjectThunk: []
   },
   reducers: {
     clearAdminFuntion: (state) => {
-          state.putAvatar = []
-          state.getAvatarThunk = []
+          state.putAvatarThunk = []
+      state.getAvatarThunk = []
+          state.facultiesListThunk = []
+          state.createFacultyThunk = []
+          state.createSubjectThunk = []
+          state.deleteSubjectThunk = []
     },
   },
   extraReducers: (builder) => {
     builder.addCase(
-      putAvatar.fulfilled,
+      putAvatarThunk.fulfilled,
       (state, { payload }) => {
         if (payload) {
-          state.putAvatar = payload;
+          state.putAvatarThunk = payload;
         }
       }
       );
@@ -28,6 +36,38 @@ const resources = createSlice({
       (state, { payload }) => {
         if (payload) {
           state.getAvatarThunk = payload;
+        }
+      }
+    );
+    builder.addCase(
+      facultiesListThunk.fulfilled,
+      (state, { payload }) => {
+        if (payload) {
+          state.facultiesListThunk = payload;
+        }
+      }
+    );
+    builder.addCase(
+      createFacultyThunk.fulfilled,
+      (state, { payload }) => {
+        if (payload) {
+          state.createFacultyThunk = payload;
+        }
+      }
+    );
+    builder.addCase(
+      createSubjectThunk.fulfilled,
+      (state, { payload }) => {
+        if (payload) {
+          state.createSubjectThunk = payload;
+        }
+      }
+    );
+    builder.addCase(
+      deleteSubjectThunk.fulfilled,
+      (state, { payload }) => {
+        if (payload) {
+          state.deleteSubjectThunk = payload;
         }
       }
     );

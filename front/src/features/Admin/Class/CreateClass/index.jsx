@@ -28,7 +28,6 @@ const CreateNewClass = () => {
       teacher: data.teacher,
     };
     dispatch(createNewClassThunk(dataSend)).then((res) => {
-      console.log(res);
       if (res?.error) {
         toast.error("Tạo lớp học mới thất bại!", {
           position: "top-right",

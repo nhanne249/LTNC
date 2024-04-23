@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Data
 @Document(collection = "faculties")
 public class Faculty {
@@ -14,8 +15,9 @@ public class Faculty {
     private ObjectId id;
     private String name;
     private List<String> subjects;
-    public Faculty (String name){
+
+    public Faculty(String name, List<String> subjects) {
         this.name = name;
-        this.subjects = new ArrayList<>();
+        this.subjects = subjects;
     }
 }
