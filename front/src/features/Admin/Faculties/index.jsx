@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Flex, Card, Button, Modal, Input, Form, Space } from "antd";
+import {
+  Flex,
+  Card,
+  Button,
+  Modal,
+  Input,
+  Form,
+  Space,
+  Checkbox,
+  Select,
+} from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
@@ -7,13 +17,16 @@ import {
   facultiesListThunk,
   createFacultyThunk,
   createSubjectThunk,
+  deleteFacultyThunk,
+  deleteSubjectThunk,
 } from "../../../redux/action/resources";
 import "./index.scss";
 
 const Faculties = () => {
   const dispatch = useDispatch();
-
+  const CheckboxGroup = Checkbox.Group;
   const [form] = Form.useForm();
+
   const [dataReceived, setDataReceived] = useState();
   const [isReceived, setIsReceived] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -21,6 +34,8 @@ const Faculties = () => {
   const [dataToUpdate, setDataToUpdate] = useState();
   const [dataInModal, setDataInModal] = useState();
   const [isCreate, setIsCreate] = useState(false);
+  const [checkedList, setCheckedList] = useState([]);
+  const checkAll = checkedList.length === dataInModal?.subjects.length;
   useEffect(() => {
     dispatch(facultiesListThunk()).then((res) => {
       setIsReceived(true);
@@ -67,6 +82,61 @@ const Faculties = () => {
     });
   };
 
+  const onChoosen = (data) => {
+    setCheckedList(data);
+  };
+  const onCheckAllChange = (e) => {
+    setCheckedList(e.target.checked ? dataInModal?.subjects : []);
+  };
+  const handleChangeSelect = (dataChoosen) => {
+    if (dataChoosen == "delete") {
+      checkedList.map((data) => {
+        dispatch(deleteSubjectThunk(data)).then((res) => {
+          if (res?.error) {
+            toast.error(`Xóa ${data} thất bại!`, {
+              position: "top-right",
+              autoClose: 3000,
+              theme: "colored",
+            });
+          } else {
+            toast.success(`Xóa ${data} thành công!`, {
+              position: "top-right",
+              autoClose: 3000,
+              theme: "colored",
+            });
+          }
+        });
+        return null;
+      });
+      setIsReceived(false);
+      setOpenModal(false);
+    }
+    if (dataChoosen == "deleteFaculty") {
+      dispatch(deleteFacultyThunk(dataInModal?.name)).then((res) => {
+        if (res?.error) {
+          toast.error(`Xóa khoa ${dataInModal?.name} thất bại!`, {
+            position: "top-right",
+            autoClose: 3000,
+            theme: "colored",
+          });
+        } else {
+          toast.success(`Xóa khoa ${dataInModal?.name} thành công!`, {
+            position: "top-right",
+            autoClose: 3000,
+            theme: "colored",
+          });
+        }
+      });
+      dispatch(facultiesListThunk()).then((res) => {
+        setDataReceived(res?.payload);
+      });
+      setOpenModal(false);
+      setIsReceived(false);
+    }
+    if (dataChoosen == "undelete") {
+      setCheckedList([]);
+    }
+  };
   const onFinishUpdateForm = (data) => {
     dispatch(
       createSubjectThunk({ faculty: dataToUpdate, subject: data.subject })
@@ -237,14 +307,35 @@ const Faculties = () => {
 
         <Modal
           title={
-            <Flex vertical={false} justify="space-around">
+            <Flex vertical={true} justify="space-around">
               Danh sách môn học khoa {dataInModal?.name}
-              <Button
-                onClick={() => updateModal(dataInModal?.name)}
-                className="update-faculty-btn"
-              >
-                Thêm môn học mới
-              </Button>
+              <Flex vertical={false} justify="space-around">
+                <Button
+                  onClick={() => updateModal(dataInModal?.name)}
+                  className="update-faculty-btn"
+                >
+                  Thêm môn học mới
+                </Button>
+                <Select
+                  className="sort-search"
+                  defaultValue="Chọn xóa"
+                  onChange={handleChangeSelect}
+                  options={[
+                    {
+                      value: "delete",
+                      label: "Xóa",
+                    },
+                    {
+                      value: "deleteFaculty",
+                      label: "Xóa khoa",
+                    },
+                    {
+                      value: "undelete",
+                      label: "Không xóa",
+                    },
+                  ]}
+                />
+              </Flex>
             </Flex>
           }
           open={openModal}
@@ -253,13 +344,22 @@ const Faculties = () => {
           width="600px"
           centered
         >
-          {dataInModal?.subjects?.length > 0 ? (
-            dataInModal?.subjects.map((subject) => (
-              <p key={subject}>{subject}</p>
-            ))
-          ) : (
-            <p>Không có dữ liệu</p>
-          )}
+          <Flex vertical={true} justify="space-around">
+            <Checkbox onChange={onCheckAllChange} checked={checkAll}>
+              Check all
+            </Checkbox>
+            <Flex vertical={false} justify="flex-start" gap="small">
+              {dataInModal?.subjects?.length > 0 ? (
+                <CheckboxGroup
+                  options={dataInModal?.subjects}
+                  onChange={onChoosen}
+                  value={checkedList}
+                />
+              ) : (
+                <p>Không có dữ liệu</p>
+              )}
+            </Flex>
+          </Flex>
         </Modal>
       </Flex>
       <Modal

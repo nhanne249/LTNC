@@ -1,25 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { putAvatarThunk, getAvatarThunk,facultiesListThunk,createFacultyThunk,createSubjectThunk,deleteSubjectThunk
+import { putAvatarThunk, getAvatarThunk,facultiesListThunk,createFacultyThunk,createSubjectThunk,deleteSubjectThunk,deleteFacultyThunk
 } from '../action/resources'
 
 const resources = createSlice({
   name: "resourcesFunc",
   initialState: {
-      putAvatarThunk: [],
+    putAvatarThunk: [],
     getAvatarThunk: [],
     facultiesListThunk: [],
     createFacultyThunk: [],
     createSubjectThunk: [],
-      deleteSubjectThunk: []
+    deleteSubjectThunk: [],
+    deleteFacultyThunk: []
   },
   reducers: {
     clearAdminFuntion: (state) => {
-          state.putAvatarThunk = []
+      state.putAvatarThunk = []
       state.getAvatarThunk = []
-          state.facultiesListThunk = []
-          state.createFacultyThunk = []
-          state.createSubjectThunk = []
-          state.deleteSubjectThunk = []
+      state.facultiesListThunk = []
+      state.createFacultyThunk = []
+      state.createSubjectThunk = []
+      state.deleteSubjectThunk = []
+      state.deleteFacultyThunk = []
     },
   },
   extraReducers: (builder) => {
@@ -68,6 +70,14 @@ const resources = createSlice({
       (state, { payload }) => {
         if (payload) {
           state.deleteSubjectThunk = payload;
+        }
+      }
+    );
+    builder.addCase(
+      deleteFacultyThunk.fulfilled,
+      (state, { payload }) => {
+        if (payload) {
+          state.deleteFacultyThunk = payload;
         }
       }
     );

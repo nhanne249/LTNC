@@ -1,8 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import resources from '../api/resources'
 
-const { putAvatar,getAvatar,facultiesList,createFaculty,createSubject,deleteSubject
-} = resources
+const { putAvatar,getAvatar,facultiesList,createFaculty,createSubject,deleteSubject,deleteFaculty} = resources
 
 export const putAvatarThunk = createAsyncThunk(
     'resources/putAvatar',
@@ -52,3 +51,10 @@ export const getAvatarThunk = createAsyncThunk(
     }
 )
 
+export const deleteFacultyThunk = createAsyncThunk(
+    'resources/deleteFaculty',
+    async (data) => {
+        const res = await deleteFaculty(data)
+        return res
+    }
+)

@@ -73,35 +73,6 @@ const SiderPage = () => {
       ]);
     }
   }, []);
-  useEffect(() => {
-    const handleResize = () => {
-      const elementSider = document.getElementById("content-layout");
-      const windowHeight = window.innerHeight;
-      if (windowHeight < 624) {
-        setItems(
-          items.map((item) => {
-            if (item.type) {
-              return { ...item, type: "" };
-            } else return item;
-          })
-        );
-        setMenuMode("vertical");
-      } else {
-        setItems(
-          items.map((item) => {
-            if (item.type == "") {
-              return { ...item, type: "group" };
-            } else return item;
-          })
-        );
-        setMenuMode("inline");
-      }
-    };
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [menuMode, items]);
 
   const onClick = (value) => {
     navigate(value.key);

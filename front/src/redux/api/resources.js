@@ -28,9 +28,8 @@ const resources = {
         )
   },
     createSubject: (data) => {
-        console.log(data)
         return transport.put(
-            `/faculties/${data.faculty}`, data.subject.replace(/['"]/g, '')
+            `/faculties/${data.faculty}`, data.subject
         )
     },
     deleteSubject: (data) => {
@@ -38,6 +37,11 @@ const resources = {
             `/faculties/${data}`,
         )
     },
+    deleteFaculty: (data) => {
+        return transport.delete(
+            `/faculties/${data}`,
+        )
+    }
 
 }
 export default resources;
