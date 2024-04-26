@@ -42,11 +42,12 @@ public class ClassService {
         });
         Collections.sort(wd.get().getTime());
         scheduleRepository.save(wd.get());
-        return classRepository.insert(new Classroom(classroom.getName(),
-                classroom.getSubject(),
-                classroom.getDay(),
-                classroom.getTime(),
-                classroom.getTeacher()));
+        return classRepository.insert(new Classroom.Builder().name(classroom.getName())
+                        .subject(classroom.getSubject())
+                        .teacher(classroom.getTeacher())
+                        .time(classroom.getTime())
+                        .day(classroom.getDay())
+                        .build());
     }
 
     public void deleteClass(String name) {

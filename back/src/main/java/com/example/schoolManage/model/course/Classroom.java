@@ -21,7 +21,7 @@ public class Classroom{
     private List<String> students;
     private String teacher;
 
-    public Classroom(String name, String subject, String day, List<Integer> time, String teacher) {
+    private Classroom(String name, String subject, String day, List<Integer> time, String teacher) {
         this.name = name;
         this.subject = subject;
         this.day = day;
@@ -34,5 +34,18 @@ public class Classroom{
     }
     public void deleteStudent(String student) {
         this.students.remove(student);
+    }
+    public static class Builder{
+        private String name;
+        private String subject;
+        private String day;
+        private List<Integer> time;
+        private String teacher;
+        public Builder name(String name){this.name = name; return this;}
+        public Builder subject(String subject){this.subject = subject;return this;}
+        public Builder day(String day){this.day = day;return this;}
+        public Builder time(List<Integer> time){this.time = time;return this;}
+        public Builder teacher(String teacher){this.teacher = teacher;return this;}
+        public Classroom build(){return new Classroom(name,subject,day,time,teacher);}
     }
 }
