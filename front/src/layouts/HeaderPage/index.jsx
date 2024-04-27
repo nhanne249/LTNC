@@ -28,10 +28,6 @@ const HeaderPage = () => {
           label: <div className="infor-name">{cookies.username}</div>,
           children: [
             {
-              key: "personal-information",
-              label: "Xem thông tin cá nhân",
-            },
-            {
               key: "logout",
               label: "Đăng xuất",
             },

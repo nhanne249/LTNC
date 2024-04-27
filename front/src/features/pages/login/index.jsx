@@ -47,10 +47,10 @@ const Login = () => {
           setCookie("userPresent", `${res.payload.token}`, { path: "/" });
         }
         if (
-          Cookies.get("role") &&
-          Cookies.get("username" && Cookies.get("userPresent"))
+          cookies.get("role") &&
+          cookies.get("username" && cookies.get("userPresent"))
         ) {
-          const path = "/" + Cookies.get("role").toLowerCase();
+          const path = "/" + cookies.get("role").toLowerCase();
           navigate(path);
         }
       } else {
