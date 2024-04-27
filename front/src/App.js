@@ -51,7 +51,7 @@ function App() {
               );
             });
           }))}
-          <Route render={() => <Navigate to={`/${role}`} />} />
+          <Route render={() => <Navigate to={`${role}`} />} />
         </Routes>
       </Router>
       {/* <Loading /> */}
