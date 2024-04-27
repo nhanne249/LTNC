@@ -12,7 +12,7 @@ function App() {
     <>
       <Router>
         <Routes>
-          {role || role != undefined ? (privateRouter.map((routers) => {
+          {role!=null || role != undefined ? (privateRouter.map((routers) => {
             return routers.map((route, index) => {
               return route.role == role ? (
                 <Route path={route.path} element={route.element} key={index}>
