@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 function App() {
   const [cookies] = useCookies(['isBrowserClose', 'role']);
   var role=null;
-  if (Cookies.get('role')) {role = Cookies.get('role').toLowerCase();
+  if (Cookies.get('role')) {role = cookies.role.toLowerCase();
   }
   return (
     <>
