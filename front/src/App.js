@@ -18,7 +18,7 @@ function App() {
   var role=null;
   if (Cookies.get('role')) {role = cookies.role.toLowerCase();
   }
-  useEffect(()=>{if(!pathParts[1].includes(role) || pathname!= role) navigate(role)},[])
+  useEffect(()=>{if(!pathParts[1].includes(role) || pathname!= role) navigate(role)},[role])
   return (
     <>
       <Router>
