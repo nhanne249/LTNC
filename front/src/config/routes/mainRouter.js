@@ -11,5 +11,9 @@ const mainRouter = [
     path: "/login",
     element: <LoginPage />,
   },
+  {
+    path: "",
+    element: Cookies.get("role") ? <Navigate to={`${Cookies.get("role").toLowerCase()}`} /> : <LoginPage />,
+  },
 ];
 export default mainRouter;
