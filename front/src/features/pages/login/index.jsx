@@ -20,7 +20,7 @@ const Login = () => {
       Cookies.get("username" && Cookies.get("userPresent"))
     ) {
       const path = Cookies.get("role").toLowerCase();
-      navigate(`${path}`);
+      navigate(`${path}`, {replace: true});
     }
   }, []);
   const onFinish = (data) => {
