@@ -14,7 +14,6 @@ const Login = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (Cookies.get("role")) {
-      const path = Cookies.get("role").toLowerCase();
       navigate(`${Cookies.get("role").toLowerCase()}`);
     }
   }, []);
