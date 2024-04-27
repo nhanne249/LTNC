@@ -9,7 +9,6 @@ import "./index.scss";
 const UpdateTeacherInfo = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
 
   const onFinish = (values) => {

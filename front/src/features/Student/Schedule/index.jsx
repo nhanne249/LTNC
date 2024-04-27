@@ -101,12 +101,6 @@ const Schedule = () => {
       ),
     },
   ];
-  useEffect(() => {
-    dispatch(getAllClassesThunk()).then((res) => {
-      console.log(res);
-      setIsReceived(true);
-    });
-  }, [isReceived]);
 
   const onSearch = (data) => {
     if (data) {

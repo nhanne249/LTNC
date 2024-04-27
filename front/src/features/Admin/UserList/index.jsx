@@ -23,7 +23,6 @@ const UserList = () => {
   let page = 1;
   useEffect(() => {
     dispatch(getAllUserThunk(page)).then((res) => {
-      console.log(res);
       setDataReceived(res?.payload?.content);
       setTotal(res?.payload?.totalElements);
       setIsReceived(true);
@@ -100,7 +99,6 @@ const UserList = () => {
         setTotal(res?.payload?.totalElements);
       });
     }
-    console.log(value);
   };
 
   const handleOnChange = (value) => {
@@ -133,7 +131,6 @@ const UserList = () => {
   };
 
   const onSearch = (value) => {
-    console.log(value);
     if (value) {
       dispatch(getUserThunk(value)).then((res) => {
         setDataReceived([res?.payload]);

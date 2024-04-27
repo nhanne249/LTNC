@@ -1,7 +1,6 @@
 import Layouts from "../../layouts/index.jsx";
 import PersonalInformation from "../../features/Student/PersonalInformation/index.jsx";
 import Notification from "../../features/Student/Notification/index.jsx";
-import IntructorEvaluate from "../../features/Student/InstructorEvaluate/index.jsx";
 import UpdateStudentInfo from "../../features/Student/PersonalInformation/UpdateStudentInfo/index.jsx";
 import Schedule from "../../features/Student/Schedule/index.jsx"
 import ClassRegister from "../../features/Student/ClassRegister/index.jsx"
@@ -39,10 +38,6 @@ const studentRouter = [
       {
         path: "education-program",
         Component: PersonalInformation,
-      },
-      {
-        path: "instructor-evaluate",
-        Component: IntructorEvaluate,
       },
       {
         path: "schedule",

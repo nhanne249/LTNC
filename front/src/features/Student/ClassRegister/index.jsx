@@ -112,7 +112,6 @@ const ClassRegister = () => {
       });
     }
   };
-  console.log(dataReceive);
   return (
     <div className="class-list-container">
       <Search

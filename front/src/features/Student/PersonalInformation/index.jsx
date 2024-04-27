@@ -55,7 +55,6 @@ const PersonalInformation = () => {
     return isJpgOrPng && isLt2M;
   };
   const handleChange = (info) => {
-    console.log(info);
     let newFileList = [...info.fileList];
     if (!("status" in info.file)) {
       setFileList([]);

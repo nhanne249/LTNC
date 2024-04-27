@@ -13,7 +13,6 @@ import Cookies from "js-cookie";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [cookies, setCookie] = useCookies(["name", "role", "userPresent"]);
   useEffect(() => {
     if (
       Cookies.get("role") &&
@@ -36,17 +35,33 @@ const Login = () => {
           theme: "colored",
         });
         if (data.isChecked) {
-          setCookie("username", `${data.username}`, { maxAge: 604800000 });
-          setCookie("role", `${res.payload.role}`, { maxAge: 604800000 });
-          setCookie("userPresent", `${res.payload.token}`, {
+          Cookies.set("username", `${data.username}`, {
+            expires: 7,
+            path: "/",
+            domain: "ltnc.vercel.app",
+          });
+          Cookies.set("role", `${res.payload.role}`, { maxAge: 604800000 });
+          Cookies.set("userPresent", `${res.payload.token}`, {
             maxAge: 604800000,
           });
         } else {
-          setCookie("username", `${data.username}`, { path: "/" });
-          setCookie("role", `${res.payload.role}`, { path: "/" });
-          setCookie("userPresent", `${res.payload.token}`, { path: "/" });
+          Cookies.set("username", `${data.username}`, {
+            expires: 7,
+            path: "/",
+            domain: "ltnc.vercel.app",
+          });
+          Cookies.set("role", `${res.payload.role}`, {
+            expires: 7,
+            path: "/",
+            domain: "ltnc.vercel.app",
+          });
+          Cookies.set("userPresent", `${res.payload.token}`, {
+            expires: 7,
+            path: "/",
+            domain: "ltnc.vercel.app",
+          });
         }
-        navigate(`${res.payload.role}`);
+        navigate(`${res.payload.role.toLowerCase()}`);
       } else {
         toast.error("Email hoặc mật khẩu không chính xác", {
           position: "top-right",
@@ -55,9 +70,6 @@ const Login = () => {
         });
       }
     });
-  };
-  const handleForgotPassword = () => {
-    console.log("forgot password");
   };
   return (
     <div className="main_page page_container">

@@ -13,13 +13,11 @@ const CreateNewClass = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllDaysThunk()).then((res) => {
-      console.log(res);
       setDateOptions(res?.payload);
     });
   }, []);
 
   const onFinish = (data) => {
-    console.log(data);
     const dataSend = {
       name: data.name,
       subject: data.subject,
@@ -42,7 +40,6 @@ const CreateNewClass = () => {
         });
       }
     });
-    console.log(dataSend);
   };
   const onSelect = (value) => {
     setIsSelectDisabled(false);

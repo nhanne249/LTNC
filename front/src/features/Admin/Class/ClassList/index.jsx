@@ -119,7 +119,6 @@ const ClassList = () => {
   const handleCreateNewClass = () => {
     navigate("/admin/create-class", { replace: true });
   };
-  console.log(dataReceive);
   return (
     <div className="class-list-container">
       <Flex justify="space-between">

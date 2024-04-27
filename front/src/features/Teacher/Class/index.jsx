@@ -19,14 +19,12 @@ const Class = () => {
       setDataReceived(res?.payload);
       setDataShow(res?.payload);
       setIsDataLoad(true);
-      console.log(res.payload);
     });
   }, [isDataLoad]);
 
   const handleShowStudentList = (value) => {
     const promises = value.students.map((item) => {
       return dispatch(getUserThunk({ username: item })).then((res) => {
-        console.log(res.payload);
         return res?.payload;
       });
     });
@@ -36,7 +34,6 @@ const Class = () => {
       setOpen(true);
     });
   };
-  console.log(studentList);
   const columns = [
     {
       title: "Tên môn học",
