@@ -11,14 +11,14 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const pathname = location.pathname;
-
+  console.log(pathname);
   // Extract the page title from the pathname (you might need custom logic here)
   const pathParts = pathname.split("/").filter(Boolean);
   const [cookies] = useCookies(['isBrowserClose', 'role']);
   var role=null;
   if (Cookies.get('role')) {role = Cookies.get('role').toLowerCase();
   }
-  useEffect(()=>{if((!pathParts[0].includes(role) || pathname=='/')&& Cookies.get('role')) navigate(`${role}`)},[role])
+  useEffect(()=>{if(!pathParts.includes(role) && Cookies.get('role')) navigate(`${role}`)},[Cookies.get('role')])
   return (
     <>
       <Router>
