@@ -13,14 +13,11 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
-    if (
-      Cookies.get("role") &&
-      Cookies.get("username" && Cookies.get("userPresent"))
-    ) {
+    if (Cookies.get("role")) {
       const path = Cookies.get("role").toLowerCase();
-      navigate(`/${Cookies.get("role").toLowerCase()}`);
+      navigate(`${Cookies.get("role").toLowerCase()}`);
     }
-  }, [Cookies]);
+  }, []);
   const onFinish = (data) => {
     const dataSend = {
       username: data.username,

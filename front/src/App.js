@@ -1,12 +1,17 @@
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes  } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { publicRouter, privateRouter } from "./config/routes";
+import {useCookies} from 'react-cookie';
 import Cookies from 'js-cookie';
+import { useEffect } from "react";
 function App() {
+  const [cookies] = useCookies(['isBrowserClose', 'role']);
   var role=null;
-  if (Cookies.get('role')) {role = Cookies.get('role').toLowerCase();}
+  if (Cookies.get('role')) {role = Cookies.get('role').toLowerCase();
+  }
   return (
     <>
       <Router>
