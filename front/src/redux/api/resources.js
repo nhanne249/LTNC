@@ -10,7 +10,7 @@ const resources = {
     },
     getAvatar: (data) => {
         return axios
-      .get("http://localhost:8081/avatar", {
+      .get("https://ltnc-production.up.railway.app/avatar", {
         responseType: "blob",
         headers: {
           Authorization: `Bearer ${Cookies.get("userPresent")}`,
