@@ -91,7 +91,7 @@ const PersonalInformation = () => {
             <Upload
               listType="picture"
               className="avatar-uploader"
-              action="http://localhost:8081/avatar"
+              action="https://ltnc-production.up.railway.app/avatar"
               onChange={handleChange}
               withCredentials={true}
               headers={{
