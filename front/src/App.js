@@ -16,9 +16,9 @@ function App() {
   const pathParts = pathname.split("/").filter(Boolean);
   const [cookies] = useCookies(['isBrowserClose', 'role']);
   var role=null;
-  if (Cookies.get('role')) {role = cookies.role.toLowerCase();
+  if (Cookies.get('role')) {role = Cookies.get('role').toLowerCase();
   }
-  useEffect(()=>{if(!pathParts[1].includes(role) || pathname!= role) navigate(role)},[role])
+  useEffect(()=>{if(!pathParts[1].includes(role) || pathname!= role) navigate(`${role}`)},[role])
   return (
     <>
       <Router>
