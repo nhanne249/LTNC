@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {loginThunk} from '../action/authentication'
 
 const authentication = createSlice({
-  name: "authentication",
+  name: "authenticationFunc",
   initialState: {
     login:[],
   },
@@ -20,5 +20,5 @@ const authentication = createSlice({
     )
   }
 });
-export const {} = authentication.actions;
+export const {authenticationFunc} = authentication.actions;
 export default authentication;
