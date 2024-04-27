@@ -49,7 +49,7 @@ const Login = () => {
         ) {
           const path = Cookies.get("role").toLowerCase();
           console.log(path);
-          navigate(`/${path}`);
+          navigate(path);
         }
       }
     });

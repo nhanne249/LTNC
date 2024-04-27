@@ -51,7 +51,7 @@ const HeaderPage = () => {
   const items = [
     {
       key: null,
-      label: <div className="infor-name">{cookies.role}</div>,
+      label: <div className="infor-name">{cookies.username}</div>,
       children: [
         {
           key: "personal-information",
