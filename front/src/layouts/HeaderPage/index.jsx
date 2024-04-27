@@ -13,12 +13,29 @@ const HeaderPage = () => {
   ]);
   const navigate = useNavigate();
   const [menuItems, setMenuItems] = useState([]);
+  const [items, setItems] = useState([]);
   useEffect(() => {
     if (cookies.role == "ADMIN") {
       setMenuItems([
         {
           label: "Trang chủ",
           key: "main",
+        },
+      ]);
+      setItems([
+        {
+          key: null,
+          label: <div className="infor-name">{cookies.username}</div>,
+          children: [
+            {
+              key: "personal-information",
+              label: "Xem thông tin cá nhân",
+            },
+            {
+              key: "logout",
+              label: "Đăng xuất",
+            },
+          ],
         },
       ]);
     }
@@ -37,6 +54,23 @@ const HeaderPage = () => {
           key: "schedule",
         },
       ]);
+
+      setItems([
+        {
+          key: null,
+          label: <div className="infor-name">{cookies.username}</div>,
+          children: [
+            {
+              key: "personal-information",
+              label: "Xem thông tin cá nhân",
+            },
+            {
+              key: "logout",
+              label: "Đăng xuất",
+            },
+          ],
+        },
+      ]);
     }
     if (cookies.role == "TEACHER") {
       setMenuItems([
@@ -45,25 +79,26 @@ const HeaderPage = () => {
           key: "main",
         },
       ]);
+
+      setItems([
+        {
+          key: null,
+          label: <div className="infor-name">{cookies.username}</div>,
+          children: [
+            {
+              key: "personal-information",
+              label: "Xem thông tin cá nhân",
+            },
+            {
+              key: "logout",
+              label: "Đăng xuất",
+            },
+          ],
+        },
+      ]);
     }
   }, []);
 
-  const items = [
-    {
-      key: null,
-      label: <div className="infor-name">{cookies.username}</div>,
-      children: [
-        {
-          key: "personal-information",
-          label: "Xem thông tin cá nhân",
-        },
-        {
-          key: "logout",
-          label: "Đăng xuất",
-        },
-      ],
-    },
-  ];
   const onHeaderMenuClick = (value) => {
     if (value.key === "main") {
       navigate("");

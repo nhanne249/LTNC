@@ -20,9 +20,9 @@ const Login = () => {
       Cookies.get("username" && Cookies.get("userPresent"))
     ) {
       const path = Cookies.get("role").toLowerCase();
-      navigate(`/${path}`);
+      navigate(`/${Cookies.get("role").toLowerCase()}`);
     }
-  }, []);
+  }, [Cookies]);
   const onFinish = (data) => {
     const dataSend = {
       username: data.username,
@@ -50,7 +50,7 @@ const Login = () => {
           Cookies.get("role") &&
           Cookies.get("username" && Cookies.get("userPresent"))
         ) {
-          const path = Cookies.get("role").toLowerCase();
+          const path = "/" + Cookies.get("role").toLowerCase();
           navigate(path);
         }
       } else {
