@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Input, Form, Button, Checkbox, Image, Row, Col } from "antd";
-import { useCookies, withCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginThunk } from "../../../redux/action/authentication";

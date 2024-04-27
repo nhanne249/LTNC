@@ -1,23 +1,12 @@
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes,useNavigate  } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes  } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { publicRouter, privateRouter } from "./config/routes";
 import Cookies from 'js-cookie';
-import { useEffect,useRef } from 'react';
 function App() {
-  const navigate = useNavigate();
   var role=null;
-  if (Cookies.get('role')) {role = Cookies.get('role').toLowerCase();
-  }
-  const pageContentRef = useRef(null);
-  useEffect(() => {
-    // Check page content after rendering
-    const pageContent = pageContentRef.current.innerHTML;
-    if (pageContent.trim().length === 0) {
-      navigate(`/${role}`); // Redirect to /${role} if empty
-    }
-  }, []);
+  if (Cookies.get('role')) {role = Cookies.get('role').toLowerCase();}
   return (
     <>
       <Router>
@@ -60,13 +49,7 @@ function App() {
                 </Route>
               );
             });
-          }))}<Route
-            path="*"
-            element={() => {
-              navigate(`/${role}`);
-              return null;
-            }}
-          />
+          }))}
         </Routes>
       </Router>
       {/* <Loading /> */}
