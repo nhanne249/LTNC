@@ -38,11 +38,9 @@ public class TeacherController {
     public ResponseEntity<List<Classroom>> getAllClasses(@PathVariable String username) {
         return new ResponseEntity<>(teacherService.getAllClasses(username), HttpStatus.OK);
     }
-
-//    @PostMapping("/scores")
-//    public ResponseEntity<Void> giveScore(@PathVariable String username, @RequestParam Course course,
-//            @RequestParam String classId, @RequestParam String studentId, @RequestParam double score) {
-//        teacherService.giveScore(username, course, classId, studentId, score);
-//        return ResponseEntity.ok().build();
-//    }
+    @PostMapping("/{classname}/scores")
+    public ResponseEntity<String> giveScore(@RequestBody List<Double> ls, @PathVariable String classname) {
+        teacherService.giveScore(classname, ls);
+        return ResponseEntity.ok("Score gived to " + classname);
+    }
 }

@@ -6,7 +6,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "users")
 public class Admin extends User {
-    public Admin(String username, String password) {
+    private Admin(String username, String password) {
         super(username, password, Role.ADMIN);
+    }
+    public static class Builder{
+        private String username;
+        private String password;
+        public Builder username(String username) {this.username = username; return this;}
+        public Builder password(String password) {this.password = password; return this;}
+        public Admin build(){return new Admin(username, password);}
     }
 }

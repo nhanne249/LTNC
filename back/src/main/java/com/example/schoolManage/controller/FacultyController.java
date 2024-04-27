@@ -34,6 +34,7 @@ public class FacultyController {
     public ResponseEntity<String> addSubject(@RequestBody String subject, @PathVariable String faculty) {
         var fal = facultyRepository.findByName(faculty);
         if (fal.isPresent()) {
+            if(fal.get().getSubjects().contains(subject)) return new ResponseEntity<>("Subject existed", HttpStatus.BAD_REQUEST);
             fal.get().getSubjects().add(subject.replace("\"", ""));
             facultyRepository.save(fal.get());
             return ResponseEntity.ok(subject.replace("\"", "") + " added to " + fal.get().getName());
@@ -54,6 +55,7 @@ public class FacultyController {
 
     @DeleteMapping("/{faculty}")
     public ResponseEntity<String> deleteFaculty(@PathVariable String faculty) {
+        if(facultyRepository.findByName(faculty).isEmpty()) {return new ResponseEntity<>("Faculty not found", HttpStatus.NOT_FOUND);}
         facultyRepository.deleteByName(faculty);
         return new ResponseEntity<>("Faculty deleted", HttpStatus.OK);
     }

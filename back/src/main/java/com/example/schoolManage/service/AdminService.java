@@ -37,8 +37,11 @@ public class AdminService {
         if (userRepository.findByUsername(student.getUsername()).isPresent()) {
             return null;
         }
-        return userRepository.save(new Student(student.getUsername(), passwordEncoder.encode(student.getPassword()),
-                student.getName(),  student.getEmail(), student.getPhone()));
+        return userRepository.save(new Student.Builder().username(student.getUsername()).
+                password(passwordEncoder.encode(student.getPassword())).
+                name(student.getName()).
+                email(student.getEmail()).
+                phone(student.getPhone()).build());
     }
     public Page<Student> getAllStudents(int page) {return userRepository.findAllStudents(PageRequest.of(page-1, 10));}
     public Page<Teacher> getAllTeachers(int page) {return userRepository.findAllTeachers(PageRequest.of(page-1, 10));}
@@ -46,11 +49,11 @@ public class AdminService {
         if (userRepository.findByUsername(teacher.getUsername()).isPresent()) {
             return null;
         }
-        return userRepository.save(new Teacher(teacher.getUsername(),
-                passwordEncoder.encode(teacher.getPassword()),
-                teacher.getName(),
-                teacher.getEmail(),
-                teacher.getPhone(),
-                teacher.getDegrees()));
+        return userRepository.save(new Teacher.Builder().username(teacher.getUsername())
+                .password(passwordEncoder.encode(teacher.getPassword()))
+                .name(teacher.getName())
+                .email(teacher.getEmail())
+                .phone(teacher.getPhone())
+                .degrees(teacher.getDegrees()).build());
     }
 }
