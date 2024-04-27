@@ -103,7 +103,6 @@ const HeaderPage = () => {
     }
   };
   const onInforMenuClick = (value) => {
-    console.log(value);
     if (value.key === "logout") {
       Cookies.remove("username", { path: "/", domain: "ltnc.vercel.app" });
       Cookies.remove("role", { path: "/", domain: "ltnc.vercel.app" });
