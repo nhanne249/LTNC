@@ -7,7 +7,7 @@ import {useCookies} from 'react-cookie';
 import Cookies from 'js-cookie';
 function App() {
   const [cookies] = useCookies(['isBrowserClose','role']);
-  const role = Cookies.get('role');
+  const role = Cookies.get('role').toLowerCase();
   return (
     <>
       <Router>
