@@ -1,6 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { useLocation, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Redirect } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { publicRouter, privateRouter } from "./config/routes";
@@ -8,17 +7,10 @@ import {useCookies} from 'react-cookie';
 import Cookies from 'js-cookie';
 import { useEffect } from "react";
 function App() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const pathname = location.pathname;
-  console.log(pathname);
-  // Extract the page title from the pathname (you might need custom logic here)
-  const pathParts = pathname.split("/").filter(Boolean);
   const [cookies] = useCookies(['isBrowserClose', 'role']);
   var role=null;
   if (Cookies.get('role')) {role = Cookies.get('role').toLowerCase();
   }
-  useEffect(()=>{if(!pathParts.includes(role) && Cookies.get('role')) navigate(`${role}`)},[Cookies.get('role')])
   return (
     <>
       <Router>
@@ -62,6 +54,7 @@ function App() {
               );
             });
           }))}
+          <Route render={() => <Redirect to="/" />} />
         </Routes>
       </Router>
       {/* <Loading /> */}
