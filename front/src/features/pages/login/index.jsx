@@ -14,15 +14,6 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [cookies, setCookie] = useCookies(["name", "role", "userPresent"]);
-  useEffect(() => {
-    if (
-      Cookies.get("role") &&
-      Cookies.get("username" && Cookies.get("userPresent"))
-    ) {
-      const path = Cookies.get("role").toLowerCase();
-      navigate(`/${path}`);
-    }
-  }, []);
   const onFinish = (data) => {
     const dataSend = {
       username: data.username,
@@ -52,6 +43,13 @@ const Login = () => {
           autoClose: 3000,
           theme: "colored",
         });
+        if (
+          Cookies.get("role") &&
+          Cookies.get("username" && Cookies.get("userPresent"))
+        ) {
+          const path = Cookies.get("role").toLowerCase();
+          navigate(`/${path}`);
+        }
       }
     });
   };
