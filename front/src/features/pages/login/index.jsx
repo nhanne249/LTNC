@@ -14,6 +14,15 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [cookies, setCookie] = useCookies(["name", "role", "userPresent"]);
+  useEffect(() => {
+    if (
+      Cookies.get("role") &&
+      Cookies.get("username" && Cookies.get("userPresent"))
+    ) {
+      const path = Cookies.get("role").toLowerCase();
+      navigate(path);
+    }
+  }, []);
   const onFinish = (data) => {
     const dataSend = {
       username: data.username,
@@ -37,20 +46,19 @@ const Login = () => {
           setCookie("role", `${res.payload.role}`, { path: "/" });
           setCookie("userPresent", `${res.payload.token}`, { path: "/" });
         }
+        if (
+          Cookies.get("role") &&
+          Cookies.get("username" && Cookies.get("userPresent"))
+        ) {
+          const path = Cookies.get("role").toLowerCase();
+          navigate(path);
+        }
       } else {
         toast.error("Email hoặc mật khẩu không chính xác", {
           position: "top-right",
           autoClose: 3000,
           theme: "colored",
         });
-        if (
-          Cookies.get("role") &&
-          Cookies.get("username" && Cookies.get("userPresent"))
-        ) {
-          const path = Cookies.get("role").toLowerCase();
-          console.log(path);
-          navigate(path);
-        }
       }
     });
   };
@@ -106,9 +114,7 @@ const Login = () => {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Button onClick={() => handleForgotPassword()}>
-              Forgot password?
-            </Button>
+            <div></div>
           </Col>
         </Row>
         <Form.Item>
