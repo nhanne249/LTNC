@@ -117,7 +117,7 @@ const HeaderPage = () => {
         path: "/",
         domain: "ltnc.vercel.app",
       });
-      navigate("");
+      navigate("/");
     } else {
       navigate(value.key);
     }
