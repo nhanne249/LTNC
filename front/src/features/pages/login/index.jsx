@@ -46,13 +46,7 @@ const Login = () => {
           setCookie("role", `${res.payload.role}`, { path: "/" });
           setCookie("userPresent", `${res.payload.token}`, { path: "/" });
         }
-        if (
-          cookies.get("role") &&
-          cookies.get("username" && cookies.get("userPresent"))
-        ) {
-          const path = "/" + cookies.get("role").toLowerCase();
-          navigate(path);
-        }
+        navigate(`${res.payload.role}`);
       } else {
         toast.error("Email hoặc mật khẩu không chính xác", {
           position: "top-right",

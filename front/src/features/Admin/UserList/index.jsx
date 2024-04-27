@@ -204,7 +204,7 @@ const UserList = () => {
         <div className="pagination">
           <Pagination
             defaultCurrent={1}
-            total={dataReceived?.totalElements}
+            total={total}
             onChange={handleOnChange}
             defaultPageSize={10}
           />
