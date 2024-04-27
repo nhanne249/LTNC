@@ -18,8 +18,7 @@ function App() {
     <>
       <Router>
         <Routes>
-          {role != null || role != undefined ? (privateRouter.map((routers,i) => {
-            if (roleFromPath == '/') return <Navigate to={`${role}`} key={i} />;
+          {role != null || role != undefined ? (privateRouter.map((routers) => {
             return routers.map((route, index) => {
               return route.role == role ? (
                 <Route path={route.path} element={route.element} key={index}>
