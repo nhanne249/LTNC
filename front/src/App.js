@@ -6,8 +6,10 @@ import { publicRouter, privateRouter } from "./config/routes";
 import {useCookies} from 'react-cookie';
 import Cookies from 'js-cookie';
 function App() {
-  const [cookies] = useCookies(['isBrowserClose','role']);
-  const role = Cookies.get('role').toLowerCase();
+  const [cookies] = useCookies(['isBrowserClose', 'role']);
+  var role=null;
+  if (Cookies.get('role')) {role = Cookies.get('role').toLowerCase();
+  }
   return (
     <>
       <Router>
