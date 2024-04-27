@@ -48,6 +48,7 @@ const Login = () => {
           Cookies.get("username" && Cookies.get("userPresent"))
         ) {
           const path = Cookies.get("role").toLowerCase();
+          console.log(path);
           navigate(`/${path}`);
         }
       }
