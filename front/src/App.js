@@ -4,10 +4,10 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { publicRouter, privateRouter } from "./config/routes";
 import {useCookies} from 'react-cookie';
+import Cookies from 'js-cookie';
 function App() {
   const [cookies] = useCookies(['isBrowserClose','role']);
-  const role = cookies.role?.toLowerCase();
-
+  const role = Cookies.get('role');
   return (
     <>
       <Router>

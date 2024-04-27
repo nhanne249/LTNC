@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Input, Form, Button, Checkbox, Image, Row, Col } from "antd";
 import { useCookies, withCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
@@ -8,11 +8,21 @@ import { toast } from "react-toastify";
 import "./index.scss";
 import background from "../../../assets/img/login1.jpg";
 import logo from "../../../assets/img/logobkjpeg.png";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [cookies, setCookie] = useCookies(["name", "role", "userPresent"]);
+  useEffect(() => {
+    if (
+      Cookies.get("role") &&
+      Cookies.get("username" && Cookies.get("userPresent"))
+    ) {
+      const path = Cookies.get("role").toLowerCase();
+      navigate(`${path}`);
+    }
+  }, []);
   const onFinish = (data) => {
     const dataSend = {
       username: data.username,
@@ -36,8 +46,6 @@ const Login = () => {
           setCookie("role", `${res.payload.role}`, { path: "/" });
           setCookie("userPresent", `${res.payload.token}`, { path: "/" });
         }
-        const path = res.payload.role.toLowerCase();
-        navigate(`${path}`);
       } else {
         toast.error("Email hoặc mật khẩu không chính xác", {
           position: "top-right",
