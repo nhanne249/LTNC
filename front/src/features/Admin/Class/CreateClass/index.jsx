@@ -48,6 +48,7 @@ const CreateNewClass = () => {
     setIsSelectDisabled(false);
     dateOptions.map((date) => {
       if (date?.day == value) setTimeOptions(date?.time);
+      return null;
     });
   };
   return (
