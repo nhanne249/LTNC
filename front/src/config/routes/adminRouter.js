@@ -17,6 +17,10 @@ const adminRouter = [
         Component: UserList,
       },
       {
+        path: "",
+        Component: UserList,
+      },
+      {
         path: "users",
         Component: UserList,
       },
