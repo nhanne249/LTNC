@@ -1,70 +1,59 @@
 import "./App.css";
-import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { publicRouter, privateRouter } from "./config/routes";
-import Cookies from 'js-cookie';
-
+import {useCookies} from 'react-cookie';
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    Cookies.get('userPresent') !== null && Cookies.get('userPresent') !== undefined
-  );
-
-  useEffect(() => {
-    const handleCookieChange = () => {
-      const newIsLoggedIn = Cookies.get('userPresent') !== null && Cookies.get('userPresent') !== undefined;
-      setIsLoggedIn(newIsLoggedIn);
-    };
-    console.log('role here:' + role)
-    console.log('userPresent here:' + isLoggedIn);
-    // Add event listener for cookie changes
-    window.addEventListener('storage', handleCookieChange);
-
-    // Cleanup function to remove listener on unmount
-    return () => window.removeEventListener('storage', handleCookieChange);
-  }, []);
-  const role = Cookies.get('role')?.toLowerCase();
+  const [cookies] = useCookies(['isBrowserClose','role']);
+  const role = cookies.role?.toLowerCase();
 
   return (
     <>
       <Router>
         <Routes>
-          {isLoggedIn ? (
-            // Trường hợp đã login
-            //Lọc qua từng route đã liệt kê theo role
-            privateRouter.map((routers) => (
-              //Lọc qua từng route ứng với role
-              routers.map((route, index) => (
-                //Xử lý trường hợp route đúng với role
-                //Khi Route đúng với role thì xem xét path mà người dùng đang truy cập có hợp lệ hay không nếu không thì sẽ tự động chuyển về path chính
-                route.role === role ? (()=> { window.location.pathname == role ?
-                  (<Route path={route.path} element={route.element} key={index}>
-                    {route.index ? <Route index element={route.index} /> : null}
-                    {route.children?.map(({ path, Component }, index) => (
-                      <Route path={path} element={<Component />} key={index} />
-                    ))}
-                  </Route>): null}
-                ) : (
-                  null)
-              ))
-            ))
-          ) : (
-            // Trường hợp chưa login
-              publicRouter.map((routers) => (
-              //Dò qua từng route Login và Res có trong đó
-              routers.map((route, index) => (
+          {role || role != undefined ? (privateRouter.map((routers) => {
+            return routers.map((route, index) => {
+              return route.role == role ? (
                 <Route path={route.path} element={route.element} key={index}>
                   {route.index ? <Route index element={route.index} /> : null}
-                  {route.children?.map(({ path, Component }, index) => (
-                      <Route path={path} element={<Component />} key={index} />
-                    ))}
+                  {route.children
+                    ? route.children.map(({ path, Component }, index) => {
+                      return (
+                        <Route
+                          path={path}
+                          element={<Component/> }
+                          key={index}
+                        />
+                      );
+                    })
+                    : null}
                 </Route>
-              ))
-            ))
-          )}
+              ) : null;
+            });
+          })) : (publicRouter.map((routers) => {
+            return routers.map((route, index) => {
+              return (
+                <Route path={route.path} element={route.element} key={index}>
+                  {route.index ? <Route index element={route.index} /> : null}
+                  {route.children
+                    ? route.children.map(({ path, Component }, index) => {
+                      return (
+                        <Route
+                          path={path}
+                          element={<Component />}
+                          key={index}
+                        />
+                      );
+                    })
+                    : null}
+                </Route>
+              );
+            });
+          }))}
         </Routes>
       </Router>
+      {/* <Loading /> */}
       <ToastContainer />
     </>
   );
