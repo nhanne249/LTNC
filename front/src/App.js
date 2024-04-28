@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 
 function App() {
   const role = Cookies.get('role')?.toLowerCase(); // Optional chaining for nullish check
-
+  console.log(role);
   return (
     <>
       <Router>
