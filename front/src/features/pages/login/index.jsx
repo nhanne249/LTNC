@@ -51,7 +51,7 @@ const Login = () => {
             domain: "ltnc.vercel.app",
           });
         }
-        navigate(`/${res.payload.role.toLowerCase()}`);
+        navigate(`${res.payload.role.toLowerCase()}`);
       } else {
         toast.error("Email hoặc mật khẩu không chính xác", {
           position: "top-right",
