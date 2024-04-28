@@ -52,6 +52,7 @@ const Login = () => {
           });
         }
         navigate(`${res.payload.role.toLowerCase()}`);
+        window.location.reload();
       } else {
         toast.error("Email hoặc mật khẩu không chính xác", {
           position: "top-right",

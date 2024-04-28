@@ -108,6 +108,7 @@ const HeaderPage = () => {
       Cookies.remove("role", { path: "/", domain: "ltnc.vercel.app" });
       Cookies.remove("userPresent", { path: "/", domain: "ltnc.vercel.app" });
       navigate("/");
+      window.location.reload();
     } else {
       navigate(value.key);
     }
