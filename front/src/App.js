@@ -30,7 +30,7 @@ function App() {
                     })
                     : null}
                 </Route>
-              ) : <Navigate to={`${role}`} />;
+              ) : null;
             });
           })) : (publicRouter.map((routers) => {
             return routers.map((route, index) => {
