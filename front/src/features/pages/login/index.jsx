@@ -12,11 +12,6 @@ import Cookies from "js-cookie";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (Cookies.get("role")) {
-      navigate(`${Cookies.get("role").toLowerCase()}`);
-    }
-  }, []);
   const onFinish = (data) => {
     const dataSend = {
       username: data.username,
