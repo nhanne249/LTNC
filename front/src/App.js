@@ -16,7 +16,8 @@ function App() {
       const newIsLoggedIn = Cookies.get('userPresent') !== null && Cookies.get('userPresent') !== undefined;
       setIsLoggedIn(newIsLoggedIn);
     };
-
+    console.log('role here:' + role)
+    console.log('userPresent here:' + isLoggedIn);
     // Add event listener for cookie changes
     window.addEventListener('storage', handleCookieChange);
 
@@ -43,14 +44,15 @@ function App() {
                     {route.children?.map(({ path, Component }, index) => (
                       <Route path={path} element={<Component />} key={index} />
                     ))}
-                  </Route>): (<Navigate to={`/${role}`} replace key={index}/>)}
+                  </Route>): (<Navigate to={`${role}`} replace key={index}/>)}
                 ) : (
                   null)
               ))
             ))
           ) : (
             // Trường hợp chưa login
-            publicRouter.map((routers) => (
+              publicRouter.map((routers) => (
+              //Dò qua từng route Login và Res có trong đó
               routers.map((route, index) => (
                 <Route path={route.path} element={route.element} key={index}>
                   {route.index ? <Route index element={route.index} /> : null}
