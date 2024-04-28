@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 function App() {
   const role = Cookies.get('role')?.toLowerCase(); // Optional chaining for nullish check
   console.log(role);
+
   return (
     <>
       <Router>
@@ -17,7 +18,7 @@ function App() {
               routers.map((route, index) => (
                 route.role === role ? (
                   <Route path={route.path} element={route.element} key={index}>
-                    {route.index ? <Route index element={route.index} /> : (console.log('here1'))}
+                    {route.index ? <Route index element={route.index} /> : null}
                     {route.children ? (
                       route.children.map(({ path, Component }, index) => (
                         <Route
@@ -26,9 +27,10 @@ function App() {
                           key={index}
                         />
                       ))
-                    ) : (console.log('here2'))}
+                    ) : null}
                   </Route>
-                ) : (console.log('here3'))
+                ) : (() => { return <Navigate to={`${role}`} replace /> }
+                )
               ))
             ))
           ) : (
@@ -39,12 +41,12 @@ function App() {
                   {route.children ? (
                     route.children.map(({ path, Component }, index) => (
                       <Route
-                        path={route.path}
+                        path={path}
                         element={<Component />}
                         key={index}
                       />
                     ))
-                  ) : (console.log('here4'))}
+                  ) : null}
                 </Route>
               ))
             ))
