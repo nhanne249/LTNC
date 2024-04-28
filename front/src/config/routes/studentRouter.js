@@ -16,6 +16,10 @@ const studentRouter = [
         Component: PersonalInformation,
       },
       {
+        path: "/",
+        Component: PersonalInformation,
+      },
+      {
         path: "",
         Component: PersonalInformation,
       },

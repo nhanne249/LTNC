@@ -44,7 +44,7 @@ function App() {
                     {route.children?.map(({ path, Component }, index) => (
                       <Route path={path} element={<Component />} key={index} />
                     ))}
-                  </Route>): (<Navigate to={`${role}`} replace key={index}/>)}
+                  </Route>): (<Route path="*" key={index} element={<Navigate to={`${role}`} replace key={index}/>}/>)}
                 ) : (
                   null)
               ))
