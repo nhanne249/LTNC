@@ -17,7 +17,7 @@ function App() {
               routers.map((route, index) => (
                 route.role === role ? (
                   <Route path={route.path} element={route.element} key={index}>
-                    {route.index ? <Route index element={route.index} /> : null}
+                    {route.index ? <Route index element={route.index} /> : (console.log('here1'))}
                     {route.children ? (
                       route.children.map(({ path, Component }, index) => (
                         <Route
@@ -26,9 +26,9 @@ function App() {
                           key={index}
                         />
                       ))
-                    ) : null}
+                    ) : (console.log('here2'))}
                   </Route>
-                ) : null
+                ) : (console.log('here3'))
               ))
             ))
           ) : (
@@ -44,7 +44,7 @@ function App() {
                         key={index}
                       />
                     ))
-                  ) : null}
+                  ) : (console.log('here4'))}
                 </Route>
               ))
             ))
