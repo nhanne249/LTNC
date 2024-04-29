@@ -148,7 +148,7 @@ const ClassList = () => {
           <Pagination
             defaultCurrent={1}
             total={dataReceive?.totalElements}
-            onChange={handleOnChange}
+            onChange={(value) => console.log(value)}
             defaultPageSize={10}
           />
         </div>
