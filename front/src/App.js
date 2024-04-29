@@ -1,4 +1,5 @@
 import "./App.css";
+import { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes,useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -6,9 +7,9 @@ import { publicRouter, privateRouter } from "./config/routes";
 import Cookies from "js-cookie";
 import NotFound from "./features/pages/NotFound";
 import Login from "./features/pages/login";
+const role = Cookies.get("role")?.toLowerCase();
 function App() {
-  const navigate = useNavigate();
-  const role = Cookies.get("role")?.toLowerCase();
+
   return (
     <>
       <Router>
@@ -52,7 +53,7 @@ function App() {
               );
             });
           }))}
-          <Route path="/" element={role ? (()=>navigate(`${role}`), {replace:true}) : (<Login />)} />
+          <Route path="/" element={role? (ToNavigate): (<Login />)}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
@@ -63,3 +64,24 @@ function App() {
 }
 
 export default App;
+
+const ToNavigate = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handlePageRefresh = () => {
+      const navigationEntries = window.performance.getEntriesByType("navigation");
+      const currentPath = window.location.pathname;
+      if (navigationEntries.length > 0 && navigationEntries[0].type === "reload") {
+        if (currentPath === "/" && role) {
+          navigate(`${role}`, { replace: true });
+        }
+      }
+    };
+
+    window.addEventListener("beforeunload", handlePageRefresh);
+
+    return () => {
+      window.removeEventListener("beforeunload", handlePageRefresh);
+    };
+  }, []);}

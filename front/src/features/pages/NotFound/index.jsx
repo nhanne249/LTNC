@@ -6,14 +6,14 @@ import "./index.scss";
 
 const NotFound = () => {
   const navigate = useNavigate();
-  const role = Cookies.get("role").toLowerCase();
+  const role = Cookies.get("role")?.toLowerCase();
   return (
     <div className="not-found-page">
       <div className="content">Not found</div>
       <div className="content">404</div>
       <Button
         className="not-found-btn"
-        onClick={() => navigate(`/${role}`, { replace: true })}
+        onClick={() => navigate(role ? `/${role}` : "/", { replace: true })}
       >
         Trang chủ
       </Button>
