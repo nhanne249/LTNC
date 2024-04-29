@@ -52,7 +52,7 @@ function App() {
               );
             });
           }))}
-          <Route path="/" element={role ? naviagte(`/${role}`, {replace:true}) : (<Login />)} />
+          <Route path="/" element={role ? (()=>naviagte(`/${role}`), {replace:true}) : (<Login />)} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
