@@ -69,10 +69,10 @@ const ToNavigate = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const handlePageRefresh = () => {
+    const handlePageRefresh = (event) => {
       const navigationEntries = window.performance.getEntriesByType("navigation");
       const currentPath = window.location.pathname;
-      if (navigationEntries.length > 0 && navigationEntries[0].type === "reload") {
+      if (event.persisted) {
         if (currentPath === "/" && role) {
           navigate(`${role}`, { replace: true });
         }
