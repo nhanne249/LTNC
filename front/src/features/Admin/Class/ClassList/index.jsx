@@ -101,6 +101,7 @@ const ClassList = () => {
     },
   ];
   const handleOnChange = (value) => {
+    console.log(value);
     dispatch(getAllClassThunk(value)).then((res) => {
       setDataReceive(res?.payload);
     });
