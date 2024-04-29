@@ -101,7 +101,6 @@ const ClassList = () => {
     },
   ];
   const handleOnChange = (value) => {
-    console.log(value);
     dispatch(getAllClassThunk(value)).then((res) => {
       setDataReceive(res?.payload);
     });
@@ -148,7 +147,7 @@ const ClassList = () => {
           <Pagination
             defaultCurrent={1}
             total={dataReceive?.totalElements}
-            onChange={(value) => console.log(value)}
+            onChange={handleOnChange}
             defaultPageSize={10}
           />
         </div>
