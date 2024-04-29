@@ -1,14 +1,14 @@
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes,useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { publicRouter, privateRouter } from "./config/routes";
-import { useCookies } from 'react-cookie';
+import Cookies from "react-cookie";
 import NotFound from "./features/pages/NotFound";
+import Login from "./features/pages/login";
 function App() {
-  const [cookies] = useCookies(['isBrowserClose','role']);
-  const role = cookies.role?.toLowerCase();
-
+  const naviagte = useNavigate();
+  const role = Cookies.get("role")?.toLowerCase();
   return (
     <>
       <Router>
@@ -52,6 +52,7 @@ function App() {
               );
             });
           }))}
+          <Route path="/" element={role ? naviagte(`/${role}`, {replace:true}) : (<Login />)} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
