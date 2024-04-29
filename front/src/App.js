@@ -53,7 +53,7 @@ function App() {
               );
             });
           }))}
-          <Route path="/" element={role? (ToNavigate): (<Login />)}/>
+          <Route path="" element={role? ToNavigate: (<Login />)}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
