@@ -1,24 +1,30 @@
 package com.example.schoolManage.service;
 
 import com.example.schoolManage.model.course.Classroom;
+import com.example.schoolManage.model.user.Student;
 import com.example.schoolManage.repository.ClassRepository;
 import com.example.schoolManage.repository.ScheduleRepository;
+import com.example.schoolManage.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.lang.reflect.Field;
+import java.util.*;
+import java.util.function.Consumer;
+
+import static com.example.schoolManage.utils.Helper.setIfNotNull;
 
 @Service
 @RequiredArgsConstructor
 public class ClassService {
     private final ClassRepository classRepository;
     private final ScheduleRepository scheduleRepository;
+    private final UserRepository userRepository;
 
     public Page<Classroom> getAllClasses(int page) {
         return classRepository.findAll(PageRequest.of(page - 1, 10));
@@ -49,7 +55,13 @@ public class ClassService {
                         .day(classroom.getDay())
                         .build());
     }
-
+    public void updateClass(String name, Classroom update) throws IllegalAccessException {
+        var classroom = classRepository.findByName(name);
+        if(classroom.isPresent()){
+            setIfNotNull(classroom.get(), update);
+            classRepository.save(classroom.get());
+        }
+    }
     public void deleteClass(String name) {
         var cl = classRepository.findByName(name);
         if (cl.isEmpty())
@@ -75,5 +87,15 @@ public class ClassService {
             scheduleRepository.save(weekday);
         });
         classRepository.deleteAll();
+    }
+
+    public Page<Student> getAllStudent(String classname, Pageable pageable) {
+        List<Student> ls = new ArrayList<>();
+        var classroom = classRepository.findByName(classname);
+        classroom.ifPresent(value -> value.getStudents().forEach(student -> {
+            ls.add(userRepository.findStudentByUsername(student).get());
+        }));
+
+        return new PageImpl<>(ls, pageable, ls.size());
     }
 }

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.schoolManage.utils.Helper.setIfNotNull;
+
 @Service
 @RequiredArgsConstructor
 public class TeacherService {
@@ -25,12 +27,10 @@ public class TeacherService {
         return userRepository.findTeacherByUsername(username);
     }
 
-    public Optional<Teacher> updateTeacher(String teacherUsername, Teacher update) {
+    public Optional<Teacher> updateTeacher(String teacherUsername, Teacher update) throws IllegalAccessException {
         var teacher = userRepository.findTeacherByUsername(teacherUsername);
         if(teacher.isEmpty()) {return Optional.empty();}
-        if(update.getName() != null ) teacher.get().setName(update.getName());
-        if(update.getEmail()!= null) teacher.get().setEmail(update.getEmail());
-        if(update.getPhone()!= null) teacher.get().setPhone(update.getPhone());
+        setIfNotNull(teacher.get(), update);
         return Optional.of(userRepository.save(teacher.get()));
     }
     public void giveScore(String className, List<Double> scores) {

@@ -8,6 +8,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
+
 @Data
 @Getter
 @Document("classes")
@@ -48,4 +51,5 @@ public class Classroom{
         public Builder teacher(String teacher){this.teacher = teacher;return this;}
         public Classroom build(){return new Classroom(name,subject,day,time,teacher);}
     }
+
 }

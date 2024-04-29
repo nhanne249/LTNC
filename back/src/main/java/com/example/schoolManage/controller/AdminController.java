@@ -10,14 +10,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
-import java.util.Optional;
 
 @RestController
 @RequestMapping
@@ -74,13 +72,13 @@ public class AdminController {
         return usr.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
     @PutMapping("/student/update")
-    public ResponseEntity<String> updateStudent(@RequestBody Student update) {
+    public ResponseEntity<String> updateStudent(@RequestBody Student update) throws IllegalAccessException {
         var usr = studentService.updateStudent(getLoggedInUserDetails().getUsername(), update);
         if(usr.isEmpty()) return ResponseEntity.notFound().build();
         return new ResponseEntity<>("Student updated", HttpStatus.OK);
     }
     @PutMapping("/teacher/update")
-    public ResponseEntity<String> updateTeacher(@RequestBody Teacher update) {
+    public ResponseEntity<String> updateTeacher(@RequestBody Teacher update) throws IllegalAccessException {
         var tc = teacherService.updateTeacher(getLoggedInUserDetails().getUsername(), update);
         if(tc.isEmpty()) return ResponseEntity.notFound().build();
         return new ResponseEntity<>("Teacher updated", HttpStatus.OK);

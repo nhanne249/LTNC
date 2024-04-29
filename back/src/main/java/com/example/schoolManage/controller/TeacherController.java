@@ -28,7 +28,7 @@ public class TeacherController {
     }
 
     @PutMapping("/{username}")
-    public ResponseEntity<String> updateTeacher(@PathVariable String username, @RequestBody Teacher update) {
+    public ResponseEntity<String> updateTeacher(@PathVariable String username, @RequestBody Teacher update) throws IllegalAccessException {
         var tc = teacherService.updateTeacher(username, update);
         if(tc.isEmpty()) return ResponseEntity.notFound().build();
         return ResponseEntity.ok("Teacher updated");

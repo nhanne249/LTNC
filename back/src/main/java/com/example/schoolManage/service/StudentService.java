@@ -9,11 +9,12 @@ import com.example.schoolManage.repository.ClassRepository;
 import com.example.schoolManage.repository.ReviewRepository;
 import com.example.schoolManage.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import static com.example.schoolManage.utils.Helper.setIfNotNull;
 
 @Service
 @RequiredArgsConstructor
@@ -32,12 +33,10 @@ public class StudentService {
         return classRepository.findAllByStudent(username);
     }
 
-    public Optional<Student> updateStudent(String username, Student update) {
+    public Optional<Student> updateStudent(String username, Student update) throws IllegalAccessException {
         Optional<Student> student = userRepository.findStudentByUsername(username);
         if (student.isPresent()) {
-            if (update.getName() != null) student.get().setName(update.getName());
-            if (update.getEmail() != null) student.get().setEmail(update.getEmail());
-            if (update.getPhone() != null) student.get().setPhone(update.getPhone());
+            setIfNotNull(student.get(), update);
             userRepository.save(student.get());
         }
         return student;

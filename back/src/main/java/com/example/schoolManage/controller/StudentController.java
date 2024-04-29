@@ -4,12 +4,7 @@ import com.example.schoolManage.model.course.Classroom;
 import com.example.schoolManage.model.review.Review;
 import com.example.schoolManage.model.user.Student;
 import com.example.schoolManage.service.StudentService;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.json.JSONParser;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +22,6 @@ public class StudentController {
     public ResponseEntity<Student> getStudent(@PathVariable String username) {
         Optional<Student> st = studentService.getStudent(username);
         return st.map(student -> new ResponseEntity<>(student, HttpStatus.OK)).orElseGet(() -> ResponseEntity.notFound().build());
-
     }
 
     @GetMapping("/{username}/classes")
@@ -36,7 +30,7 @@ public class StudentController {
     }
 
     @PutMapping("/{username}")
-    public ResponseEntity<String> updateStudent(@RequestBody Student update, @PathVariable String username) {
+    public ResponseEntity<String> updateStudent(@RequestBody Student update, @PathVariable String username) throws IllegalAccessException {
         var st = studentService.updateStudent(username,update);
         return st.map(student -> new ResponseEntity<>("Student updated", HttpStatus.OK)).orElseGet(() -> ResponseEntity.notFound().build());
     }
