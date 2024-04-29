@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import NotFound from "./features/pages/NotFound";
 import Login from "./features/pages/login";
 function App() {
-  const naviagte = useNavigate();
+  const navigate = useNavigate();
   const role = Cookies.get("role")?.toLowerCase();
   return (
     <>
@@ -52,7 +52,7 @@ function App() {
               );
             });
           }))}
-          <Route path="/" element={role ? (()=>naviagte(`/${role}`), {replace:true}) : (<Login />)} />
+          <Route path="/" element={role ? (()=>navigate(`${role}`), {replace:true}) : (<Login />)} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
