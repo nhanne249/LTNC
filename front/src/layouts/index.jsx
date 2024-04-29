@@ -64,6 +64,7 @@ const Layouts = () => {
             collapsible
             collapsed={collapsed}
             onCollapse={(value) => setCollapsed(value)}
+            theme="light"
           >
             <SiderPage />
           </Sider>
