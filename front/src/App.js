@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes,useNavigate } from "react-router
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { publicRouter, privateRouter } from "./config/routes";
-import Cookies from "react-cookie";
+import Cookies from "js-cookie";
 import NotFound from "./features/pages/NotFound";
 import Login from "./features/pages/login";
 function App() {
