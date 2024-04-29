@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { Layout, Image } from "antd";
 import { AiFillRightCircle } from "react-icons/ai";
@@ -13,6 +13,7 @@ const Layouts = () => {
   const location = useLocation();
   const pathname = location.pathname;
 
+  const [collapsed, setCollapsed] = useState(false);
   // Extract the page title from the pathname (you might need custom logic here)
   const pathParts = pathname.split("/").filter(Boolean);
   let title = "";
@@ -56,7 +57,14 @@ const Layouts = () => {
       </Header>
       <div className="main-content-container">
         <Layout hasSider className="main-container" id="content-layout">
-          <Sider className="sider-page" width="15%" id="sider">
+          <Sider
+            className="sider-page"
+            width="15%"
+            id="sider"
+            collapsible
+            collapsed={collapsed}
+            onCollapse={(value) => setCollapsed(value)}
+          >
             <SiderPage />
           </Sider>
           <Content className="content-page">

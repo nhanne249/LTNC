@@ -112,7 +112,7 @@ const UserList = () => {
   const handleDeleteUsers = (data) => {
     dispatch(deleteUserThunk(data.name)).then((res) => {
       if (!res.error) {
-        toast.success("Xóa lớp học thành công!", {
+        toast.success("Xóa người dùng thành công!", {
           position: "top-right",
           autoClose: 3000,
           theme: "colored",
@@ -122,7 +122,7 @@ const UserList = () => {
           setTotal(res?.payload?.totalElements);
         });
       } else {
-        toast.error("Xóa lớp học thất bại!", {
+        toast.error("Xóa người dùng thất bại!", {
           position: "top-right",
           autoClose: 3000,
           theme: "colored",
@@ -163,11 +163,11 @@ const UserList = () => {
           options={[
             {
               value: "students",
-              label: "Tìm kiếm sinh viên",
+              label: "Lọc theo sinh viên",
             },
             {
               value: "teachers",
-              label: "Tìm kiếm giáo viên",
+              label: "Lọc theo giáo viên",
             },
             {
               value: "all",

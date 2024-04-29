@@ -12,7 +12,8 @@
   overflow: hidden;
   background-color: #DEDEDE;
   .header-page{
-    position: relative;
+    position: sticky;
+    top:0;
     width: 100vw;
     height: 46px;
     background-color: #0388B4;
