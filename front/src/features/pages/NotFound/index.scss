@@ -5,10 +5,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     .content{
+        width: fit-content;
         font-size: 200px;
         color: transparent;
-        text-shadow: 0 0 1px white;
+        text-shadow: 0 0 3px white;
     }
     .not-found-btn{
         width: 100px;
