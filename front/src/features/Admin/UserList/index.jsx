@@ -104,7 +104,7 @@ const UserList = () => {
   const handleOnChange = (value) => {
     console.log(value);
     dispatch(getAllUserThunk(value)).then((res) => {
-      setDataReceived(res?.payload);
+      setDataReceived(res?.payload?.content);
       setTotal(res?.payload?.totalElements);
     });
   };
