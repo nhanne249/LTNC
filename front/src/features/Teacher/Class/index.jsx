@@ -24,7 +24,7 @@ const Class = () => {
 
   const handleShowStudentList = (value) => {
     const promises = value.students.map((item) => {
-      return dispatch(getUserThunk({ username: item })).then((res) => {
+      return dispatch(getUserThunk(item)).then((res) => {
         return res?.payload;
       });
     });
@@ -88,19 +88,33 @@ const Class = () => {
       title: "Tên sinh viên",
       key: "name",
       dataIndex: "name",
-      width: "25%",
+      width: "20%",
     },
     {
       title: "Số điện thoại liên lạc",
       key: "phone",
       dataIndex: "phone",
-      width: "25%",
+      width: "20%",
     },
     {
       title: "Email",
       key: "email",
       dataIndex: "email",
-      width: "50%",
+      width: "45%",
+    },
+    {
+      title: "Hành động",
+      key: null,
+      dataIndex: null,
+      width: "15%",
+      render: (value) => (
+        <Button
+          onClick={() => console.log(value)}
+          style={{ border: "none", width: "fit-content", boxShadow: "none" }}
+        >
+          Thông tin
+        </Button>
+      ),
     },
   ];
 
