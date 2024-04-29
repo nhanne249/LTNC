@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { publicRouter, privateRouter } from "./config/routes";
-import {useCookies} from 'react-cookie';
+import { useCookies } from 'react-cookie';
+import NotFound from "./features/pages/NotFound";
 function App() {
   const [cookies] = useCookies(['isBrowserClose','role']);
   const role = cookies.role?.toLowerCase();
@@ -51,6 +52,7 @@ function App() {
               );
             });
           }))}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
       {/* <Loading /> */}
