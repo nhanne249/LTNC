@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Table, Input, Modal, Pagination, Button } from "antd";
-import { getAllClassThunk } from "../../../redux/action/teacher";
-import { getUserThunk } from "../../../redux/action/admin";
+import { Table, Input, Modal, Pagination, Button, Form } from "antd";
+import {
+  getAllClassThunk,
+  getClassThunk,
+  giveScoreAllClassThunk,
+} from "../../../redux/action/teacher";
 import "./index.scss";
 
 const Class = () => {
@@ -13,7 +16,7 @@ const Class = () => {
   const [dataShow, setDataShow] = useState();
   const [studentList, setStudentList] = useState([]);
   const [isDataLoad, setIsDataLoad] = useState(false);
-
+  const [classNameOnShow, setClassNameOnShow] = useState();
   useEffect(() => {
     dispatch(getAllClassThunk()).then((res) => {
       setDataReceived(res?.payload);
@@ -23,15 +26,14 @@ const Class = () => {
   }, [isDataLoad]);
 
   const handleShowStudentList = (value) => {
-    const promises = value.students.map((item) => {
-      return dispatch(getUserThunk(item)).then((res) => {
-        return res?.payload;
-      });
-    });
-
-    Promise.all(promises).then((results) => {
-      setStudentList(results);
-      setOpen(true);
+    setOpen(true);
+    setClassNameOnShow(value.name);
+    const dataSend = {
+      name: value.name,
+      page: 1,
+    };
+    dispatch(getClassThunk(dataSend)).then((res) => {
+      setStudentList(res?.payload);
     });
   };
   const columns = [
@@ -78,7 +80,7 @@ const Class = () => {
           onClick={() => handleShowStudentList(value)}
           style={{ border: "none", width: "fit-content", boxShadow: "none" }}
         >
-          Thông tin
+          Thông tin lớp
         </Button>
       ),
     },
@@ -112,7 +114,7 @@ const Class = () => {
           onClick={() => console.log(value)}
           style={{ border: "none", width: "fit-content", boxShadow: "none" }}
         >
-          Thông tin
+          Thêm điểm
         </Button>
       ),
     },
@@ -126,6 +128,15 @@ const Class = () => {
     if (data != "") {
       setDataShow(dataReceived?.filter((item) => item.name == data));
     } else setDataShow(dataReceived);
+  };
+  const handleOnChangePagination = (value) => {
+    const dataSend = {
+      name: classNameOnShow,
+      page: value,
+    };
+    dispatch(getClassThunk(dataSend)).then((res) => {
+      setStudentList(res?.payload);
+    });
   };
   return (
     <div className="class-list-container">
@@ -157,13 +168,19 @@ const Class = () => {
         open={open}
         onCancel={handleCancelModal}
         footer={null}
-        width="60vw"
+        width="80vw"
       >
         <Table
           bordered
           columns={columnsForList}
-          dataSource={studentList}
+          dataSource={studentList?.content}
           pagination={false}
+        />
+        <Pagination
+          defaultCurrent={1}
+          total={studentList?.totalElements}
+          onChange={handleOnChangePagination}
+          defaultPageSize={10}
         />
       </Modal>
     </div>

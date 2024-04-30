@@ -1,18 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getTeacherInfoThunk,updateTeacherInfoThunk,getAllClassThunk} from '../action/teacher'
+import { getTeacherInfoThunk,updateTeacherInfoThunk,getAllClassThunk,getClassThunk,giveScoreAllClassThunk} from '../action/teacher'
 
 const teacher = createSlice({
   name: "clearTeacherFuntion",
   initialState: {
-      getTeacherInfoThunk: [],
-      updateTeacherInfoThunk: [],
-      getAllClassThunk: [],
+    getTeacherInfoThunk: [],
+    updateTeacherInfoThunk: [],
+    getAllClassThunk: [],
+    getClassThunk: [],
+    giveScoreAllClassThunk: []
   },
   reducers: {
     clearAdminFuntion: (state) => {
-          state.getTeacherInfoThunk = []
-          state.updateTeacherInfoThunk = []
-          state.getAllClassThunk = []
+      state.getTeacherInfoThunk = []
+      state.updateTeacherInfoThunk = []
+      state.getAllClassThunk = []
+      state.getClassThunk = []
+      state.giveScoreAllClassThunk=[]
     },
   },
   extraReducers: (builder) => {
@@ -37,6 +41,22 @@ const teacher = createSlice({
       (state, { payload }) => {
         if (payload) {
           state.getAllClassThunk = payload;
+        }
+      }
+    )
+    builder.addCase(
+      getClassThunk.fulfilled,
+      (state, { payload }) => {
+        if (payload) {
+          state.getClassThunk = payload;
+        }
+      }
+    )
+    builder.addCase(
+      giveScoreAllClassThunk.fulfilled,
+      (state, { payload }) => {
+        if (payload) {
+          state.giveScoreAllClassThunk = payload;
         }
       }
     )
