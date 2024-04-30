@@ -13,7 +13,7 @@ const Class = () => {
   const [dataShow, setDataShow] = useState();
   const [studentList, setStudentList] = useState([]);
   const [isDataLoad, setIsDataLoad] = useState(false);
-
+  const [classNameOnShow, setClassNameOnShow] = useState();
   useEffect(() => {
     dispatch(getAllClassThunk()).then((res) => {
       setDataReceived(res?.payload);
@@ -23,16 +23,13 @@ const Class = () => {
   }, [isDataLoad]);
 
   const handleShowStudentList = (value) => {
-    console.log(value);
-    const promises = value.students.map((item) => {
-      return dispatch(getUserThunk(item)).then((res) => {
-        return res?.payload;
-      });
-    });
-
-    Promise.all(promises).then((results) => {
-      setStudentList(results);
-      setOpen(true);
+    setClassNameOnShow(value.name);
+    const dataSend = {
+      name: value.name,
+      page: 1,
+    };
+    dispatch(getClassThunk(dataSend)).then((res) => {
+      setStudentList(res?.payload);
     });
   };
   const columns = [
@@ -128,6 +125,15 @@ const Class = () => {
       setDataShow(dataReceived?.filter((item) => item.name == data));
     } else setDataShow(dataReceived);
   };
+  const handleOnChangePagination = (value) => {
+    const dataSend = {
+      name: classNameOnShow,
+      page: value,
+    };
+    dispatch(getClassThunk(dataSend)).then((res) => {
+      setStudentList(res?.payload);
+    });
+  };
   return (
     <div className="class-list-container">
       <Search
@@ -163,8 +169,14 @@ const Class = () => {
         <Table
           bordered
           columns={columnsForList}
-          dataSource={studentList}
+          dataSource={studentList?.content}
           pagination={false}
+        />
+        <Pagination
+          defaultCurrent={1}
+          total={studentList?.totalElements}
+          onChange={handleOnChangePagination}
+          defaultPageSize={10}
         />
       </Modal>
     </div>
