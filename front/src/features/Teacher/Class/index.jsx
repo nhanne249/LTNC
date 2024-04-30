@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Table, Input, Modal, Pagination, Button } from "antd";
-import { getAllClassThunk, getClassThunk } from "../../../redux/action/teacher";
-import { getUserThunk } from "../../../redux/action/admin";
+import { Table, Input, Modal, Pagination, Button, Form } from "antd";
+import {
+  getAllClassThunk,
+  getClassThunk,
+  giveScoreAllClassThunk,
+} from "../../../redux/action/teacher";
 import "./index.scss";
 
 const Class = () => {
@@ -23,6 +26,7 @@ const Class = () => {
   }, [isDataLoad]);
 
   const handleShowStudentList = (value) => {
+    setOpen(true);
     setClassNameOnShow(value.name);
     const dataSend = {
       name: value.name,
@@ -76,7 +80,7 @@ const Class = () => {
           onClick={() => handleShowStudentList(value)}
           style={{ border: "none", width: "fit-content", boxShadow: "none" }}
         >
-          Thông tin
+          Thông tin lớp
         </Button>
       ),
     },
@@ -110,7 +114,7 @@ const Class = () => {
           onClick={() => console.log(value)}
           style={{ border: "none", width: "fit-content", boxShadow: "none" }}
         >
-          Thông tin
+          Thêm điểm
         </Button>
       ),
     },
@@ -164,7 +168,7 @@ const Class = () => {
         open={open}
         onCancel={handleCancelModal}
         footer={null}
-        width="60vw"
+        width="80vw"
       >
         <Table
           bordered
