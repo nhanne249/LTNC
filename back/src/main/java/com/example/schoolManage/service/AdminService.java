@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.schoolManage.utils.Helper.setIfNotNull;
+
 @Service
 @RequiredArgsConstructor
 public class AdminService {
@@ -55,5 +57,21 @@ public class AdminService {
                 .email(teacher.getEmail())
                 .phone(teacher.getPhone())
                 .degrees(teacher.getDegrees()).build());
+    }
+    public Student updateStudent(@NotNull Student update, String username) throws IllegalAccessException {
+        var st = userRepository.findStudentByUsername(username);
+        if (st.isEmpty() ){
+            return null;
+        }
+        setIfNotNull(st.get(),update);
+        return userRepository.save(st.get());
+    }
+    public Teacher updateTeacher(@NotNull Teacher update, String username) throws IllegalAccessException {
+        var tc = userRepository.findTeacherByUsername(username);
+        if (tc.isEmpty() ){
+            return null;
+        }
+        setIfNotNull(tc.get(), update);
+        return userRepository.save(tc.get());
     }
 }

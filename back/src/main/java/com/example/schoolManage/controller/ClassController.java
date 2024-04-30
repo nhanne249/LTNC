@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+
 import java.util.Optional;
 
 @RestController
@@ -18,6 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ClassController {
     private final ClassService classService;
+
     @GetMapping
     public ResponseEntity<Page<Classroom>> getAllClasses(@RequestParam int page){
         return new ResponseEntity<>(classService.getAllClasses(page), HttpStatus.OK);
@@ -51,4 +53,5 @@ public class ClassController {
         classService.deleteAllClasses();
         return ResponseEntity.ok("All classes has been deleted.");
     }
+
 }

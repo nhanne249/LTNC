@@ -59,4 +59,17 @@ public class AdminController {
         return new ResponseEntity<>(adminService.getAllTeachers(page), HttpStatus.OK);
     }
 
+    @PutMapping("/students/{username}")
+    public ResponseEntity<String> updateStudent(@PathVariable String username, @RequestBody Student student) throws IllegalAccessException {
+        if(adminService.updateStudent(student, username) == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok("Student updated");
+    }
+
+    @PutMapping("/teachers/{username}")
+    public ResponseEntity<String> updateTeacher(@PathVariable String username, @RequestBody Teacher teacher) throws IllegalAccessException {
+        if(adminService.updateTeacher(teacher, username) == null){return ResponseEntity.notFound().build();}
+        return ResponseEntity.ok("Teacher updated");
+    }
 }
