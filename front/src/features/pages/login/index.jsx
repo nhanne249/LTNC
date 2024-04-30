@@ -13,7 +13,7 @@ const role = Cookies.get("role")?.toLowerCase();
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  console.log(role);
   useEffect(() => {
     const handlePageRefresh = () => {
       const navigationEntries =
@@ -21,12 +21,13 @@ const Login = () => {
       const currentPath = window.location.pathname;
       if (
         navigationEntries.length > 0 &&
-        navigationEntries[0].type === "reload"
+        navigationEntries[0].type === "reload" &&
+        currentPath === "/"
       ) {
-        if (currentPath === "/" && role) {
+        if (role) {
           navigate(`${role}`, { replace: true });
-        } else if (!role && currentPath === "/") {
-          navigate(`/login`, { replace: true });
+        } else {
+          navigate(`login`, { replace: true });
         }
       }
     };
