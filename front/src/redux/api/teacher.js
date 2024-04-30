@@ -3,21 +3,21 @@ import Cookies from "js-cookie";
 
 const teacher = {
     getTeacherInfo: () => {
-        const username = Cookies.get('username');
+
         return transport.get(
-            `/teachers/${username}`, JSON.stringify()
+            `/teacher/info`, JSON.stringify()
         )
     },
     updateTeacherInfo: (data) => {
-        const username = Cookies.get('username');
+
         return transport.put(
-            `/teachers/${username}`, JSON.stringify(data)
+            `/teacher/info`, JSON.stringify(data)
         )
     },
     getAllClass: () => {
-        const username = Cookies.get('username');
+
         return transport.get(
-            `/teachers/${username}/classes`, JSON.stringify()
+            `/teacher/classes`, JSON.stringify()
         )
     },
 }
