@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Table, Input, Modal, Pagination, Button, Form } from "antd";
+import {
+  Table,
+  Input,
+  Modal,
+  Pagination,
+  Button,
+  Form,
+  Row,
+  Col,
+  Flex,
+} from "antd";
 import {
   getAllClassThunk,
   getClassThunk,
@@ -164,24 +174,36 @@ const Class = () => {
         </div>
       </div>
       <Modal
-        title="Danh sách học sinh"
+        title="Thông tin lớp"
         open={open}
         onCancel={handleCancelModal}
         footer={null}
         width="80vw"
       >
-        <Table
-          bordered
-          columns={columnsForList}
-          dataSource={studentList?.content}
-          pagination={false}
-        />
-        <Pagination
-          defaultCurrent={1}
-          total={studentList?.totalElements}
-          onChange={handleOnChangePagination}
-          defaultPageSize={10}
-        />
+        <Row justify="space-between">
+          <Col span={16}>
+            <Form></Form>
+            <Button type="submit" htmlType="submit">
+              Nhập điểm
+            </Button>
+            <Table
+              bordered
+              columns={columnsForList}
+              dataSource={studentList?.content}
+              pagination={false}
+            />
+            <Pagination
+              defaultCurrent={1}
+              total={studentList?.totalElements}
+              onChange={handleOnChangePagination}
+              defaultPageSize={10}
+            />
+          </Col>
+          <Col span={8}>
+            <div>Tài liệu</div>
+            <Button>Thêm tài liệu</Button>
+          </Col>
+        </Row>
       </Modal>
     </div>
   );

@@ -138,6 +138,7 @@ const Faculties = () => {
     }
   };
   const onFinishUpdateForm = (data) => {
+    console.log(data);
     dispatch(
       createSubjectThunk({ faculty: dataToUpdate, subject: data.subject })
     ).then((res) => {
