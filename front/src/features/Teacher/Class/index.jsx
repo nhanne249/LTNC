@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Table, Input, Modal, Pagination, Button } from "antd";
-import { getAllClassThunk } from "../../../redux/action/teacher";
+import { getAllClassThunk, getClassThunk } from "../../../redux/action/teacher";
 import { getUserThunk } from "../../../redux/action/admin";
 import "./index.scss";
 
@@ -23,6 +23,7 @@ const Class = () => {
   }, [isDataLoad]);
 
   const handleShowStudentList = (value) => {
+    console.log(value);
     const promises = value.students.map((item) => {
       return dispatch(getUserThunk(item)).then((res) => {
         return res?.payload;

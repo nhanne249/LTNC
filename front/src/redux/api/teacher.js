@@ -20,5 +20,8 @@ const teacher = {
             `/teachers/${username}/classes`, JSON.stringify()
         )
     },
+    getClass: (data) => {
+        return transport.get(`/classes/${data.name}/students?page=${data.page}`)
+    }
 }
 export default teacher;
