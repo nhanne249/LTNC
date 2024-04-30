@@ -13,7 +13,7 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={role ? ToNavigate : <NotFound />} />
+          <Route path="" element={role ? ToNavigate : <NotFound />} />
           {role || role != undefined ? (privateRouter.map((routers) => {
             return routers.map((route, index) => {
               return route.role == role ? (
@@ -37,7 +37,7 @@ function App() {
             return routers.map((route, index) => {
               return (
                 <Route path={route.path} element={route.element} key={index}>
-                  {route.index ? <Route index element={route.index} /> : (console.log('hehe'))}
+                  {route.index ? <Route index element={route.index} /> : null}
                   {route.children
                     ? route.children.map(({ path, Component }, index) => {
                       return (
