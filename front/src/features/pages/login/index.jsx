@@ -9,9 +9,35 @@ import background from "../../../assets/img/login1.jpg";
 import logo from "../../../assets/img/logobkjpeg.png";
 import Cookies from "js-cookie";
 
+const role = Cookies.get("role")?.toLowerCase();
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const handlePageRefresh = () => {
+      const navigationEntries =
+        window.performance.getEntriesByType("navigation");
+      const currentPath = window.location.pathname;
+      if (
+        navigationEntries.length > 0 &&
+        navigationEntries[0].type === "reload"
+      ) {
+        if (currentPath === "/" && role) {
+          navigate(`${role}`, { replace: true });
+        } else if (!role && currentPath === "/") {
+          navigate(`/login`, { replace: true });
+        }
+      }
+    };
+
+    window.addEventListener("beforeunload", handlePageRefresh);
+
+    return () => {
+      window.removeEventListener("beforeunload", handlePageRefresh);
+    };
+  }, []);
+
   const onFinish = (data) => {
     const dataSend = {
       username: data.username,

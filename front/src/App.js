@@ -1,6 +1,5 @@
 import "./App.css";
-import { useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes,useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { publicRouter, privateRouter } from "./config/routes";
@@ -13,7 +12,6 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="" element={role ? ToNavigate : <NotFound />} />
           {role || role != undefined ? (privateRouter.map((routers) => {
             return routers.map((route, index) => {
               return route.role == role ? (
@@ -37,7 +35,7 @@ function App() {
             return routers.map((route, index) => {
               return (
                 <Route path={route.path} element={route.element} key={index}>
-                  {route.index ? <Route index element={route.index} /> : null}
+                  {route.index ? <Route index element={route.index} /> : (console.log('hehe'))}
                   {route.children
                     ? route.children.map(({ path, Component }, index) => {
                       return (
@@ -63,24 +61,3 @@ function App() {
 }
 
 export default App;
-
-const ToNavigate = () => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const handlePageRefresh = () => {
-      const navigationEntries = window.performance.getEntriesByType("navigation");
-      const currentPath = window.location.pathname;
-      if (navigationEntries.length > 0 && navigationEntries[0].type === "reload") {
-        if (currentPath === "/" && role) {
-          navigate(`${role}`, { replace: true });
-        }
-      }
-    };
-
-    window.addEventListener("beforeunload", handlePageRefresh);
-
-    return () => {
-      window.removeEventListener("beforeunload", handlePageRefresh);
-    };
-  }, []);}
