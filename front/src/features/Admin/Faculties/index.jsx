@@ -62,6 +62,7 @@ const Faculties = () => {
   };
 
   const onCreate = (value) => {
+    console.log(value);
     dispatch(createFacultyThunk(value)).then((res) => {
       if (res?.error) {
         toast.error("Tạo khoa mới thất bại!", {
@@ -138,7 +139,6 @@ const Faculties = () => {
     }
   };
   const onFinishUpdateForm = (data) => {
-    console.log(data);
     dispatch(
       createSubjectThunk({ faculty: dataToUpdate, subject: data.subject })
     ).then((res) => {
