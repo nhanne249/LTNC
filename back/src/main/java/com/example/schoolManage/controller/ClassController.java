@@ -24,7 +24,7 @@ public class ClassController {
     }
     @GetMapping("/{name}/students")
     public ResponseEntity<Page<Student>> getAllStudents(@PathVariable String name,@RequestParam int page){
-        return new ResponseEntity<>(classService.getAllStudent(name, PageRequest.of(page, 10)), HttpStatus.OK);
+        return new ResponseEntity<>(classService.getAllStudent(name, PageRequest.of(page-1, 10)), HttpStatus.OK);
     }
     @PostMapping
     public ResponseEntity<String> createClass(@RequestBody Classroom classroom){

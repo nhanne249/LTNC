@@ -13,9 +13,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
+
 import java.util.*;
-import java.util.function.Consumer;
 
 import static com.example.schoolManage.utils.Helper.setIfNotNull;
 
@@ -43,9 +42,7 @@ public class ClassService {
         if (wd.isEmpty()) {
             return null;
         }
-        classroom.getTime().forEach(period -> {
-            wd.get().getTime().remove(period);
-        });
+        classroom.getTime().forEach(period -> wd.get().getTime().remove(period));
         Collections.sort(wd.get().getTime());
         scheduleRepository.save(wd.get());
         return classRepository.insert(new Classroom.Builder().name(classroom.getName())
@@ -68,9 +65,7 @@ public class ClassService {
             return;
         Classroom classroom = cl.get();
         var wd = scheduleRepository.findByDay(classroom.getDay());
-        classroom.getTime().forEach(period -> {
-            wd.get().getTime().add(period);
-        });
+        classroom.getTime().forEach(period -> wd.get().getTime().add(period));
         Collections.sort(wd.get().getTime());
         scheduleRepository.save(wd.get());
         classRepository.deleteByName(name);
@@ -92,10 +87,7 @@ public class ClassService {
     public Page<Student> getAllStudent(String classname, Pageable pageable) {
         List<Student> ls = new ArrayList<>();
         var classroom = classRepository.findByName(classname);
-        classroom.ifPresent(value -> value.getStudents().forEach(student -> {
-            ls.add(userRepository.findStudentByUsername(student).get());
-        }));
-
+        classroom.ifPresent(value -> value.getStudents().forEach(student -> ls.add(userRepository.findStudentByUsername(student).get())));
         return new PageImpl<>(ls, pageable, ls.size());
     }
 }
