@@ -246,9 +246,6 @@ const Faculties = () => {
               maxWidth: 600,
             }}
             autoComplete="off"
-            initialValues={{
-              items: [{}],
-            }}
             onFinish={onCreate}
           >
             <Form.Item label="Tên khoa" name="name">
