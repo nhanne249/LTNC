@@ -10,14 +10,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Review {
     @Id
     private ObjectId id;
-    @Getter @Setter private String reviewBody;
-    @Getter @Setter  private String studentName;
-    @Getter @Setter private Integer score;
+    @Getter @Setter private String content;
+    @Getter @Setter  private String student;
+    @Getter @Setter private Integer rating;
 
-    public Review(String reviewBody, String studentName, Integer score) {
-        this.reviewBody = reviewBody;
-        this.studentName = studentName;
-        this.score = score;
+    public Review(String content, String student, Integer rating) {
+        this.content = content;
+        this.student = student;
+        this.rating = rating;
     }
 
 }

@@ -22,8 +22,6 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class AdminController {
     private final AdminService adminService;
-    private final TeacherService teacherService;
-    private final StudentService studentService;
 
     @GetMapping("/users")
     public ResponseEntity<Page<User>> getAllUsers(@RequestParam int page) {
@@ -66,29 +64,4 @@ public class AdminController {
         return new ResponseEntity<>(adminService.getAllTeachers(page), HttpStatus.OK);
     }
 
-    @GetMapping("/info")
-    public ResponseEntity<User> getInfo() {
-        var usr = adminService.getUser(getLoggedInUserDetails().getUsername());
-        return usr.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-    @PutMapping("/student/update")
-    public ResponseEntity<String> updateStudent(@RequestBody Student update) throws IllegalAccessException {
-        var usr = studentService.updateStudent(getLoggedInUserDetails().getUsername(), update);
-        if(usr.isEmpty()) return ResponseEntity.notFound().build();
-        return new ResponseEntity<>("Student updated", HttpStatus.OK);
-    }
-    @PutMapping("/teacher/update")
-    public ResponseEntity<String> updateTeacher(@RequestBody Teacher update) throws IllegalAccessException {
-        var tc = teacherService.updateTeacher(getLoggedInUserDetails().getUsername(), update);
-        if(tc.isEmpty()) return ResponseEntity.notFound().build();
-        return new ResponseEntity<>("Teacher updated", HttpStatus.OK);
-    }
-
-    public UserDetails getLoggedInUserDetails() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
-            return (UserDetails) authentication.getPrincipal();
-        }
-        return null;
-    }
 }
