@@ -241,14 +241,22 @@ const Faculties = () => {
             wrapperCol={{
               span: 18,
             }}
-            name="dynamic_form_complex"
             style={{
               maxWidth: 600,
             }}
             autoComplete="off"
             onFinish={onCreate}
           >
-            <Form.Item label="Tên khoa" name="name">
+            <Form.Item
+              label="Tên khoa"
+              name="name"
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng nhập tên khoa!",
+                },
+              ]}
+            >
               <Input />
             </Form.Item>
             <Form.Item label="Môn học">
@@ -293,9 +301,9 @@ const Faculties = () => {
               <Button
                 type="submit"
                 htmlType="submit"
-                onClick={() => {
-                  form.resetFields();
-                }}
+                // onClick={() => {
+                //   form.resetFields();
+                // }}
               >
                 Tạo mới
               </Button>
