@@ -28,9 +28,7 @@ public class ResourceController {
     public ResponseEntity<List<String>> getResourcesByClass(@PathVariable String className) {
         List<Resource> rs = resourceRepository.findAllByClassroom(className);
         List<String> ls = new ArrayList<>();
-        rs.forEach(resource -> {
-            ls.add(resource.getName());
-        });
+        rs.forEach(resource -> ls.add(resource.getName()));
         return new ResponseEntity<>(ls, HttpStatus.OK);
     }
     @GetMapping("/{name}")

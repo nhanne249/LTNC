@@ -3,7 +3,6 @@ package com.example.schoolManage.controller;
 import com.example.schoolManage.model.Notification;
 import com.example.schoolManage.repository.NotificationRepository;
 import lombok.RequiredArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;

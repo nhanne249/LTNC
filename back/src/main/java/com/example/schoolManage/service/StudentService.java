@@ -80,12 +80,12 @@ public class StudentService {
 
 
     public String rate(Review review, String teacher, String username) {
-        review.setStudentName(username);
+        review.setStudent(username);
         Classroom cl = inClassOfTeacher(teacher, username);
         if (cl==null) return "STUDENT ISN'T TAUGHT BY THIS TEACHER";
-        Optional<Review> rv = reviewRepository.findByStudentName(username);
+        Optional<Review> rv = reviewRepository.findByStudent(username);
         if (rv.isPresent()) {
-            rv.get().setReviewBody(review.getReviewBody());
+            rv.get().setContent(review.getContent());
             reviewRepository.save(rv.get());
         } else {
             Optional<Teacher> tc = userRepository.findTeacherByUsername(teacher);
@@ -93,6 +93,7 @@ public class StudentService {
             userRepository.save(tc.get());
             reviewRepository.save(review);
         }
+
         return "ADDED REVIEW";
     }
 
@@ -117,7 +118,7 @@ public class StudentService {
         if (tc.isEmpty()) return "TEACHER ISN'T EXIST";
         Classroom cl = inClassOfTeacher(teacher, username);
         if (cl == null) return "STUDENT ISN'T TAUGHT BY THIS TEACHER";
-        Optional<Review> rv = reviewRepository.findByStudentName(username);
+        Optional<Review> rv = reviewRepository.findByStudent(username);
         if (rv.isEmpty()) return "HAVEN'T REVIEWED YET";
 
         reviewRepository.delete(rv.get());
