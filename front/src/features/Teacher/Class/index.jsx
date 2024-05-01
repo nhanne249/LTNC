@@ -130,14 +130,13 @@ const Class = () => {
           <Search onSearch={onInputScore} enterButton="Thêm" size="small" />
         ) : (
           <div>
-            hehe
-            {/* {value.scores.some((obj) =>
+            {value.scores.some((obj) =>
               Object.prototype.hasOwnProperty.call(obj, subjectToSend)
             )
               ? value.scores.find((obj) =>
                   Object.prototype.hasOwnProperty.call(obj, subjectToSend)
                 )[subjectToSend]
-              : "Chưa có điểm"} */}
+              : "Chưa có điểm"}
           </div>
         ),
     },
