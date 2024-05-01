@@ -10,6 +10,7 @@ import {
   Col,
   Upload,
   message,
+  Flex,
 } from "antd";
 import {
   getAllClassThunk,
@@ -311,7 +312,19 @@ const Class = () => {
             />
           </Col>
           <Col span={7}>
-            <div>Tài liệu</div>
+            <div
+              style={{
+                width: "fit-content",
+                color: "#AC1818",
+                fontFamily: "Arial, Helvetica, sans-serif",
+                fontSize: "20px",
+                fontWeight: "700",
+                lineHeight: "24px",
+                borderBottom: "#AC1818 1px solid",
+              }}
+            >
+              Tài liệu
+            </div>
             <Upload
               listType="text"
               action={`https://ltnc-production.up.railway.app/resources/${classNameOnShow}`}
@@ -327,11 +340,13 @@ const Class = () => {
             >
               Thêm tài liệu
             </Upload>
-            {fileNameReceived
-              ? fileNameReceived.map((value) => {
-                  return value;
-                })
-              : "Chưa có bài giảng"}
+            <Flex vertical={true}>
+              {fileNameReceived
+                ? fileNameReceived.map((value) => {
+                    return value;
+                  })
+                : "Chưa có bài giảng"}
+            </Flex>
           </Col>
         </Row>
       </Modal>
