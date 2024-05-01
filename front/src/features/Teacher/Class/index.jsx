@@ -299,7 +299,7 @@ const Class = () => {
       >
         <Row justify="space-between">
           <Col span={15}>
-            <Flex vertical={false}>
+            <Flex vertical={true}>
               <div
                 style={{
                   width: "350px",
@@ -366,10 +366,10 @@ const Class = () => {
             >
               Thêm tài liệu
             </Upload>
-            <Flex vertical={false}>
+            <Flex vertical={true}>
               {fileNameReceived
-                ? fileNameReceived.map((value) => {
-                    return value;
+                ? fileNameReceived.map((value, index) => {
+                    return <div key={index}>{value}</div>;
                   })
                 : "Chưa có bài giảng"}
             </Flex>
