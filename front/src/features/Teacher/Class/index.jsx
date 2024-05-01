@@ -59,8 +59,9 @@ const Class = () => {
     dispatch(
       giveScoreForStudentThunk({
         username: usernameToSend,
-        score: value,
-        subject: subjectToSend,
+        dataInBody: {
+          [subjectToSend]: value,
+        },
       })
     ).then((res) => {
       console.log(res);
