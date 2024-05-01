@@ -156,8 +156,8 @@ const Class = () => {
       key: null,
       dataIndex: null,
       width: "15%",
-      render: (value) => {
-        setUsernameToSend(value.username);
+      render: (value) =>
+        // setUsernameToSend(value.username);
         isInputScore ? (
           <Search
             onSearch={onInputScore}
@@ -190,8 +190,7 @@ const Class = () => {
                 )[subjectToSend]
               : "Chưa có điểm"}
           </div>
-        );
-      },
+        ),
     },
   ];
 
