@@ -158,6 +158,7 @@ const Class = () => {
       dataIndex: null,
       width: "15%",
       render: (value) => {
+        console.log(value);
         setUsernameToSend(value.username);
         return isInputScore ? (
           <Search
