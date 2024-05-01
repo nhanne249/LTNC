@@ -161,8 +161,8 @@ const Class = () => {
         return isInputScore ? (
           <Search
             onSearch={(data) => {
-              onInputScore(data);
               setUsernameToSend(value.username);
+              onInputScore(data);
             }}
             enterButton="Thêm"
             size="small"
