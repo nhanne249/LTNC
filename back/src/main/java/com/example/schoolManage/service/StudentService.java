@@ -4,7 +4,6 @@ package com.example.schoolManage.service;
 import com.example.schoolManage.model.course.Classroom;
 import com.example.schoolManage.model.review.Review;
 import com.example.schoolManage.model.user.Student;
-import com.example.schoolManage.model.user.Teacher;
 import com.example.schoolManage.repository.ClassRepository;
 import com.example.schoolManage.repository.ReviewRepository;
 import com.example.schoolManage.repository.UserRepository;
@@ -79,21 +78,26 @@ public class StudentService {
     }
 
 
-    public String rate(Review review, String teacher, String username) {
-        review.setStudent(username);
-        Classroom cl = inClassOfTeacher(teacher, username);
-        if (cl==null) return "STUDENT ISN'T TAUGHT BY THIS TEACHER";
-        Optional<Review> rv = reviewRepository.findByStudent(username);
-        if (rv.isPresent()) {
-            rv.get().setContent(review.getContent());
-            reviewRepository.save(rv.get());
-        } else {
-            Optional<Teacher> tc = userRepository.findTeacherByUsername(teacher);
-            tc.get().addReview(username);
-            userRepository.save(tc.get());
-            reviewRepository.save(review);
+    public String rate(Review review, String teacher, String student) {
+        if(reviewRepository.findByStudentAndTeacher(student, teacher).isPresent()){
+            return "REVIEW EXISTED";
         }
-
+        review.setStudent(student);
+        review.setTeacher(teacher);
+//        Classroom cl = inClassOfTeacher(teacher, username);
+//        if (cl==null) return "STUDENT ISN'T TAUGHT BY THIS TEACHER";
+//        Optional<Review> rv = reviewRepository.findByStudent(username);
+//        if (rv.isPresent()) {
+//            rv.get().setContent(review.getContent());
+//            reviewRepository.save(rv.get());
+//        } else {
+//            Optional<Teacher> tc = userRepository.findTeacherByUsername(teacher);
+//            tc.get().addReview(username);
+//            userRepository.save(tc.get());
+//            reviewRepository.save(review);
+//        }
+//
+        reviewRepository.save(review);
         return "ADDED REVIEW";
     }
 
@@ -113,18 +117,18 @@ public class StudentService {
     }
 
     // xoa review
-    public String deleteRate(String teacher, String username) {
-        Optional<Teacher> tc = userRepository.findTeacherByUsername(teacher);
-        if (tc.isEmpty()) return "TEACHER ISN'T EXIST";
-        Classroom cl = inClassOfTeacher(teacher, username);
-        if (cl == null) return "STUDENT ISN'T TAUGHT BY THIS TEACHER";
-        Optional<Review> rv = reviewRepository.findByStudent(username);
-        if (rv.isEmpty()) return "HAVEN'T REVIEWED YET";
-
-        reviewRepository.delete(rv.get());
-        tc.get().removeReview(username);
-        userRepository.save(tc.get());
-        return "REMOVED REVIEW";
-    }
+//    public String deleteRate(String teacher, String username) {
+//        Optional<Teacher> tc = userRepository.findTeacherByUsername(teacher);
+//        if (tc.isEmpty()) return "TEACHER ISN'T EXIST";
+//        Classroom cl = inClassOfTeacher(teacher, username);
+//        if (cl == null) return "STUDENT ISN'T TAUGHT BY THIS TEACHER";
+//        Optional<Review> rv = reviewRepository.findByStudent(username);
+//        if (rv.isEmpty()) return "HAVEN'T REVIEWED YET";
+//
+//        reviewRepository.delete(rv.get());
+//        tc.get().removeReview(username);
+//        userRepository.save(tc.get());
+//        return "REMOVED REVIEW";
+//    }
 
 }

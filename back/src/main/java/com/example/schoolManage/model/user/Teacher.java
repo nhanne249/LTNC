@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Setter
@@ -17,13 +17,13 @@ public class Teacher extends User {
     private String phone;
     private List<String> degrees;
 
-    private List<String> review;
 
-    public void addReview(String username) {
-        this.review.add(username);
-    }
 
-    public void removeReview(String username) { this.review.remove(username);}
+//    public void addReview(String username) {
+//        this.review.add(username);
+//    }
+//
+//    public void removeReview(String username) { this.review.remove(username);}
 
     private Teacher(String username, String password, String name, String email, String phone, List<String> degrees) {
         super(username, password, Role.TEACHER);
@@ -31,7 +31,6 @@ public class Teacher extends User {
         this.email = email;
         this.phone = phone;
         this.degrees = degrees;
-        this.review = new ArrayList<>();
     }
     public static class Builder{
         private String username;
