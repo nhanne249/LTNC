@@ -171,9 +171,13 @@ const Class = () => {
                 : false
             }
             defaultValue={
-              value.scores.find((obj) =>
+              value.scores.some((obj) =>
                 Object.prototype.hasOwnProperty.call(obj, subjectToSend)
-              )[subjectToSend]
+              )
+                ? value.scores.find((obj) =>
+                    Object.prototype.hasOwnProperty.call(obj, subjectToSend)
+                  )[subjectToSend]
+                : 0
             }
           />
         ) : (
