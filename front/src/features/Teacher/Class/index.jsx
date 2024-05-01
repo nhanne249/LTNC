@@ -53,6 +53,7 @@ const Class = () => {
     });
   };
   const onInputScore = (value) => {
+    console.log("here");
     dispatch(
       giveScoreForStudentThunk({
         username: usernameToSend,
