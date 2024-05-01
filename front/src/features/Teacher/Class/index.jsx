@@ -54,6 +54,7 @@ const Class = () => {
   };
   const onInputScore = (value) => {
     console.log(value);
+    console.log(usernameToSend);
     dispatch(
       giveScoreForStudentThunk({
         username: usernameToSend,
