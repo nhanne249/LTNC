@@ -54,9 +54,9 @@ const Class = () => {
     };
     dispatch(getClassThunk(dataSend)).then((res) => {
       setStudentList(res?.payload);
-    });
-    dispatch(getAllClassResourceThunk(classNameOnShow)).then((res) => {
-      setFileNameReceived(res.payload.data);
+      dispatch(getAllClassResourceThunk(value.name)).then((res) => {
+        setFileNameReceived(res.payload.data);
+      });
     });
   };
   const onInputScore = (value) => {
@@ -327,6 +327,11 @@ const Class = () => {
             >
               Thêm tài liệu
             </Upload>
+            {fileNameReceived
+              ? fileNameReceived.map((value) => {
+                  return value;
+                })
+              : "Chưa có bài giảng"}
           </Col>
         </Row>
       </Modal>
