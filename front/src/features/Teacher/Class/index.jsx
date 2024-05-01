@@ -170,15 +170,15 @@ const Class = () => {
                 ? true
                 : false
             }
-            defaultValue={
-              value.scores.some((obj) =>
-                Object.prototype.hasOwnProperty.call(obj, subjectToSend)
-              )
-                ? value.scores.find((obj) =>
-                    Object.prototype.hasOwnProperty.call(obj, subjectToSend)
-                  )[subjectToSend]
-                : 0
-            }
+            // defaultValue={
+            //   value.scores.some((obj) =>
+            //     Object.prototype.hasOwnProperty.call(obj, subjectToSend)
+            //   )
+            //     ? value.scores.find((obj) =>
+            //         Object.prototype.hasOwnProperty.call(obj, subjectToSend)
+            //       )[subjectToSend]
+            //     : 0
+            // }
           />
         ) : (
           <div>
