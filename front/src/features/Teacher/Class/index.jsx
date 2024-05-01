@@ -126,17 +126,19 @@ const Class = () => {
       dataIndex: null,
       width: "15%",
       render: (value) => {
+        console.log(value);
         isInputScore ? (
           <Search onSearch={onInputScore} enterButton="Thêm" size="small" />
         ) : (
           <div>
-            {value.scores.some((obj) =>
+            hehe
+            {/* {value.scores.some((obj) =>
               Object.prototype.hasOwnProperty.call(obj, subjectToSend)
             )
               ? value.scores.find((obj) =>
                   Object.prototype.hasOwnProperty.call(obj, subjectToSend)
                 )[subjectToSend]
-              : "Chưa có điểm"}
+              : "Chưa có điểm"} */}
           </div>
         );
       },
