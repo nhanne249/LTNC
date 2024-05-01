@@ -54,35 +54,35 @@ const Class = () => {
   };
   const onInputScore = (value) => {
     console.log(value);
-    // dispatch(
-    //   giveScoreForStudentThunk({
-    //     username: usernameToSend,
-    //     score: value,
-    //     subject: subjectToSend,
-    //   })
-    // ).then((res) => {
-    //   console.log(res);
-    //   if (res?.error) {
-    //     toast.error("Tạo lớp học mới thất bại!", {
-    //       position: "top-right",
-    //       autoClose: 3000,
-    //       theme: "colored",
-    //     });
-    //   } else {
-    //     toast.success("Tạo lớp học mới thành công!", {
-    //       position: "top-right",
-    //       autoClose: 3000,
-    //       theme: "colored",
-    //     });
-    //     const dataSend = {
-    //       name: classNameOnShow,
-    //       page: 1,
-    //     };
-    //     dispatch(getClassThunk(dataSend)).then((res) => {
-    //       setStudentList(res?.payload);
-    //     });
-    //   }
-    // });
+    dispatch(
+      giveScoreForStudentThunk({
+        username: usernameToSend,
+        score: value,
+        subject: subjectToSend,
+      })
+    ).then((res) => {
+      console.log(res);
+      if (res?.error) {
+        toast.error("Tạo lớp học mới thất bại!", {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "colored",
+        });
+      } else {
+        toast.success("Tạo lớp học mới thành công!", {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "colored",
+        });
+        const dataSend = {
+          name: classNameOnShow,
+          page: 1,
+        };
+        dispatch(getClassThunk(dataSend)).then((res) => {
+          setStudentList(res?.payload);
+        });
+      }
+    });
   };
   const columns = [
     {
