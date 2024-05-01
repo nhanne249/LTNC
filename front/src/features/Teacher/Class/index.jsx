@@ -127,7 +127,7 @@ const Class = () => {
       width: "15%",
       render: (value) => {
         isInputScore ? (
-          <Search onSearch={onInputScore} />
+          <Search onSearch={onInputScore} enterButton="Thêm" size="small" />
         ) : (
           <div>
             {value.scores.some((obj) =>
