@@ -135,7 +135,7 @@ const Class = () => {
             )
               ? value.scores.find((obj) =>
                   Object.prototype.hasOwnProperty.call(obj, subjectToSend)
-                )
+                )[subjectToSend]
               : "Chưa có điểm"}
           </div>
         );
