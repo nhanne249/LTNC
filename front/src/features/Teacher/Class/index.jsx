@@ -319,6 +319,7 @@ const Class = () => {
                   background: "#0388B4",
                   color: "white",
                   margin: "10px 0 10px 0",
+                  width: "fit-content",
                 }}
               >
                 {isInputScore ? "Hủy nhập điểm" : "Nhập điểm"}
@@ -351,21 +352,30 @@ const Class = () => {
             >
               Tài liệu
             </div>
-            <Upload
-              listType="text"
-              action={`https://ltnc-production.up.railway.app/resources/${classNameOnShow}`}
-              onChange={handleChange}
-              withCredentials={true}
-              headers={{
-                Authorization: `Bearer ${Cookies.get("userPresent")}`,
+            <Button
+              style={{
+                background: "#0388B4",
+                color: "white",
+                margin: "10px 0 10px 0",
+                width: "fit-content",
               }}
-              method="POST"
-              beforeUpload={beforeUpload}
-              maxCount={1}
-              fileList={fileList}
             >
-              Thêm tài liệu
-            </Upload>
+              <Upload
+                listType="text"
+                action={`https://ltnc-production.up.railway.app/resources/${classNameOnShow}`}
+                onChange={handleChange}
+                withCredentials={true}
+                headers={{
+                  Authorization: `Bearer ${Cookies.get("userPresent")}`,
+                }}
+                method="POST"
+                beforeUpload={beforeUpload}
+                maxCount={1}
+                fileList={fileList}
+              >
+                Thêm tài liệu
+              </Upload>
+            </Button>
             <Flex vertical={true}>
               {fileNameReceived
                 ? fileNameReceived.map((value, index) => {
