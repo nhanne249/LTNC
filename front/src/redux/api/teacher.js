@@ -24,7 +24,7 @@ const teacher = {
         return transport.post(`/${data.classname}/scores`)
     },
     giveScoreForStudent: (data) => { 
-        return transport.post(`/teacher/scores/${data.username}`, JSON.stringify(`${data.subject} : ${data.score}`))
+        return transport.put(`/teacher/scores/${data.username}`, JSON.stringify(`${data.subject} : ${data.score}`))
     }
 }
 export default teacher;
