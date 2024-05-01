@@ -18,7 +18,10 @@ import {
   getClassThunk,
   giveScoreForStudentThunk,
 } from "../../../redux/action/teacher";
-import { getAllClassResourceThunk } from "../../../redux/action/resources";
+import {
+  getAllClassResourceThunk,
+  deleteResourceThunk,
+} from "../../../redux/action/resources";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import "./index.scss";
@@ -268,6 +271,26 @@ const Class = () => {
   };
   //Xóa tài liệu
   const deleteFile = (value) => {
+    dispatch(deleteResourceThunk({ class: subjectToSend, name: value })).then(
+      (res) => {
+        if (res?.error) {
+          toast.error(`Gặp lỗi khi xóa file ${value}!`, {
+            position: "top-right",
+            autoClose: 3000,
+            theme: "colored",
+          });
+        } else {
+          toast.success(`${value} đã được xóa!`, {
+            position: "top-right",
+            autoClose: 3000,
+            theme: "colored",
+          });
+          dispatch(getAllClassResourceThunk(classNameOnShow)).then((res) => {
+            setFileNameReceived(res.payload);
+          });
+        }
+      }
+    );
     console.log(value);
   };
   //----------------------------------------------------------------

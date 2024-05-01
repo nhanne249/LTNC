@@ -28,6 +28,10 @@ const student = {
     },
     instructorEvaluation: (data) => {
         return transport.post(`student/rate`, JSON.stringify(data))
+    },
+    deleteReviews: (data) => {
+        return transport.post(`student/rate/${data}`)
     }
+    
 }
 export default student;

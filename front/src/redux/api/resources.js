@@ -43,8 +43,10 @@ const resources = {
         )
     },
     getAllClassResource: (data) => {
-        return transport.get(`https://ltnc-production.up.railway.app/resources/${data}/all`)
-     }
-
+        return transport.get(`resources/${data}/all`)
+    },
+    deleteResource: (data) => {
+        return transport.delete(`/resources/${data.class}/${data.name}`)
+    }
 }
 export default resources;
