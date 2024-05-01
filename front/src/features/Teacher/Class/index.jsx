@@ -288,33 +288,48 @@ const Class = () => {
       >
         <Row justify="space-between">
           <Col span={15}>
-            <Button
-              onClick={() => setIsInputScore(!isInputScore)}
-              style={{
-                background: "#0388B4",
-                color: "white",
-                margin: "10px 0 10px 0",
-              }}
-            >
-              {isInputScore ? "Hủy nhập điểm" : "Nhập điểm"}
-            </Button>
-            <Table
-              bordered
-              columns={columnsForList}
-              dataSource={studentList?.content}
-              pagination={false}
-            />
-            <Pagination
-              defaultCurrent={1}
-              total={studentList?.totalElements}
-              onChange={handleOnChangePagination}
-              defaultPageSize={10}
-            />
+            <Flex vertical={false}>
+              <div
+                style={{
+                  width: "350px",
+                  color: "#AC1818",
+                  fontFamily: "Arial, Helvetica, sans-serif",
+                  fontSize: "20px",
+                  fontWeight: "700",
+                  lineHeight: "24px",
+                  borderBottom: "#AC1818 1px solid",
+                }}
+              >
+                Danh sách sinh viên
+              </div>
+              <Button
+                onClick={() => setIsInputScore(!isInputScore)}
+                style={{
+                  background: "#0388B4",
+                  color: "white",
+                  margin: "10px 0 10px 0",
+                }}
+              >
+                {isInputScore ? "Hủy nhập điểm" : "Nhập điểm"}
+              </Button>
+              <Table
+                bordered
+                columns={columnsForList}
+                dataSource={studentList?.content}
+                pagination={false}
+              />
+              <Pagination
+                defaultCurrent={1}
+                total={studentList?.totalElements}
+                onChange={handleOnChangePagination}
+                defaultPageSize={10}
+              />
+            </Flex>
           </Col>
           <Col span={7}>
             <div
               style={{
-                width: "fit-content",
+                width: "350px",
                 color: "#AC1818",
                 fontFamily: "Arial, Helvetica, sans-serif",
                 fontSize: "20px",
@@ -340,7 +355,7 @@ const Class = () => {
             >
               Thêm tài liệu
             </Upload>
-            <Flex vertical={true}>
+            <Flex vertical={false}>
               {fileNameReceived
                 ? fileNameReceived.map((value) => {
                     return value;
