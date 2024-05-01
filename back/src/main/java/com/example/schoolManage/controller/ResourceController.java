@@ -39,4 +39,9 @@ public class ResourceController {
                 .body(FileUtils.decompress(resource.getData())))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+    @DeleteMapping("/{name}")
+    public ResponseEntity<String> deleteResource(@PathVariable String name) {
+        resourceRepository.deleteByName(name);
+        return ResponseEntity.ok("Resource deleted successfully");
+    }
 }
