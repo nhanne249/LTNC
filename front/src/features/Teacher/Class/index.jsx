@@ -405,17 +405,17 @@ const Class = () => {
                 Thêm tài liệu
               </Upload>
             </Button>
-            <Flex vertical={true}>
+            <Flex vertical={true} gap="small" justify="space-between">
               {fileNameReceived
                 ? fileNameReceived.map((value, index) => {
                     return (
                       <Flex vertical={false} key={index}>
                         <div>{value}</div>
                         <Button
-                          type="primary"
                           shape="circle"
                           onClick={() => deleteFile(value)}
                           icon={<DeleteOutlined />}
+                          size="small"
                         />
                       </Flex>
                     );
