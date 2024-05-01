@@ -70,13 +70,13 @@ const Class = () => {
       })
     ).then((res) => {
       if (res?.error) {
-        toast.error("Tạo lớp học mới thất bại!", {
+        toast.error(`Thêm điểm thất bại!`, {
           position: "top-right",
           autoClose: 3000,
           theme: "colored",
         });
       } else {
-        toast.success("Tạo lớp học mới thành công!", {
+        toast.success(`Thêm điểm thành công!`, {
           position: "top-right",
           autoClose: 3000,
           theme: "colored",
@@ -247,9 +247,20 @@ const Class = () => {
     });
     setFileList(newFileList);
     if (info.file.status == "done") {
+      toast.success(`File đã được đăng!`, {
+        position: "top-right",
+        autoClose: 3000,
+        theme: "colored",
+      });
       setFileList([]);
       dispatch(getAllClassResourceThunk(classNameOnShow)).then((res) => {
         setFileNameReceived(res.payload);
+      });
+    } else {
+      toast.error(`Gặp vấn đề khi đăng file!`, {
+        position: "top-right",
+        autoClose: 3000,
+        theme: "colored",
       });
     }
   };
