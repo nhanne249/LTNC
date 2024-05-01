@@ -62,7 +62,6 @@ const Faculties = () => {
   };
 
   const onCreate = (value) => {
-    console.log(value);
     dispatch(createFacultyThunk(value)).then((res) => {
       if (res?.error) {
         toast.error("Tạo khoa mới thất bại!", {
@@ -80,6 +79,7 @@ const Faculties = () => {
           setDataReceived(res?.payload);
         });
       }
+      form.resetFields();
     });
   };
 
@@ -298,13 +298,7 @@ const Faculties = () => {
               </Form.List>
             </Form.Item>
             <Form.Item>
-              <Button
-                type="submit"
-                htmlType="submit"
-                // onClick={() => {
-                //   form.resetFields();
-                // }}
-              >
+              <Button type="submit" htmlType="submit">
                 Tạo mới
               </Button>
             </Form.Item>
