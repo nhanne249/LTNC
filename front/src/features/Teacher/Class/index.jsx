@@ -49,8 +49,9 @@ const Class = () => {
       setStudentList(res?.payload);
     });
   };
-  const onInputScore = (value) => {
+  const onInputScore = (value, e) => {
     console.log(value);
+    console.log(e);
   };
   const columns = [
     {
@@ -127,7 +128,18 @@ const Class = () => {
       width: "15%",
       render: (value) =>
         isInputScore ? (
-          <Search onSearch={onInputScore} enterButton="Thêm" size="small" />
+          <Search
+            onSearch={() => onInputScore(value)}
+            enterButton="Thêm"
+            size="small"
+            disabled={
+              value.scores.some((obj) =>
+                Object.prototype.hasOwnProperty.call(obj, subjectToSend)
+              )
+                ? true
+                : false
+            }
+          />
         ) : (
           <div>
             {value.scores.some((obj) =>
@@ -145,6 +157,7 @@ const Class = () => {
   const handleCancelModal = () => {
     setOpen(false);
     setStudentList([]);
+    setIsInputScore(false);
   };
   const onSearch = (data) => {
     if (data != "") {
@@ -193,7 +206,7 @@ const Class = () => {
         width="80vw"
       >
         <Row justify="space-between">
-          <Col span={16}>
+          <Col span={15}>
             <Button onClick={() => setIsInputScore(true)}>Nhập điểm</Button>
             <Table
               bordered
@@ -208,7 +221,7 @@ const Class = () => {
               defaultPageSize={10}
             />
           </Col>
-          <Col span={8}>
+          <Col span={7}>
             <div>Tài liệu</div>
             <Button>Thêm tài liệu</Button>
           </Col>
