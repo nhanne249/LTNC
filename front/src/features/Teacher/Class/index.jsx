@@ -225,7 +225,7 @@ const Class = () => {
     if (!isPDF) {
       message.error("You can only upload JPG/PNG file!");
     }
-    const isLt2M = (100 * file.size) / 1024 / 1024 < 2;
+    const isLt2M = (100 * file.size) / 1024 / 1024 < 200;
     if (!isLt2M) {
       message.error("File phải có dung lượng nhỏ hơn 200MB!");
     }
@@ -251,7 +251,7 @@ const Class = () => {
       });
     }
   };
-  ////////////////////////////////////////////////////////////////////
+  //----------------------------------------------------------------
   return (
     <div className="class-list-container">
       <Search
