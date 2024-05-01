@@ -156,9 +156,9 @@ const Class = () => {
       key: null,
       dataIndex: null,
       width: "15%",
-      render: (value) =>
-        // setUsernameToSend(value.username);
-        isInputScore ? (
+      render: (value) => {
+        setUsernameToSend(value.username);
+        return isInputScore ? (
           <Search
             onSearch={onInputScore}
             enterButton="Thêm"
@@ -170,15 +170,15 @@ const Class = () => {
                 ? true
                 : false
             }
-            // defaultValue={
-            //   value.scores.some((obj) =>
-            //     Object.prototype.hasOwnProperty.call(obj, subjectToSend)
-            //   )
-            //     ? value.scores.find((obj) =>
-            //         Object.prototype.hasOwnProperty.call(obj, subjectToSend)
-            //       )[subjectToSend]
-            //     : 0
-            // }
+            defaultValue={
+              value.scores.some((obj) =>
+                Object.prototype.hasOwnProperty.call(obj, subjectToSend)
+              )
+                ? value.scores.find((obj) =>
+                    Object.prototype.hasOwnProperty.call(obj, subjectToSend)
+                  )[subjectToSend]
+                : 0
+            }
           />
         ) : (
           <div>
@@ -190,7 +190,8 @@ const Class = () => {
                 )[subjectToSend]
               : "Chưa có điểm"}
           </div>
-        ),
+        );
+      },
     },
   ];
 
