@@ -44,7 +44,7 @@ const resources = {
     },
     getAllClassResource: (data) => {
         return axios
-      .get(`https://ltnc-production.up.railway.app/${data}/all`, {
+      .get(`https://ltnc-production.up.railway.app/resources/${data}/all`, {
         responseType: "blob",
         headers: {
           Authorization: `Bearer ${Cookies.get("userPresent")}`,
