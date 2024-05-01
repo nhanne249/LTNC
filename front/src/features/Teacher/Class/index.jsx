@@ -242,13 +242,12 @@ const Class = () => {
     });
     setFileList(newFileList);
     if (info.file.status == "done") {
-      console.log("done");
       setFileList([]);
       dispatch(getAllClassResourceThunk(classNameOnShow)).then((res) => {
         console.log(res);
         const blobData = res.payload.data;
         const blobUrl = URL.createObjectURL(blobData);
-        setFileList([blobUrl]);
+        console.log(blobUrl);
       });
     }
   };
