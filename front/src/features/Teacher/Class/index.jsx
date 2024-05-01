@@ -14,8 +14,9 @@ import {
 import {
   getAllClassThunk,
   getClassThunk,
-  giveScoreAllClassThunk,
+  giveScoreForStudentThunk,
 } from "../../../redux/action/teacher";
+import { toast } from "react-toastify";
 import "./index.scss";
 
 const Class = () => {
@@ -29,6 +30,8 @@ const Class = () => {
   const [classNameOnShow, setClassNameOnShow] = useState();
   const [isInputScore, setIsInputScore] = useState(false);
   const [subjectToSend, setSubjectToSend] = useState();
+  const [usernameToSend, setUsernameToSend] = useState();
+
   useEffect(() => {
     dispatch(getAllClassThunk()).then((res) => {
       setDataReceived(res?.payload);
@@ -49,9 +52,36 @@ const Class = () => {
       setStudentList(res?.payload);
     });
   };
-  const onInputScore = (value, e) => {
-    console.log(value);
-    console.log(e);
+  const onInputScore = (value) => {
+    dispatch(
+      giveScoreForStudentThunk({
+        username: usernameToSend,
+        score: value,
+        subject: subjectToSend,
+      }).then((res) => {
+        console.log(res);
+        if (res?.error) {
+          toast.error("Tạo lớp học mới thất bại!", {
+            position: "top-right",
+            autoClose: 3000,
+            theme: "colored",
+          });
+        } else {
+          toast.success("Tạo lớp học mới thành công!", {
+            position: "top-right",
+            autoClose: 3000,
+            theme: "colored",
+          });
+          const dataSend = {
+            name: classNameOnShow,
+            page: 1,
+          };
+          dispatch(getClassThunk(dataSend)).then((res) => {
+            setStudentList(res?.payload);
+          });
+        }
+      })
+    );
   };
   const columns = [
     {
@@ -126,10 +156,11 @@ const Class = () => {
       key: null,
       dataIndex: null,
       width: "15%",
-      render: (value) =>
+      render: (value) => {
+        setUsernameToSend(value.username);
         isInputScore ? (
           <Search
-            onSearch={() => onInputScore(value)}
+            onSearch={onInputScore}
             enterButton="Thêm"
             size="small"
             disabled={
@@ -138,6 +169,11 @@ const Class = () => {
               )
                 ? true
                 : false
+            }
+            defaultValue={
+              value.scores.find((obj) =>
+                Object.prototype.hasOwnProperty.call(obj, subjectToSend)
+              )[subjectToSend]
             }
           />
         ) : (
@@ -150,7 +186,8 @@ const Class = () => {
                 )[subjectToSend]
               : "Chưa có điểm"}
           </div>
-        ),
+        );
+      },
     },
   ];
 
