@@ -246,8 +246,9 @@ const Class = () => {
       setFileList([]);
       dispatch(getAllClassResourceThunk(classNameOnShow)).then((res) => {
         console.log(res);
-        // const blobData = res.payload.data;
-        // const blobUrl = URL.createObjectURL(blobData);
+        const blobData = res.payload.data;
+        const blobUrl = URL.createObjectURL(blobData);
+        setFileList([blobUrl]);
       });
     }
   };
