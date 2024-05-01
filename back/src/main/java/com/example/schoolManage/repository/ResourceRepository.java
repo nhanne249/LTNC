@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface ResourceRepository extends MongoRepository<Resource, ObjectId> {
     List<Resource> findAllByClassroom(String classroom);
-    Optional<Resource> findByName(String name);
     void deleteByNameAndClassroom(String name, String classname);
+    Optional<Resource> findByNameAndClassroom(String name, String classname);
 }
