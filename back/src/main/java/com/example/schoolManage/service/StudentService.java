@@ -78,12 +78,12 @@ public class StudentService {
     }
 
 
-    public String rate(Review review, String teacher, String student) {
+    public String rate(Review review, String student) {
+        String teacher = review.getTeacher();
         if(reviewRepository.findByStudentAndTeacher(student, teacher).isPresent()){
             return "REVIEW EXISTED";
         }
         review.setStudent(student);
-        review.setTeacher(teacher);
 //        Classroom cl = inClassOfTeacher(teacher, username);
 //        if (cl==null) return "STUDENT ISN'T TAUGHT BY THIS TEACHER";
 //        Optional<Review> rv = reviewRepository.findByStudent(username);
@@ -96,7 +96,6 @@ public class StudentService {
 //            userRepository.save(tc.get());
 //            reviewRepository.save(review);
 //        }
-//
         reviewRepository.save(review);
         return "ADDED REVIEW";
     }

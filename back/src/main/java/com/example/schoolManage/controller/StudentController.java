@@ -52,12 +52,12 @@ public class StudentController {
 
 
     // xem lai phan requestBody
-    @PutMapping("/{teacher_username}/rate")
-    public ResponseEntity<String> rate(@RequestBody Review review, @PathVariable String teacher_username) {
+    @PutMapping("/rate")
+    public ResponseEntity<String> rate(@RequestBody Review review) {
         if (review.getRating()==null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("NEED ADD SCORE");
         else if (review.getContent()==null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("NEED ADD REVIEW");
         else if (review.getRating()>5 || review.getRating()<0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("WRONG SCORE REVIEW (0<=SCORE<=5)");
-        return new ResponseEntity<>(studentService.rate(review, teacher_username, getLoggedInUserDetails().getUsername()), HttpStatus.OK);
+        return new ResponseEntity<>(studentService.rate(review, getLoggedInUserDetails().getUsername()), HttpStatus.OK);
     }
     public UserDetails getLoggedInUserDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
