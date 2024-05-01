@@ -1,12 +1,9 @@
 package com.example.schoolManage.controller;
 
 import com.example.schoolManage.model.course.Classroom;
-import com.example.schoolManage.model.review.Review;
 import com.example.schoolManage.model.user.Teacher;
 import com.example.schoolManage.service.TeacherService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -51,10 +48,6 @@ public class TeacherController {
     public ResponseEntity<String> giveScoreToStudent(@PathVariable String student, @RequestBody Map<String, Double> score){
         teacherService.giveScore2(score, student);
         return ResponseEntity.ok("Score gived to student: " + student);
-    }
-    @GetMapping("/reviews")
-    public ResponseEntity<Page<Review>> getAllReviews(@RequestParam int page) {
-        return new ResponseEntity<>(teacherService.getReviews(getLoggedInUserDetails().getUsername(), PageRequest.of(page-1, 10)), HttpStatus.OK);
     }
     public UserDetails getLoggedInUserDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
