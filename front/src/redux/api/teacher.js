@@ -22,6 +22,9 @@ const teacher = {
     },
     giveScoreAllClass: (data) => {
         return transport.post(`/${data.classname}/scores`)
+    },
+    giveScoreForStudent: (data) => { 
+        return transport.put(`/teacher/scores/${data.username}`, data.dataInBody)
     }
 }
 export default teacher;

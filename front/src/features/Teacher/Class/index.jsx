@@ -6,16 +6,20 @@ import {
   Modal,
   Pagination,
   Button,
-  Form,
   Row,
   Col,
+  Upload,
+  message,
   Flex,
 } from "antd";
 import {
   getAllClassThunk,
   getClassThunk,
-  giveScoreAllClassThunk,
+  giveScoreForStudentThunk,
 } from "../../../redux/action/teacher";
+import { getAllClassResourceThunk } from "../../../redux/action/resources";
+import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 import "./index.scss";
 
 const Class = () => {
@@ -29,6 +33,10 @@ const Class = () => {
   const [classNameOnShow, setClassNameOnShow] = useState();
   const [isInputScore, setIsInputScore] = useState(false);
   const [subjectToSend, setSubjectToSend] = useState();
+  const [fileList, setFileList] = useState([]);
+  const [fileNameReceived, setFileNameReceived] = useState();
+  let usernameToSend;
+
   useEffect(() => {
     dispatch(getAllClassThunk()).then((res) => {
       setDataReceived(res?.payload);
@@ -47,10 +55,41 @@ const Class = () => {
     };
     dispatch(getClassThunk(dataSend)).then((res) => {
       setStudentList(res?.payload);
+      dispatch(getAllClassResourceThunk(value.name)).then((res) => {
+        setFileNameReceived(res.payload);
+      });
     });
   };
   const onInputScore = (value) => {
-    console.log(value);
+    dispatch(
+      giveScoreForStudentThunk({
+        username: usernameToSend,
+        dataInBody: {
+          [subjectToSend]: value,
+        },
+      })
+    ).then((res) => {
+      if (res?.error) {
+        toast.error(`Thêm điểm thất bại!`, {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "colored",
+        });
+      } else {
+        toast.success(`Thêm điểm thành công!`, {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "colored",
+        });
+        const dataSend = {
+          name: classNameOnShow,
+          page: 1,
+        };
+        dispatch(getClassThunk(dataSend)).then((res) => {
+          setStudentList(res?.payload);
+        });
+      }
+    });
   };
   const columns = [
     {
@@ -126,8 +165,31 @@ const Class = () => {
       dataIndex: null,
       width: "15%",
       render: (value) => {
-        isInputScore ? (
-          <Search onSearch={onInputScore} enterButton="Thêm" size="small" />
+        return isInputScore ? (
+          <Search
+            onSearch={(data) => {
+              usernameToSend = value.username;
+              onInputScore(data);
+            }}
+            enterButton="Thêm"
+            size="small"
+            disabled={
+              value.scores.some((obj) =>
+                Object.prototype.hasOwnProperty.call(obj, subjectToSend)
+              )
+                ? true
+                : false
+            }
+            defaultValue={
+              value.scores.some((obj) =>
+                Object.prototype.hasOwnProperty.call(obj, subjectToSend)
+              )
+                ? value.scores.find((obj) =>
+                    Object.prototype.hasOwnProperty.call(obj, subjectToSend)
+                  )[subjectToSend]
+                : 0
+            }
+          />
         ) : (
           <div>
             {value.scores.some((obj) =>
@@ -146,6 +208,7 @@ const Class = () => {
   const handleCancelModal = () => {
     setOpen(false);
     setStudentList([]);
+    setIsInputScore(false);
   };
   const onSearch = (data) => {
     if (data != "") {
@@ -161,6 +224,47 @@ const Class = () => {
       setStudentList(res?.payload);
     });
   };
+  //Upload tài liệu
+  const beforeUpload = (file) => {
+    const isPDF = file.type === "application/pdf";
+    if (!isPDF) {
+      message.error("You can only upload JPG/PNG file!");
+    }
+    const isLt2M = (100 * file.size) / 1024 / 1024 < 200;
+    if (!isLt2M) {
+      message.error("File phải có dung lượng nhỏ hơn 200MB!");
+    }
+    return isPDF && isLt2M;
+  };
+  const handleChange = (info) => {
+    let newFileList = [...info.fileList];
+    newFileList = newFileList.slice(-1);
+    newFileList = newFileList.map((file) => {
+      if (file.response) {
+        file.url = file.response.url;
+      }
+      return file;
+    });
+    setFileList(newFileList);
+    if (info.file.status == "done") {
+      toast.success(`File đã được đăng!`, {
+        position: "top-right",
+        autoClose: 3000,
+        theme: "colored",
+      });
+      setFileList([]);
+      dispatch(getAllClassResourceThunk(classNameOnShow)).then((res) => {
+        setFileNameReceived(res.payload);
+      });
+    } else {
+      toast.error(`Gặp vấn đề khi đăng file!`, {
+        position: "top-right",
+        autoClose: 3000,
+        theme: "colored",
+      });
+    }
+  };
+  //----------------------------------------------------------------
   return (
     <div className="class-list-container">
       <Search
@@ -194,24 +298,91 @@ const Class = () => {
         width="80vw"
       >
         <Row justify="space-between">
-          <Col span={16}>
-            <Button onClick={() => setIsInputScore(true)}>Nhập điểm</Button>
-            <Table
-              bordered
-              columns={columnsForList}
-              dataSource={studentList?.content}
-              pagination={false}
-            />
-            <Pagination
-              defaultCurrent={1}
-              total={studentList?.totalElements}
-              onChange={handleOnChangePagination}
-              defaultPageSize={10}
-            />
+          <Col span={15}>
+            <Flex vertical={true}>
+              <div
+                style={{
+                  width: "350px",
+                  color: "#AC1818",
+                  fontFamily: "Arial, Helvetica, sans-serif",
+                  fontSize: "20px",
+                  fontWeight: "700",
+                  lineHeight: "24px",
+                  borderBottom: "#AC1818 1px solid",
+                }}
+              >
+                Danh sách sinh viên
+              </div>
+              <Button
+                onClick={() => setIsInputScore(!isInputScore)}
+                style={{
+                  background: "#0388B4",
+                  color: "white",
+                  margin: "10px 0 10px 0",
+                  width: "fit-content",
+                }}
+              >
+                {isInputScore ? "Hủy nhập điểm" : "Nhập điểm"}
+              </Button>
+              <Table
+                bordered
+                columns={columnsForList}
+                dataSource={studentList?.content}
+                pagination={false}
+              />
+              <Pagination
+                defaultCurrent={1}
+                total={studentList?.totalElements}
+                onChange={handleOnChangePagination}
+                defaultPageSize={10}
+              />
+            </Flex>
           </Col>
-          <Col span={8}>
-            <div>Tài liệu</div>
-            <Button>Thêm tài liệu</Button>
+          <Col span={7}>
+            <div
+              style={{
+                width: "350px",
+                color: "#AC1818",
+                fontFamily: "Arial, Helvetica, sans-serif",
+                fontSize: "20px",
+                fontWeight: "700",
+                lineHeight: "24px",
+                borderBottom: "#AC1818 1px solid",
+              }}
+            >
+              Tài liệu
+            </div>
+            <Button
+              style={{
+                background: "#0388B4",
+                color: "white",
+                margin: "10px 0 10px 0",
+                width: "fit-content",
+              }}
+            >
+              <Upload
+                listType="text"
+                action={`https://ltnc-production.up.railway.app/resources/${classNameOnShow}`}
+                onChange={handleChange}
+                withCredentials={true}
+                headers={{
+                  Authorization: `Bearer ${Cookies.get("userPresent")}`,
+                }}
+                method="POST"
+                beforeUpload={beforeUpload}
+                maxCount={1}
+                fileList={fileList}
+              >
+                Thêm tài liệu
+              </Upload>
+            </Button>
+            <Flex vertical={true}>
+              {fileNameReceived
+                ? fileNameReceived.map((value, index) => {
+                    return <div key={index}>{value}</div>;
+                  })
+                : "Chưa có bài giảng"}
+            </Flex>
           </Col>
         </Row>
       </Modal>
