@@ -33,6 +33,7 @@ const Class = () => {
   const [isInputScore, setIsInputScore] = useState(false);
   const [subjectToSend, setSubjectToSend] = useState();
   const [fileList, setFileList] = useState([]);
+  const [fileNameReceived, setFileNameReceived] = useState();
   let usernameToSend;
 
   useEffect(() => {
@@ -244,10 +245,7 @@ const Class = () => {
     if (info.file.status == "done") {
       setFileList([]);
       dispatch(getAllClassResourceThunk(classNameOnShow)).then((res) => {
-        console.log(res);
-        const blobData = res.payload.data;
-        const blobUrl = URL.createObjectURL(blobData);
-        console.log(blobUrl);
+        setFileNameReceived(res.payload.data);
       });
     }
   };
