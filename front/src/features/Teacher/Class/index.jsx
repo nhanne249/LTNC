@@ -55,6 +55,9 @@ const Class = () => {
     dispatch(getClassThunk(dataSend)).then((res) => {
       setStudentList(res?.payload);
     });
+    dispatch(getAllClassResourceThunk(classNameOnShow)).then((res) => {
+      setFileNameReceived(res.payload.data);
+    });
   };
   const onInputScore = (value) => {
     dispatch(
