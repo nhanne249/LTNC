@@ -6,16 +6,17 @@ import {
   Modal,
   Pagination,
   Button,
-  Form,
   Row,
   Col,
-  Flex,
+  Upload,
+  message,
 } from "antd";
 import {
   getAllClassThunk,
   getClassThunk,
   giveScoreForStudentThunk,
 } from "../../../redux/action/teacher";
+import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import "./index.scss";
 
@@ -30,7 +31,7 @@ const Class = () => {
   const [classNameOnShow, setClassNameOnShow] = useState();
   const [isInputScore, setIsInputScore] = useState(false);
   const [subjectToSend, setSubjectToSend] = useState();
-  // const [usernameToSend, setUsernameToSend] = useState();
+  const [fileList, setFileList] = useState([]);
   let usernameToSend;
 
   useEffect(() => {
@@ -221,6 +222,38 @@ const Class = () => {
       setStudentList(res?.payload);
     });
   };
+  //Upload tài liệu
+  const beforeUpload = (file) => {
+    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+    console.log(file.type);
+    // if (!isJpgOrPng) {
+    //   message.error("You can only upload JPG/PNG file!");
+    // }
+    const isLt2M = (100 * file.size) / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      message.error("Ảnh phải có dung lượng nhỏ hơn 2MB!");
+    }
+    return isJpgOrPng && isLt2M;
+  };
+  const handleChange = (info) => {
+    let newFileList = [...info.fileList];
+    newFileList = newFileList.slice(-1);
+    newFileList = newFileList.map((file) => {
+      if (file.response) {
+        file.url = file.response.url;
+      }
+      return file;
+    });
+    setFileList(newFileList);
+    // if (info.file.status == "done") {
+    //   setFileList([]);
+    //   dispatch(getAvatarThunk()).then((res) => {
+    //     const blobData = res.payload.data;
+    //     const blobUrl = URL.createObjectURL(blobData);
+    //   });
+    // }
+  };
+  ////////////////////////////////////////////////////////////////////
   return (
     <div className="class-list-container">
       <Search
@@ -255,7 +288,15 @@ const Class = () => {
       >
         <Row justify="space-between">
           <Col span={15}>
-            <Button onClick={() => setIsInputScore(true)}>Nhập điểm</Button>
+            <Button
+              onClick={() => setIsInputScore(!isInputScore)}
+              style={{
+                background: "#0388B4",
+                color: "white",
+              }}
+            >
+              {isInputScore ? "Hủy nhập điểm" : "Nhập điểm"}
+            </Button>
             <Table
               bordered
               columns={columnsForList}
@@ -271,7 +312,21 @@ const Class = () => {
           </Col>
           <Col span={7}>
             <div>Tài liệu</div>
-            <Button>Thêm tài liệu</Button>
+            <Upload
+              listType="text"
+              action={`https://ltnc-production.up.railway.app/resources/${classNameOnShow}`}
+              onChange={handleChange}
+              withCredentials={true}
+              headers={{
+                Authorization: `Bearer ${Cookies.get("userPresent")}`,
+              }}
+              method="POST"
+              beforeUpload={beforeUpload}
+              maxCount={1}
+              fileList={fileList}
+            >
+              Cập nhật ảnh
+            </Upload>
           </Col>
         </Row>
       </Modal>

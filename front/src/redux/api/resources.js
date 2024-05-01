@@ -8,7 +8,7 @@ const resources = {
             `/avatar`, data
         )
     },
-    getAvatar: (data) => {
+    getAvatar: () => {
         return axios
       .get("https://ltnc-production.up.railway.app/avatar", {
         responseType: "blob",
@@ -41,7 +41,16 @@ const resources = {
         return transport.delete(
             `/faculties/${data}`,
         )
-    }
+    },
+    getAllClassResource: (data) => {
+        return axios
+      .get(`https://ltnc-production.up.railway.app/${data.name}/all`, {
+        responseType: "blob",
+        headers: {
+          Authorization: `Bearer ${Cookies.get("userPresent")}`,
+        },
+      })
+     }
 
 }
 export default resources;
