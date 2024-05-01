@@ -16,6 +16,7 @@ import {
   getClassThunk,
   giveScoreForStudentThunk,
 } from "../../../redux/action/teacher";
+import { getAllClassResourceThunk } from "../../../redux/action/resources";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import "./index.scss";
@@ -242,11 +243,12 @@ const Class = () => {
     setFileList(newFileList);
     if (info.file.status == "done") {
       console.log("done");
-      // setFileList([]);
-      // dispatch(getAvatarThunk()).then((res) => {
-      //   const blobData = res.payload.data;
-      //   const blobUrl = URL.createObjectURL(blobData);
-      // });
+      setFileList([]);
+      dispatch(getAllClassResourceThunk(classNameOnShow)).then((res) => {
+        console.log(res);
+        // const blobData = res.payload.data;
+        // const blobUrl = URL.createObjectURL(blobData);
+      });
     }
   };
   ////////////////////////////////////////////////////////////////////
@@ -289,6 +291,7 @@ const Class = () => {
               style={{
                 background: "#0388B4",
                 color: "white",
+                margin: "10px 0 10px 0",
               }}
             >
               {isInputScore ? "Hủy nhập điểm" : "Nhập điểm"}
