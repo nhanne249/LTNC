@@ -1,22 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getStudentInfoThunk,getAllClassesThunk,updateStudentThunk,enrollClassThunk,unenrollClassThunk} from '../action/student'
+import { getStudentInfoThunk,getAllClassesThunk,updateStudentThunk,enrollClassThunk,unenrollClassThunk,instructorEvaluationThunk,deleteReviewsThunk} from '../action/student'
 
 const student = createSlice({
   name: "clearStudentFuntion",
   initialState: {
-      getStudentInfoThunk: [],
-      getAllClassesThunk: [],
-      updateStudentThunk: [],
+    getStudentInfoThunk: [],
+    getAllClassesThunk: [],
+    updateStudentThunk: [],
     enrollClassThunk: [],
-    unenrollClassThunk: []
+    unenrollClassThunk: [],
+    instructorEvaluationThunk: [],
+    deleteReviewsThunk: []
   },
   reducers: {
     clearAdminFuntion: (state) => {
-          state.getInfoThunk = []
-          state.getAllClassesThunk = []
-          state.updateStudentThunk = []
-          state.enrollClassThunk = []
-          state.unenrollClassThunk = []
+      state.getInfoThunk = []
+      state.getAllClassesThunk = []
+      state.updateStudentThunk = []
+      state.enrollClassThunk = []
+      state.unenrollClassThunk = []
+      state.instructorEvaluationThunk = []
+      state.deleteReviewsThunk = []
     },
   },
   extraReducers: (builder) => {
@@ -51,16 +55,31 @@ const student = createSlice({
           state.enrollClassThunk = payload;
         }
       }
-      )
-      builder.addCase(
+    )
+    builder.addCase(
       unenrollClassThunk.fulfilled,
       (state, { payload }) => {
         if (payload) {
           state.unenrollClassThunk = payload;
         }
       }
-      )
-      
+    )
+    builder.addCase(
+      instructorEvaluationThunk.fulfilled,
+      (state, { payload }) => {
+        if (payload) {
+          state.instructorEvaluationThunk = payload;
+        }
+      }
+    )
+    builder.addCase(
+      deleteReviewsThunk.fulfilled,
+      (state, { payload }) => {
+        if (payload) {
+          state.deleteReviewsThunk = payload;
+        }
+      }
+    )  
   }
 });
 export const { clearStudentFuntion

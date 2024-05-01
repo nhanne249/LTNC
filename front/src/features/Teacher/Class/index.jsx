@@ -12,12 +12,16 @@ import {
   message,
   Flex,
 } from "antd";
+import { DeleteOutlined } from "@ant-design/icons";
 import {
   getAllClassThunk,
   getClassThunk,
   giveScoreForStudentThunk,
 } from "../../../redux/action/teacher";
-import { getAllClassResourceThunk } from "../../../redux/action/resources";
+import {
+  getAllClassResourceThunk,
+  deleteResourceThunk,
+} from "../../../redux/action/resources";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import "./index.scss";
@@ -45,52 +49,7 @@ const Class = () => {
     });
   }, [isDataLoad]);
 
-  const handleShowStudentList = (value) => {
-    setOpen(true);
-    setSubjectToSend(value.subject);
-    setClassNameOnShow(value.name);
-    const dataSend = {
-      name: value.name,
-      page: 1,
-    };
-    dispatch(getClassThunk(dataSend)).then((res) => {
-      setStudentList(res?.payload);
-      dispatch(getAllClassResourceThunk(value.name)).then((res) => {
-        setFileNameReceived(res.payload);
-      });
-    });
-  };
-  const onInputScore = (value) => {
-    dispatch(
-      giveScoreForStudentThunk({
-        username: usernameToSend,
-        dataInBody: {
-          [subjectToSend]: value,
-        },
-      })
-    ).then((res) => {
-      if (res?.error) {
-        toast.error(`Thêm điểm thất bại!`, {
-          position: "top-right",
-          autoClose: 3000,
-          theme: "colored",
-        });
-      } else {
-        toast.success(`Thêm điểm thành công!`, {
-          position: "top-right",
-          autoClose: 3000,
-          theme: "colored",
-        });
-        const dataSend = {
-          name: classNameOnShow,
-          page: 1,
-        };
-        dispatch(getClassThunk(dataSend)).then((res) => {
-          setStudentList(res?.payload);
-        });
-      }
-    });
-  };
+  //Nội dung trên trang chính
   const columns = [
     {
       title: "Tên môn học",
@@ -140,6 +99,27 @@ const Class = () => {
       ),
     },
   ];
+  const handleShowStudentList = (value) => {
+    setOpen(true);
+    setSubjectToSend(value.subject);
+    setClassNameOnShow(value.name);
+    const dataSend = {
+      name: value.name,
+      page: 1,
+    };
+    dispatch(getClassThunk(dataSend)).then((res) => {
+      setStudentList(res?.payload);
+      dispatch(getAllClassResourceThunk(value.name)).then((res) => {
+        setFileNameReceived(res.payload);
+      });
+    });
+  };
+  const onSearch = (data) => {
+    if (data != "") {
+      setDataShow(dataReceived?.filter((item) => item.name == data));
+    } else setDataShow(dataReceived);
+  };
+  //Danh sách lớp
   const columnsForList = [
     {
       title: "Tên sinh viên",
@@ -204,16 +184,10 @@ const Class = () => {
       },
     },
   ];
-
   const handleCancelModal = () => {
     setOpen(false);
     setStudentList([]);
     setIsInputScore(false);
-  };
-  const onSearch = (data) => {
-    if (data != "") {
-      setDataShow(dataReceived?.filter((item) => item.name == data));
-    } else setDataShow(dataReceived);
   };
   const handleOnChangePagination = (value) => {
     const dataSend = {
@@ -222,6 +196,37 @@ const Class = () => {
     };
     dispatch(getClassThunk(dataSend)).then((res) => {
       setStudentList(res?.payload);
+    });
+  };
+  const onInputScore = (value) => {
+    dispatch(
+      giveScoreForStudentThunk({
+        username: usernameToSend,
+        dataInBody: {
+          [subjectToSend]: value,
+        },
+      })
+    ).then((res) => {
+      if (res?.error) {
+        toast.error(`Thêm điểm thất bại!`, {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "colored",
+        });
+      } else {
+        toast.success(`Thêm điểm thành công!`, {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "colored",
+        });
+        const dataSend = {
+          name: classNameOnShow,
+          page: 1,
+        };
+        dispatch(getClassThunk(dataSend)).then((res) => {
+          setStudentList(res?.payload);
+        });
+      }
     });
   };
   //Upload tài liệu
@@ -263,6 +268,30 @@ const Class = () => {
         theme: "colored",
       });
     }
+  };
+  //Xóa tài liệu
+  const deleteFile = (value) => {
+    dispatch(deleteResourceThunk({ class: subjectToSend, name: value })).then(
+      (res) => {
+        if (res?.error) {
+          toast.error(`Gặp lỗi khi xóa file ${value}!`, {
+            position: "top-right",
+            autoClose: 3000,
+            theme: "colored",
+          });
+        } else {
+          toast.success(`${value} đã được xóa!`, {
+            position: "top-right",
+            autoClose: 3000,
+            theme: "colored",
+          });
+          dispatch(getAllClassResourceThunk(classNameOnShow)).then((res) => {
+            setFileNameReceived(res.payload);
+          });
+        }
+      }
+    );
+    console.log(value);
   };
   //----------------------------------------------------------------
   return (
@@ -376,10 +405,20 @@ const Class = () => {
                 Thêm tài liệu
               </Upload>
             </Button>
-            <Flex vertical={true}>
+            <Flex vertical={true} gap="small" justify="space-between">
               {fileNameReceived
                 ? fileNameReceived.map((value, index) => {
-                    return <div key={index}>{value}</div>;
+                    return (
+                      <Flex vertical={false} key={index}>
+                        <div>{value}</div>
+                        <Button
+                          shape="circle"
+                          onClick={() => deleteFile(value)}
+                          icon={<DeleteOutlined />}
+                          size="small"
+                        />
+                      </Flex>
+                    );
                   })
                 : "Chưa có bài giảng"}
             </Flex>
