@@ -55,8 +55,6 @@ const Class = () => {
     });
   };
   const onInputScore = (value) => {
-    console.log(value);
-    console.log(usernameToSend);
     dispatch(
       giveScoreForStudentThunk({
         username: usernameToSend,
@@ -65,7 +63,6 @@ const Class = () => {
         },
       })
     ).then((res) => {
-      console.log(res);
       if (res?.error) {
         toast.error("Tạo lớp học mới thất bại!", {
           position: "top-right",
@@ -165,7 +162,6 @@ const Class = () => {
         return isInputScore ? (
           <Search
             onSearch={(data) => {
-              console.log(value);
               usernameToSend = value.username;
               onInputScore(data);
             }}
@@ -224,16 +220,15 @@ const Class = () => {
   };
   //Upload tài liệu
   const beforeUpload = (file) => {
-    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-    console.log(file.type);
-    // if (!isJpgOrPng) {
-    //   message.error("You can only upload JPG/PNG file!");
-    // }
+    const isPDF = file.type === "application/pdf";
+    if (!isPDF) {
+      message.error("You can only upload JPG/PNG file!");
+    }
     const isLt2M = (100 * file.size) / 1024 / 1024 < 2;
     if (!isLt2M) {
-      message.error("Ảnh phải có dung lượng nhỏ hơn 2MB!");
+      message.error("File phải có dung lượng nhỏ hơn 200MB!");
     }
-    return isJpgOrPng && isLt2M;
+    return isPDF && isLt2M;
   };
   const handleChange = (info) => {
     let newFileList = [...info.fileList];
@@ -245,13 +240,14 @@ const Class = () => {
       return file;
     });
     setFileList(newFileList);
-    // if (info.file.status == "done") {
-    //   setFileList([]);
-    //   dispatch(getAvatarThunk()).then((res) => {
-    //     const blobData = res.payload.data;
-    //     const blobUrl = URL.createObjectURL(blobData);
-    //   });
-    // }
+    if (info.file.status == "done") {
+      console.log("done");
+      // setFileList([]);
+      // dispatch(getAvatarThunk()).then((res) => {
+      //   const blobData = res.payload.data;
+      //   const blobUrl = URL.createObjectURL(blobData);
+      // });
+    }
   };
   ////////////////////////////////////////////////////////////////////
   return (
@@ -325,7 +321,7 @@ const Class = () => {
               maxCount={1}
               fileList={fileList}
             >
-              Cập nhật ảnh
+              Thêm tài liệu
             </Upload>
           </Col>
         </Row>
