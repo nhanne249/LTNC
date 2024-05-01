@@ -31,9 +31,9 @@ public class ResourceController {
         rs.forEach(resource -> ls.add(resource.getName()));
         return new ResponseEntity<>(ls, HttpStatus.OK);
     }
-    @GetMapping("/{name}")
-    public ResponseEntity<byte[]> getResource(@PathVariable String name) {
-        var f =  resourceRepository.findByName(name);
+    @GetMapping("/{classname}/{name}")
+    public ResponseEntity<byte[]> getResource(@PathVariable String name, @PathVariable String classname) {
+        var f =  resourceRepository.findByNameAndClassroom(name, classname);
         return f.map(resource -> ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.valueOf(resource.getType()))
                 .body(FileUtils.decompress(resource.getData())))
