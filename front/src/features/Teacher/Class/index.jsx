@@ -161,6 +161,7 @@ const Class = () => {
         return isInputScore ? (
           <Search
             onSearch={(data) => {
+              console.log(value);
               setUsernameToSend(value.username);
               onInputScore(data);
             }}
