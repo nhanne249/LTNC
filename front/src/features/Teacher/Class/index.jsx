@@ -27,6 +27,8 @@ const Class = () => {
   const [studentList, setStudentList] = useState([]);
   const [isDataLoad, setIsDataLoad] = useState(false);
   const [classNameOnShow, setClassNameOnShow] = useState();
+  const [isInputScore, setIsInputScore] = useState(false);
+  const [subjectToSend, setSubjectToSend] = useState();
   useEffect(() => {
     dispatch(getAllClassThunk()).then((res) => {
       setDataReceived(res?.payload);
@@ -37,6 +39,7 @@ const Class = () => {
 
   const handleShowStudentList = (value) => {
     setOpen(true);
+    setSubjectToSend(value.subject);
     setClassNameOnShow(value.name);
     const dataSend = {
       name: value.name,
@@ -45,6 +48,9 @@ const Class = () => {
     dispatch(getClassThunk(dataSend)).then((res) => {
       setStudentList(res?.payload);
     });
+  };
+  const onInputScore = (value) => {
+    console.log(value);
   };
   const columns = [
     {
@@ -119,14 +125,21 @@ const Class = () => {
       key: null,
       dataIndex: null,
       width: "15%",
-      render: (value) => (
-        <Button
-          onClick={() => console.log(value)}
-          style={{ border: "none", width: "fit-content", boxShadow: "none" }}
-        >
-          Thêm điểm
-        </Button>
-      ),
+      render: (value) => {
+        isInputScore ? (
+          <Search onSearch={onInputScore} enterButton="Thêm" size="small" />
+        ) : (
+          <div>
+            {value.scores.some((obj) =>
+              Object.prototype.hasOwnProperty.call(obj, subjectToSend)
+            )
+              ? value.scores.find((obj) =>
+                  Object.prototype.hasOwnProperty.call(obj, subjectToSend)
+                )[subjectToSend]
+              : "Chưa có điểm"}
+          </div>
+        );
+      },
     },
   ];
 
@@ -182,10 +195,7 @@ const Class = () => {
       >
         <Row justify="space-between">
           <Col span={16}>
-            <Form></Form>
-            <Button type="submit" htmlType="submit">
-              Nhập điểm
-            </Button>
+            <Button onClick={() => setIsInputScore(true)}>Nhập điểm</Button>
             <Table
               bordered
               columns={columnsForList}

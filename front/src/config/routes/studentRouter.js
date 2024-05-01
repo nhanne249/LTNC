@@ -4,6 +4,7 @@ import Notification from "../../features/Student/Notification/index.jsx";
 import UpdateStudentInfo from "../../features/Student/PersonalInformation/UpdateStudentInfo/index.jsx";
 import Schedule from "../../features/Student/Schedule/index.jsx"
 import ClassRegister from "../../features/Student/ClassRegister/index.jsx"
+import InstructorEvaluation from '../../features/Student/InstructorEvaluation/index.jsx'
 
 const studentRouter = [
   {
@@ -43,6 +44,10 @@ const studentRouter = [
         path: "class-register",
         Component: ClassRegister,
       },
+      {
+        path: "instructor-evaluate",
+        Component: InstructorEvaluation
+      }
     ],
   },
 ];
