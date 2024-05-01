@@ -55,7 +55,7 @@ const Class = () => {
     dispatch(getClassThunk(dataSend)).then((res) => {
       setStudentList(res?.payload);
       dispatch(getAllClassResourceThunk(value.name)).then((res) => {
-        setFileNameReceived(res.payload.data);
+        setFileNameReceived(res.payload);
       });
     });
   };
@@ -248,7 +248,7 @@ const Class = () => {
     if (info.file.status == "done") {
       setFileList([]);
       dispatch(getAllClassResourceThunk(classNameOnShow)).then((res) => {
-        setFileNameReceived(res.payload.data);
+        setFileNameReceived(res.payload);
       });
     }
   };
