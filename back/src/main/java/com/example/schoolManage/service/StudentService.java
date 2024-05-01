@@ -84,50 +84,10 @@ public class StudentService {
             return "REVIEW EXISTED";
         }
         review.setStudent(student);
-//        Classroom cl = inClassOfTeacher(teacher, username);
-//        if (cl==null) return "STUDENT ISN'T TAUGHT BY THIS TEACHER";
-//        Optional<Review> rv = reviewRepository.findByStudent(username);
-//        if (rv.isPresent()) {
-//            rv.get().setContent(review.getContent());
-//            reviewRepository.save(rv.get());
-//        } else {
-//            Optional<Teacher> tc = userRepository.findTeacherByUsername(teacher);
-//            tc.get().addReview(username);
-//            userRepository.save(tc.get());
-//            reviewRepository.save(review);
-//        }
         reviewRepository.save(review);
         return "ADDED REVIEW";
     }
-
-    // kiem tra thong tin lop dang hoc
-    public Optional<Classroom> getInfoClass(String className) {
-        return classRepository.findByName(className);
+    public void deleteReview(String student, String teacher) {
+        reviewRepository.deleteByStudentAndTeacher(student, teacher);
     }
-
-    // kiem tra xem co duoc giao vien do day ko
-    public Classroom inClassOfTeacher (String teacher, String student) {
-        List<Classroom> list = classRepository.findAllByTeacher(teacher);
-        if (list==null) return null;
-        for (Classroom i : list) {
-            if (i.getStudents().contains(student)) return i;
-        }
-        return null;
-    }
-
-    // xoa review
-//    public String deleteRate(String teacher, String username) {
-//        Optional<Teacher> tc = userRepository.findTeacherByUsername(teacher);
-//        if (tc.isEmpty()) return "TEACHER ISN'T EXIST";
-//        Classroom cl = inClassOfTeacher(teacher, username);
-//        if (cl == null) return "STUDENT ISN'T TAUGHT BY THIS TEACHER";
-//        Optional<Review> rv = reviewRepository.findByStudent(username);
-//        if (rv.isEmpty()) return "HAVEN'T REVIEWED YET";
-//
-//        reviewRepository.delete(rv.get());
-//        tc.get().removeReview(username);
-//        userRepository.save(tc.get());
-//        return "REMOVED REVIEW";
-//    }
-
 }
