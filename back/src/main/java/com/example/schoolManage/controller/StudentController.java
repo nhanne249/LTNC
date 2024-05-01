@@ -59,6 +59,11 @@ public class StudentController {
         else if (review.getRating()>5 || review.getRating()<0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("WRONG SCORE REVIEW (0<=SCORE<=5)");
         return new ResponseEntity<>(studentService.rate(review, getLoggedInUserDetails().getUsername()), HttpStatus.OK);
     }
+    @DeleteMapping("/rate/{teacher}")
+    public ResponseEntity<String> deleteRating(@PathVariable String teacher) {
+        studentService.deleteReview(getLoggedInUserDetails().getUsername(), teacher);
+        return ResponseEntity.ok("Review deleted");
+    }
     public UserDetails getLoggedInUserDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
