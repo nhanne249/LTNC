@@ -30,7 +30,8 @@ const Class = () => {
   const [classNameOnShow, setClassNameOnShow] = useState();
   const [isInputScore, setIsInputScore] = useState(false);
   const [subjectToSend, setSubjectToSend] = useState();
-  const [usernameToSend, setUsernameToSend] = useState();
+  // const [usernameToSend, setUsernameToSend] = useState();
+  let usernameToSend;
 
   useEffect(() => {
     dispatch(getAllClassThunk()).then((res) => {
@@ -163,7 +164,7 @@ const Class = () => {
           <Search
             onSearch={(data) => {
               console.log(value);
-              setUsernameToSend(value.username);
+              usernameToSend = value.username;
               onInputScore(data);
             }}
             enterButton="Thêm"
