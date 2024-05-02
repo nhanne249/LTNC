@@ -2,10 +2,24 @@
     width: 100%;
     margin: 15px 35px 70px 15px;
     height: auto;
+    min-height: 500px;
     .review-content-container{
         width: 80%;
-        .review-container{
+        .reviews-container{
             width: 100%;
+            .review-list{
+                .review{
+                    .review-header{
+
+                    }
+                    .review-content{
+
+                    }
+                }
+            }
+            .review-input{
+
+            }
         }
     }
 }

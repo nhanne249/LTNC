@@ -14,6 +14,7 @@ const InstructorEvaluation = () => {
   const [dataReceived, setDataReceived] = useState();
   const [isReceived, setIsReceived] = useState(false);
   const [teacherUsernameToShow, setTeacherUsernameToShow] = useState(null);
+  const [teacherNameToShow, setTeacherNameToShow] = useState(null);
   const [page, setPage] = useState(1);
   const [reviewReceived, setReviewReceived] = useState();
   useEffect(() => {
@@ -21,6 +22,7 @@ const InstructorEvaluation = () => {
       Promise.all(
         res?.payload.map((data) => {
           return dispatch(getUserThunk(data.teacher)).then((response) => {
+            setTeacherNameToShow(response.payload.name);
             return { key: data.teacher, label: response.payload.name };
           });
         })
@@ -59,10 +61,26 @@ const InstructorEvaluation = () => {
         />
         <div className="review-content-container">
           {teacherUsernameToShow ? (
-            <div className="review-container">
+            <div className="reviews-container">
+              <div className="review-list">
+                {reviewReceived ? (
+                  reviewReceived.map((review, index) => {
+                    return (
+                      <div key={index} className="review">
+                        <b className="review-header">{review.student}</b>
+                        <Rate disabled={true} defaultValue={review.rating} />
+                        <div className="review-content">{review.content}</div>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div>Chưa có đánh giá về giảng viên {teacherNameToShow}</div>
+                )}
+              </div>
+              <div className="review-input"></div>
               <Flex vertical={true}>
                 <Form onFinish={onFinish} autoComplete="off" layout="vertical">
-                  <div>Đánh giá về giảng viên {teacherUsernameToShow}</div>
+                  <div>Đánh giá về giảng viên {teacherNameToShow}</div>
                   <div>{username}</div>
                   <Form.Item name="rating">
                     <Rate />
