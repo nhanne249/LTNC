@@ -1,8 +1,11 @@
-.evaluate-page{
+.review-page{
     width: 100%;
     margin: 15px 35px 70px 15px;
     height: auto;
-    .review-container{
+    .review-content-container{
         width: 80%;
+        .review-container{
+            width: 100%;
+        }
     }
 }
