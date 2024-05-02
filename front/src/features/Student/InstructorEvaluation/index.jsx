@@ -52,13 +52,26 @@ const InstructorEvaluation = () => {
   return (
     <div className="review-page">
       <Flex vertical={false} gap="small">
-        <Menu
-          theme="light"
-          mode="vertical"
-          items={dataReceived}
-          onClick={(key) => onClickMenu(key)}
-          style={{ width: "250px" }}
-        />
+        <div style={{ width: "fit-content" }}>
+          <div
+            style={{
+              color: "#0388b4",
+              fontFamily: "Arial, Helvetica, sans-serif",
+              fontSize: "18px",
+              fontWeight: 400,
+            }}
+          >
+            Danh sách giảng viên đang học
+          </div>
+          <Menu
+            theme="light"
+            mode="vertical"
+            items={dataReceived}
+            onClick={(key) => onClickMenu(key)}
+            style={{ width: "250px" }}
+          />
+        </div>
+
         <div className="review-content-container">
           {teacherUsernameToShow ? (
             <div className="reviews-container">
@@ -80,7 +93,16 @@ const InstructorEvaluation = () => {
               <div className="review-input"></div>
               <Flex vertical={true}>
                 <Form onFinish={onFinish} autoComplete="off" layout="vertical">
-                  <div>Đánh giá về giảng viên {teacherNameToShow}</div>
+                  <div
+                    style={{
+                      color: "#0388b4",
+                      fontFamily: "Arial, Helvetica, sans-serif",
+                      fontSize: "18px",
+                      fontWeight: 400,
+                    }}
+                  >
+                    Đánh giá về giảng viên {teacherNameToShow}
+                  </div>
                   <div>{username}</div>
                   <Form.Item name="rating">
                     <Rate />
