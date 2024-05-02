@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Form, Button, Rate, Input, Flex, Menu, Space } from "antd";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
-import { getAllClassesThunk } from "../../../redux/action/student";
+import { toast } from "react-toastify";
+import {
+  getAllClassesThunk,
+  instructorEvaluationThunk,
+} from "../../../redux/action/student";
 import { getUserThunk } from "../../../redux/action/admin";
 import { getAllReviewThunk } from "../../../redux/action/review";
 import "./index.scss";
@@ -15,7 +19,7 @@ const InstructorEvaluation = () => {
   const [isReceived, setIsReceived] = useState(false);
   const [teacherUsernameToShow, setTeacherUsernameToShow] = useState(null);
   const [teacherNameToShow, setTeacherNameToShow] = useState(null);
-  const [page, setPage] = useState(1);
+  let page = 1;
   const [reviewReceived, setReviewReceived] = useState();
   useEffect(() => {
     dispatch(getAllClassesThunk()).then((res) => {
@@ -35,8 +39,36 @@ const InstructorEvaluation = () => {
   const username = Cookies.get("username");
   //Gửi review
   const onFinish = (value) => {
-    console.log(value);
-    console.log(dataReceived);
+    dispatch(
+      instructorEvaluationThunk({
+        content: value.content,
+        student: username,
+        teacher: teacherUsernameToShow,
+        rating: value.rating,
+      })
+    ).then((res) => {
+      if (res?.error) {
+        toast.error("Tạo lớp học mới thất bại!", {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "colored",
+        });
+      } else {
+        toast.success("Tạo lớp học mới thành công!", {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "colored",
+        });
+        dispatch(
+          getAllReviewThunk({
+            teacherUsername: teacherUsernameToShow,
+            page: 1,
+          })
+        ).then((res) => {
+          setReviewReceived(res.payload);
+        });
+      }
+    });
   };
 
   const onClickMenu = (value) => {
@@ -45,10 +77,20 @@ const InstructorEvaluation = () => {
     dispatch(
       getAllReviewThunk({ teacherUsername: value.key, page: page })
     ).then((res) => {
-      setReviewReceived(res.payload.content);
+      setReviewReceived(res.payload);
     });
   };
-
+  const onMore = () => {
+    page++;
+    dispatch(
+      getAllReviewThunk({ teacherUsername: teacherUsernameToShow, page: page })
+    ).then((res) => {
+      setReviewReceived((prevState) => ({
+        ...prevState,
+        content: [...prevState.content, res?.payload?.content],
+      }));
+    });
+  };
   return (
     <div className="review-page">
       <Flex vertical={false} gap="middle">
@@ -70,17 +112,27 @@ const InstructorEvaluation = () => {
                   Đánh giá về giảng viên {teacherNameToShow}
                 </div>
                 {reviewReceived ? (
-                  reviewReceived.map((review, index) => {
-                    return (
-                      <div key={index} className="review">
-                        <div className="review-header">
-                          <b>{review.student}</b>
-                          <Rate disabled={true} defaultValue={review.rating} />
+                  <div>
+                    {reviewReceived.content.map((review, index) => {
+                      return (
+                        <div key={index} className="review">
+                          <div className="review-header">
+                            <b>{review.student}</b>
+                            <Rate
+                              disabled={true}
+                              defaultValue={review.rating}
+                            />
+                          </div>
+                          <div className="review-content">{review.content}</div>
                         </div>
-                        <div className="review-content">{review.content}</div>
-                      </div>
-                    );
-                  })
+                      );
+                    })}
+                    {reviewReceived.totalElements > page * 10 ? (
+                      <Button type="text" onClick={onMore}>
+                        Xem thêm
+                      </Button>
+                    ) : null}
+                  </div>
                 ) : (
                   <div>Chưa có đánh giá về giảng viên {teacherNameToShow}</div>
                 )}
