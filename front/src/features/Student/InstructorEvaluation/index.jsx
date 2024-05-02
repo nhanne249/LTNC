@@ -19,9 +19,11 @@ const InstructorEvaluation = () => {
     dispatch(getAllClassesThunk()).then((res) => {
       setDataReceived([
         res?.payload.map((data) => {
+          let dataRes;
           dispatch(getUserThunk(data.teacher)).then((response) => {
-            return { key: data.teacher, label: response.name };
+            dataRes = { key: data.teacher, label: response.name };
           });
+          return dataRes;
         }),
       ]);
       setIsReceived(true);
