@@ -19,6 +19,7 @@ const InstructorEvaluation = () => {
     dispatch(getAllClassesThunk()).then((res) => {
       setDataReceived([
         res?.payload.map((data) => {
+          console.log(data);
           let dataRes;
           dispatch(getUserThunk(data.teacher)).then((response) => {
             dataRes = { key: data.teacher, label: response.name };
