@@ -1,8 +1,8 @@
-.evaluate-input{
+.evaluate-page{
     width: 100%;
     margin: 15px 35px 70px 15px;
     height: auto;
     .review-container{
-        width: 100%;
+        width: calc(100%-250px -10px);
     }
 }

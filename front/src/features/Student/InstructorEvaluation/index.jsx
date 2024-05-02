@@ -43,8 +43,7 @@ const InstructorEvaluation = () => {
     dispatch(
       getAllReviewThunk({ teacherUsername: value.key, page: page })
     ).then((res) => {
-      console.log(res.payload);
-      setReviewReceived(res.payload);
+      setReviewReceived(res.payload.content);
     });
   };
 
@@ -60,23 +59,25 @@ const InstructorEvaluation = () => {
         />
         <div className="review-container">
           {teacherUsernameToShow ? (
-            <Flex vertical={true}>
-              <Form onFinish={onFinish} autoComplete="off" layout="vertical">
-                <div>Đánh giá về giảng viên {dataReceived.label}</div>
-                <div>{username}</div>
-                <Form.Item name="rating">
-                  <Rate />
-                </Form.Item>
-                <Form.Item name="content">
-                  <TextArea rows={4} placeholder="Đánh giá" />
-                </Form.Item>
-                <Form.Item>
-                  <Button htmlType="submit" type="submit">
-                    Gửi
-                  </Button>
-                </Form.Item>
-              </Form>
-            </Flex>
+            <div>
+              <Flex vertical={true}>
+                <Form onFinish={onFinish} autoComplete="off" layout="vertical">
+                  <div>Đánh giá về giảng viên {teacherUsernameToShow}</div>
+                  <div>{username}</div>
+                  <Form.Item name="rating">
+                    <Rate />
+                  </Form.Item>
+                  <Form.Item name="content">
+                    <TextArea rows={4} placeholder="Đánh giá" />
+                  </Form.Item>
+                  <Form.Item>
+                    <Button htmlType="submit" type="submit">
+                      Gửi
+                    </Button>
+                  </Form.Item>
+                </Form>
+              </Flex>
+            </div>
           ) : (
             <div>Chọn giảng viên để xem đánh giá</div>
           )}
