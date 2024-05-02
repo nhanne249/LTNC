@@ -1,0 +1,41 @@
+.review-page{
+    width: 100%;
+    margin: 15px 35px 70px 15px;
+    height: auto;
+    min-height: 500px;
+    .review-content-container{
+        width: 80%;
+        .reviews-container{
+            width: 100%;
+            .review-list{
+                .review{
+                    margin:5px 0 10px 0;
+                    height: 100px;
+                    .review-header{
+                        display: flex;
+                        justify-content: space-between;
+                        flex-direction: row;
+                    }
+                    .review-content{
+                        margin: 0 0 5px 0;
+                    }
+                }
+            }
+            .review-input{
+                border: 1px solid #000000;
+                border-radius: 10px;
+                padding: 5px 15px 10px 25px;
+                .submit-btn{
+                    width: 15%;;
+                    height: 50px;
+                    background: #0388B4;
+                    font-family: Arial, Helvetica, sans-serif;
+                    font-size: 16px;
+                    font-weight: 400;
+                    line-height: 24px;
+                    color:#ffffff;
+                }
+            }
+        }
+    }
+}

@@ -27,7 +27,7 @@ const student = {
         )
     },
     instructorEvaluation: (data) => {
-        return transport.post(`student/rate`, JSON.stringify(data))
+        return transport.put(`student/rate`, JSON.stringify(data))
     },
     deleteReviews: (data) => {
         return transport.post(`student/rate/${data}`)

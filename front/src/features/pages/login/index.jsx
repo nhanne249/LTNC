@@ -99,14 +99,7 @@ const Login = () => {
         </Form.Item>
         <Row className="options" justify={"space-between"}>
           <Col span={12}>
-            <Form.Item
-              name="isChecked"
-              valuePropName="checked"
-              wrapperCol={{
-                offset: 8,
-                span: 16,
-              }}
-            >
+            <Form.Item name="isChecked" valuePropName="checked">
               <Checkbox>Remember me</Checkbox>
             </Form.Item>
           </Col>

@@ -271,7 +271,7 @@ const Class = () => {
   };
   //Xóa tài liệu
   const deleteFile = (value) => {
-    dispatch(deleteResourceThunk({ class: subjectToSend, name: value })).then(
+    dispatch(deleteResourceThunk({ class: classNameOnShow, name: value })).then(
       (res) => {
         if (res?.error) {
           toast.error(`Gặp lỗi khi xóa file ${value}!`, {
