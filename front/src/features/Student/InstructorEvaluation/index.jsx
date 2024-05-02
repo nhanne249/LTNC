@@ -22,7 +22,6 @@ const InstructorEvaluation = () => {
           dispatch(getUserThunk(data.teacher)).then((response) => {
             return { key: data.teacher, label: response.name };
           });
-          return null;
         }),
       ]);
       setIsReceived(true);
