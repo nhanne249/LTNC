@@ -21,6 +21,7 @@ const InstructorEvaluation = () => {
         res?.payload.map((data) => {
           let dataRes;
           dispatch(getUserThunk(data.teacher)).then((response) => {
+            console.log(response);
             dataRes = { key: data.teacher, label: response.payload.name };
           });
           return dataRes;
