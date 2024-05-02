@@ -17,17 +17,18 @@ const InstructorEvaluation = () => {
   const [reviewReceived, setReviewReceived] = useState();
   useEffect(() => {
     dispatch(getAllClassesThunk()).then((res) => {
-      setDataReceived([
+      Promise.all(
         res?.payload.map((data) => {
           return dispatch(getUserThunk(data.teacher)).then((response) => {
             return { key: data.teacher, label: response.payload.name };
           });
-        }),
-      ]);
-      setIsReceived(true);
+        })
+      ).then((resolvedData) => {
+        setDataReceived(resolvedData);
+        setIsReceived(true);
+      });
     });
   }, [isReceived]);
-  console.log(dataReceived);
   const username = Cookies.get("username");
   //Gửi review
   const onFinish = (value) => {
