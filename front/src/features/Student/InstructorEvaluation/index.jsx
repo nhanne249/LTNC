@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button, Rate, Input, Flex, Menu } from "antd";
+import { Form, Button, Rate, Input, Flex, Menu, Space } from "antd";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { getAllClassesThunk } from "../../../redux/action/student";
@@ -92,15 +92,35 @@ const InstructorEvaluation = () => {
                     autoComplete="off"
                     layout="vertical"
                   >
-                    <div>{username}</div>
-                    <Form.Item name="rating">
+                    <b>{username}</b>
+                    <Form.Item
+                      name="rating"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Không được để trống phần chấm điểm!",
+                        },
+                      ]}
+                    >
                       <Rate />
                     </Form.Item>
-                    <Form.Item name="content">
+                    <Form.Item
+                      name="content"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Không được để trống phần đánh giá!",
+                        },
+                      ]}
+                    >
                       <TextArea rows={4} placeholder="Đánh giá" />
                     </Form.Item>
                     <Form.Item>
-                      <Button htmlType="submit" type="submit">
+                      <Button
+                        htmlType="submit"
+                        type="submit"
+                        className="submit-btn"
+                      >
                         Gửi
                       </Button>
                     </Form.Item>
