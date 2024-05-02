@@ -51,18 +51,9 @@ const InstructorEvaluation = () => {
 
   return (
     <div className="review-page">
-      <Flex vertical={false} gap="small">
+      <Flex vertical={false} gap="middle">
         <div style={{ width: "fit-content" }}>
-          <div
-            style={{
-              color: "#0388b4",
-              fontFamily: "Arial, Helvetica, sans-serif",
-              fontSize: "18px",
-              fontWeight: 400,
-            }}
-          >
-            Danh sách giảng viên đang học
-          </div>
+          <div style={divStyle}>Danh sách giảng viên đang học</div>
           <Menu
             theme="light"
             mode="vertical"
@@ -71,17 +62,21 @@ const InstructorEvaluation = () => {
             style={{ width: "250px" }}
           />
         </div>
-
         <div className="review-content-container">
           {teacherUsernameToShow ? (
             <div className="reviews-container">
               <div className="review-list">
+                <div style={divStyle}>
+                  Đánh giá về giảng viên {teacherNameToShow}
+                </div>
                 {reviewReceived ? (
                   reviewReceived.map((review, index) => {
                     return (
                       <div key={index} className="review">
-                        <b className="review-header">{review.student}</b>
-                        <Rate disabled={true} defaultValue={review.rating} />
+                        <div className="review-header">
+                          <b>{review.student}</b>
+                          <Rate disabled={true} defaultValue={review.rating} />
+                        </div>
                         <div className="review-content">{review.content}</div>
                       </div>
                     );
@@ -90,36 +85,31 @@ const InstructorEvaluation = () => {
                   <div>Chưa có đánh giá về giảng viên {teacherNameToShow}</div>
                 )}
               </div>
-              <div className="review-input"></div>
-              <Flex vertical={true}>
-                <Form onFinish={onFinish} autoComplete="off" layout="vertical">
-                  <div
-                    style={{
-                      color: "#0388b4",
-                      fontFamily: "Arial, Helvetica, sans-serif",
-                      fontSize: "18px",
-                      fontWeight: 400,
-                    }}
+              <div className="review-input">
+                <Flex vertical={true}>
+                  <Form
+                    onFinish={onFinish}
+                    autoComplete="off"
+                    layout="vertical"
                   >
-                    Đánh giá về giảng viên {teacherNameToShow}
-                  </div>
-                  <div>{username}</div>
-                  <Form.Item name="rating">
-                    <Rate />
-                  </Form.Item>
-                  <Form.Item name="content">
-                    <TextArea rows={4} placeholder="Đánh giá" />
-                  </Form.Item>
-                  <Form.Item>
-                    <Button htmlType="submit" type="submit">
-                      Gửi
-                    </Button>
-                  </Form.Item>
-                </Form>
-              </Flex>
+                    <div>{username}</div>
+                    <Form.Item name="rating">
+                      <Rate />
+                    </Form.Item>
+                    <Form.Item name="content">
+                      <TextArea rows={4} placeholder="Đánh giá" />
+                    </Form.Item>
+                    <Form.Item>
+                      <Button htmlType="submit" type="submit">
+                        Gửi
+                      </Button>
+                    </Form.Item>
+                  </Form>
+                </Flex>
+              </div>
             </div>
           ) : (
-            <div>Chọn giảng viên để xem đánh giá</div>
+            <div style={divStyle}>Chọn giảng viên để xem đánh giá</div>
           )}
         </div>
       </Flex>
@@ -128,3 +118,10 @@ const InstructorEvaluation = () => {
 };
 
 export default InstructorEvaluation;
+
+const divStyle = {
+  color: "#0388b4",
+  fontFamily: "Arial, Helvetica, sans-serif",
+  fontSize: "18px",
+  fontWeight: 400,
+};

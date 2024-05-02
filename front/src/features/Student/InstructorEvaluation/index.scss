@@ -9,16 +9,19 @@
             width: 100%;
             .review-list{
                 .review{
+                    margin:5px 0 5px 0;
                     .review-header{
-
+                        display: flex;
+                        justify-content: space-between;
+                        flex-direction: row;
                     }
                     .review-content{
-
+                        margin: 5px 0 5px 0;
                     }
                 }
             }
             .review-input{
-
+                border: 1px solid #ffffff;
             }
         }
     }
