@@ -49,7 +49,7 @@ const InstructorEvaluation = () => {
       <Flex vertical={false}>
         <Menu
           theme="light"
-          mode="horizontal"
+          mode="vertical"
           items={dataReceived}
           onClick={(key) => onClickMenu(key)}
         />
