@@ -38,8 +38,8 @@ const InstructorEvaluation = () => {
 
   const onClickMenu = (value) => {
     console.log(value);
-    setTeacherUsernameToShow(value);
-    dispatch(getAllReviewThunk(value)).then((res) => {
+    setTeacherUsernameToShow(value.key);
+    dispatch(getAllReviewThunk(value.key)).then((res) => {
       console.log(res.payload);
       setReviewReceived(res.payload);
     });
