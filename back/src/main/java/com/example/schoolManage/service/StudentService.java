@@ -80,11 +80,16 @@ public class StudentService {
 
     public String rate(Review review, String student) {
         String teacher = review.getTeacher();
-        if(reviewRepository.findByStudentAndTeacher(student, teacher).isPresent()){
-            return "REVIEW EXISTED";
+        var existedReview = reviewRepository.findByStudentAndTeacher(student, teacher);
+        if(existedReview.isPresent()){
+            existedReview.get().setContent(review.getContent());
+            existedReview.get().setRating(review.getRating());
+            reviewRepository.save(existedReview.get());
         }
-        review.setStudent(student);
-        reviewRepository.save(review);
+        else {
+            review.setStudent(student);
+            reviewRepository.save(review);
+        }
         return "ADDED REVIEW";
     }
     public void deleteReview(String student, String teacher) {
