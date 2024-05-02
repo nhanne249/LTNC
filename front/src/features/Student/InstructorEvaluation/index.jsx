@@ -48,7 +48,7 @@ const InstructorEvaluation = () => {
   };
 
   return (
-    <div className="evaluate-input">
+    <div className="review-page">
       <Flex vertical={false} gap="small">
         <Menu
           theme="light"
@@ -57,9 +57,9 @@ const InstructorEvaluation = () => {
           onClick={(key) => onClickMenu(key)}
           style={{ width: "250px" }}
         />
-        <div className="review-container">
+        <div className="review-content-container">
           {teacherUsernameToShow ? (
-            <div>
+            <div className="review-container">
               <Flex vertical={true}>
                 <Form onFinish={onFinish} autoComplete="off" layout="vertical">
                   <div>Đánh giá về giảng viên {teacherUsernameToShow}</div>
