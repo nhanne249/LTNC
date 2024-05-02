@@ -28,6 +28,7 @@ const InstructorEvaluation = () => {
       setIsReceived(true);
     });
   }, [isReceived]);
+  console.log(dataReceived);
   const username = Cookies.get("username");
   //Gửi review
   const onFinish = (value) => {
