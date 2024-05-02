@@ -58,6 +58,7 @@ const InstructorEvaluation = () => {
           {teacherUsernameToShow ? (
             <Flex vertical={true}>
               <Form onFinish={onFinish} autoComplete="off" layout="vertical">
+                <div>Đánh giá về giảng viên {dataReceived.label}</div>
                 <div>{username}</div>
                 <Form.Item name="rating">
                   <Rate />
@@ -73,7 +74,7 @@ const InstructorEvaluation = () => {
               </Form>
             </Flex>
           ) : (
-            <div>Bảng đánh giá</div>
+            <div>Chọn giảng viên để xem đánh giá</div>
           )}
         </div>
       </Flex>
