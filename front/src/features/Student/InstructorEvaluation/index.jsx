@@ -18,13 +18,10 @@ const InstructorEvaluation = () => {
   useEffect(() => {
     dispatch(getAllClassesThunk()).then((res) => {
       setDataReceived([
-        res?.payload.map((data) => {
-          let dataRes;
+        res?.payload.forEach((data) => {
           dispatch(getUserThunk(data.teacher)).then((response) => {
-            console.log(response);
-            dataRes = { key: data.teacher, label: response.payload.name };
+            return { key: data.teacher, label: response.payload.name };
           });
-          return dataRes;
         }),
       ]);
       setIsReceived(true);
