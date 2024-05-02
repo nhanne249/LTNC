@@ -14,6 +14,7 @@ const InstructorEvaluation = () => {
   const [dataReceived, setDataReceived] = useState();
   const [isReceived, setIsReceived] = useState(false);
   const [teacherUsernameToShow, setTeacherUsernameToShow] = useState(null);
+  const [page, setPage] = useState(1);
   const [reviewReceived, setReviewReceived] = useState();
   useEffect(() => {
     dispatch(getAllClassesThunk()).then((res) => {
@@ -39,7 +40,9 @@ const InstructorEvaluation = () => {
   const onClickMenu = (value) => {
     console.log(value);
     setTeacherUsernameToShow(value.key);
-    dispatch(getAllReviewThunk(value.key)).then((res) => {
+    dispatch(
+      getAllReviewThunk({ teacherUsername: value.key, page: page })
+    ).then((res) => {
       console.log(res.payload);
       setReviewReceived(res.payload);
     });
