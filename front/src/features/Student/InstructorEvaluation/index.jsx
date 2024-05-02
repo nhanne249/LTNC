@@ -15,6 +15,7 @@ const InstructorEvaluation = () => {
   const [isReceived, setIsReceived] = useState(false);
   const [teacherUsernameToShow, setTeacherUsernameToShow] = useState(null);
   const [reviewReceived, setReviewReceived] = useState();
+  const [infoReceived, setInfoReceived] = useState();
   useEffect(() => {
     dispatch(getAllClassesThunk()).then((res) => {
       setDataReceived([
@@ -26,8 +27,9 @@ const InstructorEvaluation = () => {
     });
     const getUserInfor = (data) => {
       dispatch(getUserThunk(data.teacher)).then((response) => {
-        return { key: data.teacher, label: response.payload.name };
+        setInfoReceived({ key: data.teacher, label: response.payload.name });
       });
+      return infoReceived;
     };
   }, [isReceived]);
   console.log(dataReceived);
