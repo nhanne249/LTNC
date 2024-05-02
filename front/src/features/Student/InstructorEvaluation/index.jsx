@@ -17,13 +17,13 @@ const InstructorEvaluation = () => {
   const [reviewReceived, setReviewReceived] = useState();
   useEffect(() => {
     dispatch(getAllClassesThunk()).then((res) => {
-      setDataReceived(
-        res?.payload.forEach((data) => {
-          dispatch(getUserThunk(data.teacher)).then((response) => {
+      setDataReceived([
+        res?.payload.map((data) => {
+          return dispatch(getUserThunk(data.teacher)).then((response) => {
             return { key: data.teacher, label: response.payload.name };
           });
-        })
-      );
+        }),
+      ]);
       setIsReceived(true);
     });
   }, [isReceived]);
