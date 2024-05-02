@@ -3,6 +3,8 @@ import { Form, Button, Rate, Input, Flex, Menu } from "antd";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { getAllClassesThunk } from "../../../redux/action/student";
+import { getUserThunk } from "../../../redux/action/admin";
+import { getAllReviewThunk } from "../../../redux/action/review";
 import "./index.scss";
 
 const InstructorEvaluation = () => {
@@ -11,12 +13,16 @@ const InstructorEvaluation = () => {
 
   const [dataReceived, setDataReceived] = useState();
   const [isReceived, setIsReceived] = useState(false);
+  const [teacherUsernameToShow, setTeacherUsernameToShow] = useState(null);
+  const [reviewReceived, setReviewReceived] = useState();
   useEffect(() => {
     dispatch(getAllClassesThunk()).then((res) => {
-      console.log(res);
       setDataReceived([
         res?.payload.map((data) => {
-          return { key: data.teacher, label: data.teacher };
+          dispatch(getUserThunk(data.teacher)).then((response) => {
+            return { key: data.teacher, label: response.name };
+          });
+          return null;
         }),
       ]);
       setIsReceived(true);
@@ -29,27 +35,43 @@ const InstructorEvaluation = () => {
     console.log(dataReceived);
   };
 
+  const onClickMenu = (value) => {
+    setTeacherUsernameToShow(value);
+    dispatch(getAllReviewThunk(value)).then((res) => {
+      console.log(res.payload);
+      setReviewReceived(res.payload);
+    });
+  };
+
   return (
     <div className="evaluate-input">
       <Flex vertical={false}>
-        <Menu></Menu>
-        <Flex vertical={true}>
-          <div>adsadsda</div>
-        </Flex>
-        <Form onFinish={onFinish} autoComplete="off" layout="vertical">
-          <div>{username}</div>
-          <Form.Item name="rating">
-            <Rate />
-          </Form.Item>
-          <Form.Item name="content">
-            <TextArea rows={4} placeholder="Đánh giá" />
-          </Form.Item>
-          <Form.Item>
-            <Button htmlType="submit" type="submit">
-              Gửi
-            </Button>
-          </Form.Item>
-        </Form>
+        <Menu
+          theme="light"
+          mode="horizontal"
+          items={dataReceived}
+          onClick={(key) => onClickMenu(key)}
+        />
+        {teacherUsernameToShow ? (
+          <Flex vertical={true}>
+            <Form onFinish={onFinish} autoComplete="off" layout="vertical">
+              <div>{username}</div>
+              <Form.Item name="rating">
+                <Rate />
+              </Form.Item>
+              <Form.Item name="content">
+                <TextArea rows={4} placeholder="Đánh giá" />
+              </Form.Item>
+              <Form.Item>
+                <Button htmlType="submit" type="submit">
+                  Gửi
+                </Button>
+              </Form.Item>
+            </Form>
+          </Flex>
+        ) : (
+          <div>Bảng đánh giá</div>
+        )}
       </Flex>
     </div>
   );
