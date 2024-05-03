@@ -30,4 +30,17 @@
         border: #4096ff 1px solid !important;
         background: #ffffff !important;
     }
+    .score-table-container{
+        width: 100%;
+        .score-table-title{
+            margin: 7px 0px 15px 0px;
+            width: 25vw;
+            color: #AC1818;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 24px;
+            border-bottom: #AC1818 1px solid;
+        }
+    }
 }

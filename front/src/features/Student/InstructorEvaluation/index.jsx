@@ -48,13 +48,13 @@ const InstructorEvaluation = () => {
       })
     ).then((res) => {
       if (res?.error) {
-        toast.error("Tạo lớp học mới thất bại!", {
+        toast.error("Gặp lỗi khi gửi đánh giá!", {
           position: "top-right",
           autoClose: 3000,
           theme: "colored",
         });
       } else {
-        toast.success("Tạo lớp học mới thành công!", {
+        toast.success("Đánh giá đã được gửi!", {
           position: "top-right",
           autoClose: 3000,
           theme: "colored",
