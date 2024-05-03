@@ -131,7 +131,7 @@ const UpdateTeacherInfo = () => {
             <>
               {fields.map((field, index) => (
                 <Form.Item
-                  label={index === 1 ? "Bằng cấp" : ""}
+                  label={index === 0 ? "Bằng cấp" : ""}
                   required={false}
                   key={field.key}
                 >
