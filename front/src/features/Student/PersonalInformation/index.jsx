@@ -161,12 +161,16 @@ const PersonalInformation = () => {
             <RightCircleTwoTone twoToneColor="#AC1818" />
             Bảng điểm
           </div>
-          <Table
-            columns={colums}
-            dataSource={info.scores}
-            bordered={true}
-            size="middle"
-          />
+          <div className="table-container">
+            <div className="table-wrapper">
+              <Table
+                columns={colums}
+                dataSource={info.scores}
+                bordered={true}
+                size="middle"
+              />
+            </div>
+          </div>
         </div>
       </Flex>
     </div>

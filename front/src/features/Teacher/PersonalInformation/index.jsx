@@ -128,7 +128,7 @@ const PersonalInformation = () => {
                   return <b key={key}>{degree}</b>;
                 })
               ) : (
-                <div>{info?.name}</div>
+                <b style={{ color: "#AC1818" }}>!Cần cập nhật bằng cấp</b>
               )}
             </div>
           </div>

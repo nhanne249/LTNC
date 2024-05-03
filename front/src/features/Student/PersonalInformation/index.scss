@@ -31,7 +31,7 @@
         background: #ffffff !important;
     }
     .score-table-container{
-        width: 80%;
+        width: 100%;
         .score-table-title{
             margin: 7px 0px 15px 0px;
             width: 25vw;
@@ -41,6 +41,12 @@
             font-weight: 700;
             line-height: 24px;
             border-bottom: #AC1818 1px solid;
+        }
+        .table-container{
+            width: 100%;
+            .table-wrapper{
+                width: 80%;
+            }
         }
     }
 }
