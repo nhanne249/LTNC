@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Input, Button, Form, Checkbox } from "antd";
+import { Input, Button, Form } from "antd";
+import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { updateStudentThunk } from "../../../../redux/action/student";
@@ -8,9 +9,10 @@ import "./index.scss";
 
 const UpdateStudentInfo = () => {
   const dispatch = useDispatch();
-  const [checked, setChecked] = useState(false);
+  const location = useLocation();
   const navigate = useNavigate();
-
+  const info = location.state;
+  console.log(info);
   const onFinish = (values) => {
     const dataSend = {
       name: values.name,

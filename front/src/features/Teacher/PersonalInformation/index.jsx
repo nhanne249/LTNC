@@ -125,7 +125,12 @@ const PersonalInformation = () => {
             <div className="information-content">
               {info.degrees ? (
                 info.degrees.map((degree, key) => {
-                  return <b key={key}>{degree}</b>;
+                  return (
+                    <b key={key}>
+                      {degree}
+                      <br />
+                    </b>
+                  );
                 })
               ) : (
                 <b style={{ color: "#AC1818" }}>!Cần cập nhật bằng cấp</b>
