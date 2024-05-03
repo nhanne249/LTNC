@@ -67,7 +67,7 @@ const UpdateStudentInfo = () => {
                     new Error("Email phải đúng định dạng!")
                   );
                 }
-                if (value.length() == 0) {
+                if (value.length == 0) {
                   return Promise.reject(new Error("Vui lòng nhập email!"));
                 }
                 return Promise.resolve();
@@ -93,7 +93,7 @@ const UpdateStudentInfo = () => {
                     new Error("Số điện thoại phải chứa chữ số!")
                   );
                 }
-                if (value.length() == 0) {
+                if (value.length == 0) {
                   return Promise.reject(
                     new Error("Vui lòng nhập số điện thoại!")
                   );
