@@ -57,10 +57,6 @@ const UpdateStudentInfo = () => {
           name="email"
           rules={[
             {
-              required: true,
-              message: "Vui lòng nhập email!",
-            },
-            {
               validator(__, value) {
                 if (
                   !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(
@@ -70,6 +66,9 @@ const UpdateStudentInfo = () => {
                   return Promise.reject(
                     new Error("Email phải đúng định dạng!")
                   );
+                }
+                if (value.length() == 0) {
+                  return Promise.reject(new Error("Vui lòng nhập email!"));
                 }
                 return Promise.resolve();
               },
@@ -88,14 +87,15 @@ const UpdateStudentInfo = () => {
           name="phone"
           rules={[
             {
-              required: true,
-              message: "Vui lòng nhập số điện thoại!",
-            },
-            {
               validator(__, value) {
                 if (!/\d/.test(value)) {
                   return Promise.reject(
                     new Error("Số điện thoại phải chứa chữ số!")
+                  );
+                }
+                if (value.length() == 0) {
+                  return Promise.reject(
+                    new Error("Vui lòng nhập số điện thoại!")
                   );
                 }
                 return Promise.resolve();
