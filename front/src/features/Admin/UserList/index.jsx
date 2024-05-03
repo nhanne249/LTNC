@@ -290,7 +290,7 @@ const UserList = () => {
           <Form.Item
             name="password"
             rules={[
-              { required: true, message: "không được để trống mật khẩu" },
+              { required: true, message: "Không được để trống mật khẩu!" },
             ]}
           >
             <Input.Password placeholder="Mật khẩu mới" />
