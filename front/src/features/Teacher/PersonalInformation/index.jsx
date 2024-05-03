@@ -30,11 +30,10 @@ const PersonalInformation = () => {
     });
   }, [isReceived]);
   const handleUpdateInfo = () => {
-    navigate(
-      "/teacher/update-teacher-info",
-      { replace: true },
-      { state: { name: info?.name, email: info?.email, phone: info?.phone } }
-    );
+    navigate("/teacher/update-teacher-info", {
+      replace: true,
+      state: { name: info?.name, email: info?.email, phone: info?.phone },
+    });
   };
 
   //Sử lý hình ảnh để upload

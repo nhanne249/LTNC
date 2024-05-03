@@ -10,6 +10,8 @@ import "./index.scss";
 const UpdateTeacherInfo = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const info = location.state;
 
   const onFinish = (values) => {
     const dataSend = {
@@ -68,7 +70,13 @@ const UpdateTeacherInfo = () => {
             },
           ]}
         >
-          <Input className="input-area" placeholder="Họ và tên" />
+          <Input
+            className="input-area"
+            placeholder="Họ và tên"
+            defaultValue={info.name}
+            value={info.name}
+            disabled
+          />
         </Form.Item>
         <Form.Item
           name="email"
@@ -93,7 +101,12 @@ const UpdateTeacherInfo = () => {
             },
           ]}
         >
-          <Input className="input-area" placeholder="Email" />
+          <Input
+            className="input-area"
+            placeholder="Email"
+            defaultValue={info.email}
+            value={info.email}
+          />
         </Form.Item>
         <Form.Item
           name="phone"
@@ -114,7 +127,12 @@ const UpdateTeacherInfo = () => {
             },
           ]}
         >
-          <Input className="input-area" placeholder="Số điện thoại" />
+          <Input
+            className="input-area"
+            placeholder="Số điện thoại"
+            defaultValue={info.phone}
+            value={info.phone}
+          />
         </Form.Item>
         <Form.List
           name="degrees"

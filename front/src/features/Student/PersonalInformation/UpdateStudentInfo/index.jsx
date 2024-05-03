@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Input, Button, Form } from "antd";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import { updateStudentThunk } from "../../../../redux/action/student";
 import "./index.scss";
 
@@ -11,8 +10,7 @@ const UpdateStudentInfo = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const info = location;
-  console.log(info);
+  const info = location.state;
   const onFinish = (values) => {
     const dataSend = {
       name: values.name,
@@ -69,7 +67,13 @@ const UpdateStudentInfo = () => {
             },
           ]}
         >
-          <Input className="input-area" placeholder="Họ và tên" />
+          <Input
+            className="input-area"
+            placeholder="Họ và tên"
+            defaultValue={info.name}
+            value={info.name}
+            disabled
+          />
         </Form.Item>
         <Form.Item
           name="email"
@@ -94,7 +98,12 @@ const UpdateStudentInfo = () => {
             },
           ]}
         >
-          <Input className="input-area" placeholder="Email" />
+          <Input
+            className="input-area"
+            placeholder="Email"
+            defaultValue={info.email}
+            value={info.email}
+          />
         </Form.Item>
         <Form.Item
           name="phone"
@@ -115,7 +124,12 @@ const UpdateStudentInfo = () => {
             },
           ]}
         >
-          <Input className="input-area" placeholder="Số điện thoại" />
+          <Input
+            className="input-area"
+            placeholder="Số điện thoại"
+            defaultValue={info.phone}
+            value={info.phone}
+          />
         </Form.Item>
         <Form.Item>
           <Button className="submit-button" type="primary" htmlType="submit">
