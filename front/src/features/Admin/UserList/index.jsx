@@ -287,7 +287,14 @@ const UserList = () => {
         width="30vw"
       >
         <Form onFinish={onFinish}>
-          <Form.Item name="password"></Form.Item>
+          <Form.Item
+            name="password"
+            rules={[
+              { required: true, message: "không được để trống mật khẩu" },
+            ]}
+          >
+            <Input.Password placeholder="Mật khẩu mới" />
+          </Form.Item>
           <Form.Item>
             <Button
               type="submit"
