@@ -12,28 +12,28 @@ const UpdateTeacherInfo = () => {
   const navigate = useNavigate();
 
   const onFinish = (values) => {
-    console.log(values);
     const dataSend = {
       name: values.name,
       email: values.email,
       phone: values.phone,
+      degrees: values.degrees,
     };
-    // dispatch(updateTeacherInfoThunk(dataSend)).then((res) => {
-    //   if (res?.error) {
-    //     toast.error("Cập nhật thất bại!", {
-    //       position: "top-right",
-    //       autoClose: 3000,
-    //       theme: "colored",
-    //     });
-    //   } else {
-    //     toast.success("Cập nhật thành công!", {
-    //       position: "top-right",
-    //       autoClose: 3000,
-    //       theme: "colored",
-    //     });
-    //     navigate("/teacher/personal-information", { replace: true });
-    //   }
-    // });
+    dispatch(updateTeacherInfoThunk(dataSend)).then((res) => {
+      if (res?.error) {
+        toast.error("Cập nhật thất bại!", {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "colored",
+        });
+      } else {
+        toast.success("Cập nhật thành công!", {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "colored",
+        });
+        navigate("/teacher/personal-information", { replace: true });
+      }
+    });
   };
   return (
     <div className="form-cointainer">
@@ -148,7 +148,7 @@ const UpdateTeacherInfo = () => {
                     ]}
                     noStyle
                   >
-                    <Input placeholder="Loại bằng" />
+                    <Input placeholder="Loại bằng" className="input-area" />
                   </Form.Item>
                   {fields.length > 1 ? (
                     <MinusCircleOutlined
@@ -163,7 +163,7 @@ const UpdateTeacherInfo = () => {
                   type="dashed"
                   onClick={() => add()}
                   style={{
-                    width: "60%",
+                    width: "30vw",
                   }}
                   icon={<PlusOutlined />}
                 >
