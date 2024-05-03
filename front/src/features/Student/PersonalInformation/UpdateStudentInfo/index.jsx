@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Input, Button, Form } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { updateStudentThunk } from "../../../../redux/action/student";
+import { updateStudentInfoThunk } from "../../../../redux/action/student";
 import "./index.scss";
 
 const UpdateStudentInfo = () => {
@@ -17,7 +17,7 @@ const UpdateStudentInfo = () => {
       email: values.email,
       phone: values.phone,
     };
-    dispatch(updateStudentThunk(dataSend)).then((res) => {
+    dispatch(updateStudentInfoThunk(dataSend)).then((res) => {
       if (res?.error) {
         toast.error("Cập nhật thất bại!", {
           position: "top-right",
