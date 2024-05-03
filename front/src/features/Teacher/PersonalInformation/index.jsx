@@ -124,7 +124,7 @@ const PersonalInformation = () => {
             </h3>
             <div className="information-content">
               {info.degrees ? (
-                info.degrees.map((key, degree) => {
+                info.degrees.map((degree, key) => {
                   return <b key={key}>{degree}</b>;
                 })
               ) : (
