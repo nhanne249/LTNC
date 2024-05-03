@@ -11,7 +11,7 @@ const UpdateStudentInfo = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const info = location.state;
+  const info = location;
   console.log(info);
   const onFinish = (values) => {
     const dataSend = {
