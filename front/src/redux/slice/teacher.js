@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getTeacherInfoThunk,updateTeacherInfoThunk,getAllClassThunk,getClassThunk,giveScoreAllClassThunk, giveScoreForStudentThunk} from '../action/teacher'
+import { getTeacherInfoThunk,updateTeacherInfoThunk,getAllClassThunk,getClassThunk,giveScoreAllClassThunk, giveScoreForStudentThunk,updateTeacherPasswordThunk} from '../action/teacher'
 
 const teacher = createSlice({
   name: "clearTeacherFuntion",
@@ -9,7 +9,8 @@ const teacher = createSlice({
     getAllClassThunk: [],
     getClassThunk: [],
     giveScoreAllClassThunk: [],
-    giveScoreForStudentThunk: []
+    giveScoreForStudentThunk: [],
+    updateTeacherPasswordThunk: []
   },
   reducers: {
     clearAdminFuntion: (state) => {
@@ -19,6 +20,7 @@ const teacher = createSlice({
       state.getClassThunk = []
       state.giveScoreAllClassThunk = []
       state.giveScoreForStudentThunk = []
+      state.updateTeacherPasswordThunk = []
     },
   },
   extraReducers: (builder) => {
@@ -67,6 +69,14 @@ const teacher = createSlice({
       (state, { payload }) => {
         if (payload) {
           state.giveScoreForStudentThunk = payload;
+        }
+      }
+    )
+    builder.addCase(
+      updateTeacherPasswordThunk.fulfilled,
+      (state, { payload }) => {
+        if (payload) {
+          state.updateTeacherPasswordThunk = payload;
         }
       }
     )

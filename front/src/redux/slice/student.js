@@ -1,26 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getStudentInfoThunk,getAllClassesThunk,updateStudentThunk,enrollClassThunk,unenrollClassThunk,instructorEvaluationThunk,deleteReviewsThunk} from '../action/student'
+import { getStudentInfoThunk,getAllClassesThunk,updateStudentInfoThunk,enrollClassThunk,unenrollClassThunk,instructorEvaluationThunk,deleteReviewsThunk,updateStudentPasswordThunk} from '../action/student'
 
 const student = createSlice({
   name: "clearStudentFuntion",
   initialState: {
     getStudentInfoThunk: [],
     getAllClassesThunk: [],
-    updateStudentThunk: [],
+    updateStudentInfoThunk: [],
     enrollClassThunk: [],
     unenrollClassThunk: [],
     instructorEvaluationThunk: [],
-    deleteReviewsThunk: []
+    deleteReviewsThunk: [],
+    updateStudentPasswordThunk: []
   },
   reducers: {
     clearAdminFuntion: (state) => {
       state.getInfoThunk = []
       state.getAllClassesThunk = []
-      state.updateStudentThunk = []
+      state.updateStudentInfoThunk = []
       state.enrollClassThunk = []
       state.unenrollClassThunk = []
       state.instructorEvaluationThunk = []
       state.deleteReviewsThunk = []
+      state.updateStudentPasswordThunk = []
     },
   },
   extraReducers: (builder) => {
@@ -41,10 +43,10 @@ const student = createSlice({
       }
     )
     builder.addCase(
-      updateStudentThunk.fulfilled,
+      updateStudentInfoThunk.fulfilled,
       (state, { payload }) => {
         if (payload) {
-          state.updateStudentThunk = payload;
+          state.updateStudentInfoThunk = payload;
         }
       }
     )
@@ -77,6 +79,14 @@ const student = createSlice({
       (state, { payload }) => {
         if (payload) {
           state.deleteReviewsThunk = payload;
+        }
+      }
+    ) 
+    builder.addCase(
+      updateStudentPasswordThunk.fulfilled,
+      (state, { payload }) => {
+        if (payload) {
+          state.updateStudentPasswordThunk = payload;
         }
       }
     )  

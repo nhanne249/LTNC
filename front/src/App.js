@@ -9,7 +9,6 @@ const role = Cookies.get("role")?.toLowerCase();
 function App() {
   window.onload = function () {
     if (window.location.pathname==='/') {
-      
       if (role) {
       window.location.href = `/${role}`;
     } else {

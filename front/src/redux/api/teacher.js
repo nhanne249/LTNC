@@ -25,6 +25,11 @@ const teacher = {
     },
     giveScoreForStudent: (data) => { 
         return transport.put(`/teacher/scores/${data.username}`, data.dataInBody)
-    }
+    },
+    updateTeacherPassword: (data) => {
+        return transport.put(
+            `/teacher/${data.username}`, JSON.stringify(data.password)
+        )
+    },
 }
 export default teacher;

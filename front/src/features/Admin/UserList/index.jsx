@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Button, Table, Flex, Pagination, Input, Select } from "antd";
+import {
+  Button,
+  Table,
+  Flex,
+  Pagination,
+  Input,
+  Select,
+  Modal,
+  Form,
+} from "antd";
 import { toast } from "react-toastify";
 import {
   getAllUserThunk,
@@ -10,6 +19,8 @@ import {
   getAllTeachersThunk,
   getAllStudentsThunk,
 } from "../../../redux/action/admin";
+import { updateStudentPasswordThunk } from "../../../redux/action/student";
+import { updateTeacherPasswordThunk } from "../../../redux/action/teacher";
 import "./index.scss";
 
 const UserList = () => {
@@ -20,6 +31,8 @@ const UserList = () => {
   const [dataReceived, setDataReceived] = useState();
   const [isReceived, setIsReceived] = useState(false);
   const [total, setTotal] = useState();
+  const [dataToUpdate, setDataToUpdate] = useState();
+  const [openModal, setOpenModal] = useState(false);
   let page = 1;
   useEffect(() => {
     dispatch(getAllUserThunk(page)).then((res) => {
@@ -66,12 +79,20 @@ const UserList = () => {
       dataIndex: null,
       width: "10%",
       render: (value) => (
-        <Button
-          onClick={() => handleDeleteUsers(value)}
-          style={{ border: "none", width: "fit-content", boxShadow: "none" }}
-        >
-          Xóa
-        </Button>
+        <Flex vertical={true} gap="small">
+          <Button
+            onClick={() => handleDeleteUsers(value)}
+            style={{ border: "none", width: "fit-content", boxShadow: "none" }}
+          >
+            Xóa
+          </Button>
+          <Button
+            onClick={() => handleUpdateUsers(value)}
+            style={{ border: "none", width: "fit-content", boxShadow: "none" }}
+          >
+            Đổi mật khẩu
+          </Button>
+        </Flex>
       ),
     },
   ];
@@ -80,6 +101,10 @@ const UserList = () => {
     navigate(`/admin/${value}`);
   };
 
+  const handleUpdateUsers = (value) => {
+    setDataToUpdate(value);
+    setOpenModal(true);
+  };
   const handleChangeFilter = (value) => {
     if (value == "teachers") {
       dispatch(getAllTeachersThunk(1)).then((res) => {
@@ -144,7 +169,53 @@ const UserList = () => {
       });
     }
   };
-
+  const onFinish = (values) => {
+    if (dataToUpdate?.role == "TEACHER") {
+      dispatch(
+        updateTeacherPasswordThunk({
+          username: dataToUpdate?.username,
+          password: values,
+        })
+      ).then((res) => {
+        if (!res.error) {
+          toast.success("Đổi mật khẩu thành công!", {
+            position: "top-right",
+            autoClose: 3000,
+            theme: "colored",
+          });
+        } else {
+          toast.error("Đổi mật khẩu thất bại!", {
+            position: "top-right",
+            autoClose: 3000,
+            theme: "colored",
+          });
+        }
+      });
+    }
+    if (dataToUpdate?.role == "STUDENT") {
+      dispatch(
+        updateStudentPasswordThunk({
+          username: dataToUpdate?.username,
+          password: values,
+        })
+      ).then((res) => {
+        if (!res.error) {
+          toast.success("Đổi mật khẩu thành công!", {
+            position: "top-right",
+            autoClose: 3000,
+            theme: "colored",
+          });
+        } else {
+          toast.error("Đổi mật khẩu thất bại!", {
+            position: "top-right",
+            autoClose: 3000,
+            theme: "colored",
+          });
+        }
+      });
+    }
+    setOpenModal(false);
+  };
   return (
     <div className="user-list-container">
       <Flex justify="space-between">
@@ -208,6 +279,33 @@ const UserList = () => {
           />
         </div>
       </div>
+      <Modal
+        title={`Đổi mật khẩu tài khoản ${dataToUpdate?.username}`}
+        open={openModal}
+        onCancel={() => setOpenModal(false)}
+        footer={null}
+        width="30vw"
+      >
+        <Form onFinish={onFinish}>
+          <Form.Item name="password"></Form.Item>
+          <Form.Item>
+            <Button
+              type="submit"
+              htmlType="submit"
+              style={{
+                height: "50px",
+                background: "#0388B4",
+                fontFamily: "Arial, Helvetica, sans-serif",
+                fontSize: "16px",
+                fontWeight: 400,
+                linezheight: "24px",
+              }}
+            >
+              Đổi
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 };

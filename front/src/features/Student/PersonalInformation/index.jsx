@@ -103,7 +103,7 @@ const PersonalInformation = () => {
 
   return info ? (
     <div className="information-container">
-      <Flex vertical={true} gap="midle">
+      <Flex vertical={true} gap="middle">
         <Flex vertical={false} justify="space-between" align="flex-start">
           <Flex vertical>
             <div className="image-container">

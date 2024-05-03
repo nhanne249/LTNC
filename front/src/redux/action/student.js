@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import student from '../api/student'
 
-const { getStudentInfo,getAllClasses,updateStudent,enrollClass,unenrollClass,instructorEvaluation,deleteReviews
+const { getStudentInfo,getAllClasses,updateStudentInfo,enrollClass,unenrollClass,instructorEvaluation,deleteReviews,updateStudentPassword
 } = student
 
 export const getStudentInfoThunk = createAsyncThunk(
@@ -20,10 +20,10 @@ export const getAllClassesThunk = createAsyncThunk(
     }
 )
 
-export const updateStudentThunk = createAsyncThunk(
-    'student/updateStudent',
+export const updateStudentInfoThunk = createAsyncThunk(
+    'student/updateStudentInfo',
     async (data) => {
-        const res = await updateStudent(data)
+        const res = await updateStudentInfo(data)
         return res
     }
 )
@@ -56,6 +56,14 @@ export const deleteReviewsThunk = createAsyncThunk(
     'student/deleteReviews',
     async (data) => {
         const res = await deleteReviews(data)
+        return res
+    }
+)
+
+export const updateStudentPasswordThunk = createAsyncThunk(
+    'student/updateStudentPassword',
+    async (data) => {
+        const res = await updateStudentPassword(data)
         return res
     }
 )

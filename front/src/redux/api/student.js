@@ -11,7 +11,7 @@ const student = {
             `/student/classes`, JSON.stringify()
         )
     },
-    updateStudent: (data) => {
+    updateStudentInfo: (data) => {
         return transport.put(
             `/student/info`, JSON.stringify(data)
         )
@@ -31,7 +31,11 @@ const student = {
     },
     deleteReviews: (data) => {
         return transport.post(`student/rate/${data}`)
+    },
+    updateStudentPassword: (data) => {
+        return transport.put(
+            `/student/${data.username}`, JSON.stringify(data.password)
+        )
     }
-    
 }
 export default student;
