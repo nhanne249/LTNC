@@ -30,16 +30,6 @@ const Login = () => {
             path: "/",
             domain: "ltnc.vercel.app",
           });
-          Cookies.set("role", `${res.payload.role}`, { maxAge: 604800000 });
-          Cookies.set("userPresent", `${res.payload.token}`, {
-            maxAge: 604800000,
-          });
-        } else {
-          Cookies.set("username", `${data.username}`, {
-            expires: 7,
-            path: "/",
-            domain: "ltnc.vercel.app",
-          });
           Cookies.set("role", `${res.payload.role}`, {
             expires: 7,
             path: "/",
@@ -47,6 +37,19 @@ const Login = () => {
           });
           Cookies.set("userPresent", `${res.payload.token}`, {
             expires: 7,
+            path: "/",
+            domain: "ltnc.vercel.app",
+          });
+        } else {
+          Cookies.set("username", `${data.username}`, {
+            path: "/",
+            domain: "ltnc.vercel.app",
+          });
+          Cookies.set("role", `${res.payload.role}`, {
+            path: "/",
+            domain: "ltnc.vercel.app",
+          });
+          Cookies.set("userPresent", `${res.payload.token}`, {
             path: "/",
             domain: "ltnc.vercel.app",
           });
