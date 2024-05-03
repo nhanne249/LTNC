@@ -7,13 +7,16 @@ import Cookies from "js-cookie";
 import NotFound from "./features/pages/NotFound";
 const role = Cookies.get("role")?.toLowerCase();
 function App() {
-  window.onload = function() {
-    if (role) {
-    window.location.href = `/${role}`;
-  } else {
-    // Redirect to the login page
-    window.location.href = "/login";
-  }
+  window.onload = function () {
+    if (window.location.pathname==='/') {
+      
+      if (role) {
+      window.location.href = `/${role}`;
+    } else {
+      // Redirect to the login page
+      window.location.href = "/login";
+    }
+    }
   };
   
   return (
