@@ -104,7 +104,7 @@ const PersonalInformation = () => {
 
   return info ? (
     <div className="information-container">
-      <Flex vertical={true}>
+      <Flex vertical={true} gap="midle">
         <Flex vertical={false} justify="space-between" align="flex-start">
           <Flex vertical>
             <div className="image-container">
@@ -157,8 +157,16 @@ const PersonalInformation = () => {
           </Button>
         </Flex>
         <div className="score-table-container">
-          <div className="score-table-title">Bảng điểm</div>
-          <Table columns={colums} dataSource={info.scores} />
+          <div className="score-table-title">
+            <RightCircleTwoTone twoToneColor="#AC1818" />
+            Bảng điểm
+          </div>
+          <Table
+            columns={colums}
+            dataSource={info.scores}
+            bordered={true}
+            size="middle"
+          />
         </div>
       </Flex>
     </div>

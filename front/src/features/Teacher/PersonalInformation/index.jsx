@@ -117,6 +117,21 @@ const PersonalInformation = () => {
               Phone: <b>{info?.phone}</b>
             </div>
           </div>
+          <div>
+            <h3 className="information-title">
+              <RightCircleTwoTone twoToneColor="#AC1818" />
+              Bằng cấp
+            </h3>
+            <div className="information-content">
+              {info.degrees ? (
+                info.degrees.map((key, degree) => {
+                  return <b key={key}>{degree}</b>;
+                })
+              ) : (
+                <div>{info?.name}</div>
+              )}
+            </div>
+          </div>
         </Flex>
         <Button onClick={handleUpdateInfo} className="update-info-btn">
           Cập nhật thông tin cá nhân
