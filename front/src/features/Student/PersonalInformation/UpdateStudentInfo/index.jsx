@@ -44,29 +44,7 @@ const UpdateStudentInfo = () => {
         autoComplete="off"
         layout="vertical"
       >
-        <Form.Item
-          name="name"
-          rules={[
-            {
-              required: true,
-              message: "Vui lòng nhập Họ và tên!",
-            },
-            {
-              validator(__, value) {
-                if (
-                  !/^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐa-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\s]*$/.test(
-                    value
-                  )
-                ) {
-                  return Promise.reject(
-                    new Error("Họ và tên không được chứa số!")
-                  );
-                }
-                return Promise.resolve();
-              },
-            },
-          ]}
-        >
+        <Form.Item name="name" initialValue={info.name}>
           <Input
             className="input-area"
             placeholder="Họ và tên"
@@ -97,6 +75,7 @@ const UpdateStudentInfo = () => {
               },
             },
           ]}
+          initialValue={info.email}
         >
           <Input
             className="input-area"
@@ -123,6 +102,7 @@ const UpdateStudentInfo = () => {
               },
             },
           ]}
+          initialValue={info.phone}
         >
           <Input
             className="input-area"

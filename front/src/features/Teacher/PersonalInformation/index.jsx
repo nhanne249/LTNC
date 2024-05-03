@@ -32,7 +32,12 @@ const PersonalInformation = () => {
   const handleUpdateInfo = () => {
     navigate("/teacher/update-teacher-info", {
       replace: true,
-      state: { name: info?.name, email: info?.email, phone: info?.phone },
+      state: {
+        name: info?.name,
+        email: info?.email,
+        phone: info?.phone,
+        degrees: info?.degrees,
+      },
     });
   };
 
