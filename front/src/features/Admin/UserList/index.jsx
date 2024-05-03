@@ -306,6 +306,7 @@ const UserList = () => {
                 fontSize: "16px",
                 fontWeight: 400,
                 linezheight: "24px",
+                color: "#ffffff",
               }}
             >
               Đổi
