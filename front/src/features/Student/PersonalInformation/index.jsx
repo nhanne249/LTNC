@@ -36,11 +36,10 @@ const PersonalInformation = () => {
   }, [isReceived]);
 
   const handleUpdateInfo = () => {
-    navigate(
-      "/student/update-student-info",
-      { replace: true },
-      { state: { name: info?.name, email: info?.email, phone: info?.phone } }
-    );
+    navigate("/student/update-student-info", {
+      replace: true,
+      state: { name: info?.name, email: info?.email, phone: info?.phone },
+    });
   };
   //Table data
   const colums = [
