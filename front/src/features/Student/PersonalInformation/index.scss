@@ -7,6 +7,9 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        .ant-upload{
+            color: #000000 !important;
+        }
     }
     .information-title{
         margin: 7px 0px 15px 0px;
