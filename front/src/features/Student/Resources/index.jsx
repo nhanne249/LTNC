@@ -16,7 +16,7 @@ const Resources = () => {
   useEffect(() => {
     dispatch(getAllClassesThunk()).then((res) => {
       const newClasses = res?.payload?.map((item) => item.name) || [];
-      setDataReceived((prevClasses) => [...prevClasses, ...newClasses]);
+      setDataReceived(newClasses);
       setIsReceived(true);
     });
   }, [isReceived]);
