@@ -5,6 +5,7 @@ import UpdateStudentInfo from "../../features/Student/PersonalInformation/Update
 import Schedule from "../../features/Student/Schedule/index.jsx"
 import ClassRegister from "../../features/Student/ClassRegister/index.jsx"
 import InstructorEvaluation from '../../features/Student/InstructorEvaluation/index.jsx'
+import Resources from "../../features/Student/Resources/index.jsx"
 
 const studentRouter = [
   {
@@ -47,6 +48,10 @@ const studentRouter = [
       {
         path: "instructor-evaluate",
         Component: InstructorEvaluation
+      },
+      {
+        path: "resources",
+        Component: Resources
       }
     ],
   },
