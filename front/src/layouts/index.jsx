@@ -18,38 +18,35 @@ const Layouts = () => {
   const pathParts = pathname.split("/").filter(Boolean);
   let title = "";
   if (pathParts.length == 1) {
-    if (pathParts[0].includes("admin")) title = "Danh sách người dùng";
-    if (pathParts[0].includes("teacher")) title = "Thông tin cá nhân";
-    if (pathParts[0].includes("student")) title = "Thông tin cá nhân";
+    if (pathParts[0] === "admin") title = "Danh sách người dùng";
+    if (pathParts[0] === "teacher") title = "Thông tin cá nhân";
+    if (pathParts[0] === "student") title = "Thông tin cá nhân";
   }
   if (pathParts.length == 2) {
-    if (pathParts[1].includes("personal-information"))
-      title = "Thông tin cá nhân";
-    if (pathParts[1].includes("notification")) title = "Thông báo";
-    if (pathParts[1].includes("education-program"))
-      title = "Chương trình đào tạo";
-    if (pathParts[1].includes("result")) title = "Kết quả học tập";
-    if (pathParts[1].includes("course-register")) title = "Đăng ký khóa học";
-    if (pathParts[1].includes("instructor-evaluate"))
-      title = "Đánh giá giảng viên";
-    if (pathParts[1].includes("users")) title = "Danh sách người dùng";
-    if (pathParts[1].includes("courses")) title = "Danh sách khóa học";
-    if (pathParts[1].includes("add-courses")) title = "Thêm khóa học mới";
-    if (pathParts[1].includes("user-list")) title = "Danh sách người dùng";
-    if (pathParts[1].includes("create-student-account"))
+    if (pathParts[1] === "personal-information") title = "Thông tin cá nhân";
+    if (pathParts[1] === "notification") title = "Thông báo";
+    if (pathParts[1] === "education-program") title = "Chương trình đào tạo";
+    if (pathParts[1] === "result") title = "Kết quả học tập";
+    if (pathParts[1] === "course-register") title = "Đăng ký khóa học";
+    if (pathParts[1] === "instructor-evaluate") title = "Đánh giá giảng viên";
+    if (pathParts[1] === "users") title = "Danh sách người dùng";
+    if (pathParts[1] === "courses") title = "Danh sách khóa học";
+    if (pathParts[1] === "add-courses") title = "Thêm khóa học mới";
+    if (pathParts[1] === "user-list") title = "Danh sách người dùng";
+    if (pathParts[1] === "create-student-account")
       title = "Thêm tài khoản học sinh";
-    if (pathParts.includes("create-teacher-account"))
+    if (pathParts[1] === "create-teacher-account")
       title = "Thêm tài khoản giảng viên";
-    if (pathParts.includes("update-teacher-info"))
+    if (pathParts[1] === "update-teacher-info")
       title = "Cập nhật tài khoản giảng viên";
-    if (pathParts.includes("update-student-info"))
+    if (pathParts[1] === "update-student-info")
       title = "Cập nhật tài khoản sinh viên";
-    if (pathParts[1].includes("class")) title = "Danh sách lớp học";
-    if (pathParts[1].includes("create-class")) title = "Thêm lớp học mới";
-    if (pathParts[1].includes("schedule")) title = "Thời khóa biểu";
-    if (pathParts[1].includes("faculties")) title = "Chương trình đào tạo";
-    if (pathParts[1].includes("resources")) title = "Tài liệu học tập";
-    if (pathParts[1].includes("reviews")) title = "Đánh giá";
+    if (pathParts[1] === "class") title = "Danh sách lớp học";
+    if (pathParts[1] === "create-class") title = "Thêm lớp học mới";
+    if (pathParts[1] === "schedule") title = "Thời khóa biểu";
+    if (pathParts[1] === "faculties") title = "Chương trình đào tạo";
+    if (pathParts[1] === "resources") title = "Tài liệu học tập";
+    if (pathParts[1] === "reviews") title = "Đánh giá";
   }
 
   return (
