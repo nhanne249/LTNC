@@ -64,7 +64,7 @@ const admin = {
     },
     updateClass: (data) => { 
         return transport.put(
-            `/classes/${data.className}`, JSON.stringify(data.teacher)
+            `/classes/${data.className}`, JSON.stringify({teacher: data.teacher})
         )
     }
 }
