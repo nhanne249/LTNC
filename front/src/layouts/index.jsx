@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { Layout, Image } from "antd";
+import { Layout } from "antd";
 import { AiFillRightCircle } from "react-icons/ai";
 import HeaderPage from "./HeaderPage";
 import SiderPage from "./SiderPage";
 import FooterPage from "./FooterPage";
 import "./style.scss";
-import logobk from "../assets/img/logobkjpeg.png";
 
 const { Header, Footer, Sider, Content } = Layout;
 const Layouts = () => {
