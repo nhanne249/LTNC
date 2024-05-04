@@ -6,10 +6,16 @@ import com.example.schoolManage.model.user.User;
 import com.example.schoolManage.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @RestController
@@ -17,6 +23,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class AdminController {
     private final AdminService adminService;
+    private final MongoTemplate mongoTemplate;
 
     @GetMapping("/users")
     public ResponseEntity<Page<User>> getAllUsers(@RequestParam int page) {
@@ -40,7 +47,7 @@ public class AdminController {
     @PostMapping("/students")
     public ResponseEntity<String> createStudent(@RequestBody Student student) {
         Student st = adminService.createStudent(student);
-        if(Objects.isNull(st)) {return ResponseEntity.badRequest().build();}
+        if(Objects.isNull(st)) {return ResponseEntity.badRequest().body("Student already exists");}
         return new ResponseEntity<>("Student created", HttpStatus.CREATED);
     }
     @GetMapping("/students")
@@ -51,14 +58,21 @@ public class AdminController {
     public ResponseEntity<String> createTeacher(@RequestBody Teacher teacher) {
         Teacher tc = adminService.createTeacher(teacher);
         if (Objects.isNull(tc))
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Teacher already exists");
         return new ResponseEntity<>("Teacher created", HttpStatus.CREATED);
     }
     @GetMapping("/teachers")
-    public ResponseEntity<Page<Teacher>> getAllTeachers(@RequestParam int page) {
+    public ResponseEntity<Page<Teacher>> getTeachers(@RequestParam int page) {
         return new ResponseEntity<>(adminService.getAllTeachers(page), HttpStatus.OK);
     }
 
+    @GetMapping("/teachers/all")
+    public ResponseEntity<List<Map<String, String>>> getAllTeacherNameAndUsername(){
+        List<Map<String, String>> teachers = new ArrayList<>();
+        List<Teacher> ls = mongoTemplate.find(Query.query(Criteria.where("role").is("TEACHER")), Teacher.class, "users");
+        ls.forEach(teacher -> teachers.add(Map.of("username", teacher.getUsername(), "name", teacher.getName())));
+        return ResponseEntity.ok(teachers);
+    }
     @PutMapping("/students/{username}")
     public ResponseEntity<String> updateStudent(@PathVariable String username, @RequestBody Student student) throws IllegalAccessException {
         if(adminService.updateStudent(student, username) == null){
