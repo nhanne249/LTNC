@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { Input, Form, Select, Button } from "antd";
 import { useDispatch } from "react-redux";
-import { getAllDaysThunk } from "../../../../redux/action/date";
-import { createNewClassThunk } from "../../../../redux/action/admin";
 import { toast } from "react-toastify";
+import { getAllDaysThunk } from "../../../../redux/action/date";
+import { facultiesListThunk } from "../../../../redux/action/resources";
+import { createNewClassThunk } from "../../../../redux/action/admin";
 import "./index.scss";
 
 const CreateNewClass = () => {
   const [dateOptions, setDateOptions] = useState();
   const [isSelectDisabled, setIsSelectDisabled] = useState(true);
   const [timeOptions, setTimeOptions] = useState();
+  const [departments, setDepartments] = useState();
+  const [faculties, setFaculties] = useState();
+  const [canChooseFaculties, setCanChooseFaculties] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllDaysThunk()).then((res) => {
-      setDateOptions(res?.payload);
+    dispatch(facultiesListThunk()).then((res) => {
+      const temp = res.payload.map((item) => item.name);
+      setDepartments(temp);
+      dispatch(getAllDaysThunk()).then((res) => {
+        setDateOptions(res?.payload);
+      });
     });
   }, []);
 
@@ -43,8 +51,15 @@ const CreateNewClass = () => {
   };
   const onSelect = (value) => {
     setIsSelectDisabled(false);
-    dateOptions.map((date) => {
+    dateOptions?.map((date) => {
       if (date?.day == value) setTimeOptions(date?.time);
+      return null;
+    });
+  };
+  const onSelectDepartment = (value) => {
+    setCanChooseFaculties(false);
+    departments?.map((department) => {
+      if (department?.name == value) setFaculties(department?.subjects);
       return null;
     });
   };
@@ -58,6 +73,15 @@ const CreateNewClass = () => {
         autoComplete="off"
         layout="vertical"
       >
+        <Select
+          placeholder="Chọn khoa"
+          options={departments?.map((department) => ({
+            value: `${department.name}`,
+            label: `Khoa ${department.name}`,
+          }))}
+          onSelect={onSelectDepartment}
+          className="input-container"
+        />
         <Form.Item
           name="name"
           rules={[
@@ -67,7 +91,16 @@ const CreateNewClass = () => {
             },
           ]}
         >
-          <Input placeholder="Mã môn học" className="input-container"></Input>
+          <Select
+            placeholder="Chọn môn học"
+            options={faculties?.map((facultie) => ({
+              value: `${faculties}`,
+              label: `Môn ${faculties}`,
+            }))}
+            disabled={canChooseFaculties}
+            onSelect={onSelectDepartment}
+            className="input-container"
+          />
         </Form.Item>
         <Form.Item
           name="subject"
