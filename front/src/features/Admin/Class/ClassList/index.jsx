@@ -27,9 +27,9 @@ const ClassList = () => {
   const [dataChanged, setDataChanged] = useState(false);
   const [open, setOpen] = useState(false);
   const [teachers, setTeachers] = useState();
+  const [className, setClassName] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  let className;
 
   useEffect(() => {
     dispatch(getAllClassThunk(1)).then((res) => {
@@ -140,7 +140,8 @@ const ClassList = () => {
     navigate("/admin/create-class", { replace: true });
   };
   const openModal = (value) => {
-    className = value.teacher;
+    console.log(value);
+    setClassName(value.teacher);
     setOpen(true);
     dispatch(getTeacherListThunk()).then((res1) => setTeachers(res1.payload));
   };
