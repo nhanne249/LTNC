@@ -28,7 +28,6 @@ const Resources = () => {
     setClassName(value.key);
     dispatch(getAllClassResourceThunk(value.key)).then((res) => {
       setResources(res.payload);
-      console.log(res.payload);
     });
   };
 
