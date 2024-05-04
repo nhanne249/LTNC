@@ -47,6 +47,15 @@ const resources = {
     },
     deleteResource: (data) => {
         return transport.delete(`/resources/${data.class}/${data.name}`)
+    },
+    getResource: (data) => {
+        return axios
+            .get(`https://ltnc-production.up.railway.app/resources/${data.class}/${data.name}`, {
+                responseType: "blob",
+                headers: {
+                    Authorization: `Bearer ${Cookies.get("userPresent")}`,
+                },
+            })
     }
 }
 export default resources;

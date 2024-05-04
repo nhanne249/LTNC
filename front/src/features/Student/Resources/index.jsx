@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { Menu, Flex, Button } from "antd";
 import { useDispatch } from "react-redux";
 import { getAllClassesThunk } from "../../../redux/action/student";
-import { getAllClassResourceThunk } from "../../../redux/action/resources";
+import {
+  getAllClassResourceThunk,
+  getResourceThunk,
+} from "../../../redux/action/resources";
 import "./index.scss";
-import resources from "./../../../redux/api/resources";
 
 const Resources = () => {
   const dispatch = useDispatch();
@@ -32,6 +34,11 @@ const Resources = () => {
     });
   };
   const onResourceClick = (resource) => {
+    dispatch(getResourceThunk({ class: className, name: resource })).then(
+      (res) => {
+        console.log(res);
+      }
+    );
     console.log(resource);
   };
   return (
@@ -53,7 +60,7 @@ const Resources = () => {
               <div className="resources-list">
                 <div style={divStyle}>Tài liệu lớp {className}</div>
                 {resources ? (
-                  <div>
+                  <Flex vertical={false} gap="middle">
                     {resources.map((resource, index) => {
                       return (
                         <Button
@@ -65,7 +72,7 @@ const Resources = () => {
                         </Button>
                       );
                     })}
-                  </div>
+                  </Flex>
                 ) : (
                   <div>Chưa có tài liệu</div>
                 )}

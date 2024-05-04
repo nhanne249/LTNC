@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { putAvatarThunk, getAvatarThunk,facultiesListThunk,createFacultyThunk,createSubjectThunk,deleteSubjectThunk,deleteFacultyThunk,getAllClassResourceThunk,deleteResourceThunk
+import { putAvatarThunk, getAvatarThunk,facultiesListThunk,createFacultyThunk,createSubjectThunk,deleteSubjectThunk,deleteFacultyThunk,getAllClassResourceThunk,deleteResourceThunk,getResourceThunk
 } from '../action/resources'
 
 const resources = createSlice({
@@ -13,7 +13,8 @@ const resources = createSlice({
     deleteSubjectThunk: [],
     deleteFacultyThunk: [],
     getAllClassResourceThunk: [],
-    deleteResourceThunk: []
+    deleteResourceThunk: [],
+    getResourceThunk: []
   },
   reducers: {
     clearAdminFuntion: (state) => {
@@ -26,6 +27,7 @@ const resources = createSlice({
       state.deleteFacultyThunk = []
       state.getAllClassResourceThunk = []
       state.deleteResourceThunk = []
+      state.getResourceThunk = []
     },
   },
   extraReducers: (builder) => {
@@ -98,6 +100,14 @@ const resources = createSlice({
       (state, { payload }) => {
         if (payload) {
           state.deleteResourceThunk = payload;
+        }
+      }
+    );
+    builder.addCase(
+      getResourceThunk.fulfilled,
+      (state, { payload }) => {
+        if (payload) {
+          state.getResourceThunk = payload;
         }
       }
     );
