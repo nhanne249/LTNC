@@ -38,7 +38,7 @@ const Resources = () => {
     <div className="class-resources-page">
       <Flex vertical={false} gap="middle">
         <div style={{ width: "fit-content" }}>
-          <div style={divStyle}>Danh sách giảng viên đang học</div>
+          <div style={divStyle}>Danh sách lớp đang học</div>
           <Menu
             theme="light"
             mode="vertical"
@@ -72,7 +72,7 @@ const Resources = () => {
               </div>
             </div>
           ) : (
-            <div style={divStyle}>Chọn giảng viên để xem đánh giá</div>
+            <div style={divStyle}>Chọn lớp để xem tài liệu</div>
           )}
         </div>
       </Flex>
