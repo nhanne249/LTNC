@@ -103,9 +103,9 @@ const CreateNewClass = () => {
         >
           <Select
             placeholder="Chọn môn học"
-            options={faculties?.map((facultie) => ({
-              value: `${faculties}`,
-              label: `Môn ${faculties}`,
+            options={faculties?.map((faculty) => ({
+              value: `${faculty}`,
+              label: `Môn ${faculty}`,
             }))}
             disabled={canChooseFaculties}
             onSelect={onSelectDepartment}
