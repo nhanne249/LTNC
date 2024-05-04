@@ -58,7 +58,7 @@ const Resources = () => {
               <div className="resources-list">
                 <div style={divStyle}>Tài liệu lớp {className}</div>
                 {resources ? (
-                  <Flex vertical={false} gap="middle">
+                  <Flex vertical={true} gap="middle">
                     {resources.map((resource, index) => {
                       return (
                         <Button
