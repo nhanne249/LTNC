@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { publicRouter, privateRouter } from "./config/routes";
+import NotFound from './features/pages/NotFound/index';
 import Cookies from "js-cookie";
 const role = Cookies.get("role")?.toLowerCase();
 function App() {
@@ -35,7 +36,7 @@ function App() {
                     })
                     : null}
                 </Route>
-              ) : null;
+              ) : <Route path="*" element={<NotFound/>} />;
             });
           })) : (publicRouter.map((routers) => {
             return routers.map((route, index) => {
@@ -52,7 +53,7 @@ function App() {
                         />
                       );
                     })
-                    : null}
+                    : <Route path="*" element={<NotFound/>} />}
                 </Route>
               );
             });
