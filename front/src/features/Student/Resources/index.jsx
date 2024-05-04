@@ -15,11 +15,13 @@ const Resources = () => {
   const [className, setClassName] = useState([]);
   useEffect(() => {
     dispatch(getAllClassesThunk()).then((res) => {
-      const newClasses = res?.payload?.map((item) => item.name) || [];
+      console.log(res);
+      const newClasses = res?.payload?.map((item) => item.name);
       setDataReceived(newClasses);
       setIsReceived(true);
     });
   }, [isReceived]);
+  console.log(dataReceived);
   const onClickMenu = (value) => {
     setClassName(value.key);
     dispatch(getAllClassResourceThunk(value.key)).then((res) => {
