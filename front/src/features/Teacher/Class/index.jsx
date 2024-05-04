@@ -233,7 +233,7 @@ const Class = () => {
   const beforeUpload = (file) => {
     const isPDF = file.type === "application/pdf";
     if (!isPDF) {
-      message.error("You can only upload JPG/PNG file!");
+      message.error("Bạn chỉ được upload file pdf!");
     }
     const isLt2M = (100 * file.size) / 1024 / 1024 < 200;
     if (!isLt2M) {
@@ -260,12 +260,6 @@ const Class = () => {
       setFileList([]);
       dispatch(getAllClassResourceThunk(classNameOnShow)).then((res) => {
         setFileNameReceived(res.payload);
-      });
-    } else {
-      toast.error(`Gặp vấn đề khi đăng file!`, {
-        position: "top-right",
-        autoClose: 3000,
-        theme: "colored",
       });
     }
   };
