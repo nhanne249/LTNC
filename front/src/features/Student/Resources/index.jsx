@@ -17,7 +17,8 @@ const Resources = () => {
     dispatch(getAllClassesThunk()).then((res) => {
       console.log(res);
       const newClasses = res?.payload?.map((item) => ({
-        name: item.name,
+        key: item.name,
+        label: item.name,
       }));
       setDataReceived(newClasses);
       setIsReceived(true);
