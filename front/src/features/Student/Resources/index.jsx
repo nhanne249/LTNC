@@ -31,7 +31,9 @@ const Resources = () => {
       setResources(res.payload);
     });
   };
-
+  const onResourceClick = (resource) => {
+    console.log(resource);
+  };
   return (
     <div className="class-resources-page">
       <Flex vertical={false} gap="middle">
@@ -54,9 +56,13 @@ const Resources = () => {
                   <div>
                     {resources.map((resource, index) => {
                       return (
-                        <div key={index} className="resource">
-                          <div className="resource-content">{resource}</div>
-                        </div>
+                        <Button
+                          key={index}
+                          className="resource"
+                          onClick={() => onResourceClick(resource)}
+                        >
+                          {resource}
+                        </Button>
                       );
                     })}
                   </div>
