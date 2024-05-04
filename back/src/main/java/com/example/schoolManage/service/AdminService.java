@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
-import java.util.List;
 import java.util.Optional;
 
 import static com.example.schoolManage.utils.Helper.setIfNotNull;
@@ -64,6 +63,9 @@ public class AdminService {
             return null;
         }
         setIfNotNull(st.get(),update);
+        if(update.getPassword() != null){
+            st.get().setPassword(passwordEncoder.encode(update.getPassword()));
+        }
         return userRepository.save(st.get());
     }
     public Teacher updateTeacher(@NotNull Teacher update, String username) throws IllegalAccessException {
@@ -72,6 +74,9 @@ public class AdminService {
             return null;
         }
         setIfNotNull(tc.get(), update);
+        if(update.getPassword() != null){
+            tc.get().setPassword(passwordEncoder.encode(update.getPassword()));
+        }
         return userRepository.save(tc.get());
     }
 }

@@ -1,6 +1,6 @@
 package com.example.schoolManage.controller;
 
-import com.example.schoolManage.model.Resource;
+import com.example.schoolManage.model.files.Resource;
 import com.example.schoolManage.repository.ResourceRepository;
 import com.example.schoolManage.utils.FileUtils;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +21,9 @@ public class ResourceController {
     private final ResourceRepository resourceRepository;
     @PostMapping("/{className}")
     public ResponseEntity<String> uploadResource(@RequestParam("file") MultipartFile file, @PathVariable String className) throws IOException {
+        if(resourceRepository.findByNameAndClassroom(file.getOriginalFilename(),className).isPresent()){
+            return ResponseEntity.badRequest().body("File already exists in this classroom");
+        }
         resourceRepository.save(new Resource(file.getOriginalFilename(), className, file.getContentType(), FileUtils.compress(file.getBytes())));
         return ResponseEntity.ok("Resource upload successful");
     }

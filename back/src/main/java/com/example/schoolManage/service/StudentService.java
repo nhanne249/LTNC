@@ -46,19 +46,19 @@ public class StudentService {
         if (cl.isPresent()) {
             Optional<Student> st = userRepository.findStudentByUsername(username);
             if (st.isEmpty()) {
-                return "STUDENT NOT EXIST";
+                return "Student not found";
             } else {
                 List<Classroom> list = classRepository.findAllByStudent(username);
                 String subject = cl.get().getSubject();
                 for (Classroom i : list) {
                     if (i.getSubject().equals(subject))
-                        return "ALREADY HAVE CLASS OF THIS SUBJECT";
+                        return "Already enrolled a class of this subject";
                 }
                 cl.get().addStudent(st.get().getUsername());
                 classRepository.save(cl.get());
-                return "STUDENT ENROLL SUCCESSFULLY";
+                return "Student enrolled successfully";
             }
-        } else return "CLASS NOT EXIST";
+        } else return "Classroom not found";
     }
 
     public String unenrollClass(String username, String className) {
@@ -66,15 +66,15 @@ public class StudentService {
         if (cl.isPresent()) {
             Optional<Student> st = userRepository.findStudentByUsername(username);
             if (st.isEmpty()) {
-                return "STUDENT NOT EXIST";
+                return "Student not found";
             } else {
                 if (!cl.get().getStudents().contains(username))
-                    return "NOT IN CLASS";
+                    return "Haven't enrolled this class";
                 cl.get().deleteStudent(st.get().getUsername());
                 classRepository.save(cl.get());
-                return "STUDENT UNENROLL SUCCESSFULLY";
+                return "Student unenrolled successfully";
             }
-        } else return "CLASS NOT EXIST";
+        } else return "Classroom not found";
     }
 
 
@@ -90,7 +90,7 @@ public class StudentService {
             review.setStudent(student);
             reviewRepository.save(review);
         }
-        return "ADDED REVIEW";
+        return "Review added successfully";
     }
     public void deleteReview(String student, String teacher) {
         reviewRepository.deleteByStudentAndTeacher(student, teacher);

@@ -1,6 +1,6 @@
 package com.example.schoolManage.controller;
 
-import com.example.schoolManage.model.Avatar;
+import com.example.schoolManage.model.files.Avatar;
 import com.example.schoolManage.repository.AvatarRepository;
 import com.example.schoolManage.utils.FileUtils;
 import lombok.RequiredArgsConstructor;

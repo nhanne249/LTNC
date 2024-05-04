@@ -1,6 +1,6 @@
 package com.example.schoolManage.controller;
 
-import com.example.schoolManage.model.time.Schedule;
+import com.example.schoolManage.model.shared.Schedule;
 import com.example.schoolManage.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

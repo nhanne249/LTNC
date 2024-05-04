@@ -31,7 +31,7 @@ public class ClassController {
     @PostMapping
     public ResponseEntity<String> createClass(@RequestBody Classroom classroom){
         var cl = classService.createClass(classroom);
-        if(cl == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if(cl == null) return ResponseEntity.badRequest().body("Classname already exists or day and time conflict with other class");
         return new ResponseEntity<>("Class created", HttpStatus.CREATED);
     }
     @PutMapping("/{name}")

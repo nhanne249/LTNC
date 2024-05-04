@@ -1,6 +1,6 @@
 package com.example.schoolManage.repository;
 
-import com.example.schoolManage.model.Resource;
+import com.example.schoolManage.model.files.Resource;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 

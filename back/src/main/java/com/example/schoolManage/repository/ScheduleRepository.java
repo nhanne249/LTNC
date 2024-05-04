@@ -1,6 +1,6 @@
 package com.example.schoolManage.repository;
 
-import com.example.schoolManage.model.time.Schedule;
+import com.example.schoolManage.model.shared.Schedule;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;

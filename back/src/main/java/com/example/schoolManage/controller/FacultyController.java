@@ -1,6 +1,6 @@
 package com.example.schoolManage.controller;
 
-import com.example.schoolManage.model.Faculty;
+import com.example.schoolManage.model.shared.Faculty;
 import com.example.schoolManage.repository.FacultyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,9 +22,8 @@ public class FacultyController {
 
     @PostMapping
     public ResponseEntity<String> createFaculty(@RequestBody Faculty faculty) {
-
         if (facultyRepository.findByName(faculty.getName()).isPresent()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Faculty already exists");
         }
         facultyRepository.save(faculty);
         return new ResponseEntity<>(faculty.getName() + " faculty created", HttpStatus.CREATED);
