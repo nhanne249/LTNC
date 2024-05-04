@@ -229,7 +229,21 @@ const ClassList = () => {
             />
           </Form.Item>
           <Form.Item>
-            <Button type="submit" htmlType="submit">
+            <Button
+              type="submit"
+              htmlType="submit"
+              style={{
+                backgroundColor: "#0388B4",
+                width: "50%",
+                height: "40px",
+                color: "#ffffff",
+                fontFamily: "Arial, Helvetica, sans-serif",
+                fontSize: "14px",
+                fontWeight: 700,
+                lineHeight: "21px",
+                textAlign: "center",
+              }}
+            >
               Cập nhật
             </Button>
           </Form.Item>
