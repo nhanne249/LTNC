@@ -32,7 +32,12 @@ const Resources = () => {
     });
   };
   const onResourceClick = (resource) => {
-    dispatch(getResourceThunk({ class: className, name: resource }));
+    dispatch(getResourceThunk({ class: className, name: resource })).then(
+      (res) => {
+        const pdfUrl = URL.createObjectURL(res.payload.data);
+        window.open(pdfUrl);
+      }
+    );
   };
   return (
     <div className="class-resources-page">

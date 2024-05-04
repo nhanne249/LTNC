@@ -49,23 +49,13 @@ const resources = {
         return transport.delete(`/resources/${data.class}/${data.name}`)
     },
     getResource: (data) => {
-        fetch(`https://ltnc-production.up.railway.app/resources/${data.class}/${data.name}`, {
-            method: 'GET',
-            headers: {
-                Accept: 'application/octet-stream',
-                Authorization: `Bearer ${Cookies.get("userPresent")}`,
-            },
-            responseType: 'arraybuffer',
+        return axios
+            .get(`https://ltnc-production.up.railway.app/resources/${data.class}/${data.name}`, {
+                responseType: "blob",
+                headers: {
+                    Authorization: `Bearer ${Cookies.get("userPresent")}`,
+                },
             })
-            .then((res) => res.arrayBuffer())
-            .then((data) => {
-                const base64Str = Buffer.from(data).toString('base64');
-                let pdfWindow = window.open("");
-                pdfWindow.document.write(
-                    "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
-                        encodeURI(base64Str) + "'></iframe>"
-                );
-            });
     }
 }
 export default resources;
