@@ -2,6 +2,7 @@ package com.example.schoolManage.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -29,10 +30,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login/**","/register", "/error/**")
                         .permitAll()
-                        .requestMatchers("/users/**",
+                        .requestMatchers(HttpMethod.POST,"/users/**",
                                 "/students/**",
                                 "/teachers/**",
-                                "/days",
+                                "/faculties/**" ).hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE,"/users/**",
+                                "/students/**",
+                                "/teachers/**",
                                 "/faculties/**" ).hasAuthority("ADMIN")
                         .requestMatchers("/student/**").hasAuthority("STUDENT")
                         .requestMatchers("/teacher/**").hasAuthority("TEACHER")
