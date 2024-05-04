@@ -34,7 +34,7 @@ const admin = {
     },
     deleteUser: (data) => {
         return transport.delete(
-            `/users/${data.username}`, JSON.stringify(data)
+            `/users/${data}`, JSON.stringify(data)
         )
     },  
     createNewClass: (data) => {
