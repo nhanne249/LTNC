@@ -3,19 +3,16 @@
     margin: 15px 35px 70px 15px;
     height: auto;
     min-height: 500px;
-    .review-list {
-        .review {
-            margin: 5px 0 10px 0;
-            height: 100px;
-            .review-header {
-                display: flex;
-                justify-content: space-between;
-                flex-direction: row;
-            }
-            .review-content {
-                margin: 0 0 5px 0;
-            }
+    .review {
+        margin: 5px 0 10px 0;
+        height: 100px;
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+        }
+        .review-content {
+            margin: 0 0 5px 0;
         }
     }
-        
 }
