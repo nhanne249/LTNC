@@ -17,7 +17,6 @@ const Resources = () => {
   const [className, setClassName] = useState([]);
   useEffect(() => {
     dispatch(getAllClassesThunk()).then((res) => {
-      console.log(res);
       const newClasses = res?.payload?.map((item) => ({
         key: item.name,
         label: item.name,
@@ -26,7 +25,6 @@ const Resources = () => {
       setIsReceived(true);
     });
   }, [isReceived]);
-  console.log(dataReceived);
   const onClickMenu = (value) => {
     setClassName(value.key);
     dispatch(getAllClassResourceThunk(value.key)).then((res) => {
