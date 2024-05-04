@@ -34,7 +34,7 @@ const Resources = () => {
   const onResourceClick = (resource) => {
     dispatch(getResourceThunk({ class: className, name: resource })).then(
       (res) => {
-        console.log(resource);
+        console.log(res);
         const pdfUrl = URL.createObjectURL(res.payload.data);
         console.log(pdfUrl);
       }
