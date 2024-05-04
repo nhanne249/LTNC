@@ -12,10 +12,12 @@ const Resources = () => {
   const [dataReceived, setDataReceived] = useState();
   const [isReceived, setIsReceived] = useState(false);
   const [resources, setResources] = useState();
-  const [className, setClassName] = useState();
+  const [className, setClassName] = useState([]);
   useEffect(() => {
     dispatch(getAllClassesThunk()).then((res) => {
-      res?.payload?.forEach((item) => setDataReceived(...resources, item.name));
+      res?.payload?.forEach((item) =>
+        setDataReceived([...resources, item.name])
+      );
       setIsReceived(true);
     });
   }, [isReceived]);
