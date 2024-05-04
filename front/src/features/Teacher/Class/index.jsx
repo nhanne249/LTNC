@@ -261,6 +261,12 @@ const Class = () => {
       dispatch(getAllClassResourceThunk(classNameOnShow)).then((res) => {
         setFileNameReceived(res.payload);
       });
+    } else if (info.file.status == "error") {
+      toast.error(`Gặp vấn đề khi đăng file!`, {
+        position: "top-right",
+        autoClose: 3000,
+        theme: "colored",
+      });
     }
   };
   //Xóa tài liệu
