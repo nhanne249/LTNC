@@ -3,6 +3,7 @@ import PersonalInformation from "../../features/Teacher/PersonalInformation/inde
 import Class from '../../features/Teacher/Class/index.jsx'
 import Notification from "../../features/Teacher/Notification/index.jsx";
 import UpdateTeacherInfo from '../../features/Teacher/PersonalInformation/UpdateTeacherInfo/index.jsx';
+import Reviews from "../../features/Teacher/Reviews/index.jsx"
 
 const teacherRouter = [
   {
@@ -33,6 +34,10 @@ const teacherRouter = [
       {
         path: "classes",
         Component: Class,
+      },
+      {
+        path: "reviews",
+        Component: Reviews,
       },
     ],
   },

@@ -65,13 +65,16 @@ const SiderPage = () => {
           key: null,
           children: [
             { label: "Thông tin cá nhân", key: "personal-information" },
-            { label: "Thông báo", key: "notification" },
           ],
           type: "group",
         },
         {
           label: "Lớp học",
           key: "classes",
+        },
+        {
+          label: "Đánh giá",
+          key: "reviews",
         },
       ]);
     }

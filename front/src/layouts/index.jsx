@@ -48,6 +48,8 @@ const Layouts = () => {
     if (pathParts[1].includes("create-class")) title = "Thêm lớp học mới";
     if (pathParts[1].includes("schedule")) title = "Thời khóa biểu";
     if (pathParts[1].includes("faculties")) title = "Chương trình đào tạo";
+    if (pathParts[1].includes("resources")) title = "Tài liệu học tập";
+    if (pathParts[1].includes("reviews")) title = "Đánh giá";
   }
 
   return (
