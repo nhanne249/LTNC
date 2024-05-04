@@ -58,7 +58,7 @@ const admin = {
         )
     },
     getTeacherList: () => { 
-        return transport.delete(
+        return transport.get(
             `/teachers/all`
         )
     }
