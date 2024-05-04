@@ -77,7 +77,7 @@ const CreateNewClass = () => {
           placeholder="Chọn khoa"
           options={departments?.map((department) => ({
             value: `${department.name}`,
-            label: `Khoa ${department.name}`,
+            label: `${department.name}`,
           }))}
           onSelect={onSelectDepartment}
           className="input-container"
@@ -87,7 +87,18 @@ const CreateNewClass = () => {
           rules={[
             {
               required: true,
-              message: "Vui lòng nhập mã môn học!",
+              message: "Vui lòng nhập mã lớp!",
+            },
+          ]}
+        >
+          <Input placeholder="Mã lớp" className="input-container" />
+        </Form.Item>
+        <Form.Item
+          name="subject"
+          rules={[
+            {
+              required: true,
+              message: "Vui lòng nhập tên môn học!",
             },
           ]}
         >
@@ -101,17 +112,6 @@ const CreateNewClass = () => {
             onSelect={onSelectDepartment}
             className="input-container"
           />
-        </Form.Item>
-        <Form.Item
-          name="subject"
-          rules={[
-            {
-              required: true,
-              message: "Vui lòng nhập tên môn học!",
-            },
-          ]}
-        >
-          <Input placeholder="Tên môn học" className="input-container"></Input>
         </Form.Item>
         <Form.Item
           name="day"
