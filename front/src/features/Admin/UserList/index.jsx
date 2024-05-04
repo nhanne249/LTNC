@@ -135,7 +135,7 @@ const UserList = () => {
   };
 
   const handleDeleteUsers = (data) => {
-    dispatch(deleteUserThunk(data.name)).then((res) => {
+    dispatch(deleteUserThunk(data.username)).then((res) => {
       if (!res.error) {
         toast.success("Xóa người dùng thành công!", {
           position: "top-right",

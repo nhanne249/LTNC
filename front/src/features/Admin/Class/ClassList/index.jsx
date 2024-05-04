@@ -146,7 +146,26 @@ const ClassList = () => {
   };
   const onFinish = (value) => {
     dispatch(
-      updateClassThunk({ className: className, teacher: value.teacher })
+      updateClassThunk({ className: className, teacher: value.teacher }).then(
+        (res) => {
+          if (!res.error) {
+            toast.success("Cập nhật thành công!", {
+              position: "top-right",
+              autoClose: 3000,
+              theme: "colored",
+            });
+            dispatch(getAllClassThunk(1)).then((res) => {
+              setDataReceive(res?.payload);
+            });
+          } else {
+            toast.error("Cập nhật thất bại!", {
+              position: "top-right",
+              autoClose: 3000,
+              theme: "colored",
+            });
+          }
+        }
+      )
     );
     setOpen(false);
   };
