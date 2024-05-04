@@ -29,9 +29,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login/**","/register", "/error/**")
                         .permitAll()
-//                        .requestMatchers("/students/**", "/info", "/student/**").hasAnyAuthority("STUDENT", "ADMIN")
-//                        .requestMatchers("/teachers/**", "/info", "/student/**").hasAnyAuthority("TEACHER", "ADMIN")
-//                        .anyRequest().hasAuthority("ADMIN")
+                        .requestMatchers("/users/**",
+                                "/students/**",
+                                "/teachers/**",
+                                "/days",
+                                "/faculties/**" ).hasAuthority("ADMIN")
+                        .requestMatchers("/student/**").hasAuthority("STUDENT")
+                        .requestMatchers("/teacher/**").hasAuthority("TEACHER")
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)

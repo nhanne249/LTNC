@@ -38,11 +38,6 @@ public class TeacherController {
     public ResponseEntity<List<Classroom>> getAllClasses() {
         return new ResponseEntity<>(teacherService.getAllClasses(getLoggedInUserDetails().getUsername()), HttpStatus.OK);
     }
-//    @PostMapping("/{classname}/scores")
-//    public ResponseEntity<String> giveScore(@RequestBody List<Double> ls, @PathVariable String classname) {
-//        teacherService.giveScore(classname, ls);
-//        return ResponseEntity.ok("Score gived to " + classname);
-//    }
 
     @PutMapping("/scores/{student}")
     public ResponseEntity<String> giveScoreToStudent(@PathVariable String student, @RequestBody Map<String, Double> score){
