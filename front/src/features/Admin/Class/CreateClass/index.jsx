@@ -72,15 +72,6 @@ const CreateNewClass = () => {
         autoComplete="off"
         layout="vertical"
       >
-        <Select
-          placeholder="Chọn khoa"
-          options={departments?.map((department) => ({
-            value: `${department.name}`,
-            label: `${department.name}`,
-          }))}
-          onSelect={onSelectDepartment}
-          className="input-container"
-        />
         <Form.Item
           name="name"
           rules={[
@@ -91,6 +82,25 @@ const CreateNewClass = () => {
           ]}
         >
           <Input placeholder="Mã lớp" className="input-container" />
+        </Form.Item>
+        <Form.Item
+          name="department"
+          rules={[
+            {
+              required: true,
+              message: "Vui lòng nhập tên khoa!",
+            },
+          ]}
+        >
+          <Select
+            placeholder="Chọn khoa"
+            options={departments?.map((department) => ({
+              value: `${department.name}`,
+              label: `${department.name}`,
+            }))}
+            onSelect={onSelectDepartment}
+            className="input-container"
+          />
         </Form.Item>
         <Form.Item
           name="subject"
