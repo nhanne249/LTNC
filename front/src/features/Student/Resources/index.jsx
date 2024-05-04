@@ -15,7 +15,7 @@ const Resources = () => {
   const [className, setClassName] = useState();
   useEffect(() => {
     dispatch(getAllClassesThunk()).then((res) => {
-      setDataReceived(res?.payload);
+      res?.payload?.forEach((item) => setDataReceived(...resources, item.name));
       setIsReceived(true);
     });
   }, [isReceived]);
