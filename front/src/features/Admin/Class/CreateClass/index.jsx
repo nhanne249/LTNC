@@ -183,7 +183,6 @@ const CreateNewClass = () => {
               value: `${teachers.username}`,
               label: `${teachers.name}`,
             }))}
-            onSelect={onSelectDepartment}
             className="input-container"
           />
         </Form.Item>
