@@ -32,7 +32,7 @@ const Resources = () => {
     });
   };
   const onResourceClick = (resource) => {
-    getResourceThunk({ class: className, name: resource });
+    dispatch(getResourceThunk({ class: className, name: resource }));
   };
   return (
     <div className="class-resources-page">
