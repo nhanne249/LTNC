@@ -140,8 +140,7 @@ const ClassList = () => {
     navigate("/admin/create-class", { replace: true });
   };
   const openModal = (value) => {
-    console.log(value);
-    setClassName(value.teacher);
+    setClassName(value.name);
     setOpen(true);
     dispatch(getTeacherListThunk()).then((res1) => setTeachers(res1.payload));
   };
