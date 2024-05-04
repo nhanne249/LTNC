@@ -59,7 +59,7 @@ const admin = {
     },
     getTeacherList: () => { 
         return transport.delete(
-            `.teachers/all`
+            `/teachers/all`
         )
     }
 }
