@@ -49,13 +49,18 @@ const resources = {
         return transport.delete(`/resources/${data.class}/${data.name}`)
     },
     getResource: (data) => {
-        return axios
-            .get(`https://ltnc-production.up.railway.app/resources/${data.class}/${data.name}`, {
-                responseType: "blob",
-                headers: {
-                    Authorization: `Bearer ${Cookies.get("userPresent")}`,
-                },
+        fetch(`https://ltnc-production.up.railway.app/resources/${data.class}/${data.name}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/octet-stream',
+                'Authorization': `Bearer  + ${Cookies.get("userPresent")}`,
+            },
+            responseType: 'arraybuffer',
             })
+            .then((res) => res.arrayBuffer())
+            .then((data) => {
+                return Buffer.from(data).toString('base64');
+            });
     }
 }
 export default resources;

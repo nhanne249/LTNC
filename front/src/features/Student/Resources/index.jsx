@@ -35,8 +35,8 @@ const Resources = () => {
     dispatch(getResourceThunk({ class: className, name: resource })).then(
       (res) => {
         console.log(res);
-        const pdfUrl = URL.createObjectURL(res.payload.data);
-        console.log(pdfUrl);
+        // const pdfUrl = URL.createObjectURL(res.payload.data);
+        // console.log(pdfUrl);
       }
     );
   };
