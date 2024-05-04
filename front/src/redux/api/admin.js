@@ -61,6 +61,11 @@ const admin = {
         return transport.get(
             `/teachers/all`
         )
+    },
+    updateClass: (data) => { 
+        return transport.put(
+            `/classes/${data.className}`, JSON.stringify(data.teacher)
+        )
     }
 }
 export default admin;

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllUserThunk,getUserThunk,getAllStudentsThunk,getAllTeachersThunk,createNewStudentThunk,createNewTeacherThunk,deleteUserThunk,createNewClassThunk,getAllClassThunk, getClassThunk, deleteClassThunk,getTeacherListThunk} from '../action/admin'
+import { getAllUserThunk,getUserThunk,getAllStudentsThunk,getAllTeachersThunk,createNewStudentThunk,createNewTeacherThunk,deleteUserThunk,createNewClassThunk,getAllClassThunk, getClassThunk, deleteClassThunk,getTeacherListThunk,updateClassThunk} from '../action/admin'
 
 const admin = createSlice({
   name: "adminFunction",
@@ -15,7 +15,8 @@ const admin = createSlice({
     getAllClassThunk: [],
     getClassThunk: [],
     deleteClassThunk: [],
-    getTeacherListThunk: []
+    getTeacherListThunk: [],
+    updateClassThunk: []
   },
   reducers: {
     clearAdminFuntion: (state) => {
@@ -31,6 +32,7 @@ const admin = createSlice({
       state.getClassThunk = []
       state.deleteClassThunk = []
       state.getTeacherListThunk = []
+      state.updateClassThunk = []
     },
   },
   extraReducers: (builder) => {
@@ -127,6 +129,14 @@ const admin = createSlice({
       (state, { payload }) => {
         if (payload) {
           state.getTeacherListThunk = payload;
+      }
+      }
+    )
+    builder.addCase(
+      updateClassThunk.fulfilled,
+      (state, { payload }) => {
+        if (payload) {
+          state.updateClassThunk = payload;
       }
       }
     )

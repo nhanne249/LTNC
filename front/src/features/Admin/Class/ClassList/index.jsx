@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Table, Input, Button, Flex, Pagination } from "antd";
+import {
+  Table,
+  Input,
+  Button,
+  Flex,
+  Pagination,
+  Form,
+  Modal,
+  Select,
+} from "antd";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -7,6 +16,8 @@ import {
   getAllClassThunk,
   getClassThunk,
   deleteClassThunk,
+  getTeacherListThunk,
+  updateClassThunk,
 } from "../../../../redux/action/admin";
 import "./index.scss";
 
@@ -14,8 +25,11 @@ const ClassList = () => {
   const { Search } = Input;
   const [dataReceive, setDataReceive] = useState();
   const [dataChanged, setDataChanged] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [teachers, setTeachers] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  let className;
 
   useEffect(() => {
     dispatch(getAllClassThunk(1)).then((res) => {
@@ -89,12 +103,20 @@ const ClassList = () => {
       dataIndex: null,
       width: "15%",
       render: (value) => (
-        <Button
-          onClick={() => handleDeleteClass(value)}
-          style={{ border: "none", width: "fit-content", boxShadow: "none" }}
-        >
-          Xóa
-        </Button>
+        <Flex vertical={false}>
+          <Button
+            onClick={() => handleDeleteClass(value)}
+            style={{ border: "none", width: "fit-content", boxShadow: "none" }}
+          >
+            Xóa
+          </Button>
+          <Button
+            onClick={() => openModal(value)}
+            style={{ border: "none", width: "fit-content", boxShadow: "none" }}
+          >
+            Cập nhật
+          </Button>
+        </Flex>
       ),
     },
   ];
@@ -116,6 +138,17 @@ const ClassList = () => {
   };
   const handleCreateNewClass = () => {
     navigate("/admin/create-class", { replace: true });
+  };
+  const openModal = (value) => {
+    className = value.teacher;
+    setOpen(true);
+    dispatch(getTeacherListThunk()).then((res1) => setTeachers(res1.payload));
+  };
+  const onFinish = (value) => {
+    dispatch(
+      updateClassThunk({ className: className, teacher: value.teacher })
+    );
+    setOpen(false);
   };
   return (
     <div className="class-list-container">
@@ -150,6 +183,41 @@ const ClassList = () => {
           />
         </div>
       </div>
+      <Modal
+        title={`Tạo thêm khoa`}
+        open={open}
+        onCancel={() => setOpen(false)}
+        footer={null}
+        width="500px"
+        centered
+      >
+        <Form autoComplete="off" onFinish={onFinish}>
+          <Form.Item
+            label="Tên giảng viên"
+            name="teacher"
+            rules={[
+              {
+                required: true,
+                message: "Vui lòng chọn giảng viên!",
+              },
+            ]}
+          >
+            <Select
+              placeholder="Chọn giáo viên phụ trách"
+              options={teachers?.map((teachers) => ({
+                value: `${teachers.username}`,
+                label: `${teachers.name}`,
+              }))}
+              className="input-container"
+            />
+          </Form.Item>
+          <Form.Item>
+            <Button type="submit" htmlType="submit">
+              Cập nhật
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 };
