@@ -4,7 +4,10 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { getAllDaysThunk } from "../../../../redux/action/date";
 import { facultiesListThunk } from "../../../../redux/action/resources";
-import { createNewClassThunk } from "../../../../redux/action/admin";
+import {
+  createNewClassThunk,
+  getTeacherListThunk,
+} from "../../../../redux/action/admin";
 import "./index.scss";
 
 const CreateNewClass = () => {
@@ -14,12 +17,16 @@ const CreateNewClass = () => {
   const [departments, setDepartments] = useState();
   const [faculties, setFaculties] = useState();
   const [canChooseFaculties, setCanChooseFaculties] = useState(true);
+  const [teachers, setTeachers] = useState();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(facultiesListThunk()).then((res) => {
       setDepartments(res.payload);
       dispatch(getAllDaysThunk()).then((response) => {
         setDateOptions(response?.payload);
+        dispatch(getTeacherListThunk()).then((res1) =>
+          setTeachers(res1.payload)
+        );
       });
     });
   }, []);
@@ -170,8 +177,12 @@ const CreateNewClass = () => {
             },
           ]}
         >
-          <Input
-            placeholder="Giáo viên phụ trách"
+          <Select
+            placeholder="Chọn giáo viên phụ trách"
+            options={teachers?.map((teachers) => ({
+              value: `${teachers.username}`,
+              label: `${teachers.name}`,
+            }))}
             className="input-container"
           />
         </Form.Item>

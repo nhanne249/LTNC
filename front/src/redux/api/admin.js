@@ -9,7 +9,7 @@ const admin = {
     },
     getUser: (data) => {
         return transport.get(
-            `/users/${data}`, JSON.stringify(data)
+            `/users/${data}`
         )
     },
     getAllStudents: (data) => {
@@ -34,7 +34,7 @@ const admin = {
     },
     deleteUser: (data) => {
         return transport.delete(
-            `/users/${data}`, JSON.stringify(data)
+            `/users/${data}`
         )
     },  
     createNewClass: (data) => {
@@ -44,17 +44,22 @@ const admin = {
     },
     getAllClass: (data) => {
         return transport.get(
-            `/classes?page=${data}`, JSON.stringify()
+            `/classes?page=${data}`
         )
     },
     getClass: (data) => {
         return transport.get(
-            `/classes/${data}`, JSON.stringify()
+            `/classes/${data}`
         )
     },
     deleteClass: (data) => { 
         return transport.delete(
-            `/classes/${data}`, JSON.stringify()
+            `/classes/${data}`
+        )
+    },
+    getTeacherList: () => { 
+        return transport.get(
+            `/teachers/all`
         )
     }
 }
