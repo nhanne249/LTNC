@@ -37,9 +37,9 @@ const Resources = () => {
     dispatch(getResourceThunk({ class: className, name: resource })).then(
       (res) => {
         const pdfUrl = URL.createObjectURL(res.payload.data);
+        console.log(pdfUrl);
       }
     );
-    console.log(resource);
   };
   return (
     <div className="class-resources-page">
