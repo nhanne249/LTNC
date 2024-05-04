@@ -17,10 +17,9 @@ const CreateNewClass = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(facultiesListThunk()).then((res) => {
-      const temp = res.payload.map((item) => item.name);
-      setDepartments(temp);
-      dispatch(getAllDaysThunk()).then((res) => {
-        setDateOptions(res?.payload);
+      setDepartments(res.payload);
+      dispatch(getAllDaysThunk()).then((response) => {
+        setDateOptions(response?.payload);
       });
     });
   }, []);
