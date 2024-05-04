@@ -284,7 +284,7 @@ const UserList = () => {
         open={openModal}
         onCancel={() => setOpenModal(false)}
         footer={null}
-        width="30vw"
+        width="20vw"
       >
         <Form onFinish={onFinish}>
           <Form.Item
@@ -301,6 +301,7 @@ const UserList = () => {
               htmlType="submit"
               style={{
                 height: "50px",
+                width: "100%",
                 background: "#0388B4",
                 fontFamily: "Arial, Helvetica, sans-serif",
                 fontSize: "16px",

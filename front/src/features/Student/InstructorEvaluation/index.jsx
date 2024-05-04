@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button, Rate, Input, Flex, Menu, Space } from "antd";
+import { Form, Button, Rate, Input, Flex, Menu } from "antd";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
@@ -72,7 +72,6 @@ const InstructorEvaluation = () => {
   };
 
   const onClickMenu = (value) => {
-    console.log(value);
     setTeacherUsernameToShow(value.key);
     dispatch(
       getAllReviewThunk({ teacherUsername: value.key, page: page })

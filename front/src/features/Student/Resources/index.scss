@@ -1,0 +1,21 @@
+.class-resources-page {
+    width: 100%;
+    margin: 15px 35px 70px 15px;
+    height: auto;
+    min-height: 500px;
+    .resources-content-container {
+        width: 80%;
+        .resources-container {
+            width: 100%;
+            .resources-list {
+                .resource {
+                    margin: 5px 0 10px 0;
+                    height: 100px;
+                    .resource-content {
+                        margin: 0 0 5px 0;
+                    }
+                }
+            }
+        }
+    }
+}

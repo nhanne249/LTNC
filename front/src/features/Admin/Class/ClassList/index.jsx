@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Table, Input, Button, Flex, Pagination } from "antd";
-import { DeleteOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -15,12 +14,11 @@ const ClassList = () => {
   const { Search } = Input;
   const [dataReceive, setDataReceive] = useState();
   const [dataChanged, setDataChanged] = useState(false);
-  const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getAllClassThunk(page)).then((res) => {
+    dispatch(getAllClassThunk(1)).then((res) => {
       setDataReceive(res?.payload);
       setDataChanged(true);
     });
@@ -77,8 +75,8 @@ const ClassList = () => {
       width: "35%",
       render: (value) => (
         <>
-          {value?.map((data, index) => (
-            <div style={{ display: "inline-flex" }} key={index}>
+          {value?.map((data, key) => (
+            <div style={{ display: "inline-flex" }} key={key}>
               [{data}]
             </div>
           ))}
@@ -111,7 +109,7 @@ const ClassList = () => {
         setDataReceive(res?.payload);
       });
     } else {
-      dispatch(getAllClassThunk(page)).then((res) => {
+      dispatch(getAllClassThunk(1)).then((res) => {
         setDataReceive(res?.payload);
       });
     }

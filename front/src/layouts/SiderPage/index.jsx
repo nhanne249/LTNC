@@ -41,7 +41,10 @@ const SiderPage = () => {
         {
           label: "Tra cứu thông tin",
           key: null,
-          children: [{ label: "Xem thời khóa biểu", key: "schedule" }],
+          children: [
+            { label: "Xem thời khóa biểu", key: "schedule" },
+            { label: "Xem tài liệu học tập", key: "resources" },
+          ],
           type: "group",
         },
         {
