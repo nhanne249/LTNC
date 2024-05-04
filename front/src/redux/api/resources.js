@@ -52,8 +52,8 @@ const resources = {
         fetch(`https://ltnc-production.up.railway.app/resources/${data.class}/${data.name}`, {
             method: 'GET',
             headers: {
-                'Accept': 'application/octet-stream',
-                'Authorization': `Bearer  + ${Cookies.get("userPresent")}`,
+                Accept: 'application/octet-stream',
+                Authorization: `Bearer ${Cookies.get("userPresent")}`,
             },
             responseType: 'arraybuffer',
             })
