@@ -14,15 +14,17 @@ const Reviews = () => {
   const [isReceived, setIsReceived] = useState(false);
   let page = 1;
   useEffect(() => {
-    setIsReceived(true);
+    dispatch(
+      getAllReviewThunk({ teacherUsername: teacherUsername, page: page })
+    ).then((res) => {
+      setDataReceived(res.payload);
+      setIsReceived(true);
+    });
   }, [isReceived]);
   const onMore = () => {
     page++;
     dispatch(
-      getAllReviewThunk({
-        teacherUsername: teacherUsername,
-        page: page,
-      })
+      getAllReviewThunk({ teacherUsername: teacherUsername, page: page })
     ).then((res) => {
       setDataReceived((prevState) => ({
         ...prevState,
