@@ -199,35 +199,43 @@ const Class = () => {
     });
   };
   const onInputScore = (value) => {
-    dispatch(
-      giveScoreForStudentThunk({
-        username: usernameToSend,
-        dataInBody: {
-          [subjectToSend]: value,
-        },
-      })
-    ).then((res) => {
-      if (res?.error) {
-        toast.error(`Thêm điểm thất bại!`, {
-          position: "top-right",
-          autoClose: 3000,
-          theme: "colored",
-        });
-      } else {
-        toast.success(`Thêm điểm thành công!`, {
-          position: "top-right",
-          autoClose: 3000,
-          theme: "colored",
-        });
-        const dataSend = {
-          name: classNameOnShow,
-          page: 1,
-        };
-        dispatch(getClassThunk(dataSend)).then((res) => {
-          setStudentList(res?.payload);
-        });
-      }
-    });
+    if (value > 10 || value < 0) {
+      toast.error(`Điểm phải lớn hơn 0 và nhỏ hơn 10!`, {
+        position: "top-right",
+        autoClose: 3000,
+        theme: "colored",
+      });
+    } else {
+      dispatch(
+        giveScoreForStudentThunk({
+          username: usernameToSend,
+          dataInBody: {
+            [subjectToSend]: value,
+          },
+        })
+      ).then((res) => {
+        if (res?.error) {
+          toast.error(`Thêm điểm thất bại!`, {
+            position: "top-right",
+            autoClose: 3000,
+            theme: "colored",
+          });
+        } else {
+          toast.success(`Thêm điểm thành công!`, {
+            position: "top-right",
+            autoClose: 3000,
+            theme: "colored",
+          });
+          const dataSend = {
+            name: classNameOnShow,
+            page: 1,
+          };
+          dispatch(getClassThunk(dataSend)).then((res) => {
+            setStudentList(res?.payload);
+          });
+        }
+      });
+    }
   };
   //Upload tài liệu
   const beforeUpload = (file) => {
