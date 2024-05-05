@@ -309,7 +309,7 @@ const Faculties = () => {
                 </Button>
                 <Select
                   className="sort-search"
-                  defaultValue="Chọn xóa"
+                  placeholder="Chọn xóa"
                   onChange={handleChangeSelect}
                   options={[
                     {
