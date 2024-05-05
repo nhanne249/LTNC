@@ -107,12 +107,13 @@ const Faculties = () => {
               autoClose: 3000,
               theme: "colored",
             });
-            setIsReceived(false);
+            dispatch(facultiesListThunk()).then((res) => {
+              setDataReceived(res?.payload);
+            });
           }
         });
         return null;
       });
-      setIsReceived(false);
       setOpenModal(false);
     }
     if (dataChoosen == "deleteFaculty") {
@@ -134,7 +135,6 @@ const Faculties = () => {
       dispatch(facultiesListThunk()).then((res) => {
         setDataReceived(res?.payload);
       });
-      setOpenModal(false);
       setIsReceived(false);
     }
     if (dataChoosen == "undelete") {
