@@ -36,7 +36,7 @@ function App() {
                     })
                     : null}
                 </Route>
-              ) : <Route path="*" element={<NotFound/>} />;
+              ) : null;
             });
           })) : (publicRouter.map((routers) => {
             return routers.map((route, index) => {
@@ -53,7 +53,7 @@ function App() {
                         />
                       );
                     })
-                    : <Route path="*" element={<NotFound/>} />}
+                    : null}
                 </Route>
               );
             });
