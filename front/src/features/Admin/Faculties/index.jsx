@@ -92,6 +92,7 @@ const Faculties = () => {
   const handleChangeSelect = (dataChoosen) => {
     if (dataChoosen == "delete") {
       checkedList.map((data) => {
+        console.log(data);
         dispatch(
           deleteSubjectThunk({ faculty: dataInModal?.name, subject: data })
         ).then((res) => {
