@@ -40,7 +40,7 @@ const Layouts = () => {
       title = "Cập nhật tài khoản giảng viên";
     if (pathParts[1] === "update-student-info")
       title = "Cập nhật tài khoản sinh viên";
-    if (pathParts[1] === "class") title = "Danh sách lớp học";
+    if (pathParts[1] === "classes") title = "Danh sách lớp học";
     if (pathParts[1] === "create-class") title = "Thêm lớp học mới";
     if (pathParts[1] === "schedule") title = "Thời khóa biểu";
     if (pathParts[1] === "faculties") title = "Chương trình đào tạo";
