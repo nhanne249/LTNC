@@ -34,7 +34,7 @@ const resources = {
     },
     deleteSubject: (data) => {
         return transport.put(
-            `/faculties/${data}`,
+            `/faculties/${data.faculty}/${data.subject}`,
         )
     },
     deleteFaculty: (data) => {

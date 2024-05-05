@@ -92,24 +92,28 @@ const Faculties = () => {
   const handleChangeSelect = (dataChoosen) => {
     if (dataChoosen == "delete") {
       checkedList.map((data) => {
-        dispatch(deleteSubjectThunk(data)).then((res) => {
+        dispatch(
+          deleteSubjectThunk({ faculty: dataInModal?.name, subject: data })
+        ).then((res) => {
           if (res?.error) {
-            toast.error(`Xóa ${data} thất bại!`, {
+            toast.error(`Xóa môn ${data} thất bại!`, {
               position: "top-right",
               autoClose: 3000,
               theme: "colored",
             });
           } else {
-            toast.success(`Xóa ${data} thành công!`, {
+            toast.success(`Xóa môn ${data} thành công!`, {
               position: "top-right",
               autoClose: 3000,
               theme: "colored",
+            });
+            dispatch(facultiesListThunk()).then((res) => {
+              setDataReceived(res?.payload);
             });
           }
         });
         return null;
       });
-      setIsReceived(false);
       setOpenModal(false);
     }
     if (dataChoosen == "deleteFaculty") {
@@ -131,7 +135,6 @@ const Faculties = () => {
       dispatch(facultiesListThunk()).then((res) => {
         setDataReceived(res?.payload);
       });
-      setOpenModal(false);
       setIsReceived(false);
     }
     if (dataChoosen == "undelete") {
@@ -184,6 +187,7 @@ const Faculties = () => {
                     border: "1px solid rgba(0, 0, 0, 0.2)",
                     borderRadius: "17px",
                     userSelect: "none",
+                    height: "172px",
                   }}
                   className="faculty-card"
                   extra={
@@ -233,20 +237,7 @@ const Faculties = () => {
           width="500px"
           centered
         >
-          <Form
-            form={form}
-            labelCol={{
-              span: 6,
-            }}
-            wrapperCol={{
-              span: 18,
-            }}
-            style={{
-              maxWidth: 600,
-            }}
-            autoComplete="off"
-            onFinish={onCreate}
-          >
+          <Form form={form} autoComplete="off" onFinish={onCreate}>
             <Form.Item
               label="Tên khoa"
               name="name"
@@ -257,7 +248,7 @@ const Faculties = () => {
                 },
               ]}
             >
-              <Input />
+              <Input placeholder="Khoa" />
             </Form.Item>
             <Form.Item label="Môn học">
               <Form.List name="subjects">
@@ -346,7 +337,7 @@ const Faculties = () => {
         >
           <Flex vertical={true} justify="space-around">
             <Checkbox onChange={onCheckAllChange} checked={checkAll}>
-              Check all
+              Chọn tất cả
             </Checkbox>
             <Flex vertical={false} justify="flex-start" gap="small">
               {dataInModal?.subjects?.length > 0 ? (
