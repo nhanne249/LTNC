@@ -368,7 +368,7 @@ const Faculties = () => {
                   defaultOpen={false}
                   className="sort-search"
                   placeholder="Chọn xóa"
-                  onChange={handleChangeSelect}
+                  onSelect={handleChangeSelect}
                   options={options}
                 />
               </Flex>
