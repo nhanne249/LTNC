@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface ClassRepository extends MongoRepository<Classroom, ObjectId>, ClassRepositoryCustom {
     List<Classroom> findAllByTeacher(String teacher);
     Optional<Classroom> findByName(String name);
-
+    //Optional<Classroom> findBySubject(String subject);
+    List<Classroom> findAllBySubject(String subjet);
     void deleteByName(String name);
 }
