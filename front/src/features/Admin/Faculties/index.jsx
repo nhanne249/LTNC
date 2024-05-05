@@ -92,7 +92,6 @@ const Faculties = () => {
   const handleChangeSelect = (dataChoosen) => {
     if (dataChoosen == "delete") {
       checkedList.map((data) => {
-        console.log(data);
         dispatch(
           deleteSubjectThunk({ faculty: dataInModal?.name, subject: data })
         ).then((res) => {
@@ -108,6 +107,7 @@ const Faculties = () => {
               autoClose: 3000,
               theme: "colored",
             });
+            setIsReceived(false);
           }
         });
         return null;
