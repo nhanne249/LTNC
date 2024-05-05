@@ -308,6 +308,7 @@ const Faculties = () => {
                   Thêm môn học mới
                 </Button>
                 <Select
+                  defaultOpen={false}
                   className="sort-search"
                   placeholder="Chọn xóa"
                   onChange={handleChangeSelect}
