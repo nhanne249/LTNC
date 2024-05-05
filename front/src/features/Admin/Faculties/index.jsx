@@ -35,20 +35,6 @@ const Faculties = () => {
   const [dataInModal, setDataInModal] = useState();
   const [isCreate, setIsCreate] = useState(false);
   const [checkedList, setCheckedList] = useState([]);
-  const [options, setOptions] = useState([
-    {
-      value: "delete",
-      label: "Xóa",
-    },
-    {
-      value: "deleteFaculty",
-      label: "Xóa khoa",
-    },
-    {
-      value: "undelete",
-      label: "Không xóa",
-    },
-  ]);
   const checkAll = checkedList.length === dataInModal?.subjects.length;
   useEffect(() => {
     dispatch(facultiesListThunk()).then((res) => {
@@ -125,20 +111,6 @@ const Faculties = () => {
               setDataReceived(res?.payload);
             });
           }
-          setOptions([
-            {
-              value: "delete",
-              label: "Xóa",
-            },
-            {
-              value: "deleteFaculty",
-              label: "Xóa khoa",
-            },
-            {
-              value: "undelete",
-              label: "Không xóa",
-            },
-          ]);
         });
         return null;
       });
@@ -164,38 +136,9 @@ const Faculties = () => {
         setDataReceived(res?.payload);
       });
       setIsReceived(false);
-
-      setOptions([
-        {
-          value: "delete",
-          label: "Xóa",
-        },
-        {
-          value: "deleteFaculty",
-          label: "Xóa khoa",
-        },
-        {
-          value: "undelete",
-          label: "Không xóa",
-        },
-      ]);
     }
     if (dataChoosen == "undelete") {
       setCheckedList([]);
-      setOptions([
-        {
-          value: "delete",
-          label: "Xóa",
-        },
-        {
-          value: "deleteFaculty",
-          label: "Xóa khoa",
-        },
-        {
-          value: "undelete",
-          label: "Không xóa",
-        },
-      ]);
     }
   };
   const onFinishUpdateForm = (data) => {
@@ -369,7 +312,20 @@ const Faculties = () => {
                   className="sort-search"
                   placeholder="Chọn xóa"
                   onChange={handleChangeSelect}
-                  options={options}
+                  options={[
+                    {
+                      value: "delete",
+                      label: "Xóa",
+                    },
+                    {
+                      value: "deleteFaculty",
+                      label: "Xóa khoa",
+                    },
+                    {
+                      value: "undelete",
+                      label: "Không xóa",
+                    },
+                  ]}
                   value="Chọn xóa"
                 />
               </Flex>
