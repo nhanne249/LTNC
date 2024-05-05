@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -26,6 +27,9 @@ public class FacultyController {
     public ResponseEntity<String> createFaculty(@RequestBody Faculty faculty) {
         if (facultyRepository.findByName(faculty.getName()).isPresent()) {
             return ResponseEntity.badRequest().body("Faculty already exists");
+        }
+        if(faculty.getSubjects()== null){
+            faculty.setSubjects(new ArrayList<>());
         }
         facultyRepository.save(faculty);
         return new ResponseEntity<>(faculty.getName() + " faculty created", HttpStatus.CREATED);
