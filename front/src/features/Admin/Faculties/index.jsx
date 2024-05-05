@@ -370,6 +370,7 @@ const Faculties = () => {
                   placeholder="Chọn xóa"
                   onChange={handleChangeSelect}
                   options={options}
+                  value="Chọn xóa"
                 />
               </Flex>
             </Flex>
