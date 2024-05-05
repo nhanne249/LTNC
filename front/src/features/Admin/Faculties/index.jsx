@@ -187,6 +187,7 @@ const Faculties = () => {
                     border: "1px solid rgba(0, 0, 0, 0.2)",
                     borderRadius: "17px",
                     userSelect: "none",
+                    height: "172px",
                   }}
                   className="faculty-card"
                   extra={
